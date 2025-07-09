@@ -1,0 +1,67 @@
+.box{
+  width: auto;
+  height: 645px;
+  background-image: url(celebration.webp);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 10px;
+  padding: 10px 10px 10px 10px;
+}
+.box p{
+    font-size: 30px;
+    color: coral;
+    text-align: center;
+    font-family: "Bitcount Grid Double", system-ui;
+}
+.box h3{
+    font-size: 50px;
+    color: coral;
+    margin: 0%;
+    text-align: center;
+    font-family: "Bitcount Grid Double", system-ui;
+}
+.box h2{
+    color: coral;
+    font-size: 55px;
+    margin: 0%;
+    text-align: center;
+    font-family: "My Soul", cursive;
+}
+.box h4{
+    font-size: 30px;
+    color: coral;
+    text-align: center;
+    font-family: "Bitcount Grid Double", system-ui;
+    margin: 0%;
+}
+.box h5{
+    font-size: 20px;
+    color: coral;
+    text-align: center;
+    padding-bottom: 10px;
+    margin-top: 0px;
+}
+#pad1{
+    padding-top: 40px;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    background-color: beige;
+}
+a:visited{
+    color: aqua;
+}
+iframe{
+     padding-left: 40%;
+}
+/* #curve{
+fill: transparent;
+}
+.text {
+font-size: 3rem;
+fill: white;
+} */
+

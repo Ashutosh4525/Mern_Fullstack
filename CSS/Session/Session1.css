@@ -1,0 +1,20 @@
+
+/*By using Id name*/
+#para2
+{
+	color: darkred;
+}
+/*By using Tag Name*/
+h2{
+	color: magenta;
+}
+/*By using class name*/
+.btn1{
+	color: darkcyan;
+	background-color: yellow;
+}
+
+.btn2{
+	background-color: black;
+	color: white;
+}

@@ -1,0 +1,58 @@
+*{
+    background-color: rgb(254, 250, 246);
+}
+.box{
+    width: 100%;
+    text-align: center;
+    font-family: "Urbanist", sans-serif;
+}
+.box p{
+    width: 50%;
+    padding: 0 100px;
+    font-weight: 600;
+    padding-left: 28% ; 
+}
+.box h1{
+    font-weight: 600;
+    text-align: center;
+    font-family: "Urbanist", sans-serif;
+}
+.box1{
+    width: 200px;
+    border: 2px solid rgb(240, 119, 100) ;
+    font-family: "Urbanist", sans-serif;
+    float: left;
+    margin: 50px 45px;
+}
+.box1 p{
+    width: 150px;
+    background-color: rgb(252, 232, 229);
+    border: 2px solid rgb(240, 119, 100);
+    border-radius: 20px;
+    margin-left: 23px;
+    text-align: center;
+}
+img{
+    margin: 20px 30%;
+    border-radius: 50%;
+}
+.box1 h4{
+    margin: auto;
+    text-align: center;
+    font-family: "Urbanist", sans-serif;
+}
+.box1 h6{
+    text-align: center;
+    text-transform: uppercase;
+    color: gray;
+    margin: 10px;
+    font-family: "Urbanist", sans-serif;
+}
+.box1 p i{
+    color: gray;
+    margin:0px 0px;
+    padding: 5px 5px;
+    text-align: center;
+    background-color: rgb(252, 232, 229);;
+    cursor: pointer;
+}

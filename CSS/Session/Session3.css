@@ -1,0 +1,96 @@
+
+.box1{
+    height: 200px;
+    width: 200px;
+    background-color: aqua;
+    border: 10px solid black;
+    padding: 20px;
+    /* padding: 10px 30px;   same as the boreder values */
+    /* padding-top: 0; */
+
+    margin: 20px;
+    margin: 10px 30px;
+    margin: 10px 20px 30px;
+    /* margin values also same as border and padding */
+    /* extra feature in margin is that it applys auto to values that are combined like above, it will be applied in block level element and horizontally */
+    margin: 50px auto;
+}
+.box2{
+    width: 600px;
+    background-color: antiquewhite;
+    border: 10px double blueviolet;
+    padding: 50px auto ;
+    /* background-image: url(img1.png); */
+   font-family: cursive;
+    margin: 50px auto;
+    /* margin for outside  */
+    /* padding for inside */
+    
+}
+.box img{
+    width: 100%;
+}
+
+.box h4{
+    text-align: center;
+}
+.box{
+    width: 800px;
+    border: 2px solid black;
+    border-spacing: 0;
+    margin: auto ;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+}
+.box p{
+    padding: 10px; 
+    color: grey;
+}
+
+.box h3{
+    padding: 10px;
+}
+.box a{
+    padding-left: 10px;
+    padding-bottom: 10px;
+    text-decoration: none;  
+    line-height: 2;  
+}
+
+.list{
+    list-style: decimal;
+    list-style: none;
+    list-style-type: square;
+    list-style: lower-alpha;
+}
+
+/* 
+a{
+    text-decoration: none;
+}
+a:link{
+    color: brown;before visit
+}
+after visit
+a:visited{
+    color: aqua;
+}
+when visiting without releasing the cursor
+a:active{
+    color: green;
+}
+this can be applied on all
+a:hover{
+    background-color: black;
+    color: aqua;
+} */
+/* all the a:tag except hover can be applied to only anchor tag */
+.butn1{
+    background-color: black;
+    color: white;
+    border-radius: 40px;
+}
+.butn1:hover{
+    background-color: transparent;
+    color: black;
+}

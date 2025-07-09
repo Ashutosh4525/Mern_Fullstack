@@ -1,0 +1,50 @@
+.box1{
+   width: 500px;
+   padding: 30px;
+   margin: 50px auto;
+   border:  5px double purple;
+   background-color: black;
+}
+.box1 img{
+    width: 100%;
+    display: none;
+}
+/* targating img present in div named box1 */
+.box1:hover img{
+    display: inline;
+}
+
+.box{
+    /* dont give height  */
+    background-image: url(img1.png);
+    padding: 40px 0;
+    margin:50px auto;
+    width: 500px;
+    background-size: cover;
+    border: 10px dashed white;
+    border-radius: 50%;
+    text-transform: uppercase;
+    float: left;
+    margin: 10px 10px;
+}
+.box h2{
+  padding-top: 10% ;
+  color: white;
+  text-align:center;
+  font-size: 120px;
+  font-family: "Manufacturing Consent", system-ui;
+}
+
+.box3{
+    width: 300px;
+    height: 300px;
+    border: 2px solid black;
+    padding: 20px;
+    margin: 40px auto;
+    overflow: hidden;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.box3 p{
+    width: 400px;
+}

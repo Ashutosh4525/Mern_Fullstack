@@ -1,0 +1,61 @@
+.box1{
+    background-color: aqua;
+    width: 300px;
+    height: 300px;
+}
+
+.para1{
+    height: 500px;
+    background-image: url(img1.png);
+    background-position: center;
+    background-size: cover;
+}
+
+.box2{
+    width: 200px;
+    height: 200px;
+    background-color: aquamarine;
+    /* border-width: 10px;
+    border-style: ridge;
+    border-style: groove;
+    /* border: width style color; */
+    /* border: 2px dashed black; */ 
+    border-width: 10px 20px 30px 40px;
+    /* top right bottom left */
+    /* 2 value then top-bottom and right-left */
+    /* 3 value then top right-left bottom*/
+    border-width: 2px 10px 4px;
+    /* Use [border] when puting all the value other wise use all the prpperty individually */
+}
+
+.img1{
+    border-color: black;
+    border-width: 20px 30px 40px 50px;
+    /* border-width: 10px; */ 
+    border-style: dashed;
+}
+.para2{
+    color: red;
+    font-size: 20px;/*default size is 16*/
+    letter-spacing: 1px;
+    word-spacing: 15px;
+    font-weight: 700;/*default is 600*/
+    text-decoration: underline;
+    text-decoration: line-through;
+    text-decoration: none;
+    font-style: oblique;
+    font-family: "Manufacturing Consent", system-ui;
+    text-align: justify;
+}
+.box3{
+    background-color: aqua;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px 20px 30px 40px;
+
+}
+.para3{
+   background-color: black;
+   color: white;
+   border: 10px double violet;
+}

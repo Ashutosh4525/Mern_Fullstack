@@ -1,0 +1,25 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+.box{
+    width: 300px;
+    height: 300px;
+    border: 2px solid black;
+    margin: 50px auto;
+    background-color: aquamarine;
+    background-color: rgb(0, 255, 255);
+    background-color: #ff00ff;
+    background-color: #f00;
+    font-size: 20px;
+}
+.box h2{
+    font-size: 70px;
+    /* font-size: 3rem;  1rem==16px */
+    /* font-size: 2em; em==parent_class(in this case box) value(therefore the 2em==40px as from parent 1em==20px ) */
+    text-align: center;
+    padding-top: 50px;
+    color: rgba(0, 0, 0, 0.5);
+    /* a value gives the opacity of the element */
+}

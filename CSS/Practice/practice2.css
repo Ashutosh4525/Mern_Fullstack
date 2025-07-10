@@ -1,0 +1,65 @@
+/* .top{
+    text-decoration: none;
+    list-style: none;
+    display: inline-block;
+}
+li{
+    list-style: none;
+    display: inline-block;
+    margin: 0px 30px;
+    padding: 0px 1px;
+}
+h2{
+    width: 30px;
+    margin: 0px 20px;
+}
+button{
+    background-color: blue;
+}
+span{
+    color: blue;
+} */
+ h1,h2,h3,h4,h5,h6{
+    font-family: "Poppins", sans-serif;
+ }
+ nav li{
+    font-family: "Raleway", sans-serif;
+ }
+ header{
+    border: 1px solid black;
+    padding: 10px 100px;
+ }
+ header h2, nav, .btn{
+    display: inline-block;
+ }
+ nav ul li{
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 14px;
+    list-style: none;
+ }
+ nav ul{
+    padding: 0 70px;
+ }
+ nav li:hover{
+    color: #5d57f4;
+ }
+ .btn{
+    background-color: #5d57f4;
+    color: white;
+    font-size: 14px;
+    padding: 8px 26px;
+    border-radius: 4px;
+    border: 0;
+ }
+ .btn:hover{
+    background-color: rgba(92,87,244,0.85);
+ }
+ .blue{
+    color: #5d57f4;
+ }
+
+ /*  */
+ .main{
+    background-color: rgba(211,211,);
+ }

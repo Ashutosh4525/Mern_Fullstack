@@ -1,0 +1,101 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+h1,h2,h3,h4,h5,h6,a{
+    font-family: "Poppins", sans-serif;
+ }
+p{
+    font-family: "Raleway", sans-serif;
+}
+.service{
+    margin: 10px 10px;
+    border: 2px solid black;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+}
+.services h2{
+    text-align: center;
+}
+.services hr{
+    margin: 20px 450px;
+}
+.newhr{
+   border: 2px solid blue;
+   margin: -23px 550px;
+}
+.servicep{
+    text-align: center;
+    margin: 10px;
+    padding: 22px;
+}
+.service1{
+    border: 0px solid black;
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 10px;
+    padding: 10px 10px;
+    border-radius: 10px;
+   
+}
+.icon2{
+    border: 0px solid black;
+    border-radius: 10px;
+    padding: 10px 10px;
+    margin: 5px 10px;
+    color: #5d57f4;
+    height: 40px;
+    background-color: rgba(92, 87, 244, 0.24);
+    transition: all 0.5 ease;
+}
+a{
+    text-decoration: none;
+    color: #5d57f4;
+}
+.service1 i{
+    padding: 2px 2px;
+    margin: 2px 2px;
+    color: #5d57f4;
+    display:inline-block;
+    font-size: 15px;
+    vertical-align: -2px;
+}
+.service1 span{
+    padding: 10px 0px;
+    margin: 10px 0px;
+}
+.service1:hover{
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-left: 2px solid #5d57f4;
+    transform: scaleY(1);
+}
+
+.service1:hover .icon2 {
+    background-color: #5d57f4;
+    transform:rotateX(180deg);
+}
+.service1:hover i{
+color: white;
+
+}
+.service1:hover .material-icons{
+    color: #5d57f4;
+    transform: translateX(2px);
+}
+
+/* right */
+.service2{
+    border: 0px solid black;
+    width: 40%;
+    display: flex;
+    justify-content: right;
+    margin: 10px 10px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    float: left;
+}

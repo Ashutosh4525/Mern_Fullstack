@@ -1,0 +1,109 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box; 
+}
+header{
+    border: 2px solid black;
+   background-color: black;
+   display: flex;
+}
+.left{
+    color: white;
+    display: flex;
+    padding: 0px 0px;
+    margin-left: 40px;
+}
+.left h6{
+    font-size: 14px;
+    padding: 0px 5px;
+}
+.left i{
+    color: rgb(253, 31, 31);
+    vertical-align: middle;
+    font-size: 12px;
+    padding: 0px 6px;
+}
+.right{
+    color: gray;
+   margin-left: 800px;
+}
+.right i{
+   margin: 0px 5px;
+}
+/* nav */
+.nav1{
+    border: 2px solid ;
+}
+.nav2 {
+    text-decoration: none;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.868);
+    color: white;
+}
+.nav2 h3{
+    margin: 5px 30px;
+    padding: 0px 15px;
+    font-size: 30px;
+    margin-right: 550px;
+}
+.nav2 li{
+    list-style: none;
+    padding: 11px 10px;
+}
+.Home:hover  {
+    background-color: rgb(253, 31, 31);;
+}
+.About:hover{
+    background-color: rgb(253, 31, 31);
+}
+.Services:hover{
+    background-color: rgb(253, 31, 31);
+}
+.Portfolio:hover{
+    background-color: rgb(253, 31, 31);
+}
+.Pricing:hover{
+    background-color: rgb(253, 31, 31);
+}
+.Team:hover{
+    background-color: rgb(253, 31, 31);
+}
+.Dropdown:hover{
+    background-color: rgb(253, 31, 31);
+}
+.Contact:hover{
+background-color: rgb(253, 31, 31);
+}
+/* img{
+
+    width: 100%;
+} */
+
+.main img{
+    width: 100%;
+    height: 500px;
+}
+.content{
+    position:relative;
+    bottom: 350px;
+    left: 20px;
+    color: white;
+    padding: 0px 20px;
+}
+.content h2{
+    text-transform: uppercase;
+    font-size: 40px;
+}
+.content p{
+    padding:10px 0px;
+    font-size: 20px;
+}
+button{
+    border: 2px solid white;
+    background-color: transparent;
+    padding: 7px 20px;
+    color: white;
+}
+
+/* new assignment */

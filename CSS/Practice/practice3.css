@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.parent{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.child{
+    width: 300px;
+    padding: 10px 10px;
+    margin-top: 100px;
+}
+.child img{
+    width: 100%;
+}
+.icons{
+    position: relative;
+    bottom: 100px;
+    background-color: rgba(255, 255, 255, 0.441);
+    width: 85%;
+    padding: 0px 20px;
+    margin: 0px 20px;
+    align-items: center;
+}
+.content{
+    position: relative;
+    bottom: 125px;
+    padding: 0px 200px;
+    display: flex;
+    align-items: center;
+}
+.content i{
+    margin: 0px 5px;
+}
+@media screen and (max-width:500px){
+    .child{
+        margin: 0%;
+    }
+    .parent{
+        padding: 10px;
+    }
+}
+

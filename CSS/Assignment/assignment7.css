@@ -118,6 +118,9 @@ header ul li:hover{
 .clock{
     margin-left: 10px;
 }
+.function{
+    
+}
 
 @media screen and (max-width:1000px) {
     header{

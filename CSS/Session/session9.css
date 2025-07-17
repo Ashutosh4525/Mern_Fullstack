@@ -4,20 +4,20 @@
     box-sizing: border-box;
 }
 .top{
-    margin: 0px 0px;
+    padding: 10px;
     height: 150vh;
     width: 100%;
      background: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)) ,url(../Assignment/image/showcase-1.webp);
      object-fit: fill;
 }
 header{
-    border: 1px solid;
+    border: 0px solid;
     display: flex;
     padding: 10px 20px;
-    margin: 20px 60px;
+    margin: 0px 60px;
     border-radius: 100px;
     align-items: center;
-   background-color: white;
+    background-color: white;
     
 }
 header ul {

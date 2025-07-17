@@ -104,3 +104,12 @@
 .market i{
     padding-left: 100px;
 }
+
+.index{
+    display: flex;
+    align-items: flex-end;
+}
+.img1{
+    width: 70%;
+    height: 350px;
+}

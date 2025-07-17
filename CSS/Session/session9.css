@@ -2,16 +2,22 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+}
+.top{
+    margin: 0px 0px;
+    height: 150vh;
+    width: 100%;
+     background: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)) ,url(../Assignment/image/showcase-1.webp);
+     object-fit: fill;
 }
 header{
     border: 1px solid;
     display: flex;
-    padding: 20px 20px;
-    margin: 10px 60px;
+    padding: 10px 20px;
+    margin: 20px 60px;
     border-radius: 100px;
     align-items: center;
-   
+   background-color: white;
     
 }
 header ul {
@@ -48,7 +54,7 @@ header ul li:hover{
     background-color: rgba(0, 255, 255, 0.671);
 }
 
-@media screen and (max-width:1024px) {
+@media screen and (max-width:1147px) {
     header{
         margin:10px 20px;
        justify-content: space-between;

@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+section{
+    margin: 50px 100px;
+    border: 2px solid black;
+    padding: 20px;
+    border-radius: 20px;
+    /* Outline are similar to border */
+    outline: 2px solid darkorange;
+    outline-offset: 10px;
+}
+.inp{
+    padding: 5px 10px;
+    border: none;
+    border-bottom: 1px solid black;
+    color: aquamarine;
+}
+
+/* pseudo-Classes placeholder */
+.inp::placeholder{
+    color: blue;
+}
+/* background box after clicking on input it has outline not border*/
+.inp:focus{
+    outline: none;
+    border-color: brown;
+}
+
+/* before after are also pseudo-class */
+.heading{
+    background-color: aqua;
+    width: fit-content;
+    margin: auto;
+    padding: 10px;
+    position: relative;
+}
+.heading::before{
+    content: "";
+    /* this can be used to add content */
+    background-color: black;
+    color: white;
+    width: 100px;
+    height: 3px;
+    display: inline-block;
+    position: absolute;
+    top: 25px;
+    left: -100px;
+}
+.heading::after{
+    content: "";
+    /* this can be used to add content */
+    background-color: black;
+    color: white;
+    width: 100px;
+    height: 3px;
+    display: inline-block;
+    position: absolute;
+    /* here relative will be .heading as before and after are psuedo class */
+    top: 25px;
+    right: -100px;
+}
+.box{
+    width: 250px;
+    height: 250px;
+    background-color: black;
+    color: aliceblue;
+    margin: 100px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+.translate:hover{
+    transform: translate(100px, 50px);
+    transform: translateX(-100px);
+    transform: translateY(-100px);
+}
+
+.scale:hover{
+    transform: scale(0.8);
+    transform: scaleX(1.2);
+    transform: scaleY(1.2);
+}
+.rotate:hover{
+    transform: rotate(45deg);
+    transform: rotateX(30deg);
+     transform: rotateY(30deg);
+     transform: rotateY(360deg);
+}
+.skew:hover{
+    transform: skew(10deg,20deg);
+    transform: skewX(20deg);
+    transform: skewY(20deg);
+}
+.box1 img{
+   width: 250px;
+   height: 250px;
+   border-radius: 20px;
+   
+}
+.box1{
+  margin:  10px 90px;
+  border: 2px solid ;
+  width: 250px;
+   height: 250px;
+   border-radius: 20px;
+   transition: all 0.3s;
+   overflow: hidden;
+}
+
+.image:hover{
+  transform: scale(1.1);
+}
+.box1:hover{
+    /* overflow: hidden; */
+}

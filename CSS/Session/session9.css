@@ -7,18 +7,17 @@
     padding: 10px;
     height: 150vh;
     width: 100%;
-     background: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)) ,url(../Assignment/image/showcase-1.webp);
-     object-fit: fill;
+    background: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)) ,url(../Assignment/image/showcase-1.webp);
+    object-fit: fill;
 }
 header{
     border: 0px solid;
     display: flex;
-    padding: 10px 20px;
-    margin: 0px 60px;
+    padding: 20px 20px;
+    margin: 10px 60px;
     border-radius: 100px;
     align-items: center;
     background-color: white;
-    
 }
 header ul {
     display: flex;
@@ -51,9 +50,100 @@ header ul li:hover{
     display:none;
 }
 .Appoinment a:hover{
-    background-color: rgba(0, 255, 255, 0.671);
+    background-color: rgba(0, 255, 255, 0.6);
+}
+.container{
+    border: 0px solid;
+    width: 50%;
+    margin: 50px 50px;
+}
+.content h4{
+    background-color:#049ebb;;
+    border-radius: 50px;
+    padding: 10px 10px;
+    width: 250px;
+}
+.content h1{
+    font-size: 55px;
+    color: white;
+}
+.content p{
+    padding-bottom: 30px;
+    color: white;
+}
+.content a{
+    text-decoration: none;
+    background-color: #049ebb;;
+    padding: 10px 10px;
+    border-radius: 50px;
+    color: white;
+}
+.new{
+    background-color: transparent !important;
+    border: 2px solid #049ebb;
+    color: #049ebb !important;
+}
+.info{
+    display: flex;
+    padding-top: 30px;
+}
+.info i{
+    color: #049ebb;
+    font-size: 40px;
+}
+.info span{
+  display: flex;
+  font-size: 14px;
+  color: gray;
+}
+.info h2{
+    font-size: 17px;
+    margin: 0px 10px;
+    color: white;
+}
+.clock{
+    margin-left: 10px;
+}
+.function{
+ 
+ 
+ margin: 40px 50px;
+ padding: 10px;
+ border: 0px solid;
+ display: flex;
+ background-color: #11262a;
+ border-radius:20px ;
+ justify-content: center;
+color: white;
+font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.function .heart{
+    color: #049ebb;
+    font-size: 40px;
+    padding: 10px;
+    background-color: #14a4c157;
+    border-radius: 12px;
+    margin: 10px;
+}
+
+.function span{
+    display: flex;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.function h2{
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.func{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+}
 @media screen and (max-width:1147px) {
     header{
         margin:10px 20px;

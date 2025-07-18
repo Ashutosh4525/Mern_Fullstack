@@ -115,6 +115,3 @@ section{
 .image:hover{
   transform: scale(1.1);
 }
-.box1:hover{
-    /* overflow: hidden; */
-}

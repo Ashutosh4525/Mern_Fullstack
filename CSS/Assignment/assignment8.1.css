@@ -1,0 +1,125 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* background-color: #031119; */
+}
+.box{
+    margin: 10px 10px;
+    border: 0px solid;
+    background-color: #031119;
+    color: #e0e9f2;
+    font-family: "Roboto", sans-serif;
+}
+.heading{
+    width: fit-content;
+    padding: 10px;
+    position: relative;
+    font-family: "Nunito", sans-serif;
+    position: relative;
+}
+.heading h4{
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    font-weight: 500;
+}
+.heading h4::after{
+    content: "";
+    width: 120px;
+    height: 1px;
+    display: inline-block;
+    background-color:#e3a127 ;
+    margin: 4px 10px;
+}
+.heading h2{
+    font-size: 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.bar{
+    display: flex;
+    padding: 20px;
+    text-align: center;
+    font-weight: 500;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.bar1{
+    border: 0px solid white;
+    border-radius: 50px;
+    padding: 12px 25px;
+    font-size: 15px;
+    background-color: #1b262c;
+    margin: 10px 10px; 
+    transition: all 0.6s;
+}
+.bar1 h3 i{
+   vertical-align: middle;
+   font-size: 16px;
+   padding-right:5px ;
+   font-weight: 500;
+   background-color: #1b262c;
+}
+h3{
+    font-weight: 400;
+}
+.bar1:hover h3{
+    transform: scale(1.05);
+    color:#e3a127;
+}
+
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.imgbox{
+    display: flex;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #1b262c;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    margin: 10px 10px;
+    flex-wrap: wrap;
+}
+.img{
+    display: flex;
+    width: 275px;
+    height: 275px;
+    object-fit:fill;
+    transition: all 0.6s;
+}
+.img:hover{
+    transform: scale(1.1);
+}
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+}
+
+.imgbox:hover .overlay {
+  height: 30%;
+}
+
+.text {
+  white-space: nowrap; 
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+.text h6{
+    color: #e3a127;
+} 

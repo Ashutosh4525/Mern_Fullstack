@@ -24,8 +24,9 @@ img{
    background-color: transparent;
 }
 .img1{
-    position: static;
-    
+    position: relative;
+    top: -350px;
+    right: -650px;
     z-index: 1;
     background-color: transparent;
 }

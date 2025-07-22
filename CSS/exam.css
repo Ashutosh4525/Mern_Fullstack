@@ -5,44 +5,74 @@
 	font-family: "Roboto", sans-serif;
 }
 .whole{
-	background-image:url(img.webp) ;
-	height: 140vh;
+	background-image:linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.6)),url(img.webp) ;
+	
 	color: white;
 
 }
 .intro{
-	border: 2px solid white;
+	border: 0px solid white;
 	padding: 30px 80px;
 	color: white;
     justify-content: center;
     align-content: center;
+    flex-wrap: wrap;
 }
 .intro h1{
 	font-size: 56px;
 	display: flex;
-	justify-content: center;
+	 justify-content: center;
     align-content: center;
     margin: 50px auto;
     align-items: center;
+    text-align: center;
+    
 }
 .intro p{
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
+  text-align: center;
+  flex-wrap: wrap;
 }
 .mid{
 	display: flex;
 	justify-content: center;
-    flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+.mid h3{
+	margin: 0px 10px;
 }
 .mid i{
 	color:#f87500 ;
 	vertical-align: middle;
+	margin: 10px 5px;
 }
 .mid1{
+	text-align: center;
+	align-content: center;
+	justify-content: center;
+	margin: 20px;
+}
+.mid1 h2{
+   margin: 10px;
+}
+.time{
 	display: flex;
 	justify-content: center;
+	margin: 10px 10px;
+}
+.time p{
+	border: 2px solid white;
+	border-radius: 10px;
+	margin: 10px 10px;
+	padding: 16px 12px;
+	min-width: 90px;
+	background: rgba(255, 255, 255, 0.1);
+}
+.time p:hover{
+	transform: translateY(-2px);
 }
 .end{
 	display: flex;
@@ -59,9 +89,21 @@
 }
 .end1{
 	background-color: #f87500;
-	border-style: none;
+	border-style: none !important;
 }
 
-.end:hover{
-	transform: ;
+.end1:hover{
+	transform: translateY(-2px) ;
+}
+.end2:hover{
+	transform: translateY(-2px);
+}
+
+@media screen and (max-width:320px) {
+    .intro h1{
+    	font-size: 30px;
+    }
+    .whole{
+       height: 100vh;
+    }
 }

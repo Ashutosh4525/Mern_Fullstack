@@ -1,0 +1,132 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.box1{
+    width: 300px;
+    height: 300px;
+    margin: 50px auto;
+    background-color: antiquewhite;
+    font-size: 22px;
+    padding: 20px;
+    transition: all 0.6s;
+    transform-origin:0px 300px ;
+}
+.box1 p{
+    transition: all 0.6s;
+}
+.case1{
+   display: none;
+}
+.box1:hover p{
+    display: block;
+}
+.case2{
+    visibility: hidden;
+}
+.box1:hover p{
+    visibility: visible;
+}
+.case3{
+    opacity: 0;
+}
+.box1:hover p{
+    opacity: 1;
+}
+
+/* Selectors */
+.child{
+    font-size: 20px;
+}
+/* parent child selectors */
+.parent .child{
+    color: aqua;
+}
+/* direct parent child selectors  */
+.parent>.child{
+    background-color: blue;
+}
+/* Direct sibling selectors */
+#c1+.child{
+    background-color: aquamarine;
+}
+
+/* all sibling selectors */
+#c1~.child{
+    background-color: black;
+}
+/* selecting grandchild */
+.parent>div>.child{
+    background-color: blueviolet;
+}
+.box1{
+    width: 300px;
+    height: 300px;
+    margin: 50px auto;
+    background-color: antiquewhite;
+    font-size: 22px;
+    padding: 20px;
+    transition: all 0.6s;
+    transform-origin:0px 300px ;
+}
+.box1:hover{
+    transform: rotate3d(-30deg);
+}
+.main{
+    background-color: gray;
+    padding: 10px;
+}
+.box2{
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    transition: all 0.6s;
+    margin: 10px;
+    transform-origin: 0px 0px;
+    /* transform origin imp */
+}
+.main:hover .box2{
+    transform: scaleX(10);
+}
+.c1{
+    transition-timing-function: linear;
+}
+.c2{
+    transition-timing-function: ease-in;
+}
+.c3{
+    transition-timing-function: ease-out;
+}
+.c4{
+    transition-timing-function: ease-in-out;
+}
+.red{
+    width: 100px;
+    height: 100px;
+    background-color: aqua;
+    margin: 40px;
+    /* animation-name: anime;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-fill-mode: forwards; */
+    animation: anime 2s linear 0s infinite alternate forwards;
+}
+@keyframes anime{
+    0%{
+        background-color: aqua;
+        transform: translate(0);
+    }
+    50%{
+        border-radius: 20%;
+        background-color: rgb(0, 30, 255);
+    }
+    100%{
+        background-color: rgb(127, 174, 255);
+        transform: translate(400px);
+        border-radius:50% ;
+    }
+}

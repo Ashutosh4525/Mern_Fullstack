@@ -13,6 +13,7 @@ header{
     position: fixed;
     font-family: sans-serif;
     color: white;
+    z-index: 10;
 }
 .navigatebar{
     display: flex;
@@ -42,7 +43,108 @@ header h2{
 .ico{
     color: black;
 }
+/* section 1 */
 
+.box{
+  width: 100%;
+  object-fit: cover;
+  position: relative;
+}
+.box .background{
+  width: 100%;
+  /* position: relative; */
+}
+.sec1{
+    /* display: flex;
+    justify-content: space-between; */
+    display: table;
+    width: 100%;
+    position: absolute;
+    top: 100px;
+}
+.left{
+    display: table-cell;
+}
+.phone{
+    position: absolute;
+    right: 0;
+    top: 10px;
+    /* display: flex;
+    justify-content: space-between; */
+    display: table-cell;
+    border: 2px solid;
+   
+}
+
+.ipd{
+    position: absolute;
+    top: 50px;
+    
+    width: 100%;
+}
+.ipad{
+    position: relative;
+}
+.ipadimg{
+    position: absolute;  
+    left: 75px;
+    top: 40px;
+}
+.ipe{
+    position: relative;
+    top: 150px;
+    right: 90px;
+    width: 100%;
+}
+.iphoneimg{
+    position: relative; 
+    bottom:100px;
+    right: 220px;
+}
+
+
+/* section2 */
+.box2{
+padding: 100px 0px;
+}
+.outerbox2{
+    /* border: 2px solid; */
+}
+.innerbox2{
+    display: flex;
+    justify-content: space-between;
+    /* border: 2px solid; */
+    padding: 20px 50px;
+}
+.innerbox2 h3{
+    vertical-align: middle;
+    
+}
+.iconbox{
+    width: 100%;
+    margin: 0px 5px;
+    border-bottom: 2px solid #fccb06;
+    padding: 10px 50px;
+    box-shadow:  20px 20px rgba(0, 0, 0, 0.04);
+    transition: all 0.6s linear;
+}
+.iconbox h2 i{
+    font-size: 40px;
+    padding: 20px 0px;
+}
+.iconbox h5{
+    font-size: 20px;
+    padding-bottom: 10px;
+} 
+.iconbox h4 i{
+    vertical-align: middle;
+}
+.sec2icon:hover{
+  color: #fccb06;
+}
+.iconbox:hover{
+    transform: translateY(-5px);
+}
 /* footer */
 footer{
     background-color: black;
@@ -70,7 +172,6 @@ footer{
 
 .II li{
    list-style:none;
-   
 }
 .II li i{
    vertical-align: middle;
@@ -84,6 +185,8 @@ li:hover{
 .III li{
    list-style: none;
 }
+
+
 .footicon{
     display: flex;
     font-size: 20px;
@@ -91,7 +194,7 @@ li:hover{
 .footicon i{
     padding: 20px 10px;
 }
-i:hover{
+.footicon1:hover{
   color: #fccb06;
 }
 

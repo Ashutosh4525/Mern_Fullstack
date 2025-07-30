@@ -55,39 +55,40 @@ header h2{
   /* position: relative; */
 }
 .sec1{
-    /* display: flex;
-    justify-content: space-between; */
-    display: table;
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    position: absolute;
-    top: 100px;
+    /* position: absolute; */
+    /* top: 100px; */
 }
 .left{
-    display: table-cell;
+
 }
 .phone{
     position: absolute;
     right: 0;
     top: 10px;
-    /* display: flex;
-    justify-content: space-between; */
-    display: table-cell;
-    border: 2px solid;
+    display: flex;
+    justify-content: space-between;
+    /* border: 2px solid; */
+    /* width: 100%; */
 }
 
 .ipd{
-    position: absolute;
+    /* position: absolute; */
     top: 50px;
-    
     width: 100%;
+    border: 2px solid;
 }
 .ipad{
     position: relative;
+    width: 100%;
+    border: 2px solid;
 }
 .ipadimg{
     position: absolute;  
     left: 75px;
-    top: 40px;
+    top: 40px; 
 }
 .ipe{
     position: relative;
@@ -100,6 +101,7 @@ header h2{
     bottom:100px;
     right: 220px;
 }
+.iphone{}
 
 
 /* section2 */
@@ -315,7 +317,8 @@ padding: 100px 0px;
     /* justify-content: space-between; */
     /* border: 2px solid; */
     justify-content: center;
-    padding: 10px 40px;
+    padding: 20px 0px;
+    color: black;
 }
 .sec6list table{
     border-collapse: collapse;
@@ -330,9 +333,11 @@ padding: 100px 0px;
 }
 .sec6innercontent ul li{
     list-style: none;
+    padding: 10px 0px;
 }
 .sec6innercontent{
     width: 100%;
+    padding: 10px;
 }
 .sec6innercontent a{
     border-radius: 5px;
@@ -354,6 +359,11 @@ padding: 100px 0px;
     background-image: url(/Project-Ashutosh/assets/image/sec7background.jpg);
     width: 100%;
     padding: 50px 0px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 50% 50%;
+    font-family: "Montserrat", sans-serif;
 }
 .sec7outer{
     width: 100%;
@@ -384,6 +394,7 @@ padding: 100px 0px;
 .sec7img img{
     width: 100%;
     transition: all 0.3s linear;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 .sec7content{
     width: 100%;
@@ -397,6 +408,12 @@ padding: 100px 0px;
   width: 100%;
   transition: 0.5s ease;
 }
+.sec7content h4{
+    color: #fccb06;
+}
+.sec7content h2{
+    color: white;
+}
 .sec7content .sec7hov{
     opacity: 0;
     padding: 10px;
@@ -404,12 +421,12 @@ padding: 100px 0px;
     border: 1px solid black;
     border-radius: 5px;
     display: inline-block;
-    transform: translateY(100px);
+    transform: translateY(150px);
     transition: all 0.3s linear;
 }
 .sec7inner:hover .sec7hov{
    opacity: 1;
-   transform: translateY(60px);
+   transform: translateY(100px);
 }
 .sec7hov:hover{
      background-color: black;
@@ -417,6 +434,220 @@ padding: 100px 0px;
 }
 .sec7inner:hover img{
     transform: scale(1.2);
+}
+
+/* sec8 */
+.sec8{
+    font-family: "Montserrat", sans-serif;
+    width: 100%;
+}
+.sec8top{
+  width: 100%;
+  text-align: center;
+  padding: 50px 0px;
+}
+.sec8top h4{
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 3px;
+}
+.sec8top h2{
+    font-size: 35px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+.sec8line{
+    /* content: ""; */
+    width: 200px;
+    height: 2px;
+    display: inline-block;
+    background-color: #fccb06;
+}
+.sec8list ul{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 10px 10px ;
+    margin-top: 50px;
+}
+.sec8list ul li{
+   list-style: none;
+   padding: 1px 5px;
+   border: 1px solid #727272;
+   margin-right: 5px;
+   font: 400 12px / 32px "Roboto", sans-serif;
+   transition: all 0.3s linear;
+}
+.sec8listhov:hover{
+   color: white;
+   background-color: #fccb06;
+   transform: translateY(-2px);
+   border-color: #fccb06;
+}
+.sec8img{
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    flex-wrap: wrap;
+    transition: all 0.6s;
+}
+.sec8box{
+   display: flex;
+   justify-content: center;
+   width: 100%;
+   flex-wrap: wrap;
+   transition: all 0.6s;
+}
+.realimg{
+    width: 320px;
+    height: 320px;
+    object-fit:fill;
+    justify-content: center;
+    transition: all 0.6s;
+}
+.sec8textbox{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.582);
+  overflow: hidden;
+  transition: 0.5s ease;
+}
+.sec8text{
+  white-space: nowrap; 
+  color: white;
+  font-size: 15px;
+  font-weight: 400;
+  position: absolute;
+  overflow: hidden;
+  text-align: center;
+  padding: 10px;
+  top: 40%;
+  right: 20px;
+  transform: translateY(30px);
+  transition: 0.5s ease;
+}
+.sec8text h3::after{
+    content: "";
+    width: 80px;
+    height: 1px;
+    display: block;
+    background-color: white;
+    margin: 10px 50px;
+}
+.realimg img{
+    width: 100%;
+    transition: 0.5s ease;
+}
+.sec8img:hover .sec8textbox{
+    height: 100%;
+}
+.sec8img:hover img{
+    transform: scale(1.2);
+}
+.sec8img:hover .sec8text{
+   transform: translateY(0px);
+}
+.sec9{
+    width: 100%;
+    background-image: url(/Project-Ashutosh/assets/image/sec9back.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    background-position: 50% 50%;
+    font-family: "Montserrat", sans-serif;
+}
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+.imgbox{
+    display: flex;
+    position: relative;
+    /* border-radius: 16px; */
+    overflow: hidden;
+    background: #1b262c;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    margin: 10px 10px;
+    flex-wrap: wrap;
+}
+.img{
+    display: flex;
+    width: 300px;
+    height: 400px;
+    object-fit:fill;
+    justify-content: center;
+    transition: all 0.6s;
+}
+.img:hover{
+    transform: scale(1.1);
+}
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: 0.5s ease;
+}
+
+.imgbox:hover .overlay {
+  height: 80%;
+}
+
+.text {
+  white-space: nowrap; 
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  border: 1px solid;
+  padding: 20px 0px;
+}
+.text i{
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+.text i:hover {
+    color:#e3a127;
+}
+.text p{
+    text-align: center;
+    font-size: 14px;
+    font-weight: 100;
+    padding: 20px 0px;
+}
+.sec9boxcon{
+    position: relative;
+}
+.sec9box{
+    position: absolute;
+    bottom: -55px;
+    left: 10%;
+    padding: 20px 80px;
+    background-color: white;
+    margin: 20px 0px;
+}
+.sec9box h4{
+    border-bottom: 1px solid #fccb06;
+    padding: 5px;
+}
+.sec9box h5{
+    padding: 20px 0px;
+    font-weight: 300;
+    color: #fccb06;
 }
 /* footer */
 footer{

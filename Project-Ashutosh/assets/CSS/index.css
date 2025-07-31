@@ -48,61 +48,93 @@ header h2{
 .box{
   width: 100%;
   object-fit: cover;
-  position: relative;
-}
-.box .background{
-  width: 100%;
   /* position: relative; */
+  background-image: url(/Project-Ashutosh/assets/image/background.jpg);
+  font-family: "Montserrat", sans-serif;
+  padding: 50px ;
+  display: flex;
+  flex-wrap: wrap;
+}
+.background{
+  width: 100%;
+}
+.sectop{
+    width: 100%;
 }
 .sec1{
     display: flex;
     justify-content: space-between;
     width: 100%;
-    /* position: absolute; */
-    /* top: 100px; */
+    flex-wrap: wrap;
+    padding: 10px 10px;
 }
 .left{
-
+   width: 50%;
+   margin-top: 100px;
+   
+}
+.left h2{
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+.left p{
+    font-size: 15px;
+    padding-bottom: 30px;
+}
+.left a{
+    text-decoration: none;
+    color: black;
+    border: 2px solid #f5f5f5;
+    padding: 10px;
+}
+.sec1hov:hover{
+   background-color: #f5f5f5;
+   color: black;
 }
 .phone{
-    position: absolute;
-    right: 0;
-    top: 10px;
-    display: flex;
-    justify-content: space-between;
-    /* border: 2px solid; */
-    /* width: 100%; */
+   width: 50%;
+   display: flex;
+   justify-items: end;
+   flex-wrap: wrap;
 }
 
 .ipd{
-    /* position: absolute; */
-    top: 50px;
-    width: 100%;
-    border: 2px solid;
+   display: flex;
+   justify-content: end;
+   padding-left: 40px;
+   /* background-color: #1b262c; */
 }
 .ipad{
     position: relative;
-    width: 100%;
-    border: 2px solid;
+   width: 100%; 
 }
 .ipadimg{
-    position: absolute;  
-    left: 75px;
-    top: 40px; 
+    position: absolute;
+    display: block;
+    width: 100%;
+    top:70px;
+    left: 50px;
 }
 .ipe{
-    position: relative;
-    top: 150px;
-    right: 90px;
-    width: 100%;
+    /* background-color: #202020; */
+    display: block;
+    position: absolute;
+    top: 170px;
+   
+}
+
+.iphone{
+    display: block;
+   position: relative;
+   width: 100%;
 }
 .iphoneimg{
-    position: relative; 
-    bottom:100px;
-    right: 220px;
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left: 40px;
 }
-.iphone{}
-
 
 /* section2 */
 .box2{
@@ -549,6 +581,8 @@ padding: 100px 0px;
 .sec8img:hover .sec8text{
    transform: translateY(0px);
 }
+
+/* sec9 */
 .sec9{
     width: 100%;
     background-image: url(/Project-Ashutosh/assets/image/sec9back.jpg);
@@ -557,6 +591,7 @@ padding: 100px 0px;
     background-attachment: scroll;
     background-position: 50% 50%;
     font-family: "Montserrat", sans-serif;
+    padding: 50px 0px;
 }
 .main{
     display: flex;
@@ -598,7 +633,7 @@ padding: 100px 0px;
 }
 
 .imgbox:hover .overlay {
-  height: 80%;
+  height: 90%;
 }
 
 .text {
@@ -612,7 +647,7 @@ padding: 100px 0px;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   border: 1px solid;
-  padding: 20px 0px;
+  padding: 20px;
 }
 .text i{
     border-radius: 10px;
@@ -631,22 +666,182 @@ padding: 100px 0px;
 }
 .sec9boxcon{
     position: relative;
+    margin: 20px 0px;
 }
 .sec9box{
     position: absolute;
     bottom: -55px;
     left: 10%;
-    padding: 20px 80px;
+    padding: 20px 6px;
     background-color: white;
-    margin: 20px 0px;
+    margin: 10px 5px;
+    width: 257px;
 }
-.sec9box h4{
-    border-bottom: 1px solid #fccb06;
-    padding: 5px;
+.sec9box h4::after{
+    content: "";
+    width: 80px;
+    height: 1px;
+    display: block;
+    background-color: #fccb06;
+    margin: 10px 82px;
 }
 .sec9box h5{
     padding: 20px 0px;
     font-weight: 300;
+    color: #fccb06;
+    font-size: 12px;
+    display: block;
+}
+
+/* sec10 */
+.sec10{
+    background-image: url(/Project-Ashutosh/assets/image/10back.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    background-position: 50% 50%;
+    padding: 50px 0px;
+    font-family: "Montserrat", sans-serif;
+    width: 100%;
+}
+.sec10top{
+    padding: 0px 10px;
+}
+.sec10top h4{
+    font-weight: 400;
+    font-size: 18px;
+    padding-bottom: 20px;
+    color: #c7c7c7;;
+}
+.sec10top h2{
+    font-weight: 600;
+    font-size: 35px;
+    color: white;
+}
+.sec10top h2::after{
+    content: "";
+    width: 90px;
+    height: 2px;
+    display: block;
+    background-color: #fccb06;
+    margin: 15px 2px;
+}
+.sec10bot{
+    width: 75%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.sec10box{
+    width: 300px;
+    height: 200px;
+    display: flex;
+    margin: 10px 10px;
+}
+.sec10innerbox{
+    width: 100%;
+    padding: 40px;
+    background-color: #202020;
+    transition: all 0.3s ease-out 0s;
+    color: #ababab;
+    display: flex;
+}
+.sec10icon{
+    padding: 10px 10px;
+    font-size: 30px;
+}
+.sec10con h5{
+    font-size: 25px;
+    padding-bottom: 20px;
+    margin-top: 10px;
+}
+.sec10innerbox:hover{
+    background-color: white;
+    color: black;
+}
+/* sec11 */
+.sec11{
+    font-family: "Montserrat", sans-serif;
+}
+.sec11bot{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+.sec11box{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+    margin: 10px;
+}
+.sec11inner{
+    width: 300px;
+    text-align: justify;
+}
+.sec11inner h5{
+    font-size: 18px;
+    color: #272727;
+    padding: 10px 0px;
+}
+.sec11inner h6{
+    font-size: 18px;
+}
+.sec11inner p{
+    padding: 10px 0px 20px 0px;
+}
+.sec11img{
+    width: 100%;
+}
+.sec11line{
+    width: 100%;
+    height: 0.1px;
+    background-color: #1b262c;
+    margin: 10px 0px;
+}
+.afterline{
+    display: flex;
+    justify-content: space-between;
+}
+.afterline h4{
+    padding: 10px 0px 10px 0px;
+    color: #afafaf;
+    font-weight: 400;
+}
+.sec11blak{
+  position: absolute;
+  background-color: white;
+  padding: 5px 5px;
+  top: 210px;
+  right: 20px;
+}
+/* sec12 */
+.sec12{
+    background-image: url(/Project-Ashutosh/assets/image/sec12back.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    background-position: 50% 50%;
+    padding: 100px 0px;
+}
+.sec12whole{
+    display: flex;
+    justify-content: end;
+    flex-wrap: wrap;
+    margin-right: 20px;
+}
+.sec12box{
+    position: relative;
+    width: 50%;
+    padding: 50px;
+    background-color: #fff;
+}
+.sec12icon{
+    position: absolute;
+    left: 42%;
+    top: -35px;
+    text-align: center;
+    font-size: 70px;
     color: #fccb06;
 }
 /* footer */
@@ -732,5 +927,11 @@ footer{
       .sec6inner{
          /* padding: 120px 10px; */
          flex-wrap: wrap;
+      }
+      .sec10bot{
+        width: 100%;
+      }
+      .sec10box{
+        width: 100%;
       }
 }

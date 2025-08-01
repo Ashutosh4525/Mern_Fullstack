@@ -45,95 +45,139 @@ header h2{
 }
 /* section 1 */
 
-.box{
+.sectop{
   width: 100%;
   object-fit: cover;
   /* position: relative; */
   background-image: url(/Project-Ashutosh/assets/image/background.jpg);
   font-family: "Montserrat", sans-serif;
   padding: 50px ;
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
+  color: white;
 }
 .background{
   width: 100%;
 }
-.sectop{
-    width: 100%;
-}
+
 .sec1{
     display: flex;
     justify-content: space-between;
     width: 100%;
     flex-wrap: wrap;
     padding: 10px 10px;
+    /* border: 2px solid; */
 }
 .left{
-   width: 50%;
+   /* width: 50%; */
    margin-top: 100px;
-   
+   /* border: 2px solid; */
 }
 .left h2{
-    font-size: 30px;
+    font-size: 50px;
     padding-bottom: 20px;
+    animation: h2 1.5s linear 0.2s 1 normal forwards;
+}
+@keyframes h2 {
+    0%{
+        transform: scale(1.2);
+        opacity: 0;
+    }
+    100%{
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 .left p{
-    font-size: 15px;
+    font-size: 25px;
     padding-bottom: 30px;
+    animation: h2 1.5s linear 0.2s 1 normal forwards;
 }
 .left a{
     text-decoration: none;
-    color: black;
+    color: white;
     border: 2px solid #f5f5f5;
     padding: 10px;
+    font-size: 20px;
+   animation: sec1 0.8s ease-out 0s 1 normal forwards;
+}
+@keyframes sec1 {
+    0%{
+        transform: translateY(20px);
+    }
+    100%{
+        transform: translateY(1px);
+    }
+    
 }
 .sec1hov:hover{
    background-color: #f5f5f5;
    color: black;
 }
 .phone{
-   width: 50%;
+   /* width: 50%; */
    display: flex;
    justify-items: end;
    flex-wrap: wrap;
+   position: relative;
+   /* border: 2px solid; */
 }
 
 .ipd{
    display: flex;
    justify-content: end;
    padding-left: 40px;
+   position: relative;
+   /* width: 100%; */
    /* background-color: #1b262c; */
+   /* border: 2px solid white; */
 }
 .ipad{
-    position: relative;
-   width: 100%; 
+   position: relative;
+   width: 450px; 
+   display: block;
+   /* border: 2px solid green; */
+   /* animation: frame 1.4 linear 0.1s 1 normal forwards; */
+   animation: frame 1.5s ease-in-out forwards;
 }
 .ipadimg{
     position: absolute;
     display: block;
-    width: 100%;
+    /* width: 100%; */
     top:70px;
-    left: 50px;
+    left: 100px;
+   animation: h2 1.5s linear 0.4s 1 normal backwards;
 }
 .ipe{
     /* background-color: #202020; */
     display: block;
     position: absolute;
-    top: 170px;
-   
+    top: 135px;
 }
 
 .iphone{
     display: block;
    position: relative;
-   width: 100%;
+   width: 250px;
+   /* animation: frame 1.4 linear 0.1s 1 normal forwards; */
+   animation: frame 0.5s ease-in-out forwards;
+}
+@keyframes frame {
+    0%{
+        transform: translateX(20px);
+    }
+    100%{
+        transform: translateX(0);
+    }
+    
 }
 .iphoneimg{
     display: block;
-    width: 100%;
+    /* width: 100%; */
     position: absolute;
     top: 60px;
     left: 40px;
+    animation: h2 1.5s linear 0.4s 1 normal backwards;
 }
 
 /* section2 */
@@ -157,7 +201,7 @@ padding: 100px 0px;
 }
 .iconbox{
     width: 100%;
-    margin: 0px px;
+    
     padding: 10px 50px;
     box-shadow:  20px 20px rgba(0, 0, 0, 0.04);
     transition: all 0.6s linear;
@@ -265,6 +309,8 @@ padding: 100px 0px;
     background-color: #3e3e3e;
 }
 
+
+
 /* sec4 */
 .sec4{
     background-image: url(/Project-Ashutosh/assets/image/cssimg.jpg);
@@ -337,6 +383,7 @@ padding: 100px 0px;
     padding: 10px 20px;
     font-family: "Montserrat", sans-serif;
 }
+
 .sec6list{
     width: 100%;
     display: flex;
@@ -356,6 +403,10 @@ padding: 100px 0px;
     border-collapse: collapse;
     width: 100%;
     border-color: #e5e5e5;
+    font-weight: 600;
+}
+td:hover a{
+    color: #fccb06;
 }
 .sec6inner{
     display: flex;
@@ -366,10 +417,15 @@ padding: 100px 0px;
 .sec6innercontent ul li{
     list-style: none;
     padding: 10px 0px;
+    color: #565656;
 }
 .sec6innercontent{
     width: 100%;
     padding: 10px;
+}
+.sec6innercontent p{
+    padding: 10px 0px;
+    color: #515151;
 }
 .sec6innercontent a{
     border-radius: 5px;
@@ -380,11 +436,20 @@ padding: 100px 0px;
     margin: 40px 0px;
     display: inline-block;
 }
+.sec6innercontent h3{
+    color: #727272;
+    font-weight: 400;
+    padding: 20px 0px;
+}
+.sec6innercontent h2{
+    padding-bottom: 20px;
+}
 .sec6img{
     width: 100%;
 }
 .sec6img img{
     width: 100%;
+    padding: 20px;
 }
 /* sec7 */
 .sec7{
@@ -415,8 +480,10 @@ padding: 100px 0px;
     margin: 10px 10px;
     flex-wrap: wrap;
     transition: all 0.3s linear;
+    
 }
 .sec7img{
+    
     display: flex;
     position: relative;
     object-fit:fill;
@@ -429,11 +496,12 @@ padding: 100px 0px;
     background-color: rgba(0, 0, 0, 0.6);
 }
 .sec7content{
+    background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
     height: 100%;
   padding: 20px;
   position: absolute;
-  top: 20px; 
+   
   left: 0px;
   right: 0px; 
   overflow: hidden;
@@ -582,6 +650,29 @@ padding: 100px 0px;
    transform: translateY(0px);
 }
 
+
+/* blogsec1 */
+.blogsec1{
+    background-image:linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url(/Project-Ashutosh/assets/image/sec1back.jpg);
+    width: 100%;
+    padding: 50px 0px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-attachment: fixed; */
+    background-position: 50% 50%;
+    font-family: "Montserrat", sans-serif;
+    
+}
+.blogtop{
+  padding: 100px 0px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: white;
+}
+.blogtop p{
+    font-weight: 500;
+}
 /* sec9 */
 .sec9{
     width: 100%;
@@ -844,6 +935,318 @@ padding: 100px 0px;
     font-size: 70px;
     color: #fccb06;
 }
+
+
+/* service */
+.servicesec1{
+    font-family: "Montserrat", sans-serif;
+}
+.servicebox{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 10px;
+}
+.servicecontent h2{
+    padding: 20px 20px;
+    background-color: black;
+    color: white;
+    display: inline-block;
+    border-radius: 50%;
+}
+.servicecontent h3{
+    padding: 20px 0px;
+}
+.servicecontent p{
+    padding: 10px 0px;
+}
+.sersecbox{
+    display: flex;
+    justify-content: space-between;
+}
+.sersecbox1{
+    width: 400px;
+    padding: 10px; 
+}
+/* service sectin 2 */
+.servicesec2{
+    background-image:linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)), url(/Project-Ashutosh/assets/image/servicesec2back.jpg);
+    
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    background-position: 50% 50%;
+    padding: 50px 0px;
+    font-family: "Montserrat", sans-serif;
+    width: 100%;
+}
+.sec10top{
+    padding: 0px 10px;
+}
+.sec10top h4{
+    font-weight: 400;
+    font-size: 18px;
+    padding-bottom: 20px;
+    color: #c7c7c7;;
+}
+.sec10top h2{
+    font-weight: 600;
+    font-size: 35px;
+    color: white;
+}
+.sec10top h2::after{
+    content: "";
+    width: 90px;
+    height: 2px;
+    display: block;
+    background-color: #fccb06;
+    margin: 15px 2px;
+}
+.servicebot{
+    text-align: center;
+    padding: 50px 10px;
+}
+.servicebotbox{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;    
+    padding: 10px;
+}
+.servicesec2box{
+    width: 200px;
+}
+.servicesec2box h2{
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    font-size: 30px;
+    padding: 30px;
+    display: inline-block;
+    border-radius: 70%;   
+}
+.servicesec2box h3{
+     font-size: 30px;
+     color: #fccb06;
+     padding: 10px 0px;
+}
+.servicesec2box h5{
+   color: white;
+   padding: 5px 0px;
+   font-size: 18px;
+}
+/* services sec3 */
+.sec3{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px 0px;
+}
+.sec3box{
+    display: flex;
+    /* width: 100%; */
+    /* justify-content: space-between; */
+    /* margin-right: -15px;
+    margin-left: -15px; */
+    flex-wrap: wrap;
+    font-family: "Montserrat", sans-serif;
+}
+.sec3right{
+    width: 50%;
+    padding: 0px 10px;
+}
+.sec3left{
+    width: 50%;
+    padding: 0px 40px;
+    text-align: justify;
+}
+.sec3left img{
+    width: 100%;
+}
+.sec3right h4{
+    font-weight: 400;
+    font-size: 18px;
+    padding-bottom: 20px;
+    color: #727272;
+}
+.sec3right h2{
+    font-weight: 600;
+    font-size: 35px;
+}
+.sec3right h2::after{
+    content: "";
+    width: 60px;
+    height: 2px;
+    display: block;
+    background-color: #fccb06;
+    margin: 15px 2px;
+}
+.sec3right p{
+    padding: 40px 0px;
+    color: #727272;
+    font-size: 16px;
+}
+
+.sec3right ul{
+    list-style: none;
+}
+.sec3right ul li{
+    padding: 10px 0px;
+    font-size: 15px;
+    color: #727272;
+}
+.sec3right ul li i{
+    color: black;
+}
+.sec3right a{
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    margin: 40px 0px;
+    display: inline-block;
+}
+.sec3hov:hover{
+    background-color: #3e3e3e;
+}
+/* contact page */
+.contactpage{
+    width: 100%;
+}
+.wholecont{
+   display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 20px 10px;
+    font-family: "Montserrat", sans-serif;
+}
+.contactform{
+   width: 60%;
+    padding: 0px 10px;
+}
+.formcon input{
+    border: 1px solid #eee;
+    background: #f9f9f9;
+    margin: 5px 0px;
+    box-shadow: inset 0px 1px 2px 0px rgba(238, 238, 238, 1);
+    color: #101010;
+    height: 45px;
+    padding: 8px 0px;
+    transition: all 0.3s ease-out 0s;
+    width: 100%;
+    border-radius: 0
+}
+textarea{
+     border: 1px solid #eee;
+    background: #f9f9f9;
+    margin: 5px 0px;
+    box-shadow: inset 0px 1px 2px 0px rgba(238, 238, 238, 1);
+    color: #101010;
+    height: 90px;
+    padding: 8px 0px;
+    transition: all 0.3s ease-out 0s;
+    width: 100%;
+    border-radius: 0
+}
+input:focus{
+    border: 1px solid #fccb06;
+    outline: medium none !important;
+    transition: all 0.3s ease-out 0s;
+}
+textarea:focus{
+    border: 1px solid #fccb06;
+    outline: medium none !important;
+    transition: all 0.3s ease-out 0s;   
+}
+.submit input{
+    display: inline-block;
+    background-color: #fccb06;
+    padding: 10px 36px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-out;
+}
+
+
+.contactright{
+    width: 40%;
+    padding: 0px 40px;
+}
+.contactright h2{
+    font-size: 35px;
+    padding-bottom: 20px;
+}
+.contactright h3{
+    font-size: 22px;
+    font-weight: 600;
+    padding-bottom: 10px;
+}
+.contactright h4{
+    font-size: 18px;
+    font-weight: 500;
+    padding-bottom: 10px;
+}
+.contactright p{
+    padding: 10px 0px;
+    font-size: 15px;
+    color: #727272;
+}
+/* contact page map section */
+.map{
+    width: 100%;
+}
+.map iframe{
+    width: 100%;
+}
+
+/* blog single */
+.blogsec2{
+    width: 100%;
+    padding: 20px 30px;
+}
+.blogbox{
+   width: 100%;
+}
+.blogbox img{
+    width: 100%;
+    padding-bottom: 10px;
+}
+.blogcontent h1{
+    font-size: 30px;
+    padding: 20px 0px;
+}
+.afterh1{
+    display: flex;
+    font-size: 15px;
+    color: #b9b9b9;
+}
+.afterh1 h5{
+    padding-right: 10px;
+    padding-bottom: 20px;
+}
+.blogcontent p{
+    padding: 5px 0px;
+    color: #727272;
+}
+.blogpara{
+    font-size: 16px;
+    font-style: italic;
+    border-left: 3px solid #fccb06;
+    padding: 15px 0 15px 20px;
+    margin: 35px 0 35px 40px;
+    /* line-height: 2; */
+    font-weight: 500;
+    color: #727272;
+}
 /* footer */
 footer{
     background-color: black;
@@ -910,7 +1313,38 @@ footer{
       .innerbox2{
         flex-wrap: wrap;
       }
+      .left{
+        width: 100%;
+      }
+      .phone{
+        width: 100%;
+        justify-items: start;
+      } 
+      .sec1{
+        align-items: center;
+      }
       
+      .ipad {
+        width:300px;
+      }
+      .ipadimg1{
+        width: 200px;
+      }
+      .ipadimg{
+        top: 50px;
+      }
+      .iphone{
+        width: 180px;
+        bottom: 60px;
+      }
+      .iphoneimg1{
+        width: 130px;
+      }
+      .iphoneimg{
+        left: 25px;
+        top: -20px;
+      }
+    
       .sec3left{
         width: 100%;
       }
@@ -933,5 +1367,56 @@ footer{
       }
       .sec10box{
         width: 100%;
+      }
+      .sersecbox{
+        flex-wrap: wrap;
+      }
+      .contactform{
+        width: 100%;
+      }
+      .contactright{
+        width: 100%;
+      }
+}
+@media screen and (max-width:425px) {
+    .sectop{
+        padding: 20px;
+    }
+    .phone{
+        padding: 10px;
+        left: -10px;
+    }
+     .ipad {
+        width:200px;
+      }
+      .ipadimg1{
+        width: 100px;
+      }
+      .ipadimg{
+        top: 50px;
+      }
+      .iphone{
+        width: 120px;
+        bottom: 75px;
+      }
+      .iphoneimg1{
+        width: 75px;
+      }
+      .iphoneimg{
+        left: 25px;
+        top: -35px;
+      }
+      /* .sec12whole{
+        justify-content: center;
+      } */
+      .sec12box{
+        padding: 30px 20px;
+        width: 60%;
+      }
+      .sec12icon{
+        left: 35%;
+      }
+      .wholefoot{
+        padding: 50px;
       }
 }

@@ -102,21 +102,23 @@ header h2{
 .left p{
     font-size: 25px;
     padding-bottom: 30px;
-    animation: h2 1.5s linear 0.2s 1 normal forwards;
+    animation: h2 0.8s linear 0.2s 1 normal forwards;
 }
 .left a{
+    display: inline-block;
     text-decoration: none;
     color: white;
     border: 2px solid #f5f5f5;
     padding: 10px;
     font-size: 20px;
+    animation: seca 1.5s linear 0s 1 normal;
 }
 .sec1hov{
-   animation: seca 0.5s ease-in forwards;
+   animation: seca 1.5s linear 0s 1 normal forwards;
 }
 @keyframes seca{
     0%{
-        transform: translateY(-20px);
+        transform: translateY(50px);
     }
     100%{
         transform: translateY(0);
@@ -208,7 +210,7 @@ padding: 100px 0px;
     align-items: center;
     align-content: center;
     /* border: 2px solid; */
-    padding: 20px 10px;
+    padding: 10px 30px 0px 30px;
     background-color: rgba(0, 0, 0, 0.04);
    
 }
@@ -755,7 +757,7 @@ td:hover a{
   left: 50%;
   transform: translate(-50%, -50%);
   border: 1px solid;
-  padding: 20px;
+  padding: 10px;
 }
 .text i{
     border-radius: 10px;
@@ -808,7 +810,7 @@ td:hover a{
     background-size: cover;
     background-attachment: scroll;
     background-position: 50% 50%;
-    padding: 50px 0px;
+    padding: 50px 30px;
     font-family: "Montserrat", sans-serif;
     width: 100%;
 }

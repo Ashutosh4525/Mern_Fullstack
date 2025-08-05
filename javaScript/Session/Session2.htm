@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js session2</title>
+</head>
+<body>
+
+    <!--  -->
+    <script>
+    //  String method
+    var a="Hello world"
+    console.log(a);
+
+    // length of the string
+    var l=a.length;
+    console.log(l);
+
+    // index, starts with "0" and ends with length-1
+    console.log(a[1]);
+
+    // indexOf - first appearence of the given index
+    console.log(a.indexOf("o"));
+
+    // lastof -last appearence of the given index
+    console.log(a.lastIndexOf("o"));
+
+    // includes if the element exists in the string
+    console.log(a.includes("world"));
+
+    // uppercase
+    var b= a.toUpperCase();
+    console.log(b);
+    // lowercase
+    var c= a.toLowerCase();
+    console.log(c);
+
+    // replace
+    var str= a.replace(/o/gi,"q");
+    // element in the /here/ is replaced "g" is for replace all and "i" is for insensitive char
+
+    // slice
+    var e=a.slice(0,5);
+    console.log(e);
+    var e1=a.slice(4);
+    console.log(e1);
+
+    // math operators
+    // add
+    var x=15;
+    var y=10;
+    var add=x+y;
+    console.log(add);
+    console.log(10+5);
+
+    // sub
+    console.log(x-y);
+    console.log(10-5);
+
+    // mul
+    console.log(x*y);
+
+    // div
+    console.log(x/y);
+
+    // remainder modulas
+    console.log(x%y);
+
+    // exponential
+    console.log(x**y);
+
+// var in1=prompt("Enter the value1");
+// var in2=prompt("enter the val2");
+// console.log(Number(in1)+Number(in2));
+
+
+        var newstr= "Hello World";
+        var ind=prompt("Enter the string");
+        console.log(newstr.indexOf(ind));
+
+    </script>
+
+
+
+</body>
+</html>

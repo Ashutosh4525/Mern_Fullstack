@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js Session3</title>
+</head>
+<body>
+
+<div>
+    <p id="para" class="blue">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    </p>
+    <!-- onClick is used to add the fuction in it -->
+    <button onclick="f2()">Click</button>
+</div>
+<div class="box" id="box1">
+</div>
+<button onclick="f2()">click</button>
+<style>
+    .box{
+        width: 200px;
+        height: 200px;
+        background-color: aqua;
+        /* border: 2px solid; */
+    }
+    .circle{
+        height: 200px;
+        background-color: aqua;
+        border-radius: 50%;
+    }
+    .blue{
+        background-color: blue;
+    }
+    .green{
+        background-color: green;
+    }
+</style>
+    <script>
+        // Logical operator
+        // Input ->Boolean
+        // output ->Boolean
+        var t = true;
+        var f = false;
+
+        // AND -&&
+        console.log(t && f && t);
+
+
+        // OR -||
+        console.log(t||f);
+        console.log(t||t);
+
+        // NOT -!
+        console.log(!t);
+        
+        console.log(t&& !(!t||f));
+
+        // Ternary Operator
+        // condition ? "if true ":"if false"
+        // var r1 = 10 -(100-95) ? "Pass":"Fail";
+        // console.log(r1);
+
+        // var val1=prompt("Enter the string");
+        // var val1="Hello"
+        var r2= true ? "Hello":"Goodbye";
+        console.log(r2);
+    
+       var hourOfDay=12;
+       var r3=(hourOfDay<12) ? "Good Morning":"Good Evening";
+       console.log(r3);
+
+       var age = 12;
+       var r3=(age>18) ? "Adult":"Minor";
+       console.log(r3);
+
+       var isEven = 2;
+       var r4 = (isEven%2==0) ?"True":"False";
+       console.log(r4);
+
+       var marks =10;
+       var r5 = (marks>=60) ?"Passed":"Failed";
+       console.log(r5);
+
+       var len ="value";
+       var r6 = (len.length>10)?"Long":"Short";
+       console.log(r6);
+
+       var inRange=3;
+       var r7=(inRange>=10&&inRange<=20)?"in the range of 10 to 20":"not in the range of 10 to 20"
+       console.log(r7);
+
+       
+       
+
+    //    var num1=prompt("enter the val");
+    //    var num2=prompt("enter the val");
+    //    var r8=(num1+num2>10)?"is greater than 10":"is less than 10"
+    //    console.log(r8);
+
+       var num = -2;
+       var r9=(num>0) ? "Positive":"Negative";
+       console.log(r9);
+
+       var year = 2004;
+       var r10=((year%4)==0) ? "Leap":"Not a Leap";
+       console.log(r10);
+
+ 
+    //    var r11= (num1/num2==0) ? "divisible":"non-divisible";
+    //    console.log(r11);
+
+    //    var r12= ()
+    //    dom manuplation by id "documnet"-for accesing the html and ".getElementByID" is for getting the IDvalue 
+      var a =document.getElementById("para");
+      console.log(a);
+
+    //   a.innerHTML ="Hello world";
+
+    //   function fun1(){
+    //     console.log("one");
+    //   }
+
+      function f2(){
+        // var a =document.getElementById("para");
+        // // a.innerHTML= "Hello World";
+
+        // var b= a.getAttribute('class')
+        // // console.log(b);
+        // a.setAttribute('class','green');
+        // // a.style.color="white";
+        
+        var c =document.getElementById("box1");
+        console.log(c);
+        var b= c.getAttribute('class')
+        c.setAttribute('class','circle');
+      }
+
+
+
+    </script>
+
+
+</body>
+</html>

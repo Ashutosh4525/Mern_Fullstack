@@ -34,8 +34,10 @@ nav ul li{
 }
 nav li a{
     text-decoration: none;
-    font-family: sans-serif;
+    font-family: "Open Sans", sans-serif;
     color: white;
+    font-weight: 400;
+    font-size: 13px;
 }
 nav ul{
     display: flex;
@@ -388,6 +390,7 @@ padding: 100px 0px;
     background-color: white;
     border: 1px solid black;
     border-radius: 5px;
+    font-size: 12px;
 }
 .sec5inner:hover{
     transform: translateY(-5px);
@@ -399,9 +402,12 @@ padding: 100px 0px;
 }
 
 /* sec6 */
+.sec6{
+    padding: 60px 0px;
+}
 .sec6box{
     width: 100%;
-    padding: 50px 20px;
+    padding: 50px 30px;
     font-family: "Montserrat", sans-serif;
 }
 
@@ -431,7 +437,7 @@ td:hover a{
 }
 .sec6inner{
     display: flex;
-    padding: 10px;
+    padding: 20px;
     border: 1px solid #e5e5e5;
     border-top: none;
 }
@@ -558,6 +564,9 @@ td:hover a{
 }
 
 /* sec8 */
+.wholesec8{
+    padding: 100px 0px;
+}
 .sec8{
     font-family: "Montserrat", sans-serif;
     width: 100%;
@@ -589,7 +598,7 @@ td:hover a{
     justify-content: center;
     align-content: center;
     padding: 10px 10px ;
-    margin-top: 50px;
+    margin: 20px 0px;
 }
 .sec8list ul li{
    list-style: none;
@@ -870,6 +879,9 @@ td:hover a{
     color: black;
 }
 /* sec11 */
+.sec11whole{
+    padding: 100px 0px;
+}
 .sec11{
     font-family: "Montserrat", sans-serif;
 }
@@ -933,13 +945,20 @@ td:hover a{
     background-size: cover;
     background-attachment: scroll;
     background-position: 50% 50%;
-    padding: 100px 0px;
+    padding: 200px 0px;
 }
 .sec12whole{
     display: flex;
-    justify-content: end;
+    justify-content: center;
     flex-wrap: wrap;
-    margin-right: 20px;
+    margin-left: 100px;
+}
+.sec12cont p{
+    padding: 50px 0px;
+    font-size: 13px;
+    font-weight: 300;
+    color: #727272;
+    padding-top: 30px;
 }
 .sec12box{
     position: relative;
@@ -1069,7 +1088,7 @@ td:hover a{
 .sec3{
     display: flex;
     flex-wrap: wrap;
-    padding: 50px 0px;
+    padding: 100px 0px;
 }
 .sec3box{
     padding: 20px 10px;
@@ -1280,7 +1299,7 @@ textarea:focus{
 }
 
 /* portfolio section */
-.sec8list ul{
+.sec8list .prt{
     display: flex;
     justify-content: center;
     align-content: center;
@@ -1796,6 +1815,9 @@ footer{
        .servicebotbox {
         justify-content: center;
        }
+       .sec12whole{
+        margin: 0;
+       }
       .sec12box{
         padding: 30px 20px;
         width: 60%;
@@ -1803,6 +1825,13 @@ footer{
       .sec12icon{
         left: 35%;
       }
+      .realblogimg{
+     width: 100px;
+    height: 100px;
+    object-fit:fill;
+    justify-content: center;
+    transition: all 0.6s;
+    }
       .wholefoot{
         padding: 50px;
       }

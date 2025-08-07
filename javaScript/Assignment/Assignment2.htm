@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment2</title>
+</head>
+<body>
+    <div class="whole">
+    <div class="inp">
+        <div class="input">
+    <input type="number" name="num1" id="num1" placeholder="num1">
+    <input type="number" name="num2" id="num2" placeholder="num2">
+    </div>
+    <div class="operation">
+    <button onclick="f1()">Addition</button>
+    <button onclick="f2()">Subtraction</button>
+    <button onclick="f3()">Division</button>
+    <button onclick="f4()">Multiply</button>
+    <button onclick="f5()">Exponantial</button>
+    <button onclick="f6()">Remainder</button>
+    <button onclick="f7()">Reset</button>
+    </div>
+    <div class="output">
+       <h3>Result:<br></h3>
+       <h3 id="result1"></h3>
+       <h3 id="result2"></h3>
+       <h3 id="result3"></h3>
+       <h3 id="result4"></h3>
+       <h3 id="result5"></h3>
+       <h3 id="result6"></h3>
+    </div>
+    </div>
+    </div>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* background-color: pink; */
+        }
+        .whole{
+            background-color:lightcoral;
+            width: 100%;
+            height: 100%;
+        }
+        .inp{
+            padding:50px;
+        }
+        .input{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        input {
+            margin: 10px;
+            font-size: 20px;
+            border: 2px solid pink;
+            outline-color: pink ;
+        }
+        button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            text-align: center;
+            width: 100px;
+            background-color: lightpink;
+            border-color: rgba(255, 192, 203, 0.356);
+            margin: 10px;
+            
+        }
+        .operation{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .output{
+            background-color: white;
+            border: 2px solid rgba(255, 192, 203, 0.233);
+            text-align: center;
+            display: block;
+            width: 400px;
+           margin: 10px auto;
+        }
+    </style>
+    <script>
+       function f1(){
+        var inp1=Number(document.getElementById("num1").value);
+        var inp2=Number(document.getElementById("num2").value);
+        var add=inp1+inp2;
+        var val1=document.getElementById("result1");
+        val1.innerHTML= inp1+"+"+inp2+"="+add;
+       }
+       function f2(){
+        var inp1=Number(document.getElementById("num1").value);
+        var inp2=Number(document.getElementById("num2").value);
+        var sub=inp1-inp2;
+        var val2=document.getElementById("result2");
+        val2.innerHTML= inp1+"-"+inp2+"="+sub;
+       }
+       function f3(){
+        var inp1=Number(document.getElementById("num1").value);
+        var inp2=Number(document.getElementById("num2").value);
+        var div=inp1/inp2;
+        var val3=document.getElementById("result3");
+        val3.innerHTML= inp1+"/"+inp2+"="+div;
+       }
+       function f4(){
+        var inp1=Number(document.getElementById("num1").value);
+        var inp2=Number(document.getElementById("num2").value);
+        var mul=inp1*inp2;
+        var val4=document.getElementById("result4");
+        val4.innerHTML= inp1+"*"+inp2+"="+mul;
+       }
+       function f5(){
+        var inp1=Number(document.getElementById("num1").value);
+        var inp2=Number(document.getElementById("num2").value);
+        var expo=inp1**inp2;
+        var val5=document.getElementById("result5");
+        val5.innerHTML= inp1+"**"+inp2+"="+expo;
+       }
+       function f6(){
+        var inp1=Number(document.getElementById("num1").value);
+        var inp2=Number(document.getElementById("num2").value);
+        var rem=inp1%inp2;
+        var val6=document.getElementById("result6");
+        val6.innerHTML= inp1+"%"+inp2+"="+rem;
+       }
+       function f7(){
+        var inp1=Number(document.getElementById("num1").value="");
+        var inp2=Number(document.getElementById("num2").value="");
+        var val1=document.getElementById("result1");
+        var val2=document.getElementById("result2");
+        var val3=document.getElementById("result3");
+        var val4=document.getElementById("result4");
+        var val5=document.getElementById("result5");
+        var val6=document.getElementById("result6");
+
+        val1.innerHTML="";
+        val2.innerHTML="";
+        val3.innerHTML="";
+        val4.innerHTML="";
+        val5.innerHTML="";
+        val6.innerHTML="";
+        // document.getElementById("result1","result2","result3","result4","result5","result6","result7").value="";
+       }
+    </script>
+
+</body>
+</html>

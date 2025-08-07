@@ -1342,6 +1342,7 @@ textarea:focus{
     position: relative;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 .portbox img{
     width: 100%;

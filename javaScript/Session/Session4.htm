@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js Session4</title>
+</head>
+<body>
+    <!-- <div class="image1">
+    <img class="imge1" src="/Project-Ashutosh/assets/image/10back.jpg" alt="10">
+    <button onclick="f1()">click</button>
+    </div>
+    
+    <div id="box1" class="blue" onclick="fun2()"></div>
+    <div id="box2" class="write" >
+       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi quibusdam esse ex, sunt quisquam cum quam tempore. In molestiae at explicabo. Dicta numquam quidem laborum nobis modi est possimus quibusdam.</p>
+       
+    </div>
+    <button onclick="f2()">click2</button> -->
+<div>
+    <input type="text" name="name" id="name" >
+    <button onclick="f3()">click</button>
+    <h2 id="para1"></h2>
+    </div>
+
+   <div>
+    <input type="number" name="num1" id="num1">
+    <input type="number" name="num2" id="num2">
+    <button onclick="f4()"> click</button>
+    <h3 id="result"></h3>
+   </div> 
+
+   <div>
+    <input type="number" name="length" id="length">
+    <input type="number" name="breadth" id="breadth">
+    <button onclick="f5()">click</button>
+    <h2 id="area"></h2>
+    <h2 id="perimeter"></h2>
+   </div>
+
+   <script>
+    function f5(){
+        var num1=Number(document.getElementById("length").value);
+        var num2=Number(document.getElementById("breadth").value);
+        var are=num1*num2;
+        var per=2*(num1+num2);
+        var x=document.getElementById("area");
+        x.innerHTML="area "+ are;
+        var y=document.getElementById("perimeter");
+        y.innerHTML="Perimeter "+ per;
+    }
+     function f4(){
+        //  var e=document.getElementById("name").value;
+        //  console.log(e);
+        //  var g=document.getElementById("para1");
+        //  g.innerHTML="Welcome,"+e;
+        var h=Number(document.getElementById("num1").value);
+        var i=Number(document.getElementById("num2").value);
+        var j=(h>i) ? h:i;
+        var k=document.getElementById("result");
+        k.innerHTML="bigger"+j;
+    }
+
+   </script>
+    <style>
+        img{
+            width: 200px;
+        }
+        .read{
+            opacity: 0;
+        }
+        .blue{
+            background-color: blue;
+            width: 200px;
+            margin: 50px auto;
+            height: 200px;
+            border: 2px solid black;
+        }
+        .red{
+            background-color: red;
+            width: 200px;
+            margin: 50px auto;
+            height: 200px;
+            border: 2px solid black;
+        }
+     
+    </style>
+
+  <script>
+    function fun2(){
+        var b=document.getElementById("box1");
+        // b.classList.add("red");
+        // b.classList.remove("blue");
+        // b.classList.toggle("blue");
+        console.log(b.classList.contains("blue"));
+
+    }
+    function f2(){
+        var c= document.getElementById("box2");
+        c.classList.toggle("read")
+    }
+      function f1(){
+        var a=document.getElementsByClassName("imge1")
+        //  var b= getAttribute("class");
+         a.setAttribute("src","/Project-Ashutosh/assets/image/11.1.jpg")
+      }
+
+      function f3(){
+         var e=document.getElementById("name").value;
+        //  console.log(e);
+         var g=document.getElementById("para1");
+         g.innerHTML="Welcome,"+e;
+      }
+
+    //   String ---> Number
+      var a="10";
+    // var a="10.5";
+    // var a="10hasg";
+    // var a="qeg10"; when starting with number it 
+      console.log(a);
+
+    //   Number 
+    console.log("Number", Number(a));
+
+    // parseInt
+    console.log("parseInt", parseInt(a));
+
+    // parseFloat
+    console.log("parseFloat", parseFloat(a));
+   
+
+  </script>
+
+</body>
+</html>

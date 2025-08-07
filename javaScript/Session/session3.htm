@@ -113,10 +113,10 @@
       var val1= false;
       var val2=false;
       var val3=false;
-       var r12= ((val1==true&&val2==true)||(val2==true&&val3==true)||(val1==true&&val3==true)) ? "At least two are true":"Less than two are true";
+       var r12= ((val1&&val2)||(val2&&val3)||(val1&&val3)) ? "At least two are true":"Less than two are true";
        console.log(r12);
 
-       var r13=(val1==true&&val2==true) ? "Both are true":"At least one is false";
+       var r13=(val1&&val2) ? "Both are true":"At least one is false";
        console.log(r13);
 
        var str1="q";
@@ -126,7 +126,7 @@
 
        var str3="HI";
        var str4="HI";
-       var r15=(str3==str4) ? "Strings are equal":"Strings are not equal";
+       var r15=(str3===str4) ? "Strings are equal":"Strings are not equal";
        console.log(r15);
 
 

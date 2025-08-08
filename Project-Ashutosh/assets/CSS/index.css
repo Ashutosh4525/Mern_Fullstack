@@ -1686,6 +1686,13 @@ footer{
 .IV h5 span{
     color: white;
 }
+.IV h5 {
+   padding: 5px 0px;
+}
+.IV p{
+    font-size: 14px;
+    padding-bottom: 5px;
+}
 .footicon{
     display: flex;
     font-size: 20px;

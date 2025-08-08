@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>session 5</title>
+</head>
+<body>
+    <!-- <div>
+        <input type="text" name="name" id="name">
+        <button onclick="f1()">click</button>
+        <h3 id="result"></h3>
+    </div>
+    <div>
+        <input type="number" name="num" id="num">
+        <button onclick="f2()">click</button>
+        <h3 id="r"></h3>
+    </div> -->
+    <div>
+        <input type="number" name="even" id="q1">
+        <button onclick="fq1()">click</button>
+        <h3 id="r1"></h3>
+    </div>
+     <div>
+        <input type="number1" name="qu2" id="q2">
+        <button onclick="fq2()">click</button>
+        <h3 id="r2"></h3>
+    </div>
+     <div>
+        <input type="number2" name="qu3" id="q3">
+        <button onclick="fq3()">click</button>
+        <h3 id="r3"></h3>
+    </div>
+     <div>
+        <input type="number3" name="qu4" id="q4.1">
+        <input type="number3" name="qu4" id="q4.2">
+        <button onclick="fq4()">click</button>
+        <h3 id="r4"></h3>
+    </div>
+    <div>
+        <input type="number3" name="qu4" id="q5">
+        <button onclick="fq5()">click</button>
+        <h3 id="r5"></h3>
+    </div>
+    <div>
+        <input type="number3" name="qu4" id="q6">
+        <button onclick="fq6()">click</button>
+        <h3 id="r6"></h3>
+    </div>
+        <div>
+        <input type="number3" name="qu4" id="q7.1">
+        <input type="number" name="qu4" id="q7.2">
+        <input type="number" name="qu4" id="q7.3">
+        <button onclick="fq7()">click</button>
+        <h3 id="r7"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q8.1">
+        <input type="number" name="q" id="q8.2">
+        <input type="number" name="q" id="q8.3">
+         <button onclick="fq8()">click</button>
+         <h3 id="r8"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q9.1">
+        <input type="number" name="q" id="q9.2">
+        <input type="number" name="q" id="q9.3">
+         <button onclick="fq9()">click</button>
+         <h3 id="r9"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q10">
+         <button onclick="fq10()">click</button>
+         <h3 id="r10"></h3>
+    </div>
+    <script>
+       function fq1(){
+           var num2=Number(document.getElementById("q1").value);
+           var r1=document.getElementById("r1");
+           if(num2%2==0){
+               r1.innerHTML= num2+ " is even";
+           }
+           else{
+              r1.innerHTML= num2+ " is odd";
+           }
+       }
+       function fq2(){
+        var num3=Number (document.getElementById("q2").value);
+            var r2 = document.getElementById("r2");
+            if(num3>0){
+                r2.innerHTML= num3 + " is positive";
+            }
+            else if(num3==0){
+                r2.innerHTML=num3+ "is 0";
+            }
+            else{
+                r2.innerHTML=num3 + " is negative"
+            }
+       }
+       function fq3(){
+        var num4=Number(document.getElementById("q3").value);
+        var r3=document.getElementById("r3");
+        // var isNan=true;
+        if (isNaN(num4)){
+            r3.innerHTML=num4 + " is not num";
+        }
+        else{
+            r3.innerHTML=num4 + " is num";
+        }
+       }
+       function fq4(){
+        var num5=Number (document.getElementById("q4.1").value);
+        var num6=Number (document.getElementById("q4.2").value);
+        var r4= document.getElementById(r4);
+        if(num5>num6){
+            r4.innerHTML= num6+ "is smaller"
+        }
+        else{
+            r4.innerHTML= num5 + "is smaller"
+        }
+       }
+       function fq5(){
+          var num7=Number(document.getElementById("q5").value);
+          var r5=document.getElementById("r5");
+          if (num7%3==0&&num7%5==0){
+            r5.innerHTML="true";
+          }
+          else{
+            r5.innerHTML="false";
+          }
+       }
+       function fq6(){
+        var num8=(document.getElementById("q6").value);
+          var r6=document.getElementById("r6");
+          if(num8.includes("a")){
+            r6.innerHTML="Yes";
+          }
+          else{
+            r6.innerHTML="no";
+          }
+       }
+       function fq7(){
+        var num9= Number(document.getElementById("q7.1").value);
+        var num10=Number(document.getElementById("q7.2").value);
+        var num11=Number(document.getElementById("q7.3").value);
+        var num12=num9*num10*num11;
+        var r7= document.getElementById("r7");
+        if(num12>0){
+            r7.innerHTML="Positive";
+        }
+        else if(num12==0){
+            r7.innerHTML="Zero";
+        }
+        else{
+            r7.innerHTML="negative";
+        }
+       }
+       function fq8(){
+        var num12= Number(document.getElementById("q8.1").value);
+        var num13=Number(document.getElementById("q8.2").value);
+        var num14=Number(document.getElementById("q8.3").value);
+        var r8=document.getElementById("r8");
+        if((num12>num13)&&(num12>num14)){
+            r8.innerHTML= num12+ "is bigger"
+        }
+        else if((num13>num12)&&(num13>num14)){
+           r8.innerHTML=num13 + "is bigger"
+        }
+        else{
+            r8.innerHTML=num14 + " is bigger"
+        }
+       }
+       function fq9(){
+        var num15= Number(document.getElementById("q9.1").value);
+        var num16=Number(document.getElementById("q9.2").value);
+        var num17=Number(document.getElementById("q9.3").value);
+        var r8=document.getElementById("r9");
+        if(num15===num16===num17){
+            
+        }
+       }
+
+       
+        // function f1(){
+        //     var a=document.getElementById("name").value; 
+        //     var d=a.trim();
+        //     var c=(d.length);
+        //     var b=document.getElementById("result");
+        //     b.innerHTML="Length is "+c;
+        // }
+        // function f2(){
+        //     var num1=Number (document.getElementById(num).value);
+        //     var r = document.getElementById("r");
+        //     if(num1>10){
+        //         r.innerHTML= num1 + " is greater than 10"
+        //     }
+        //     else if(num1==10){
+        //         r.innerHTML=num1+ "is 10";
+        //     }
+        //     else{
+        //         r.innerHTML=num1 + " lower than 10"
+        //     }
+        // }
+
+
+    </script>
+</body>
+</html>

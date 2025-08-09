@@ -18,60 +18,107 @@
     </div> -->
     <div>
         <input type="number" name="even" id="q1">
-        <button onclick="fq1()">click</button>
+        <button onclick="fq1()">clickq1</button>
         <h3 id="r1"></h3>
     </div>
      <div>
         <input type="number1" name="qu2" id="q2">
-        <button onclick="fq2()">click</button>
+        <button onclick="fq2()">clickq2</button>
         <h3 id="r2"></h3>
     </div>
      <div>
         <input type="number2" name="qu3" id="q3">
-        <button onclick="fq3()">click</button>
+        <button onclick="fq3()">clickq3</button>
         <h3 id="r3"></h3>
     </div>
      <div>
         <input type="number3" name="qu4" id="q4.1">
         <input type="number3" name="qu4" id="q4.2">
-        <button onclick="fq4()">click</button>
+        <button onclick="fq4()">clickq4</button>
         <h3 id="r4"></h3>
     </div>
     <div>
         <input type="number3" name="qu4" id="q5">
-        <button onclick="fq5()">click</button>
+        <button onclick="fq5()">clickq5</button>
         <h3 id="r5"></h3>
     </div>
     <div>
         <input type="number3" name="qu4" id="q6">
-        <button onclick="fq6()">click</button>
+        <button onclick="fq6()">clickq7</button>
         <h3 id="r6"></h3>
     </div>
         <div>
         <input type="number3" name="qu4" id="q7.1">
         <input type="number" name="qu4" id="q7.2">
         <input type="number" name="qu4" id="q7.3">
-        <button onclick="fq7()">click</button>
+        <button onclick="fq7()">clickq8</button>
         <h3 id="r7"></h3>
     </div>
     <div>
         <input type="number" name="q" id="q8.1">
         <input type="number" name="q" id="q8.2">
         <input type="number" name="q" id="q8.3">
-         <button onclick="fq8()">click</button>
+         <button onclick="fq8()">clickq9</button>
          <h3 id="r8"></h3>
     </div>
     <div>
         <input type="number" name="q" id="q9.1">
         <input type="number" name="q" id="q9.2">
         <input type="number" name="q" id="q9.3">
-         <button onclick="fq9()">click</button>
+         <button onclick="fq9()">clickq10</button>
          <h3 id="r9"></h3>
     </div>
     <div>
         <input type="number" name="q" id="q10">
-         <button onclick="fq10()">click</button>
+         <button onclick="fq10()">clickq11</button>
          <h3 id="r10"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q11">
+         <button onclick="fq11()">clickq12</button>
+         <h3 id="r11"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q12">
+         <button onclick="fq12()">clickq13</button>
+         <h3 id="r12"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q13">
+         <button onclick="fq13()">clickq14</button>
+         <h3 id="r13"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q14.1">
+        <input type="number" name="q" id="q14.2" required>
+         <button onclick="fq14()">clickq15</button>
+         <h3 id="r14"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q15.1">
+        <input type="number" name="q" id="q15.2">
+         <button onclick="fq15()">clickq16</button>
+         <h3 id="r15"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q16">
+         <button onclick="fq16()">clickq17</button>
+         <h3 id="r16"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q17">
+         <button onclick="fq17()">clickq18</button>
+         <h3 id="r17"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q18">
+         <button onclick="fq18()">clickq19</button>
+         <h3 id="r18"></h3>
+    </div>
+    <div>
+        <input type="number" name="q" id="q19">
+         <button onclick="calculateIncomeTax()">clickq20</button>
+         <h3 id="r19"></h3>
     </div>
     <script>
        function fq1(){
@@ -174,11 +221,226 @@
         var num15= Number(document.getElementById("q9.1").value);
         var num16=Number(document.getElementById("q9.2").value);
         var num17=Number(document.getElementById("q9.3").value);
-        var r8=document.getElementById("r9");
+        var r9=document.getElementById("r9");
         if(num15===num16===num17){
-            
+            r9.innerHTML="is Equilateral"
+        }
+        else if((num15==num16)||(num17==num16)||(num15==num17)){
+             r9.innerHTML="is scalene";
+        }
+        else{
+            r9.innerHTML="is isosceles"
         }
        }
+       function fq10(){
+        var num18=Number(document.getElementById("q10").value);
+        var r10=document.getElementById("r10");
+        if(num18%4==0){
+            r10.innerHTML= num18+" is Leap Year";
+        }
+        else{
+            r10.innerHTML= num18+" is not a Leap Year";
+        }
+       }
+       function fq11(){
+        var num19=Number(document.getElementById("q11").value);
+        var r11=document.getElementById("r11");
+         if (num19 >= 100 && num19 <= 500) {
+        r11.innerHTML = "Discount of 10%";
+        } 
+        else if (num19 >= 501 && num19 <= 1000) {
+            r11.innerHTML = "Discount of 15%";
+        } 
+        else if (num19 >= 1001 && num19 <= 3000) {
+            r11.innerHTML = "Discount of 20%";
+        } 
+        else if (num19 > 3000) {
+            r11.innerHTML = "Discount of 25%";
+        } 
+        else {
+            r11.innerHTML = "Amount should be 100 or more";
+        }
+    }
+    
+     function fq12(){
+        var num20=Number(document.getElementById("q12").value);
+        var r12=document.getElementById("r12");
+         if (num20 >= 0 && num20 < 90) {
+        r12.innerHTML = "Acute";
+        } 
+        else if (num20 == 90) {
+            r12.innerHTML = "Right angle";
+        } 
+        else if (num20 > 90 && num20 < 180) {
+            r12.innerHTML = "Obtuse angle";
+        } 
+        else if (num20 == 180) {
+            r12.innerHTML = "Straight Angle";
+        } 
+        else if(num20>180&&num20<360){
+           r12.innerHTML="Reflex angle";
+        }
+        else  {
+            r12.innerHTML = "Complete angle";
+        }
+    }
+    function fq13(){
+        var num21=Number(document.getElementById("q13").value);
+        var r13=document.getElementById("r13");
+         if (num21 >= 90 && num21 < 100) {
+        r13.innerHTML = "S grade";
+        } 
+        else if (num21 >=80 && num21 < 90) {
+            r13.innerHTML = "A grade";
+        } 
+        else if (num21 >=70 && num21 < 80) {
+            r13.innerHTML = "B grade";
+        } 
+        else if (num21 >=60 && num21 < 70) {
+            r13.innerHTML = "C grade";
+        } 
+        else if (num21 >=50 && num21 < 60) {
+            r13.innerHTML = "D grade";
+        } 
+        else if (num21 >=40 && num21 < 50) {
+            r13.innerHTML = "E grade";
+        } 
+        else if (num21 >=0 && num21 < 40) {
+            r13.innerHTML = "F grade";
+        } 
+        else {
+            r13.innerHTML = "Invalid Mark";
+        }
+    }
+
+    function fq14(){
+        var mon=Number(document.getElementById("q14.1").value);
+        var year=Number(document.getElementById("q14.2").value);
+        var r14=document.getElementById("r14");
+    
+          if (mon > 12 || mon < 1 && year>0) {
+           r14.innerHTML = "Invalid";
+         }
+         else if ((mon==2)) {
+            if((year%4==0)){
+            r14.innerHTML="29days"
+            }
+            else  {
+            r14.innerHTML="28days"
+        } 
+        } 
+         else if ((mon==4||mon==6||mon==9||mon==11)) {
+            r14.innerHTML="30days"
+        } 
+         else{
+            r14.innerHTML="31days"
+        }
+        } 
+
+        function fq15(){
+        var weight=Number(document.getElementById("q15.1").value);
+        var height=Number(document.getElementById("q15.2").value);
+        var r15=document.getElementById("r15");
+        var BMI=weight/(height**2);
+    
+          if (BMI<=18.5) {
+           r15.innerHTML = "UnderWeight";
+         }
+         else if(BMI>18.5&&BMI<24.9){
+            r15.innerHTML="Normal Weight"
+         }
+         else if(BMI>=25&&BMI<=29.9){
+            r15.innerHTML="Overweight"
+         }
+         else{
+            r15.innerHTML="Obesity"
+         }
+        }
+
+        function fq16(){
+            var val16=Number(document.getElementById("q16").value);
+            var r16=document.getElementById("r16");
+            var fr=Math.cbrt(val16);
+            if ((fr > 0) && (Math.floor(fr) === fr) ){
+                r16.innerHTML=" a perfect cube";
+            }
+            else{
+                r16.innerHTML="Not a Perfect cube"
+            }
+        }
+        function fq17(){
+            var val17=Number(document.getElementById("q17").value);
+            var r17=document.getElementById("r17");
+            
+            if ((val17 < 0)){
+                r17.innerHTML=" invalid";
+            }
+            else{
+                var inch=val17/2.54;
+                r17.innerHTML= inch+" inches"
+            }
+        }
+
+        function fq18(){
+            var val18=Number(document.getElementById("q18").value);
+            var r18=document.getElementById("r18");
+            
+            if ((val18 < -273.15)){
+                r18.innerHTML=" invalid  because it is below absolute zero";
+            }
+            else if(val18==-273.15){
+                r18.innerHTML= " temperature is absolute 0"
+            }
+            else if(val18>-273.15&&val18<0){
+                r18.innerHTML="temperature is below freezing"
+            }
+             else if(val18==0){
+                r18.innerHTML="temperature is at the freezing point"
+            }
+             else if(val18>0&&val18<100){
+                r18.innerHTML="the temperature is in the normal range"
+            }
+             else if(val18==100){
+                r18.innerHTML="temperature is at the boiling point"
+            }
+            else{
+                r18.innerHTML="the temperature is above the boiling point"
+            }
+            
+        }
+        function calculateIncomeTax(){
+            var val19=Number(document.getElementById("q19").value);
+            var r19=document.getElementById("r19");
+            if (val19<=10000){
+                r19.innerHTML="5% tax rate";
+            }
+            else if (val19>=10001&&val19<=50000){
+                r19.innerHTML="10% tax rate";
+            }
+            else{
+                r19.innerHTML="20% tax rate";
+            }
+        }
+       
+
+        // switch(true){
+        //     case (num19>=100&&num19<=500):
+        //         r11.innerHTML="Discount of 10%";
+        //     break;
+        //     case (num19>=501&&num19<=1000):
+        //         r11.innerHTML="Discount of 15%";
+        //     break;
+        //     case (num19>=1001&&num19<=3000):
+        //         r11.innerHTML="Discount of 20%";
+        //     break;
+        //     case (num19>=3000):
+        //         r11.innerHTML="Discount of 25%";
+        //     break;
+        //     default:
+        //         r11.innerHTML="amount should be 100 or more";
+        //         break;
+    //     }
+    //    }
 
        
         // function f1(){

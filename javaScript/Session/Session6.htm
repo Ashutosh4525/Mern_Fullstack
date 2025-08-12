@@ -119,19 +119,31 @@
             var temp=0;
             for(var third=1;third<=10;third++){
                 temp+=third;
-                console.log(temp);
             }
+            console.log(temp);
+
+
             var temp1=1;
             for(var fourth=1;fourth<=10;fourth++){
                 temp1*=fourth;
-                console.log(temp1);
             }
+            console.log(temp1);
             
             for (var five=1;five<=100;five++){
                if (five%6==0){
-                console.log(five);
                }
             }
+             console.log(five);
+
+            // for (var six=1;six<=20;six+=2){
+            //    console.log(six);
+            // }
+            for (var six=1;six<=20;six++){
+               if (six%2==0){
+               }
+               console.log(six);
+            }
+            
 
             for (var seven=100;seven>=0;seven--){
                if (seven%7==0){
@@ -139,7 +151,207 @@
                }
             }
 
+            for (var eight=1;eight<=100;eight++){
+               if (eight%3==0&&eight%5==0){
+                console.log("FIZZBUZZ");
+               }
+               else if(eight%5==0){
+                  console.log("BUZZ")
+               }
+               else if(eight%3==0){
+                console.log("FIZZ");
+               }
+               else {
+                    console.log(eight);
+                }
+            }
+            var nine=0
+            // var nine1=1
+            // while(nine1<=1000){
+            //     nine1++;
+            //     if (nine1%3==0||nine1%5==0){
+            //         (nine+=nine1);
+            //     }
+            //     console.log(nine);
+            // }
 
+            for(var nine2=1;nine2<1000;nine2++){
+                if (nine2%3==0||nine2%5==0){
+                 (nine+=nine2);
+                }
+            }
+            console.log(nine);
+
+
+            var arr = [3,5,3,2,6,3,32,21,34,56];
+            for(var i=0;i<=arr.length-1;i++){
+                if(arr[i]%2==0){
+                    console.log(arr[i]);
+                }
+            }
+
+            var sum=0;
+             var arr = [3,5,3,2,6,3,32,21,34,56];
+            for(var i=0;i<=arr.length-1;i++){
+                if(arr[i]%2!=0){
+                    console.log(arr[i]);
+                    sum+=arr[i];
+                    console.log(sum);
+                }
+            }
+
+            for(var a of arr){
+                if(a%2!==0){
+                  console.log(a);
+                }
+            }
+
+            // var arr1 = ["a","b","c","i","u","x","z","o"];
+            var arr2="sdafufdfdqff";
+            var count=0;
+            for(var i=0;i<=arr2.length-1;i++){
+                if(arr2[i]=="a"||arr2[i]=="e"||arr2[i]=="i"||arr2[i]=="o"||arr2[i]=="u"){
+                    count++;
+                }   
+            }
+            console.log(count);
+
+            twelve=1;
+            for (var twel=10;twel>=1;twel--){
+              twelve*=twel;
+            }
+            console.log(twelve);
+
+            // var arrthirteen = [3,5,3,2,6,3,32,21,34,56];
+            // for(var i=0;i<=arrthirteen.length-1;i++){
+            //     console.log(arrthirteen[i]);
+            // }
+            
+            var arrfourteen = [3,5,3,2,6,3,32,21,34,56];
+            var arrfourteen1=[];
+            for(var i=arrfourteen.length-1;i>=0;i--){
+                arrfourteen1.push(arrfourteen[i]);
+            }
+            console.log(arrfourteen1);
+
+            // var sixteen=prompt("Enter the number1");
+            // var sixteen1=prompt("Enter the number2");
+            // var sumthis1=sixteen+sixteen1;
+
+            var sixsum=0;
+        //     do{
+        //     var sixteen=+prompt("Enter the number");
+        //     if(sixteen>0){
+        //          sixsum+=sixteen;
+        //     }
+        // }
+        //    while(sixteen>0){
+        //        console.log(sixsum);
+        //     }
+
+        var product=0;
+        var fif=2;
+        for (i=1;i<=12;i++){
+           product=fif;
+           console.log(product*i);
+        }
+
+        //..
+        // for(;;){
+        //    var sixteen=+prompt("Enter the number");
+        //    sixsum+=sixteen;
+        //    if(sixteen<0){
+        //     break;
+        //    }
+        //   console.log(sixsum); 
+        // }
+
+        var sixteen=+Number(prompt("Enter the number"));
+        while(sixteen>=0){
+           var add= sixteen=+Number(prompt("Enter the number"));
+           add+=sixteen;
+            console.log(add);
+        }
+        
+        var sixteen1=Number(prompt("Enter the number"));
+        var sum1=0;
+        while(sixteen1>=0){
+            
+           sixteen1=Number(prompt("Enter the number"));
+           sum1+=sixteen1;
+           console.log(sixteen1);    
+        }
+        console.log(sum1);
+
+            var arrsev=[2,3,3,"Hello", 7, "Welcome", 28,27,"World"];
+            for(var i=0;i<=arrsev.length-1;i++){
+                if (typeof(arrsev[i])=="string"){
+                   console.log(arrsev[i]);
+                }
+            }
+            
+            var arr18 = [23,56,4,78,5,63,45,210,56];
+            for(i=0;i<=arr18.length-1;i++){
+                if (arr18[i]===56){
+                arr18.splice(i,1);
+                }
+            }
+             console.log(arr18); 
+            
+//
+             var count2=0
+             var num=4663520987654321;
+             for(i=num;i>0;i= Math.floor(i / 10)){
+                count2++;
+             }
+            console.log(count2);
+
+
+            var tem=0;
+            var num1=46678;
+             for(i=num1;i>0;i= Math.floor(i / 10)){
+                var dig=i%10;
+                tem+=dig;
+             }
+             console.log(tem);
+
+
+             var tem1=0;
+             var num2=1729;
+             for(i=num2;i>0;i= Math.floor(i / 10)){
+                var dig1=i%10;
+                tem1+=dig1;
+                var res=num2%tem1;
+             }
+             if (res==0){
+                console.log(true);
+             }
+             else{
+                console.log(false);
+             }
+
+             var tem2=0;
+             var num3=1634;
+             var coun=0;
+             for(i=num3;i>0;i= Math.floor(i / 10)){
+                coun++;
+                // var dig1=i%10;
+             }
+             console.log(coun);
+            //  console.log(dig1);
+            for(var j=num3;j>0;j= Math.floor(j / 10)){
+                  var dig1=j%10;
+                 tem2+=(dig1**=coun);
+                //  tem2+=dig1;
+            }
+            console.log(tem2);
+             
+             
+            
+             
+
+
+            
     </script>
 
 

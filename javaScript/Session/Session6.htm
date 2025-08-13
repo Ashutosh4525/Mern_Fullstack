@@ -6,6 +6,11 @@
     <title>Js_Session6</title>
 </head>
 <body>
+
+    <div>
+        <h2 id="fir"></h2>
+        <h2 id="res"></h2>
+    </div>
     
     <script>
 
@@ -273,14 +278,14 @@
         //     console.log(add);
         // }
         
-        var sixteen1=Number(prompt("Enter the number"));
-        var sum1=0;
-        while(sixteen1>=0){
-            console.log(sixteen1); 
-            sum1+=sixteen1; 
-           sixteen1=Number(prompt("Enter the number"));
-        }
-        console.log(sum1);
+        // var sixteen1=Number(prompt("Enter the number"));
+        // var sum1=0;
+        // while(sixteen1>=0){
+        //     console.log(sixteen1); 
+        //     sum1+=sixteen1; 
+        //    sixteen1=Number(prompt("Enter the number"));
+        // }
+        // console.log(sum1);
 
             var arrsev=[2,3,3,"Hello", 7, "Welcome", 28,27,"World"];
             for(var i=0;i<=arrsev.length-1;i++){
@@ -345,6 +350,101 @@
             }
             console.log(tem2);
              
+
+            //  var std_data = {
+            //     data : [{name:"std1",email:"std1@gmail.com"},
+            //     {name:"std2",email:"std2@gmail.com"}]
+            //     }
+            //     var data = {
+            //     "User_1":{"Name":"jhon","Subject":"Js"},
+            //     "User_2":{"Name":"tom","Subject" : "Python","contact":[[[76278 , 63763]]]}
+            //     };
+
+            var obj={
+                id:1,
+                first_name:"ashu",
+                last_name:"pal",
+                email:"ashu@gmail",
+                avatar:"img1.jpg"
+            }
+            // var fir=document.getElementById("fir")
+            for(var key in obj){
+                var val=obj[key]
+                console.log(key,val);
+                // fir.innerHTML+="<br>"+key+" : "+val;
+            }
+
+            var res=document.getElementById("res");
+            for (var r=1;r<=3;r++){
+                for(var c=1;c<=5;c++){
+                    res.innerHTML+=c;
+                }
+                res.innerHTML+="<br>"
+            }
+            for (var r=1;r<=5;r++){
+                for(var c=1;c<=5;c++){
+                    res.innerHTML+=r;
+                }
+                res.innerHTML+="<br>"
+            }
+            for (var r=1;r<=6;r++){
+                for(var c=1;c<=r-1;c++){
+                    res.innerHTML+=c;
+                }
+                res.innerHTML+="<br>"
+            }
+
+            //  for (var r=1;r<=4;r++){
+            //     for(var c=5;c>=c-r;c--){
+            //         res.innerHTML+=c;
+            //     }
+            //     res.innerHTML+="<br>"
+            // }
+            for (var r=4;r>=1;r--){
+                for(var c=r;c>=1;c--){
+                    res.innerHTML+=c;
+                }
+                res.innerHTML+="<br>"
+            }
+
+            // for()
+            for (var r=1;r<=6;r=r+2){
+                for(var c=1;c<=r;c++){
+                    res.innerHTML+="*";
+                }
+                res.innerHTML+="<br>"
+            }
+
+             for (var r=1;r<=6;r++){
+                for(var c=1;c<=r;c++){
+                    if (r%2!=0){
+                        res.innerHTML+="1";
+                    }
+                    else{
+                        res.innerHTML+="2";
+                    }
+                }
+                res.innerHTML+="<br>"
+            }
+
+            for (var r=1;r<=5;r++){
+                for(var c=5;c>r;c--){
+                    res.innerHTML+="&nbsp&nbsp";     
+                }
+                 for(m=1;m<=r;m++){
+                    res.innerHTML+="*";
+            }
+                res.innerHTML+="<br>"
+            }
+
+
+
+
+
+
+
+                
+
              
             
              

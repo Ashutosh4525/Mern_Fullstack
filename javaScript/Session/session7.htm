@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>session9</title>
+</head>
+<body>
+    
+    <div id="b1" class="main"></div>
+
+    <div class="color1"></div>
+    <div id="b2" class="box no1" onclick="f1()">RED</div>
+    <div id="b3" class="box no1" onclick="f2()">Green</div>
+    <div id="b4" class="box no1" onclick="f3()">Yellow</div>
+    </div>
+    <style>
+        .main{
+            width: 300px;
+            height: 300px;
+            border: 2px solid black;
+            margin: 50px auto;
+        }
+        .box{
+             width: 200px;
+            height: 100px;
+            border: 2px solid black;
+            margin: 20px;
+        }
+        .color1{
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
+    <script>
+        var box=document.getElementById("b1");
+         var red=document.getElementById("b2");
+         var green=document.getElementById("b3");
+         var yellow=document.getElementById("b4");
+
+         function f1(){
+            box.innerHTML=red;
+         }
+          function f2(){
+            box.innerHTML=green;
+         }
+          function f3(){
+            box.innerHTML=yellow;
+         }
+    </script>
+</body>
+</html>

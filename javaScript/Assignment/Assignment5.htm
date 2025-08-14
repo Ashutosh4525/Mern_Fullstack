@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 5</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="top1" class="top">
+        <h1>Welcome to the dice game</h1>
+        <div class="inn">
+        <input type="text" name="player1" id="pla1" placeholder="Player 1 Name">
+        <input type="text" name="player2" id="pla2" placeholder="Player 2 Name">
+        </div>
+        <button onclick="block()">Let's Go</button>
+    </div>
+    <div id="top2" class="top2">
+        <h2>Dice</h2>
+        <h2 id="win"></h2>
+        <p id="p1"></p>
+        <p id="p2"></p>
+        <div class="box" id="box">
+            
+            <div class="boxin1">
+                <p id="p1_"></p>
+                <h2 id="ran1"></h2>
+                <div class="imge1" >
+                    <img src="../Session/1.png" alt="" id="img1">
+                </div>
+            </div>
+           
+            <div class="boxin2">
+                 <p id="p2_"></p>
+                <h2 id="ran2"></h2>
+                <div class="imge2" >
+                    <img src="../Session/1.png" alt="" id="img2">
+                </div>
+            </div>
+        </div>
+        <button class="rbu" onclick="roll()">Roll</button>
+        <button class="rbu"onclick="reset()">Reset</button>
+    </div>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .top{
+            width: 100%;
+            padding-top: 100px;
+            /* padding-left: 350px; */
+            margin-top: 100px;
+            text-align: center;
+        }
+        h1{
+            font-family: "Roboto", sans-serif;
+            font-weight: 900;
+            font-size: 50px;
+        }
+        .inn{
+            text-align: center;
+        }
+        input{
+            /* display: block; */
+            margin: 10px;
+            outline-color: blue;
+            padding: 5px;
+            text-align: center;
+        }
+        button{
+            background-color: darkblue;
+            color: white;
+            margin: 10px 0px;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .top2{
+            text-align: center;
+            display: none;
+        }
+        .box{
+            display: flex;
+            justify-content: space-between;
+            padding: 30px;
+            align-items: center;
+            align-content: center;
+            text-align: center;
+            border: 2px solid;
+            transition: all 0.2s ease;
+        }
+        .boxin1 {
+            width: 250px;
+            height: 300px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .boxin2{
+            width: 250px;
+            height: 300px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .imge1 {
+            width: 200px;
+            height: 200px;
+            border: 2px solid black;
+            border-radius: 20px;
+            overflow: hidden;
+             transform: rotateY(360deg);
+        }
+        .imge2{
+            width: 200px;
+            height: 200px;
+            border: 2px solid black;
+            border-radius: 20px;
+            overflow: hidden;
+             transform: rotateY(360deg);
+        }
+        img{
+            width: 100%;
+            transform: rotateY(360deg);
+        }
+    </style>
+    <script>
+        function block(){
+            var pla1=document.getElementById("pla1").value;
+            var pla2=document.getElementById("pla2").value;
+            document.getElementById("top1").style.display='none';
+            document.getElementById("top2").style.display='block';
+            document.getElementById("p1").innerHTML=pla1;
+            document.getElementById("p2").innerHTML=pla2;
+            document.getElementById("p1_").innerHTML=pla1;
+            document.getElementById("p2_").innerHTML=pla2;
+        }
+
+            var count1=0;
+            var count2=0;
+        function roll(){
+            var pla1=document.getElementById("pla1").value;
+            var pla2=document.getElementById("pla2").value;
+            document.getElementById("p1_").innerHTML=pla1;
+            document.getElementById("p2_").innerHTML=pla2;
+            document.getElementById("p1").innerHTML=pla1;
+            document.getElementById("p2").innerHTML=pla2;
+            var random1=Math.floor(Math.random() * 6+1);
+            var random2=Math.floor(Math.random() * 6+1);
+            var player1=document.getElementById("ran1").innerHTML=random1;
+            var player2=document.getElementById("ran2").innerHTML=random2;
+            
+            // if(pla1.value===''||pla2.value===''){
+            //         document.getElementById("p1_").innerHTML="player 1";
+            //         document.getElementById("p2_").innerHTML="player 2";
+            //         document.getElementById("p1").innerHTML="player 1";
+            //         document.getElementById("p2").innerHTML="player 2";
+            // }
+            // else{
+            //     document.getElementById("p1_").innerHTML=pla1;
+            //     document.getElementById("p2_").innerHTML=pla2;
+            //     document.getElementById("p1").innerHTML=pla1;
+            //     document.getElementById("p2").innerHTML=pla2;
+            // }
+            if(random1>random2){
+                var score1=document.getElementById("win").innerHTML=pla1+" Wins";
+                count1++;
+            }
+            else if(random2>random1){
+               var score2= document.getElementById("win").innerHTML=pla2+" Wins"; 
+               count2++;
+            }
+            else{
+                document.getElementById("win").innerHTML="Draw";
+            }
+       
+
+
+            var sco1=document.getElementById("p1").innerHTML=pla1+" "+ count1;
+            var sco2=document.getElementById("p2").innerHTML=pla2+" "+ count2;
+
+
+
+            var play1img=document.getElementById("img1");
+            var play2img=document.getElementById("img2");
+            if(random1==1){
+                play1img.src="../Session/1.png";
+            }
+            else if(random1==2){
+                play1img.src="../Session/2.png";
+            }
+             else if(random1==3){
+                play1img.src="../Session/3.png";
+            }
+             else if(random1==4){
+                play1img.src="../Session/4.png";
+            }
+             else if(random1==5){
+                play1img.src="../Session/5.png";
+            }
+             else{
+                play1img.src="../Session/6.png";
+            }
+
+            if(random2==1){
+                play2img.src="../Session/1.png";
+            }
+            else if(random2==2){
+                play2img.src="../Session/2.png";
+            }
+             else if(random2==3){
+                play2img.src="../Session/3.png";
+            }
+             else if(random2==4){
+                play2img.src="../Session/4.png";
+            }
+             else if(random2==5){
+                play2img.src="../Session/5.png";
+            }
+             else{
+                play2img.src="../Session/6.png";
+            }
+        }
+
+
+        function reset(){
+            var pla1=document.getElementById("pla1").value="";
+            var pla2=document.getElementById("pla2").value="";
+            var p1_1=document.getElementById("p1_").innerHTML="";
+            var p2_2=document.getElementById("p2_").innerHTML="";
+            var random1=Math.floor(Math.random() * 6+1);
+            var random2=Math.floor(Math.random() * 6+1);
+            var player1=document.getElementById("ran1").innerHTML="";
+            var player2=document.getElementById("ran2").innerHTML=""; 
+            var play1img=document.getElementById("img1");
+            var play2img=document.getElementById("img2");
+            var sco1=document.getElementById("p1").innerHTML=pla1+" "+ "0";
+            var sco2=document.getElementById("p2").innerHTML=pla2+" "+ "0";
+
+            play1img.src="../Session/1.png";
+            play2img.src="../Session/1.png";
+           
+        }
+    </script>
+</body>
+</html>

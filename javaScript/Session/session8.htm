@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>session8</title>
+</head>
+<body>
+    
+
+    <!-- <div class="all button">
+        <button  onclick="f1('red','bt1')" id="bt1">Red</button>
+        <button  onclick="f1('blue','bt2')" id="bt2">Blue</button>
+        <button  onclick="f1('yellow','bt3')" id="bt3">Yellow</button>
+    </div>
+
+     <div class="all1">
+        <button  onclick="f2('red',this)">Red</button>
+        <button  onclick="f2('blue',this)">Blue</button>
+        <button  onclick="f2('yellow',this)">Yellow</button>
+    </div> -->
+
+<h1>Event Listners</h1>
+<div class="box1" onclick="fun(this)">
+    <h2>On click</h2>
+</div>
+
+<div class="box1" onmouseover="fun(this)">
+    <h2>Mouse-over</h2>
+</div>
+
+<div class="box1" onmouseout="fun(this)">
+    <h2>Mouse-out</h2>
+</div>
+
+<div class="box1" onmousemove="fun(this)">
+    <h2>Mouse-move</h2>
+</div>
+
+<div class="box1" ondblclick="fun(this)">
+    <h2>double-click</h2>
+</div>
+
+<div class="box1" onmouseup="fun(this)">
+    <h2>Mouse-up</h2>
+</div>
+
+<div class="box1" onmousedown="fun(this)">
+    <h2>Mouse-down</h2>
+</div>
+
+<input type="text" placeholder="oninput" oninput="fun1(this)">
+<input type="text" placeholder="onfocus" onfocus="fun1(this)">
+<input type="text" placeholder="onblur" onblur="fun1(this)">
+<select onchange="fun1(this)">
+    <option value="mumbai">Mumbai</option>
+    <option value="delhi">Delhi</option>
+    <option value="pune">Pune</option>
+</select>
+<p id="res"></p>
+    <style>
+        .box1{
+            margin: 50px auto;
+            width: 300px;
+            height: 300px;
+            border: 2px solid black;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+        .all{
+            margin: 50px auto;
+            width: 100%;
+        }
+
+        button{
+            padding: 10px;
+            margin: 10px;
+        }
+
+    </style>
+    <script>
+        function f1(color,id){
+            var button1=document.getElementById(id);
+            id.style.backgroundColor=color;
+        }
+
+        function fun(box){
+           console.log("functiom is running");
+           box.style.backgroundColor="lightpink";
+        }
+
+        function fun1(inp){
+            console.log("triggered");
+            document.getElementById("res").innerHTML=inp.value;
+        }
+
+
+        // for browser
+        function add(a,b){
+            var sum=a+b;
+            return sum;
+        }
+
+        // in console
+        var val1=add(20,10);
+        console.log(val1);
+    </script>
+</body>
+</html>

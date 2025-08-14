@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsAssignment6</title>
+</head>
+<body>
+    <script>
+        function calculateArea(l,b){
+            var area=l*b;
+            return area;
+        }
+
+        function isEven(no){
+            var even=(no%2);
+            if (even==0){
+              return true;  
+            } 
+            return false;
+        }
+
+        function calculatePerimeter(l,b){
+            var peri=2*(l+b);
+            return peri;
+        }
+
+        arr=[2,3,4,5,1,7]
+        function findMax(arr){
+            for(var i=0;i<=arr.length-1;i++){
+                var max=Math.max(arr[i]);
+            }
+            return max;
+        }
+        var str
+        function capitalizeFirstLetter(str){
+            var cap=toUpperCase(str.charAt(0));
+            return cap;
+        }
+    </script>
+</body>
+</html>

@@ -9,10 +9,11 @@
     
     <div id="b1" class="main"></div>
 
-    
-    <button id="b2" class="box no1" onclick="f1()">RED</button>
-    <button id="b3" class="box no1" onclick="f2()">Green</button>
-    <button id="b4" class="box no1" onclick="f3()">Yellow</button>
+    <div>
+    <button id="b2" class="box no1" onclick="f1('red')">RED</button>
+    <button id="b3" class="box no1" onclick="f1('green')">Green</button>
+    <button id="b4" class="box no1" onclick="f1('yellow')">Yellow</button>
+    </div>
     
     <style>
         .main{
@@ -53,17 +54,13 @@
 
     </style>
     <script>
-        var box=document.getElementById("b1");
+        
 
-         function f1(){
-           box.classList.toggle("red");
+         function f1(color){
+           var box=document.getElementById("b1");
+           box.style.backgroundColor=color;
          }
-          function f2(){
-            box.classList.toggle("green");
-         }
-          function f3(){
-            box.classList.toggle("yellow");
-         }
+          
     </script>
 </body>
 </html>

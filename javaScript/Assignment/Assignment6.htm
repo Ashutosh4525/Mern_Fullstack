@@ -32,10 +32,42 @@
             }
             return max;
         }
-        var str
+        
         function capitalizeFirstLetter(str){
-            var cap=toUpperCase(str.charAt(0));
-            return cap;
+            var str1 = (str[0]).toUpperCase();
+            return str1+str.substring(1);
+        }
+        function multiplication(num1,num2,num3){
+             var mul=num1*num2*num3;
+             return mul;
+        }
+        function sumStatement(state1,state2){
+            var concat=state1.concat( state2);
+            return concat;
+        }
+        function minIntoSec(min){
+            return min*60;
+        }
+        function ageToDays(age){
+            return age*365;
+        }
+        function sum(n1,n2){
+           var sum100= n1+n2;
+            if(sum100>100){
+                return true;
+            }
+            return false;
+        }
+        function isPrime(no1){
+            if (no1<=1){
+                return false;
+            }
+             for(var i =2;i<no1;i++){
+                if(no1%i==0){
+                    return false;
+                }
+             }
+             return true;
         }
     </script>
 </body>

@@ -25,7 +25,7 @@
             <div class="boxin1">
                 <p id="p1_"></p>
                 <h2 id="ran1"></h2>
-                <div class="imge1" >
+                <div class="imge1" id="imge1" >
                     <img src="../Session/1.png" alt="" id="img1">
                 </div>
             </div>
@@ -33,7 +33,7 @@
             <div class="boxin2">
                  <p id="p2_"></p>
                 <h2 id="ran2"></h2>
-                <div class="imge2" >
+                <div class="imge2" id="imge2" >
                     <img src="../Session/1.png" alt="" id="img2">
                 </div>
             </div>
@@ -109,6 +109,8 @@
             border: 2px solid black;
             border-radius: 20px;
             overflow: hidden;
+            margin-left: 20px ;
+            transition: all 0.5s ease;
              transform: rotateY(360deg);
         }
         .imge2{
@@ -117,6 +119,8 @@
             border: 2px solid black;
             border-radius: 20px;
             overflow: hidden;
+            margin-left: 20px ;
+            transition: all 0.5s ease;
              transform: rotateY(360deg);
         }
         img{
@@ -126,6 +130,10 @@
     </style>
     <script>
         function block(){
+            var pla1Input = document.getElementById("pla1");
+            var pla2Input = document.getElementById("pla2");
+            var pla1 = pla1Input.value || pla1Input.placeholder;
+            var pla2 = pla2Input.value || pla2Input.placeholder;
             var pla1=document.getElementById("pla1").value;
             var pla2=document.getElementById("pla2").value;
             document.getElementById("top1").style.display='none';
@@ -139,6 +147,10 @@
             var count1=0;
             var count2=0;
         function roll(){
+            var pla1Input = document.getElementById("pla1");
+            var pla2Input = document.getElementById("pla2");
+            var pla1 = pla1Input.value || pla1Input.placeholder;
+            var pla2 = pla2Input.value || pla2Input.placeholder;
             var pla1=document.getElementById("pla1").value;
             var pla2=document.getElementById("pla2").value;
             document.getElementById("p1_").innerHTML=pla1;
@@ -183,48 +195,101 @@
 
             var play1img=document.getElementById("img1");
             var play2img=document.getElementById("img2");
+            var playimg1=document.getElementById("imge1");
+            var playimg2=document.getElementById("imge2");
             if(random1==1){
                 play1img.src="../Session/1.png";
-                play1img.style.transform
+                playimg1.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg1.style.transform = 'rotateY(-360deg)';
+                }, 50);
             }
             else if(random1==2){
                 play1img.src="../Session/2.png";
+                playimg1.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg1.style.transform = 'rotateY(-360deg)';
+                }, 50);
             }
              else if(random1==3){
                 play1img.src="../Session/3.png";
+                playimg1.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg1.style.transform = 'rotateY(-360deg)';
+                }, 50);
             }
              else if(random1==4){
                 play1img.src="../Session/4.png";
+                playimg1.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg1.style.transform = 'rotateY(-360deg)';
+                }, 50);
             }
              else if(random1==5){
                 play1img.src="../Session/5.png";
+                playimg1.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg1.style.transform = 'rotateY(-360deg)';
+                }, 50);
             }
              else{
                 play1img.src="../Session/6.png";
+                playimg1.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg1.style.transform = 'rotateY(-360deg)';
+                }, 50);
             }
 
             if(random2==1){
                 play2img.src="../Session/1.png";
+                playimg2.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg2.style.transform = 'rotateY(360deg)';
+                }, 50);
             }
             else if(random2==2){
                 play2img.src="../Session/2.png";
+                playimg2.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg2.style.transform = 'rotateY(360deg)';
+                }, 50);
             }
              else if(random2==3){
                 play2img.src="../Session/3.png";
+                playimg2.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg2.style.transform = 'rotateY(360deg)';
+                }, 50);
             }
              else if(random2==4){
                 play2img.src="../Session/4.png";
+                playimg2.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg2.style.transform = 'rotateY(360deg)';
+                }, 50);
             }
              else if(random2==5){
                 play2img.src="../Session/5.png";
+                playimg2.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg2.style.transform = 'rotateY(360deg)';
+                }, 50);
             }
              else{
                 play2img.src="../Session/6.png";
+                playimg2.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    playimg2.style.transform = 'rotateY(360deg)';
+                }, 50);
             }
         }
 
 
         function reset(){
+            var pla1Input = document.getElementById("pla1");
+            var pla2Input = document.getElementById("pla2");
+            var pla1 = pla1Input.value || pla1Input.placeholder;
+            var pla2 = pla2Input.value || pla2Input.placeholder;
             var pla1=document.getElementById("pla1").value="";
             var pla2=document.getElementById("pla2").value="";
             var p1_1=document.getElementById("p1_").innerHTML="";
@@ -235,8 +300,10 @@
             var player2=document.getElementById("ran2").innerHTML=""; 
             var play1img=document.getElementById("img1");
             var play2img=document.getElementById("img2");
-            var sco1=document.getElementById("p1").innerHTML=pla1+" "+ "0";
-            var sco2=document.getElementById("p2").innerHTML=pla2+" "+ "0";
+            count1=0;
+            count2=0;
+            var sco1=document.getElementById("p1").innerHTML=pla1+" "+ count1;
+            var sco2=document.getElementById("p2").innerHTML=pla2+" "+ count2;
             play1img.src="../Session/1.png";
             play2img.src="../Session/1.png";
         }

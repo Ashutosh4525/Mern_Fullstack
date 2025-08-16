@@ -6,9 +6,29 @@
     <title>session8</title>
 </head>
 <body>
-    
+        <style>
+        .box1{
+            margin: 50px auto;
+            width: 300px;
+            height: 300px;
+            border: 2px solid black;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+        .all{
+            margin: 50px auto;
+            width: 100%;
+        }
 
-    <!-- <div class="all button">
+        button{
+            padding: 10px;
+            margin: 10px;
+        }
+
+    </style>
+
+    <div class="all button">
         <button  onclick="f1('red','bt1')" id="bt1">Red</button>
         <button  onclick="f1('blue','bt2')" id="bt2">Blue</button>
         <button  onclick="f1('yellow','bt3')" id="bt3">Yellow</button>
@@ -18,7 +38,7 @@
         <button  onclick="f2('red',this)">Red</button>
         <button  onclick="f2('blue',this)">Blue</button>
         <button  onclick="f2('yellow',this)">Yellow</button>
-    </div> -->
+    </div>
 
 <h1>Event Listners</h1>
 <div class="box1" onclick="fun(this)">
@@ -58,33 +78,17 @@
     <option value="pune">Pune</option>
 </select>
 <p id="res"></p>
-    <style>
-        .box1{
-            margin: 50px auto;
-            width: 300px;
-            height: 300px;
-            border: 2px solid black;
-            display: flex;
-            justify-content: center;
-            text-align: center;
-        }
-        .all{
-            margin: 50px auto;
-            width: 100%;
-        }
 
-        button{
-            padding: 10px;
-            margin: 10px;
-        }
-
-    </style>
     <script>
         function f1(color,id){
             var button1=document.getElementById(id);
-            id.style.backgroundColor=color;
+            button1.style.backgroundColor=color;
         }
 
+        function f2(color,btn){
+           btn.style.backgroundColor=color;
+        }
+        
         function fun(box){
            console.log("functiom is running");
            box.style.backgroundColor="lightpink";

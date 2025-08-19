@@ -3,42 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment 5</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital@0;1&display=swap" rel="stylesheet">
+    <title>js assignment 7</title>
 </head>
 <body>
-    <div id="top1" class="top">
+     <!-- <div id="top1" class="top">
         <h1>Welcome to the dice game</h1>
         <div class="inn">
-        <input type="text" name="player1" id="pla1" placeholder="Player 1 ">
-        <input type="text" name="player2" id="pla2" placeholder="Player 2 ">
+        <input type="text" name="player1" id="pla1" placeholder="Player ">
         </div>
         <button onclick="block()">Let's Go</button>
-    </div>
+    </div> -->
     <div id="top2" class="top2">
-        <h2>Dice</h2>
-        <h2 id="win"></h2>
-        <p id="p1"></p>
-        <p id="p2"></p>
+        <h1>Dice Game</h1>
+        <h2 id="winning"></h2>
+        <h2 >You have to make <span id="winnum">_</span> in 10 chances to win</h2>
+        <h2 >Remaining chances: <span id="chance">_</span> </h2>
         <div class="box" id="box">
-            
             <div class="boxin1">
-                <p id="p1_"></p>
-                <h2 id="ran1"></h2>
                 <div class="imge1" id="imge1" >
                     <img src="../Session/1.png" alt="" id="img1">
                 </div>
             </div>
            
             <div class="boxin2">
-                 <p id="p2_"></p>
-                <h2 id="ran2"></h2>
                 <div class="imge2" id="imge2" >
                     <img src="../Session/1.png" alt="" id="img2">
                 </div>
             </div>
         </div>
-        <button class="rbu" onclick="roll()">Roll</button>
+        <button class="rbu" id="click" onclick="num()">Click for Win Number</button>
+        <button class="rbu" id="rollbtn" onclick="roll()" disabled>Roll</button>
         <button class="rbu"onclick="reset()">Reset</button>
     </div>
     <style>
@@ -46,6 +40,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            
+            color: white;
         }
         .top{
             width: 100%;
@@ -74,33 +70,37 @@
             color: white;
             margin: 10px 0px;
             border: none;
-            padding: 5px;
+            padding: 15px;
             border-radius: 5px;
         }
         .top2{
             text-align: center;
-            display: none;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.8));
+            background-repeat: no-repeat;
+            background-size: cover;
         }
         .box{
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             padding: 30px;
             align-items: center;
             align-content: center;
             text-align: center;
-            
+            background-color: transparent;
             transition: all 0.2s ease;
         }
         .boxin1 {
             width: 250px;
             height: 300px;
             text-align: center;
+            background-color: transparent;
             transition: all 0.2s ease;
         }
         .boxin2{
             width: 250px;
             height: 300px;
             text-align: center;
+            background-color: transparent;
             transition: all 0.2s ease;
         }
         .imge1 {
@@ -111,6 +111,7 @@
             overflow: hidden;
             margin-left: 20px ;
             transition: all 0.5s ease;
+            background-color: transparent;
              transform: rotateY(360deg);
         }
         .imge2{
@@ -121,80 +122,89 @@
             overflow: hidden;
             margin-left: 20px ;
             transition: all 0.5s ease;
+            background-color: transparent;
              transform: rotateY(360deg);
         }
         img{
             width: 100%;
             transition: all 0.5s ease;
+            background-color: transparent;
             transform: rotateY(360deg);
+        }
+        span{
+            color: blue;
         }
     </style>
     <script>
-        function block(){
-            var pla1Input = document.getElementById("pla1");
-            var pla2Input = document.getElementById("pla2");
-            var pla1=document.getElementById("pla1").value;
-            var pla2=document.getElementById("pla2").value;
-            var pla1 = pla1Input.value || pla1Input.placeholder;
-            var pla2 = pla2Input.value || pla2Input.placeholder;
-            document.getElementById("top1").style.display='none';
-            document.getElementById("top2").style.display='block';
-            document.getElementById("p1").innerHTML=pla1;
-            document.getElementById("p2").innerHTML=pla2;
-            document.getElementById("p1_").innerHTML=pla1;
-            document.getElementById("p2_").innerHTML=pla2;
+        // function block(){
+        //     var pla1Input = document.getElementById("pla1");
+        //     var pla2Input = document.getElementById("pla2");
+        //     var pla1=document.getElementById("pla1").value;
+        //     var pla2=document.getElementById("pla2").value;
+        //     var pla1 = pla1Input.value || pla1Input.placeholder;
+        //     var pla2 = pla2Input.value || pla2Input.placeholder;
+        //     document.getElementById("top1").style.display='none';
+        //     document.getElementById("top2").style.display='block';
+        //     document.getElementById("p1").innerHTML=pla1;
+        //     document.getElementById("p2").innerHTML=pla2;
+        //     document.getElementById("p1_").innerHTML=pla1;
+        //     document.getElementById("p2_").innerHTML=pla2;
+        // }
+  // var random=Math.floor(Math.random() * 11+2);
+        // function num(){
+        //   var win=document.getElementById("winnum");
+        //   var num1=win.innerHTML=random;
+        //   chances = 10; // reset chances
+        //   document.getElementById("chance").innerHTML = chances;
+        //   return num1;
+        var chances = 10; 
+
+        function num() {
+            var random = Math.floor(Math.random() * 11 + 2);
+            document.getElementById("winnum").innerHTML = random;
+            document.getElementById("click").disabled=true;
+            document.getElementById("click").style.backgroundColor="rgba(0, 0, 139, 0.5)";
+            chances = 10;
+            document.getElementById("chance").innerHTML = chances;
+            document.getElementById("rollbtn").disabled=false;
+            document.getElementById("rollbtn").style.backgroundColor="darkblue";
+        }
+        //   var chance=document.getElementById("chances");
+        //   var chances=chance.innerHTML=10;
+
+     
+        function roll(){   
+        var play1img=document.getElementById("img1");
+        var play2img=document.getElementById("img2");
+        var playimg1=document.getElementById("imge1");
+        var playimg2=document.getElementById("imge2");
+        var random1=Math.floor(Math.random() * 6+1);
+        var random2=Math.floor(Math.random() * 6+1);
+        var num1 = Number(document.getElementById("winnum").innerHTML);
+        var winning = document.getElementById("winning");
+        document.getElementById("click").disabled=true;
+        document.getElementById("click").style.backgroundColor="rgba(0, 0, 139, 0.5)";
+
+        if(chances<=0){
+            return; 
+        }
+        chances--;
+        document.getElementById("chance").innerHTML = chances;
+
+          
+        if (random1+random2==num1){
+          winning.innerHTML="You Won!!!";
+          document.getElementById("rollbtn").disabled=true;
+          document.getElementById("rollbtn").style.backgroundColor="rgba(0, 0, 139, 0.5)";
+          document.getElementById("top2").style.backgroundImage="linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url(./firework.gif)";
         }
 
-            var count1=0;
-            var count2=0;
-        function roll(){
-            var pla1Input = document.getElementById("pla1");
-            var pla2Input = document.getElementById("pla2");
-            var pla1=document.getElementById("pla1").value;
-            var pla2=document.getElementById("pla2").value;
-            var pla1 = pla1Input.value || pla1Input.placeholder;
-            var pla2 = pla2Input.value || pla2Input.placeholder;
-            document.getElementById("p1_").innerHTML=pla1;
-            document.getElementById("p2_").innerHTML=pla2;
-            document.getElementById("p1").innerHTML=pla1;
-            document.getElementById("p2").innerHTML=pla2;
-            var random1=Math.floor(Math.random() * 6+1);
-            var random2=Math.floor(Math.random() * 6+1);
-            var player1=document.getElementById("ran1").innerHTML=random1;
-            var player2=document.getElementById("ran2").innerHTML=random2;
-            
-            // if(pla1.value===''||pla2.value===''){
-            //         document.getElementById("p1_").innerHTML="player 1";
-            //         document.getElementById("p2_").innerHTML="player 2";
-            //         document.getElementById("p1").innerHTML="player 1";
-            //         document.getElementById("p2").innerHTML="player 2";
-            // }
-            // else{
-            //     document.getElementById("p1_").innerHTML=pla1;
-            //     document.getElementById("p2_").innerHTML=pla2;
-            //     document.getElementById("p1").innerHTML=pla1;
-            //     document.getElementById("p2").innerHTML=pla2;
-            // }
-            if(random1>random2){
-                var score1=document.getElementById("win").innerHTML=pla1+" Wins";
-                count1++;
-            }
-            else if(random2>random1){
-               var score2= document.getElementById("win").innerHTML=pla2+" Wins"; 
-               count2++;
-            }
-            else{
-                document.getElementById("win").innerHTML="Draw";
-            }
-       
+        if (chances === 0 && random1 + random2 !== num1) {
+        winning.innerHTML = "Game Over!";
+        document.getElementById("rollbtn").disabled=true;
+        document.getElementById("rollbtn").style.backgroundColor="rgba(0, 0, 139, 0.5)";
+    }
 
-
-            var sco1=document.getElementById("p1").innerHTML=pla1+" "+ count1;
-            var sco2=document.getElementById("p2").innerHTML=pla2+" "+ count2;
-            var play1img=document.getElementById("img1");
-            var play2img=document.getElementById("img2");
-            var playimg1=document.getElementById("imge1");
-            var playimg2=document.getElementById("imge2");
             if(random1==1){
                 play1img.src="../Session/1.png";
                 playimg1.style.transform = 'rotateY(360deg)';
@@ -280,31 +290,25 @@
                     playimg2.style.transform = 'rotateY(360deg)';
                 }, 50);
              }
-        }
+            }
+        
 
+            
 
         function reset(){
-            var pla1Input = document.getElementById("pla1");
-            var pla2Input = document.getElementById("pla2");
-            var pla1 = pla1Input.value || pla1Input.placeholder;
-            var pla2 = pla2Input.value || pla2Input.placeholder;
-            var pla1=document.getElementById("pla1").value="";
-            var pla2=document.getElementById("pla2").value="";
-            var p1_1=document.getElementById("p1_").innerHTML="";
-            var p2_2=document.getElementById("p2_").innerHTML="";
-            var random1=Math.floor(Math.random() * 6+1);
-            var random2=Math.floor(Math.random() * 6+1);
-            var player1=document.getElementById("ran1").innerHTML="";
-            var player2=document.getElementById("ran2").innerHTML=""; 
-            var play1img=document.getElementById("img1");
-            var play2img=document.getElementById("img2");
-            count1=0;
-            count2=0;
-            var sco1=document.getElementById("p1").innerHTML=pla1+" "+ count1;
-            var sco2=document.getElementById("p2").innerHTML=pla2+" "+ count2;
-            play1img.src="../Session/1.png";
-            play2img.src="../Session/1.png";
+            chances = 10;
+            document.getElementById("winnum").innerHTML = "_";
+            document.getElementById("chance").innerHTML = chances;
+            document.getElementById("winning").innerHTML = "";
+            document.getElementById("img1").src = "../Session/1.png";
+            document.getElementById("img2").src = "../Session/1.png";
+            document.getElementById("click").disabled=false;
+            document.getElementById("click").style.backgroundColor="darkblue";
+            document.getElementById("rollBtn").disabled = true;
+            document.getElementById("rollbtn").style.backgroundColor="rgba(0, 0, 139, 0.5)";
+            document.getElementById("top2").style.backgroundColor="linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.8))";
         }
+    
     </script>
 </body>
 </html>

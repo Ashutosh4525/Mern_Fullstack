@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js session9</title>
+</head>
+<body>
+    <input type="text" id="inp">
+    <button id="btn" onclick="f1()">Length of string</button>
+    <h3 id="out1"></h3>
+    <button id="btn1" onclick="f2()">No of Words</button>
+    <h3 id="out2"></h3>
+    <button id="btn2" onclick="f3()">vowels</button>
+    <h3 id="out3"></h3>
+
+    <div id="box" class="box">
+        <h2 id="p" onclick="f5()">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+        <p id="p1"> Sed unde, sint ipsam eius voluptas nihil dicta cumque esse eaque. Impedit repellendus quasi magnam alias facilis excepturi consequatur cum eum itaque!</p>
+    </div>
+    <style>
+        #p1{
+            display: none;
+        }
+    </style>
+    <script>
+        function f5(){
+            document.getElementById("p1").style.display="block";
+        }
+        function f1(){
+           var btn= document.getElementById("btn")
+            var val=(document.getElementById("inp").value);
+            //trim just removes not needed space 
+            // console.log(val.trim());
+            var trval=val.trim();
+            document.getElementById("out1").innerHTML=trval.length;
+        }
+
+        function f2(){
+            var val=(document.getElementById("inp").value);
+            var val1=val.split(" ");
+            document.getElementById("out1").innerHTML=val1.length;
+        }
+
+        // function f3(){
+        //     var val=document.getElementById("inp").value.trim().split(" ");
+        //     var out3=document.getElementById("out3").innerHTML;
+        //      for(var i=0; i<=val.length-1;i++){
+        //         if(v==a||v==e||v==i||v==o||v==u){
+        //              val[i];
+        //         }
+        //         return "no vowels";
+        //      }
+        // }
+        function square(s){
+            var area =s**2;
+            var peri=4*s;
+            var area1="area is: " + area;
+             var peri1="peri is: " + peri;
+             return area1+ " and " +peri1;
+        }
+        var str="non";
+        
+        function palindrome(str){
+            console.log(str);
+            var str1="";
+                for(var j=str.length-1;j>=0;j--){
+                 str1+=str[j];
+                }
+                console.log(str1);
+                if (str.toLowerCase()==str1.toLowerCase()){
+                    return true;
+                }
+                return false;
+            }
+        
+
+     
+    </script>
+</body>
+</html>

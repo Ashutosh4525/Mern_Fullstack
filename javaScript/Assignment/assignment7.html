@@ -197,6 +197,7 @@
           document.getElementById("rollbtn").disabled=true;
           document.getElementById("rollbtn").style.backgroundColor="rgba(0, 0, 139, 0.5)";
           document.getElementById("top2").style.backgroundImage="linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url(./firework.gif)";
+          
         }
 
         if (chances === 0 && random1 + random2 !== num1) {
@@ -304,9 +305,12 @@
             document.getElementById("img2").src = "../Session/1.png";
             document.getElementById("click").disabled=false;
             document.getElementById("click").style.backgroundColor="darkblue";
-            document.getElementById("rollBtn").disabled = true;
+            document.getElementById("rollbtn").disabled = true;
             document.getElementById("rollbtn").style.backgroundColor="rgba(0, 0, 139, 0.5)";
-            document.getElementById("top2").style.backgroundColor="linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.8))";
+            
+            document.getElementById("top2").style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.8))";
+
+            // document.getElementById("top2").style.backgroundImage="linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url(./firework.gif)";
         }
     
     </script>

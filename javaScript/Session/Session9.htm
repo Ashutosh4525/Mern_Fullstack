@@ -16,16 +16,25 @@
 
     <div id="box" class="box">
         <h2 id="p" onclick="f5()">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-        <p id="p1"> Sed unde, sint ipsam eius voluptas nihil dicta cumque esse eaque. Impedit repellendus quasi magnam alias facilis excepturi consequatur cum eum itaque!</p>
+        <p id="p1" class="p1"> Sed unde, sint ipsam eius voluptas nihil dicta cumque esse eaque. Impedit repellendus quasi magnam alias facilis excepturi consequatur cum eum itaque!</p>
     </div>
     <style>
-        #p1{
+        .p1{
             display: none;
+        }
+        .p2{
+            display: inline;
         }
     </style>
     <script>
         function f5(){
-            document.getElementById("p1").style.display="block";
+           var c= document.getElementById("p1");
+           c.classList.toggle("p2")
+        //    if (c.style.display === "none") {
+        //         c.style.display = "block";
+        //     } else {
+        //         c.style.display = "none";
+        //     }
         }
         function f1(){
            var btn= document.getElementById("btn")
@@ -42,16 +51,25 @@
             document.getElementById("out1").innerHTML=val1.length;
         }
 
-        // function f3(){
-        //     var val=document.getElementById("inp").value.trim().split(" ");
-        //     var out3=document.getElementById("out3").innerHTML;
-        //      for(var i=0; i<=val.length-1;i++){
-        //         if(v==a||v==e||v==i||v==o||v==u){
-        //              val[i];
-        //         }
-        //         return "no vowels";
-        //      }
-        // }
+        function f3(){
+            var val=document.getElementById("inp").value.trim();
+            console.log(val);
+            var vowels=[];
+            var out3=document.getElementById("out3");
+             for(var i=0; i<=val.length-1;i++){
+                if(val[i]=="a"||val[i]=="e"||val[i]=="i"||val[i]=="o"||val[i]=="u"){
+                    vowels.push(val[i]);
+                    console.log(vowels);
+                }
+             }
+             if(vowels.length>0){
+                out3.innerHTML= vowels;
+             }
+             else{
+                out3.innerHTML= "no vowels";
+             }
+             
+        }
         function square(s){
             var area =s**2;
             var peri=4*s;

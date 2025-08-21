@@ -160,6 +160,7 @@
         var chances = 10; 
 
         function num() {
+            var functionnum=true;
             var random = Math.floor(Math.random() * 11 + 2);
             document.getElementById("winnum").innerHTML = random;
             document.getElementById("click").disabled=true;
@@ -172,9 +173,11 @@
         //   var chance=document.getElementById("chances");
         //   var chances=chance.innerHTML=10;
 
-     
+    //  alert("Click for win number first")
         function roll(){   
-           promp 
+           if(!functionnum!=true){
+             alert("Click for win number first");
+           }
         var play1img=document.getElementById("img1");
         var play2img=document.getElementById("img2");
         var playimg1=document.getElementById("imge1");

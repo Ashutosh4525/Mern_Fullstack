@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js_Session10</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .box{
+            border: 2px solid black;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+        }
+        .box{
+            cursor: pointer;
+        }
+        .p1{
+            display: none;
+        }
+         .active{
+            display: block;
+        }
+        .box1{
+             border: 2px solid black;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+        }
+        .body{
+            display: none;
+        }
+        .body .active1{
+            display: block;
+        }
+        .whole{
+            background-color: rgba(0, 0, 0, 0.566);
+            display: flex;
+            padding: 100px 0px;
+            justify-content: center;
+            position: relative;
+        }
+        .imgbox{
+            width: 300px;
+            background-color: white;
+        }
+        .imgbox img{
+            width: 100%;
+        }
+        .icon{
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+     <div id="box" class="box">
+        <h2 id="p" onclick="f1('p1')">Lorem</h2>
+        <p id="p1" class="p1"> Sed unde, sint ipsam eius voluptas nihil dicta cumque esse eaque. Impedit repellendus quasi magnam alias facilis excepturi consequatur cum eum itaque!</p>
+    </div>
+    <div id="box" class="box">
+        <h2 id="p" onclick="f1('p2')">Lorem</h2>
+        <p id="p2" class="p1"> Sed unde, sint ipsam eius voluptas nihil dicta cumque esse eaque. Impedit repellendus quasi magnam alias facilis excepturi consequatur cum eum itaque!</p>
+    </div>
+    <div id="box" class="box">
+        <h2 id="p" onclick="f1('p3')">Lorem</h2>
+        <p id="p3" class="p1"> Sed unde, sint ipsam eius voluptas nihil dicta cumque esse eaque. Impedit repellendus quasi magnam alias facilis excepturi consequatur cum eum itaque!</p>
+    </div>
+
+    <div class="box1" id="box1">
+
+       <button id="bt1" onclick="f2('con1')">Home</button>
+       <button id="bt2" onclick="f2('con2')">About</button>
+       <button id="bt3" onclick="f2('con3')">Profile</button>
+       <p id="con1"  class="active1">Content of home</p>
+       <p id="con2" class="body">Content of About</p>
+       <p id="con3" class="body">Content of Profile</p>
+    </div>
+<div class="whole" id="whole">
+    <div class="imgbox">
+        <img src="../../HTML/img2.jpg" alt="img" >
+        <p>identity project</p>
+        <div class="icon" id="icon" onclick="cl()">
+            <i class="fa fa-close"></i>
+        </div>
+    </div>
+</div>
+
+    <script>
+         function cl(){
+           var icon=document.getElementById("icon");
+           var whole=document.getElementById("whole");
+           whole.style.display="none";
+         }
+         function f2(id){
+             var ac=document.querySelector(".active1");
+             if (ac){
+                ac.classList.remove("active1")
+             }
+             var par= document.getElementById(id);
+             par.classList.toggle("active1");
+         }
+
+
+
+         function f1(id){
+            var act1=document.getElementsByClassName("active")
+            var act=document.querySelector(".active");  
+//IMPORTANT
+            //In this we will select using the class name same as css
+
+            if(act){
+                act.classList.remove("active");
+            }
+            
+          var a= document.getElementById(id);
+          a.classList.toggle("active");
+        //   if (act1){
+        //         act1.classList.remove("active");
+        //     }
+          
+         }
+
+//  ways to get html element
+  //Using tag name
+        var a1=document.getElementsByTagName("h2");
+        console.log(a1);
+
+ // Using classname
+        var a3=document.getElementsByClassName("box");
+        console.log(a3);
+
+ // Using querySelector 
+  // it is same as naming in css
+       // var a2=document.querySelector("h2");
+        var a2=document.querySelectorAll("h2");
+         console.log(a2);
+    </script>
+</body>
+</html>

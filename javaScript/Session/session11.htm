@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js_session11</title>
+</head>
+<body>
+
+    <button onclick="f1()">set timeout</button>
+    <button onclick="f1()">clear timeout</button>
+    <button onclick="f1()">set interval</button>
+    <button onclick="f1()">clear interval</button>
+    <h2 id="num1"></h2>
+    <button onclick="f5()">click</button>
+    <script>
+        // var a=10;  //Global scope element
+        // console.log(a);
+
+        // function f1(){
+        //     var b=9;    //function scope
+        //     console.log(b);
+        //     console.log(a);  //this can be used in this function to as "var a" is defined as global scope 
+        // }
+        // f1();
+        // console.log(b);  //it would give an undefined error as the "b" is a function scope
+
+
+        // var arr1=[];
+        var arr = [2,4,10,6,3,9,11,4];
+
+        var count=0;
+        // for(var i=0;i<=arr.length-1;i++){
+        //    if (arr[i]%2==1 && count==0){
+        //      console.log()
+        // }
+
+        // }
+        // console.log(arr1);
+
+
+        for( var a of arr){
+            console.log(a);
+            if(a%2==1){
+                break; //this will end whole program here
+            }
+        }
+        
+
+         for( var a of arr){
+            if(a%2==1){
+                continue; //this will continue with skiping the 
+            }
+             console.log(a);
+        }
+
+        // var fruits=prompt("Enter the fruits")
+        switch(fruits){
+        case "apple":
+            console.log("Price of " +fruits+ " is 260");
+            break;
+        case "mango":
+            console.log("Price of " +fruits+ " is 280");
+            break;
+        case "banana":
+            console.log("Price of " +fruits+ " is 220");
+            break;
+        case "kiwi":
+            console.log("Price of " +fruits+ " is 160");
+            break;
+        default:
+            console.log(fruits+" not available")
+        }
+
+        var abc;
+        function f1(){
+            abc=setTimeout(function(){alert("set timeout is running")}, 3000);  //timeout runs for once only
+        }
+        function f2(){
+            clearTimeout(abc);
+        }
+
+        var mno;
+        function f3(){
+            console.log("function is running");
+            mno=setInterval(function(){alert("this is mno")},2000);
+        }
+        function f4(){
+            clearInterval(mno);
+        }
+
+        
+        // var num_;
+        // function f5(){
+        //     var num=0;
+        //    num_=setInterval(function(){
+            
+        //     if(num>=100){
+        //         clearInterval(num_)
+        //     }
+        //     document.getElementById("num1").innerHTML=num;
+        //     num++;
+        //    },10);
+        // }
+        var count;
+        function f6(){}
+        
+    </script>
+</body>
+</html>

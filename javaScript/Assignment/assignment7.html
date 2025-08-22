@@ -159,10 +159,11 @@
         //   return num1;
         var chances = 10; 
 
+        var functionnum=false;
         function num() {
-            var functionnum=true;
             var random = Math.floor(Math.random() * 11 + 2);
             document.getElementById("winnum").innerHTML = random;
+            functionnum=true;
             document.getElementById("click").disabled=true;
             document.getElementById("click").style.backgroundColor="rgba(0, 0, 139, 0.5)";
             chances = 10;
@@ -175,8 +176,9 @@
 
     //  alert("Click for win number first")
         function roll(){   
-           if(!functionnum!=true){
+           if(!functionnum){
              alert("Click for win number first");
+             return;
            }
         var play1img=document.getElementById("img1");
         var play2img=document.getElementById("img2");
@@ -302,6 +304,7 @@
 
         function reset(){
             chances = 10;
+            functionnum = false;
             document.getElementById("winnum").innerHTML = "_";
             document.getElementById("chance").innerHTML = chances;
             document.getElementById("winning").innerHTML = "";
@@ -309,8 +312,8 @@
             document.getElementById("img2").src = "../Session/1.png";
             document.getElementById("click").disabled=false;
             document.getElementById("click").style.backgroundColor="darkblue";
-            document.getElementById("rollbtn").disabled = true;
-            document.getElementById("rollbtn").style.backgroundColor="rgba(0, 0, 139, 0.5)";
+            // document.getElementById("rollbtn").disabled = true;
+            // document.getElementById("rollbtn").style.backgroundColor="rgba(0, 0, 139, 0.5)";
             
             document.getElementById("top2").style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.8))";
 

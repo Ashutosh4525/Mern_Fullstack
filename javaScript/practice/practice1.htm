@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practice1</title>
+</head>
+<body>
+    <script>
+        var num=121;
+        var totalno=0;
+        function armstrongno(num){
+             var count=0;
+            var temp=num;
+            while(temp>0){
+                count++;
+                temp=Math.floor(temp/10);
+            }
+            console.log(count);
+            temp=num;
+            while(temp>0){
+                var dig=temp%10;
+                totalno+=dig**count;
+                temp=Math.floor(temp/10);
+            }
+            console.log(totalno);
+        }
+        function fact(num){
+           var tem=1;
+            while(num>0){
+            tem=tem*num;
+           num--;
+            }
+            return(tem);
+        }
+
+        function revnum(num){
+            while(num>0){ 
+                var dig=num%10;
+                num=Math.floor(num/10);
+                console.log(dig);
+            }
+        }
+
+        function palin(x){
+             while(x>0){
+                var dig=x%10;
+                x=Math.floor(x/10);
+                }
+        }
+
+    </script>
+</body>
+</html>

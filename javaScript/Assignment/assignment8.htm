@@ -49,15 +49,11 @@
                 <h3 id="s">0</h3>
                 <h2>Seconds</h2>
             </div>
-            <div class="wat seconds">
-                <h3 id="ms">0</h3>
-                <h2>Millisecond</h2>
-            </div>
         </div>
         <div class="btn">
             <button onclick="st()">Start</button>
             <button onclick="stp()">Stop</button>
-            <button>Reset</button>
+            <button onclick="res()">Reset</button>
         </div>
 
     </div>
@@ -105,7 +101,15 @@
         function stp(){
             clearInterval(time);
         }
-        
+
+        function res(){
+            sec=0;
+            min=0;
+            hor=0;
+            document.getElementById("s").innerHTML=sec;
+             document.getElementById("m").innerHTML=min;
+              document.getElementById("h").innerHTML=hor;
+        }
     </script>
 </body>
 </html>

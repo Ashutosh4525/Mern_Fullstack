@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js_Session12</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .parent{
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .btn{
+            padding: 10px;
+            margin: 10px;
+        }
+        .btn1{
+            padding: 5px;
+            margin: 3px;
+            background-color: aqua;
+            color: black;
+            display: block;
+            
+        }
+        .img1{
+            width: 200px;
+            height: 200px;
+            display: block;
+            
+        }
+    </style>
+
+<div class="par1">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+      <p onclick="f5(this)">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+</div>
+    
+
+
+<div class="parent" id="parent"></div>
+    <button class="btn"onclick="f1()">Add button</button>
+    <script>
+        function f5(p){
+            console.log(p);
+            console.log(p.parentElement); //getting the parent
+        }
+
+        var e=document.querySelector(".par1");
+        console.log(e);
+        var f=e.children;  //getting children 
+        console.log(f);
+        f[2].style.color="red"; //can use indexing for DOM manuplation
+
+        var count=1;
+        function f1(){
+            // Create html element
+            var a = document.createElement("button");
+
+            // Add details
+            a.innerHTML="btn"+count;
+            a.classList.add("btn1");
+
+            // adding eventlistners if the element is created in the javaScript
+            
+            a.addEventListener("click",f4);
+
+            // adding in the html
+            var b=document.getElementById("parent");
+            b.append(a);
+            count++;
+        }
+        function f4(event){              //event is used as "this" keyword cannot be used as the whole function is used in other function
+            alert("button is clicked");
+            console.log(event.target);   //event is the where the target is and target is the element which will be manuplated
+            event.target.remove();
+        }
+
+        function f2(){
+            var a=document.createElement("img");
+
+            a.scr="./1.png";
+            a.classList.add("img1");
+
+            var b=document.getElementById("parent");
+            b.append(a);
+        }
+        var d=1;
+        function f3(){
+            var a = document.createElement("p");
+
+            var c=document.createElement("h4");
+            
+            // Add details
+            a.innerHTML="lorem";
+            a.classList.add("btn1");
+            c.innerHTML=d;
+            d++;
+
+            // adding in the html
+            var b=document.getElementById("parent");
+            b.append(a);
+            b.append(c);
+        }
+    </script>
+</body>
+</html>

@@ -42,11 +42,24 @@
             }
         }
 
-        function palin(x){
-             while(x>0){
-                var dig=x%10;
-                x=Math.floor(x/10);
+       
+        
+        function palin(num){
+           var dig1=0;
+            var x=num;
+             while(num>0){
+                var dig=num%10;
+                dig1=dig1*10+dig;
+                num=Math.floor(num/10);
+                
+            }
+            console.log(dig1);
+            if (dig1==x){
+                    console.log(true);
                 }
+                else{
+                    console.log(false);
+                }   
         }
 
     </script>

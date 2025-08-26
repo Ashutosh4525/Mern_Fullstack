@@ -32,8 +32,24 @@
         .img1{
             width: 200px;
             height: 200px;
+            display: block; 
+        }
+        /* .pa1{
+            border: 2px solid;
+            padding: 5px;
+            margin: 5px;
+            display: inline;
+        }
+        .h4{
+            display: inline-block;
+        } */
+        .par2{
+            display: flex;
+            justify-content: space-between;
+            border: 2px solid;
+        }
+        .bt1{
             display: block;
-            
         }
     </style>
 
@@ -47,8 +63,58 @@
 
 
 <div class="parent" id="parent"></div>
-    <button class="btn"onclick="f1()">Add button</button>
+
+<input type="text" id="txt">
+<button onclick="f1()">Click</button>
+<div class="par2">
+    <div class="para3">
+    <div id="p1" class="p1"></div>
+    <div id="bt" class="bt1"></div>
+    
+    
+</div>
+
+    <!-- <button class="btn"onclick="f1()">Add button</button> -->
     <script>
+// function fun1(){
+//     var para=document.createElement("p");
+//     var can=document.createElement("button");
+//     var val=document.getElementById("txt").value;
+   
+//     para.innerHTML=val;
+//     can.innerHTML="X";
+//     can.addEventListener("click",fun2);
+//     para.classList.add("par2");
+//     para.classList.add("bt1");
+//     var up=document.getElementById("p1");
+//     up.append(para);
+//     var up1=document.getElementById("bt");
+//     up1.append(can);
+//     var al=document.getElementById("par2");
+//     al.append(up);
+//     al.append(up1);
+
+// }
+// function fun2(event){
+//     alert("Do you want to delete the para");
+//     event.target.remove();
+// }
+// function fun1(){
+//     var para=document.createElement("p");
+//     var can=document.createElement("button");
+//     var val=document.getElementById("txt").value;
+    
+// //    can.innerHTML="X";
+//     para.innerHTML=val;
+//     para.classList.add("pa1");
+//     // para.innerHTML="X";
+//     // para.classList.add("h4");
+    
+    
+
+//     var up=document.getElementById("par2");
+//     up.append(para)
+// }
         function f5(p){
             console.log(p);
             console.log(p.parentElement); //getting the parent

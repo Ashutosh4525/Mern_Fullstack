@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js_assignment_9</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .alll{
+            background-color:black;
+            padding: 100px;
+            display: flex;
+            justify-items: center;
+            align-items: center;
+            text-align: center;
+            align-content: center;
+        }
+        #inp:hover{
+         box-shadow: 0px 0px 2px 2px palevioletred;
+        }
+        .whole2{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .whole1{
+            border: 2px solid;
+            display: flex;
+            justify-content: space-between;
+            
+        }
+        .whole1:hover{
+             box-shadow: 0px 0px 2px 2px palevioletred;
+        }
+        .btn1{
+            box-shadow: 0px 0px 2px 2px palevioletred;
+        }
+        .btn{
+            background-color: white;
+            border: none;
+            
+        }
+        .pr{
+            border: none;
+            
+        }
+    </style>
+    <div class="alll">
+    <div class="whole">
+        <input type="text" id="inp">
+        <button class="btn1" onclick="f1()">Click</button>
+        <div class="whole2">
+        
+            <!-- <p class="pr">a</p>
+            <button class="btn">s</button> -->
+       
+        </div>
+    </div>
+    </div>
+    <script>
+        function f1(){
+        var val=document.getElementById("inp").value;
+        var whole11=document.createElement("div");
+        whole11.className="whole1";
+        var par1=document.createElement("p");
+        var btn=document.createElement("button");
+        par1.innerHTML=val;
+        btn.innerHTML="X";
+        whole11.appendChild(par1);
+        whole11.appendChild(btn);
+        document.querySelector(".whole2").appendChild(whole11);
+        btn.addEventListener("click", f2);
+
+        }
+        function f2(event){
+            event.target.parentElement.remove();
+        }
+        
+    </script>
+    
+</body>
+</html>

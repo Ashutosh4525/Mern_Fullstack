@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js_Session13</title>
+</head>
+<body>
+    <input type="number" id="inp">
+    <button onclick="f1()">click</button>
+    <h2></h2>
+</body>
+<script>
+    function f1(){
+     var val=Number(document.querySelector("#inp").value);
+     var r=document.querySelector("h2");
+     var digits=[,"one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+     var tens=[, ,"twenty","thirty","fourty","fifty","sixty", "seventy","eighty","ninety"];
+     
+     if(val>=1&&val<=19){
+        r.innerHTML=digits[val];
+     }
+     else if(val>=21&&val<=99){
+       var a=val.toString();
+       r.innerHTML=tens[Number(a[0])]+" "+digits[Number(a[1])];
+     }
+     else{
+         r.innerHTML="out of range";
+      }
+    //    for(var i =21;i<=99;i++){
+    //    var val1=val;
+    //     var dig=val1%10;
+    //     val1=Math.floor(val/10);
+    //     r.innerHTML=tens[val]
+    //    }
+       
+    //  if(val>=1&&val<=19){
+    //     r.innerHTML=digits[val];
+    //  }
+    //  else{
+    //     r.innerHTML="out of range";
+    //  }
+    //  switch(val){
+    //     case 1:
+    //     document.querySelector("h2").innerHTML="One";
+    //     break;
+    //     case 2:
+    //     document.querySelector("h2").innerHTML="Two";
+    //     break;
+    //     case 3:
+    //     document.querySelector("h2").innerHTML="Three";
+    //     break;
+    //     case 4:
+    //     document.querySelector("h2").innerHTML="four";
+    //     break;
+    //     case 5:
+    //     document.querySelector("h2").innerHTML="five";
+    //     break;
+
+    //     default:
+    //         document.querySelector("h2").innerHTML="Number out of range"
+    //  }
+}
+</script>
+
+</html>

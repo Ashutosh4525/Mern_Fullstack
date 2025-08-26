@@ -13,7 +13,7 @@
             box-sizing: border-box;
         }
         .alll{
-            background-color:black;
+            background-color:white;
             padding: 100px;
             display: flex;
             justify-items: center;
@@ -25,19 +25,13 @@
          box-shadow: 0px 0px 2px 2px palevioletred;
         }
         .whole2{
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
         }
         .whole1{
             border: 2px solid;
             display: flex;
             justify-content: space-between;
-            
-        }
-        .whole1:hover{
-             box-shadow: 0px 0px 2px 2px palevioletred;
+            box-shadow: 0px 0px 2px 2px palevioletred;
         }
         .btn1{
             box-shadow: 0px 0px 2px 2px palevioletred;
@@ -45,11 +39,10 @@
         .btn{
             background-color: white;
             border: none;
-            
         }
         .pr{
+            display: block;
             border: none;
-            
         }
     </style>
     <div class="alll">
@@ -62,10 +55,12 @@
             <button class="btn">s</button> -->
        
         </div>
+        <p class="emp"></p>
     </div>
     </div>
     <script>
         function f1(){
+            
         var val=document.getElementById("inp").value;
         var whole11=document.createElement("div");
         whole11.className="whole1";
@@ -75,9 +70,14 @@
         btn.innerHTML="X";
         whole11.appendChild(par1);
         whole11.appendChild(btn);
-        document.querySelector(".whole2").appendChild(whole11);
+        var whole22=document.querySelector(".whole2").appendChild(whole11);
         btn.addEventListener("click", f2);
 
+        if (whole22===""){
+                document.querySelector(".emp").innerHTML="List is Empty";
+                return;
+            }
+            
         }
         function f2(event){
             event.target.parentElement.remove();

@@ -14,9 +14,9 @@
         }
         .alll{
             background-color:white;
-            padding: 100px;
+            margin-top: 100px;
             display: flex;
-            justify-items: center;
+            justify-content: center;
             align-items: center;
             text-align: center;
             align-content: center;
@@ -25,15 +25,23 @@
          box-shadow: 0px 0px 2px 2px palevioletred;
         }
         .whole2{
-
+           width: 240px;
+           padding: 10px;
         }
         .whole1{
-            border: 2px solid;
+            width: 100%;
+            border: 2px solid palevioletred;
             display: flex;
             justify-content: space-between;
+            
+        }
+        .whole{
+            margin: 10px 0px;
+        }
+        .whole1:hover{
             box-shadow: 0px 0px 2px 2px palevioletred;
         }
-        .btn1{
+        .btn1:hover{
             box-shadow: 0px 0px 2px 2px palevioletred;
         }
         .btn{
@@ -59,9 +67,10 @@
     </div>
     </div>
     <script>
-        function f1(){
-            
+        document.querySelector(".emp").innerHTML="No List";
+        function f1(){ 
         var val=document.getElementById("inp").value;
+            document.querySelector(".emp").innerHTML="";
         var whole11=document.createElement("div");
         whole11.className="whole1";
         var par1=document.createElement("p");
@@ -73,14 +82,16 @@
         var whole22=document.querySelector(".whole2").appendChild(whole11);
         btn.addEventListener("click", f2);
 
-        if (whole22===""){
-                document.querySelector(".emp").innerHTML="List is Empty";
-                return;
-            }
+        
             
         }
         function f2(event){
             event.target.parentElement.remove();
+
+            if (document.querySelector(".whole2").children.length === 0){
+                document.querySelector(".emp").innerHTML="List is Empty";
+                return;
+            }
         }
         
     </script>

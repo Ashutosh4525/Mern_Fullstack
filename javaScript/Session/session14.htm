@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        form{
+            width: 50%;
+            min-width: 500px;
+            border: 1px solid;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            margin: 40px auto;
+        }
+        input{
+            font-size: 18px;
+        }
+        form div{
+            margin: 10px 0;
+        }
+        .error{
+            font-size: 14px;
+            color: red;
+            display: none;
+        }
+        /* #age+ .error{
+            display: block;
+            color: aqua;
+        } */
+    </style>
+    <form novalidate onclick="return validate()">
+        <div>
+            <label for="name">Name :</label>
+            <input type="text" id="name">
+            <p class="error"> Please enter correct name</p>
+        </div>
+        <div>
+            <label for="age">Age :</label>
+            <input type="number" id="age">
+            <p class="error">Please enter correct age</p>
+        </div>
+        <div>
+            <label for="email">Email :</label>
+            <input type="email" id="email">
+            <p class="error"> Please enter correct email</p>
+        </div>
+        <div>
+            <label for="password">Password :</label>
+            <input type="password" id="password">
+            <p class="error"> Please enter correct name</p>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        var pass_regex = /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{6,16}$/;
+         var email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        function validate(){
+            var inpArr=document.getElementsByTagName("input");
+            // console.log(inpArr);
+            for(var inp of inpArr){
+                // Accessing ID og the input
+                var id=inp.id;
+                console.log(inp, id);
+                if(inp.type=='text'){
+                var val=inp.value.trim();
+                var err=document.querySelector("#"+id+"+.error");
+                // console.log(err);
+                if(val.length==0){
+                    console.log("ERROR");
+                    err.style.display="block";
+                }
+                else{
+                    err.style.display="none";
+                }
+            }else if(inp.type=='number'){
+                // age should be greter than 18
+                var val=Number(inp.value);
+                var err=document.querySelector("#"+id+"+.error");
+                console.log(err);
+                // if(val.length==0){
+                //     console.log("ERROR");
+                //     err.style.display="block";
+                // }
+                if(val<18){
+                    console.log("ERROR");
+                    err.style.display="block";
+                }
+                else{
+                    err.style.display="none";
+                }
+            }
+            else if(inp.type=='email'){
+                 var val=inp.value.trim();
+                var err=document.querySelector("#"+id+"+.error");
+                if(val.match(email_regex)==null){
+                    err.style.display="block";
+                }
+                else{
+                    err.style.display="none";
+                }
+            }
+            else if(inp.type=='password'){
+                 var val=inp.value.trim();
+                var err=document.querySelector("#"+id+"+.error");
+                if(val.match(pass_regex)==null){
+                    err.style.display="block";
+                }
+                else{
+                    err.style.display="none";
+                }
+
+            }
+            }
+
+            
+            return false;
+        }
+    </script>
+</body>
+</html>

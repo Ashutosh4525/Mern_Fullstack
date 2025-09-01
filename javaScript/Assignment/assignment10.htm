@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>js Assignment</title>
 </head>
 <body>
     <style>
@@ -17,44 +17,133 @@
             font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
         .whole{
-            
             box-shadow: 0px 0px 20px -20px;
             margin: 100px 50px;
             background-color: white;
         }
-        .whole h1, p,label{
+        .whole h1, p{
             margin: 5px 0px;
             padding: 10px 50px;
             padding-bottom: 10px; 
         }
+
+        label{
+            padding: 10px 50px;
+            display: block;
+        }
         input{
             margin: 10px 0px;
+            /* display: block; */
             margin-left: 50px;
             padding: 5px ;
         }
+        /* #lastname{
+            display: inline;
+        } */
         span{
             color: rgb(255, 0, 0);
         }
-
+        .error{
+            font-size: 14px;
+            color: red;
+            display: none;
+        }
+        button{
+            text-align: center;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            padding: 5px;
+            font-size: 18px;
+            background-color: green;
+            color: white;
+            border: none;
+        } 
     </style>
     <div class="whole">
         <h1>Arts & Craft Fair Application</h1>
         <p>Fill the form below keenly to participate in the Art and Fair exhibition. Forms that are not completly filled will not be accepted.</p>
         <hr>
     <form novalidate onclick="return validate()">
-        <label for="name">Full Name <span>*</span></label>
+        
         <div>
+            <label for="name">Full Name <span>*</span></label>
             <input type="text"  id="firstname">
+            <p class="error"> Please enter correct First name</p>
            
-            <input type="text"  id="lastname">
         </div>
-
-         <label for="name">Company Name <span>*</span></label>
         <div>
+            <input type="text"  id="lastname">
+             <p class="error"> Please enter correct Last name</p>
+        </div>
+         
+        <div>
+            <label for="name">Company Name <span>*</span></label>
             <input type="text"  id="companyname"> 
+            <p class="error"> Please enter correct Company name</p>
+        </div>
+        
+          
+        <div>
+            <label for="name">E-mail <span>*</span></label>
+            <input type="email"  id="email" placeholder="ex:myname@example.com"> 
+            <p class="error"> Please enter correct email</p>
+        </div>
+ 
+        <div>
+            <label for="range">Price Range of your Products: <span>*</span></label>
+            <input type="number"  id="range"> 
+            <p class="error"> Please enter correct Range</p>
+        </div>
+ 
+        <div >
+            <button  type="submit">Submit</button>
         </div>
         
     </form>
     </div>
+
+    <script>
+        var email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        function validate(){
+             var inpArr=document.getElementsByTagName("input");
+             for(var inp of inpArr){
+                var id =inp.id;
+                if(inp.type=='text'){
+                var val=inp.value.trim();
+                var err=document.querySelector("#"+id+"+.error");
+                console.log(err);
+                if(val.length==0){
+                    console.log("ERROR");
+                    err.style.display="block";
+                }
+                else{
+                    err.style.display="none";
+                }
+             }else if(inp.type=='number'){
+                var val=Number(inp.value);
+                var err=document.querySelector("#"+id+"+.error");
+                if(val<1){
+                    console.log("ERROR");
+                    err.style.display="block";
+                }
+                else{
+                    err.style.display="none";
+                }
+             }
+             else if(inp.type=='email'){
+                 var val=inp.value.trim();
+                var err=document.querySelector("#"+id+"+.error");
+                if(val.match(email_regex)==null){
+                    err.style.display="block";
+                }
+                else{
+                    err.style.display="none";
+                }
+            }
+        }
+        return false;
+    }
+    </script>
 </body>
 </html>

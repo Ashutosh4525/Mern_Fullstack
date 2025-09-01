@@ -58,13 +58,51 @@
             <input type="password" id="password">
             <p class="error"> Please enter correct name</p>
         </div>
+        <div>
+            <span>Gender: </span>
+            <input type="radio" name="gender"  value="male" id="male">
+            <label for="male" >Male </label>
+            <input type="radio" name="gender"  value="female" id="female">
+            <label for="female" >Female </label>
+            <p class="error" id="err"> Please select an option</p>
+        </div>
+
+        <div>
+            <span>Product</span>
+            <input type="checkbox" name="Product" id="accesories" value="accesories">
+            <label for="accesories">Accesories</label>
+            <input type="checkbox" name="Product" id="Art" value="Art">
+            <label for="accesories">Art</label>
+            <input type="checkbox" name="Product" id="jewelry" value="jewelry">
+            <label for="accesories">Jewelry</label>
+            <p class="error" id="err1"> Please select an option</p>
+        </div>
+
+        <div>
+            <label for="city" placeholder>Enter the city</label>
+      	    <select name="city">
+      	    	<option value="----"></option>
+      	    	<option value="Mumbai">Mumbai</option>
+      	    	<option value="Bangalore">Bangalore</option>
+      	    	<option value="Pune">Pune</option>
+      	    </select>
+            
+        </div>
         <button type="submit">Submit</button>
     </form>
     <script>
         var pass_regex = /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{6,16}$/;
          var email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+         var flag=true;
+         var radflag=false;
+         var checflag=false;
         function validate(){
+            
             var inpArr=document.getElementsByTagName("input");
+            var sel=document.getElementsByTagName("select");
+        
+            console.log(sel.value);
+            
             // console.log(inpArr);
             for(var inp of inpArr){
                 // Accessing ID og the input
@@ -77,6 +115,7 @@
                 if(val.length==0){
                     console.log("ERROR");
                     err.style.display="block";
+                    flag=false;
                 }
                 else{
                     err.style.display="none";
@@ -93,6 +132,7 @@
                 if(val<18){
                     console.log("ERROR");
                     err.style.display="block";
+                    flag=false;
                 }
                 else{
                     err.style.display="none";
@@ -103,6 +143,7 @@
                 var err=document.querySelector("#"+id+"+.error");
                 if(val.match(email_regex)==null){
                     err.style.display="block";
+                    flag=false;
                 }
                 else{
                     err.style.display="none";
@@ -113,16 +154,53 @@
                 var err=document.querySelector("#"+id+"+.error");
                 if(val.match(pass_regex)==null){
                     err.style.display="block";
+                    flag=false;
                 }
                 else{
                     err.style.display="none";
                 }
 
             }
+            else if(inp.type=="radio"){
+                if(inp.checked){
+                    radflag=true;
+                }
+            }
+            else if(inp.type=="checkbox"){
+                if(inp.checked){
+                    checflag=true;
+                }
+            }
+            else if(sel.value){
+                if(value==""){
+                    err.style.display="block";
+                    flag=false;
+                }
+                else{
+                    err.style.display="none";
+                }
+            }
+            }
+            console.log(radflag);
+            var raderr=document.getElementById("err");
+            if(!radflag){
+                raderr.style.display="block";
+            }
+            else{
+                raderr.style.display="none";
             }
 
             
-            return false;
+            console.log(checflag);
+            var rader=document.getElementById("err1");
+            if(!checflag){
+                rader.style.display="block";
+            }
+            else{
+                rader.style.display="none";
+            }
+            
+            return flag&&radflag&&checflag;
         }
     </script>
 </body>

@@ -37,7 +37,7 @@
             color: aqua;
         } */
     </style>
-    <form novalidate onclick="return validate()">
+    <form novalidate onsubmit="return validate()">
         <div>
             <label for="name">Name :</label>
             <input type="text" id="name">
@@ -56,7 +56,7 @@
         <div>
             <label for="password">Password :</label>
             <input type="password" id="password">
-            <p class="error"> Please enter correct name</p>
+            <p class="error"> Please enter valid password</p>
         </div>
         <div>
             <span>Gender: </span>
@@ -68,13 +68,13 @@
         </div>
 
         <div>
-            <span>Product</span>
+            <span>Product: </span>
             <input type="checkbox" name="Product" id="accesories" value="accesories">
             <label for="accesories">Accesories</label>
             <input type="checkbox" name="Product" id="Art" value="Art">
-            <label for="accesories">Art</label>
+            <label for="Arts">Art</label>
             <input type="checkbox" name="Product" id="jewelry" value="jewelry">
-            <label for="accesories">Jewelry</label>
+            <label for="jewelry">Jewelry</label>
             <p class="error" id="err1"> Please select an option</p>
         </div>
 
@@ -86,22 +86,22 @@
       	    	<option value="Bangalore">Bangalore</option>
       	    	<option value="Pune">Pune</option>
       	    </select>
-            
+            <p class="error" id="err2"> Please select an option</p>
         </div>
         <button type="submit">Submit</button>
     </form>
     <script>
         var pass_regex = /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{6,16}$/;
          var email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-         var flag=true;
-         var radflag=false;
-         var checflag=false;
+         
         function validate(){
-            
+            var flag=true;
+            var radflag=false;
+            var checflag=false;
             var inpArr=document.getElementsByTagName("input");
-            var sel=document.getElementsByTagName("select");
+            // var city=document.querySelector("select[name='city']");
         
-            console.log(sel.value);
+            // console.log(city.value);
             
             // console.log(inpArr);
             for(var inp of inpArr){
@@ -171,15 +171,7 @@
                     checflag=true;
                 }
             }
-            else if(sel.value){
-                if(value==""){
-                    err.style.display="block";
-                    flag=false;
-                }
-                else{
-                    err.style.display="none";
-                }
-            }
+            
             }
             console.log(radflag);
             var raderr=document.getElementById("err");
@@ -199,7 +191,17 @@
             else{
                 rader.style.display="none";
             }
-            
+            var cityErr = document.getElementById("err2"); 
+            var selects = document.getElementsByTagName("select");
+            for (var sel of selects) {
+                if (sel.value === "----" || sel.value === "") {
+                    cityErr.style.display = "block";
+                    flag = false;
+                }
+                 else {
+                    cityErr.style.display = "none";
+                }
+            }    
             return flag&&radflag&&checflag;
         }
     </script>

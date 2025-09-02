@@ -59,12 +59,17 @@
             color: white;
             border: none;
         } 
+        .sub{
+            display: flex;
+            justify-content: center;
+            padding:10px 0px ;
+        }
     </style>
     <div class="whole">
         <h1>Arts & Craft Fair Application</h1>
         <p>Fill the form below keenly to participate in the Art and Fair exhibition. Forms that are not completly filled will not be accepted.</p>
         <hr>
-    <form novalidate onclick="return validate()">
+    <form novalidate onsubmit="return validate()">
         
         <div>
             <label for="name">Full Name <span>*</span></label>
@@ -72,7 +77,7 @@
             <p class="error"> Please enter correct First name</p>
            
         </div>
-        <div>
+        <div class="lastname">
             <input type="text"  id="lastname">
              <p class="error"> Please enter correct Last name</p>
         </div>
@@ -96,7 +101,7 @@
             <p class="error"> Please enter correct Range</p>
         </div>
  
-        <div >
+        <div class="sub">
             <button  type="submit">Submit</button>
         </div>
         

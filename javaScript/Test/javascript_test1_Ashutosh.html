@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Test</title>
+</head>
+<body>
+<p id="q8"></p>
+<p id="q2"></p>
+
+<script>
+// Q_1
+	for(var i=1;i<=10;i++){
+		console.log(i);
+	}
+
+// Q2//just print the value
+	// for(var i=1;i<=3;i++){
+	// var arr=[];
+	// 	for(var j=1;j<=2;j++){
+	// 		var numarr=Number[prompt("Enter the num")];
+	// 	}
+	// }
+
+
+
+// Q3
+	var arr=[13,23,12,45,22,48,66,101];
+	for(var i=0;i<=arr.length-1;i++){
+		if(arr[i]%2!=0){
+			console.log(arr[i]);
+		}
+	}
+
+// Q4
+	var numbers = [4, -4, 10, 203, 53, 11];
+	for(var num of numbers){
+		var num1=num+4;
+		console.log(num1);
+	}
+
+// Q5
+	var strings = ["avengers", "captain america", "ironman"]
+	for (var str of strings){
+		var str1=str.toUpperCase();
+		console.log(str1);
+	}
+
+// Q6
+	var s = " fly me to the apple ";
+	var ans=s.trim().split(" ");
+	
+	console.log(ans[ans.length-1]);
+
+// Q7
+	function myFunc(arr){
+
+		var temp=arr[0];
+		arr[0]=arr[arr.length-1];
+		arr[arr.length-1]=temp;
+		return arr;
+	}
+
+// Q8X
+var pr=document.getElementById("q8");
+	for(var i=1;i<=5;i++){
+		// var pattern="";
+		for(var j=1;j<=i;j++){
+			// pattern+=i;
+			pr.innerHTML+=i;
+		}
+		pr.innerHTML+="<br />";
+	}
+	
+// Q9
+	
+	function findFun(arr,ele){
+		var arr1=0;
+		var ele1=ele;
+		for(var i=0;i<=arr.length-1;i++){
+			if(arr[i]==ele1){
+				arr1+=arr[i];
+			}
+		}
+		if(arr1==ele1){
+				return "Pass";
+			}
+			else{
+				return "Fail";
+			}		
+	}
+
+// Q10
+//Primitive DataTypes
+	// number
+	var num=10;
+	console.log(num);
+
+	var string="Hello World"
+	console.log(string);//String
+
+	var tem;
+	console.log(tem);  //undefined
+
+    var a=
+	console.log(a); //null
+
+	var b=true;
+	console.log(b); //boolean
+
+// Non-Primitive DataTypes
+	// array  
+	var array=[1,2,3,"Hello"];
+	console.log(array);
+
+	// objects
+	var obj={
+		"name":"ironman",
+		"age":20,
+	}
+	console.log(obj);
+
+
+
+var arr2=[1,2,4,2,4,2,1,2,3];
+function count2(arr2,ell){
+	var count=0;
+	for(var a of arr2){
+		if(a==ell){
+		 count++;
+		}
+	}
+	return count;
+}
+
+function sumodd(arr){
+	var sum=0;
+	for (var a of arr){
+		if (a%2!=0){
+			sum+=a;
+		}
+	}
+	return sum;
+}
+var arr3=["h",true, 10, "hi", false,"l"];
+function newstr(arr3){
+	var newarr=[]
+	for(var a of arr3){
+		console.log(a);
+		if(typeof(a)=="string"){
+			newarr.push(a);
+		}
+	}
+	return newarr;
+}
+</script>
+</body>
+</html>

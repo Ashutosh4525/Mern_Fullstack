@@ -17,14 +17,21 @@
 	}
 
 // Q2//just print the value
-	// for(var i=1;i<=3;i++){
-	// var arr=[];
-	// 	for(var j=1;j<=2;j++){
-	// 		var numarr=Number[prompt("Enter the num")];
-	// 	}
-	// }
-
-
+var arr=[];
+var rows = parseInt(prompt("Enter the number of rows:"));
+var cols = parseInt(prompt("Enter the number of columns:"));
+if (isNaN(rows) || isNaN(cols) || rows <= 0 || cols <= 0) {
+    console.log("Invalid input for rows or columns. Please enter positive numbers.");
+} else {
+	for(var i=0;i<rows;i++){
+	arr[i]=[];
+		for(var j=0;j<cols;j++){
+			var numarr=prompt(`Enter value for row ${i + 1}, column ${j + 1}:`);
+	 arr[i][j]=numarr;
+		}
+	}
+console.log(arr);
+}
 
 // Q3
 	var arr=[13,23,12,45,22,48,66,101];

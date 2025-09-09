@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad_Js_Session 1</title>
+</head>
+<body>
+    <script>
+        // var name="John";
+        // console.log(name);
+
+        // var name="Jim";
+        // console.log(name);
+        // in var both Reassignment & Redeclaration is possible
+
+
+        // let
+        // In let reassignment is possible but not redeclaration
+        // let a=10;
+        // console.log(a);
+
+        // a=100;
+        // console.log(a);  //reassignment - possible
+
+        // let a=20;
+        // console.log(a);  //redeclation not possible
+        
+        // const
+        // const b=30;
+        // console.log(b);
+
+        // b=50;
+        // console.log(b);  //reassignment - not possible
+        
+        // const b="hello";
+        // console.log(b); //redeclaration - not possible
+
+
+        // Scope
+        // Global Scope
+        // Function Scope
+        // Block Scope
+
+        // const m=4;  //global
+        // console.log(m);
+
+        // function fun1(){
+        //     console.log(m);
+        //     const n="Hello";  //function Scope
+        //     console.log(n);
+        // }
+        // fun1();
+        // console.log(n);//undeclared
+
+        var p=2;
+        if (p%2==0){
+            const r="even"; //block scope
+            console.log(r);
+        }
+        else{
+            const r="odd";
+        }
+
+        // console.log(r);
+        
+
+        // default parameter
+        function add(a,b=1,c=0/* default parameter*/){
+            return a+b+c;
+        }
+        console.log(add(10,2));
+
+        // template Literal
+        let q="Hello";
+        let w="Welcome to session"
+        // let name=prompt("Enter the name");
+
+        // let r1=q+","+name+"."+w;
+        // console.log(r1);
+
+        // let r2=`${q},${name}.${w} let the lecture begin`;
+        // console.log(r2);
+
+        function increment(a){
+            return a+1;
+        }
+        console.log(increment(10));
+
+        // let inc=(num)=>{return num+1};
+        // let inc=num=>{return num+1};
+        let inc= num => num+1;
+        console.log(inc(5));
+        
+        let ad= (num1,num2)=>num1+num2;
+        console.log(ad(2,3));
+        
+
+        // Rest operator (...variable name)
+        function f2(...n){
+            console.log(n);
+            var sum=0;
+            for(var a of n){
+                sum+=a
+            }
+            return(sum);
+        }
+        console.log(f2(2,3,4,1,2,8))
+        console.log(f2(2,3,4,8))
+
+        // Spread operator(...)
+        let arr1=[2,3,4,1,2,8]
+        let arr2=[1,2,3,4,8]
+
+        let r=[...arr1,...arr2];
+        console.log(r);
+
+        // in objects
+        // let obj1={
+        //     // name:"ashu",
+        //     batch:"1"
+        // }
+        // let obj2={
+        //     name:"john",
+        //     // batch:"3"
+        // }
+
+        // let rr={...obj2,...obj1}
+        // console.log(rr);
+        
+
+        // Object Destructuring
+// for array
+        let ar=[2,3,4,1,2,8]
+        let[a,,b,c,,d]=ar;
+        console.log(a,b,c,d);
+
+// for object
+        // let obj={
+        //     name1:"john",
+        //     email:"john@mail.com",
+        //     batch:"weekday",
+        //     contact:92761424
+        // }
+        // let{name1, contact,email:mail}=obj;
+        // console.log(name1,contact,mail);
+
+// q1
+//         const person = {
+//             name2: 'Alice',
+//             age: 30,
+//         };
+// let{name2,age}=person;
+// console.log(name2,age);
+        
+    
+// const student = {
+//   details: {
+//     name: 'Bob',
+//     age: 25,
+//   },
+//   grade: 'A',
+// };
+
+// let {name,age}=student.details;
+// let{grade}=student;
+// console.log(name,age,...grade);
+
+// const user = {
+//   name: 'Charlie',
+// };
+
+// let{name,email="N/A"}=user;
+// console.log(name,email);
+
+
+// Q4
+// const studentInfo = {
+//   name: 'David',
+//   age: 22,
+//   grade: 'B',
+//   major: 'Math',
+// };
+// let{name,age}=studentInfo;
+// console.log(name,age);
+// let details={};
+// details.grade=studentInfo.grade;
+// details.major=studentInfo.major;
+// let{grade,major}=details;
+// console.log(grade,major);
+
+// q5
+    // const car = {
+    //   make: 'Toyota',
+    //   model: 'Camry',
+    // };
+    // let{make:brand,model:type}=car;
+    // console.log(brand,type);
+
+// q6
+    const person = {
+      name: 'Eve',
+      age: 28,
+    };
+    function printPerson(person){
+        let output="";
+        // let{name,age}=person;
+        for(let a in person){
+             output += `${a}: ${person[a]} `
+        }
+        return output ;
+    }
+    printPerson(person);
+
+// q7
+    const books = [
+        { title: 'Book 1', author: 'Author 1' },
+        { title: 'Book 2', author: 'Author 2' },
+        { title: 'Book 3', author: 'Author 3' },
+        ];
+        for (var ele of books){
+            console.log(ele.title ,ele.author);
+        }
+
+
+// q8
+        const people = [
+            { name: 'Alice', age: 30 },
+            { name: 'Bob', age: 25 },
+            { name: 'Charlie', age: 35 },
+        ];
+        let pep1=people[0].name;
+        let pepage=people[0].age;
+        console.log(pep1, pepage);
+
+
+// q9
+      let[,{title}]=books;
+      console.log(title);
+      
+// q10
+      const grades = [90, , 85];
+      let [l,m=0,n]=grades;
+      console.log(l,m,n);
+      
+// q11
+      const students = [
+        { name: 'David', age: 22 },
+        { name: 'Eve', age: 28 },
+        { name: 'Frank', age: 25 },
+      ];
+      let [{name,age}]=students;
+      console.log(name,age);
+
+      let remainingStudent=[];
+      remainingStudent[0]=students[1];
+      remainingStudent[1]=students[2];
+      console.log(remainingStudent);
+
+
+// q12
+      const products = [
+        { name: 'Product A', price: 10 },
+        { name: 'Product B', price: 20 },
+        { name: 'Product C', price: 30 },
+      ];
+      var[{name:productName, price:productPrice}]=products;
+      console.log(productName, productPrice);
+      
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6_Session_2</title>
+</head>
+<body>
+    <script>
+
+        let arr=[2,4,6,6,3,6,7,11,9,3,4,6,14];
+        function odnum(arr){
+            for(var a of arr){
+                if(a%2!=0){
+                    return a;
+                }
+            }
+        }
+
+// array methods
+// find => is the array-method that is used to get a single output that satisfies the condition that is given
+        let r1=arr.find(b=>b%7==0);
+        let r1in=arr.findIndex(b=>b%7==0);
+        console.log(arr);
+        console.log(r1,r1in);
+
+// filter => is also array-method that is used to all the output that satisfies the condition that is given
+        let r2= arr.filter(a=>a%2!=0); //in this (a,i) can be given i is index
+       console.log( r2);
+
+
+// Map => is also array-method that is used to change the array val that satisfies the condition that is given
+
+        const people = [
+        { name: 'Alice', age: 25 },
+        { name: 'Bob', age: 30 },
+        { name: 'Charlie', age: 35 }
+        ];
+
+        let m3=people.map(a=>a.name);
+        console.log(m3);
+    </script>
+</body>
+</html>

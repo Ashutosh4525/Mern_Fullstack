@@ -71,13 +71,13 @@
     //    }
 
 
-       students = [
-            { name: 'Alice', grades: [85, 91, 77] },
-            { name: 'Bob', grades: [75, 81, 67] },
-            { name: 'Charlie', grades: [92, 88, 94] },
-            { name: 'Diana', grades: [81, 87, 73] },
-            { name: 'Emily', grades: [89, 95, 81] },
-            ];
+    //    students = [
+    //         { name: 'Alice', grades: [85, 91, 77] },
+    //         { name: 'Bob', grades: [75, 81, 67] },
+    //         { name: 'Charlie', grades: [92, 88, 94] },
+    //         { name: 'Diana', grades: [81, 87, 73] },
+    //         { name: 'Emily', grades: [89, 95, 81] },
+    //         ];
 
     //     function f8(students){
     //     let r8=students.filter(a=>{
@@ -90,16 +90,16 @@
     //    }
        
        
-       let r8=students.filter(a=>{
-         let sum=0;
-         for(let g of a.grades){
-            sum +=g;
-         }
+    //    let r8=students.filter(a=>{
+    //      let sum=0;
+    //      for(let g of a.grades){
+    //         sum +=g;
+    //      }
 
-         let avg=sum/a.grades.length;
-          return avg>80;
-        });
-         console.log(r8);
+    //      let avg=sum/a.grades.length;
+    //       return avg>80;
+    //     });
+    //      console.log(r8);
 
 //     let r8 = students.filter(student => {
 //   let sum = 0;
@@ -140,13 +140,49 @@
         let m5=names.map(a=>a.toUpperCase());
         console.log(m5);
 
-        // const students = [
-        //     { name: 'John', score: 85 },
-        //     { name: 'Jane', score: 92 },
-        //     { name: 'Mark', score: 78 },
-        //     { name: 'Sara', score: 65 }
-        //     ];
+        const students = [
+            { name: 'John', score: 85 },
+            { name: 'Jane', score: 92 },
+            { name: 'Mark', score: 78 },
+            { name: 'Sara', score: 65 }
+            ];
 
+            let m6=students.map(a=>{
+                let grade;
+                   if (students.score >= 90) {
+                    grade = 'A';
+                } else if (students.score >= 80) {
+                    grade = 'B';
+                } else if (students.score >= 70) {
+                    grade = 'C';
+                } else if (students.score >= 60) {
+                    grade = 'D';
+                } else {
+                    grade = 'F';
+                }
+                return {...a,grade: grade};
+                })
+                console.log(m6);
+                
+
+        const strings = ['banana', 'apple', 'orange'];
+        let m7=strings.map(a=>{
+                return a.split("").sort().join("");
+            });
+        console.log(m7);
+
+        let cities = [
+       { name: "Los Angeles", population: 3792621 },
+       { name: "New York", population: 8175133 },
+       { name: "Chicago", population: 2695598 },
+       { name: "Houston", population: 2099451 },
+       { name: "Philadelphia", population: 1526006 }
+       ];
+        let m8=cities.map(a=>{
+            return `${a.name} has a population of ${a.population}` 
+        })
+        console.log(m8);
+        
     </script>
 </body>
 </html>

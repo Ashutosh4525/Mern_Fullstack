@@ -66,14 +66,16 @@
       age: 28,
     };
     function printPerson(person){
-        let output="";
-        // let{name,age}=person;
-        for(let a in person){
-             output += `${a}: ${person[a]} `
-        }
-        return output ;
+        // let output="";
+        let{name,age}=person;
+        // for(let a in person){
+        //      output += `${a}: ${person[a]} `
+        // }
+        return ({name,age});
     }
-    printPerson(person);
+    console.log(printPerson(person));
+    
+    
 
 // q7
     const books = [
@@ -81,9 +83,9 @@
         { title: 'Book 2', author: 'Author 2' },
         { title: 'Book 3', author: 'Author 3' },
         ];
-        for (var ele of books){
-            console.log(ele.title ,ele.author);
-        }
+        // for (var {title, author} of books){
+        //     console.log(`Title: ${title}, Author: ${author}`);
+        // }
 
 
 // q8
@@ -92,14 +94,18 @@
             { name: 'Bob', age: 25 },
             { name: 'Charlie', age: 35 },
         ];
-        let pep1=people[0].name;
-        let pepage=people[0].age;
-        console.log(pep1, pepage);
+
+        let [{name,age},...vari1]=people;
+        console.log(name,age,vari1);
+        
+        // let pep1=people[0].name;
+        // let pepage=people[0].age;
+        // console.log(pep1, pepage);
 
 
 // q9
-      let[,{title}]=books;
-      console.log(title);
+    //   let[,{title}]=books;
+    //   console.log(title);
       
 // q10
       const grades = [90, , 85];
@@ -112,13 +118,13 @@
         { name: 'Eve', age: 28 },
         { name: 'Frank', age: 25 },
       ];
-      let [{name,age}]=students;
-      console.log(name,age);
+    //   let [{name,age},...remainingStudent]=students;
+    //   console.log(name,age,remainingStudent);
 
-      let remainingStudent=[];
-      remainingStudent[0]=students[1];
-      remainingStudent[1]=students[2];
-      console.log(remainingStudent);
+    //   let remainingStudent=[];
+    //   remainingStudent[0]=students[1];
+    //   remainingStudent[1]=students[2];
+    //   console.log(remainingStudent);
 
 
 // q12

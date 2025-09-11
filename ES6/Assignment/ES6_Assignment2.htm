@@ -147,28 +147,49 @@
             { name: 'Sara', score: 65 }
             ];
 
-            let m6=students.map(a=>{
-                let grade;
-                   if (students.score >= 90) {
+            let m6=students.map(student=>{
+                let grade="";
+                   if (student.score >= 90) {
                     grade = 'A';
-                } else if (students.score >= 80) {
+                } else if (student.score >= 80) {
                     grade = 'B';
-                } else if (students.score >= 70) {
+                } else if (student.score >= 70) {
                     grade = 'C';
-                } else if (students.score >= 60) {
+                } else if (student.score >= 60) {
                     grade = 'D';
                 } else {
                     grade = 'F';
                 }
-                return {...a,grade: grade};
+                return {...student, grade};
                 })
                 console.log(m6);
+
+                let m6al=students.map(a=>{
+                    let grade="";
+                    let {score}=a;
+                    if(score>=90&&score<=100){
+                        grade="A";
+                    }
+                    else if(score>=80&&score<=90){
+                        grade="B";
+                    }
+                     else if(score>=70&&score<=80){
+                        grade="C";
+                    }
+                     else if(score>=60&&score<=70){
+                        grade="D";
+                    }
+                    else{
+                        grade="F";
+                    }
+                    let obj={...a,grade};
+                    return obj;
+                })
+                console.log(m6al);
                 
 
         const strings = ['banana', 'apple', 'orange'];
-        let m7=strings.map(a=>{
-                return a.split("").sort().join("");
-            });
+        let m7=strings.map(a=>a.split("").sort().join(""));
         console.log(m7);
 
         let cities = [

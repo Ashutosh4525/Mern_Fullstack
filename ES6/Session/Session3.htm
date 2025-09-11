@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad_Js_Session3</title>
+</head>
+<body>
+    <script>
+        // // Sort
+        let arr=["cat","apple","bat","mango","Car"]
+        let r1=arr.sort();
+        console.log(r1);
+        
+        let arr1=[1,200,100,10,30,65,4]
+        let r2=arr1.sort();
+        console.log(r2);
+
+            let des=arr1.sort((a,b)=>b-a);
+            console.log(des);
+
+            let ase=arr1.sort((a,b)=>a-b);
+            console.log(ase);
+
+            let sum=arr1.reduce((sum,a)=>{
+                return sum+a
+            },0)
+
+            
+            let arr2=[4,6,2,5,61,1,99,100,33];
+            let result=arr2.reduce((sum,a)=>sum*a,1);
+            console.log(result);
+
+            
+        
+    </script>
+</body>
+</html>

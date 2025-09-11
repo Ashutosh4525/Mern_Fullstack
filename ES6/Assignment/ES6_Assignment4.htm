@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 4</title>
+</head>
+<body>
+    <script>
+        const input = [1, -4, 12, 0, -3, 29, -150];
+        let q1=input.filter(a=>(a>0)).reduce((sum,b)=>sum+b,0);
+        // let q1p2=q1.reduce((sum,a)=>sum+a,0);
+        console.log(q1);
+        // console.log(q1p2);
+
+
+        const input1 = [12, 46, 50, 32, 64];
+        let q2=input1.reduce((mean,a)=>((mean+a)))/5;
+        console.log(q2);
+        let q2p2=input1.sort((a,b)=>{(a-b)
+            // if (a.length%2!=0){
+            //     var m=Math.floor(a.length/2);
+            // }
+            });
+        console.log(q2p2);
+        
+        const input3 = "George Raymond Richard Martin";
+        let q3=input3.split("").sort().join();
+        console.log(q3);
+        
+        
+    </script>
+    
+</body>
+</html>

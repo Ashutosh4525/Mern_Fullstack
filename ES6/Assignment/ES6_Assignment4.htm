@@ -17,17 +17,178 @@
         const input1 = [12, 46, 50, 32, 64];
         let q2=input1.reduce((mean,a)=>((mean+a)))/5;
         console.log(q2);
-        let q2p2=input1.sort((a,b)=>{(a-b)
-            // if (a.length%2!=0){
-            //     var m=Math.floor(a.length/2);
-            // }
-            });
+        input1.sort((a,b)=>(a-b))
+        let q2p2;
+            if (input1.length%2!=0){
+                var m=Math.floor(input1.length/2);
+                q2p2=input1 [m];
+             }
+             else if(input1.length%2==0){
+                var m=Math.floor(input1.length/2);
+                q2p2=(input1[m]+input1[m+1])/2;
+             }
+            //  else{
+
+            //  }
         console.log(q2p2);
         
         const input3 = "George Raymond Richard Martin";
-        let q3=input3.split("").sort().join();
-        console.log(q3);
+        let q3=input3.split(" ").map(w=>w[0]).join("");
+         console.log(q3);
+        // let q3p2=q3.reduce((cv,a)=>{
+        //     return cv;
+        // });
+        // console.log(q3p2);
         
+       const people = [
+        { name: 'Alice', age: 25 },
+        { name: 'Bob', age: 30 },
+        { name: 'Charlie', age: 25 },
+        { name: 'David', age: 35 },
+        { name: 'Eve', age: 30 },
+        { name: 'Frank', age: 25 }
+        ];
+
+        let {age}=people;
+        let q4=people.map(a=>a.age).reduce((avg,a)=>avg+a);
+        console.log(q4);
+        
+//x
+        const arr = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 'honeydew', 'kiwi', 'lemon'];
+        let q5=arr.sort((a,b)=>b.length-a.length)
+        // arr.map(a=>(a.split("")).sort((a,b)=>b-a).join(""))
+        console.log(q5);
+        
+        const shoppingCart = [
+            {
+                name: 'Product A',
+                price: 29.99,
+                quantity: 2,
+                discount: 0.10 // 10% discount
+            },
+            {
+                name: 'Product B',
+                price: 19.99,
+                quantity: 3,
+                discount: 0.05 // 5% discount
+            },
+            {
+                name: 'Product C',
+                price: 49.99,
+                quantity: 1,
+                discount: 0.00 // No discount
+            }
+            ];
+            // let q6=shoppingCart.map(a=>a.price).reduce(((sum,a)=>sum+a))
+            // function f1(shoppingCart){
+            //     let q6=shoppingCart.map(a=>a.price).reduce(((sum,a)=>sum+a))
+            //     let q6d=shoppingCart.map(a=>a.discount).reduce(((sum,a)=>sum+a))
+            //     let dis=Math.floor(q6d*100)
+            //     return [q6,dis];
+            // }
+            // let q6d=shoppingCart.map(a=>a.discount).reduce(((sum,a)=>sum+a))
+            // let dis=Math.floor(q6d*100)
+            // console.log(q6,dis);
+
+            const total=shoppingCart.reduce((sum,pro)=>{
+                let{price,quantity,discount}=pro;
+                let discountAmount=price*discount;
+                let Finalprice=price-discount;
+                return sum + Finalprice;
+            },0)
+            
+            console.log(total.toFixed(2))
+
+
+
+        const input4 = "Every developer likes to mix kubernetes and javascript";
+        let numeronyms=(word)=>(word[0]+(word.length-2) + word[word.length-1])
+        let q7=input4.split(" ").map(a=>{
+            let var1=[];
+            if(a.length<=3){
+                var1= a;
+            }
+            else{
+                var1= [a[0], a.length-2, a[a.length-1]];
+            }
+            return [var1];
+        }).join(" ")
+        console.log(q7);
+        
+        let q7p1=q7.split("").map(a=>a.replace(/,/g,"")).join("");
+        console.log(q7p1);
+        
+
+        const students = [
+        { name: "Alice", scores: [90, 85, 92] },
+        { name: "Bob", scores: [75, 80, 85] },
+        { name: "Charlie", scores: [90, 95, 85] },
+        { name: "David", scores: [100, 100, 100] }
+        ];
+
+        let q8=students.map(a=>{
+            let sum=a.scores.reduce(((sum,a)=>sum+a),0);
+            let avg=sum/a.scores.length;
+            let {name}=a
+            return {...{name},avg}
+        }).filter(a=>a.avg>=90)
+        // let q8p1=students.reduce((a,b)=>a.scores+b.scores,0);
+        // let q8p1=students.filter(a=>{
+        //     let sum=0;
+        //     for (let g of a.scores) { 
+        //             sum += g;
+        //         }
+        //         let avg = sum / a.scores.length; 
+        //         return avg > 90;
+        //         });
+        
+        console.log(q8);
+        // let {name}=students
+        // console.log(...students,avg)
+
+       const books = [
+        { title: 'The Lord of the Rings', author: 'J.R.R. Tolkien', soldQuantities: 100000 },
+        { title: 'Harry Potter and the Sorcerer\'s Stone', author: 'J.K. Rowling', soldQuantities: 200000 },
+        { title: 'Pride and Prejudice', author: 'Jane Austen', soldQuantities: 50000 },
+        { title: 'To Kill a Mockingbird', author: 'Harper Lee', soldQuantities: 80000 },
+        { title: 'The Hobbit', author: 'J.R.R. Tolkien', soldQuantities: 80000 },
+        { title: 'The Catcher in the Rye', author: 'J.D. Salinger', soldQuantities: 60000 }
+        ];
+
+        let q9=books.reduce((a,b)=>{
+            if(a.soldQuantities<b.soldQuantities){
+                return b;
+            }
+            else{
+                return a;
+            }
+        })
+        let q9p1=q9.author
+        console.log(q9p1);
+        
+ 
+
+        const students1 = [
+            { name: 'Alice', grade: 'A', scores: [95, 92, 98] },
+            { name: 'Bob', grade: 'B', scores: [85, 88, 82] },
+            { name: 'Charlie', grade: 'A', scores: [90, 93, 91] },
+            { name: 'David', grade: 'C', scores: [75, 78, 72] },
+            { name: 'Eve', grade: 'B', scores: [88, 86, 84] },
+            { name: 'Frank', grade: 'A', scores: [92, 94, 96] },
+            { name: 'Grace', grade: 'C', scores: [70, 73, 76] },
+            { name: 'Henry', grade: 'B', scores: [82, 85, 80] },
+            { name: 'Iris', grade: 'A', scores: [98, 96, 94] },
+            { name: 'Jack', grade: 'C', scores: [78, 81, 74] }
+            ];
+
+            let q10=students1.map(a=>{
+            let sum=a.scores.reduce(((sum,a)=>sum+a),0);
+            let avg=sum/a.scores.length;
+            let {name}=a
+            return {name,avg}})
+            q10.sort((a,b)=>b.avg-a.avg)
+            let top3=q10.slice(0,3)
+            console.log(top3);
         
     </script>
     

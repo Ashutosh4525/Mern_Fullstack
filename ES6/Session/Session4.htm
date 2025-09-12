@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad_Js_Session 4</title>
+</head>
+<body>
+    <script>
+
+        // OOPS
+        // class Student{
+        //     name="stud1";
+        //     email="stud@mail.com";
+        //     contact=982244165;
+        //     func=()=>`${this.name}: ${this.email}`  //getter method
+        //     set=(a)=>{
+        //         this.name=a;
+        //     }
+        // }
+        // name1="Ashu"
+        // let obj=new Student();
+        // console.log(obj.name);
+        // console.log(obj.func());
+        // obj.set("Ashu");
+        // console.log(obj.name)
+
+
+        // class Student{
+        //     constructor(n,e,c){     //this constructor will run when class is called
+        //         // console.log("Constructor running");
+        //         console.log(n,e,c);
+        //         this.name=n;
+        //         this.email=e;
+        //         this.contact=c;
+                
+        //     }
+        //     funget=()=>`${this.name}:${this.email}`
+        // }
+
+        // const jim= new Student("Jim", "jim@email", 98262414);
+        // console.log(jim);
+        
+        // const sara= new Student("Sara", "sara@email", 932262414);
+        // console.log(sara);
+
+        // // let obj1=new Student;
+        // console.log(sara.funget());
+
+
+        // class Student1{
+        //     constructor(){
+        //     console.log("hello")
+        //     }
+        // }
+        
+
+
+        let students = [
+       {
+         name: "abc",
+         email: "abc@gmail.com",
+         contact: 5598,
+         subject: "js",
+         marks: 20,
+       },
+       {
+         name: "pqr",
+         email: "pqr@gmail.com",
+         contact: 8800,
+         subject: "js",
+         marks: 70,
+       },
+       {
+         name: "xyz",
+         email: "xyz@gmail.com",
+         contact: 8799,
+         subject: "python",
+         marks: 30,
+       },
+       {
+         name: "mno",
+         email: "mno@gmail.com",
+         contact: 5765,
+         subject: "js",
+         marks: 60,
+       },
+       {
+         name: "abc",
+         email: "opq@gmail.com",
+         contact: 8687,
+         subject: "python",
+         marks: 40,
+       },
+     ];
+
+     class Stud{
+        constructor(allname){
+            this.arr=allname
+        }
+
+        getName=()=>this.arr.map(a=>a.name)
+        getContact=()=>this.arr.map(a=>a.contact)
+        //getSubject=()=>
+     }
+     let s1=new Stud(students);
+     console.log(s1);
+     
+
+    //  Name of all the students
+    console.log(s1.getName());
+    
+    // Contact no of all students
+    console.log(s1.getContact());
+    // Name of subjects students are enrolled in 
+
+    // Collect only the student data (i.e. array of object with name, email, contact No)
+    // Details of students based on their name
+    // Name of students with marks above 50
+    // Details of students based on their subject
+    // Contact No and name of students with marks below 50
+    // Average of the class
+    // Name of the students who scored above the average 
+
+    </script>
+</body>
+</html>

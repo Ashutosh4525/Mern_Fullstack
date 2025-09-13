@@ -101,8 +101,23 @@
 
         getName=()=>this.arr.map(a=>a.name)
         getContact=()=>this.arr.map(a=>a.contact)
-        //getSubject=()=>
-     }
+        getSubject=()=>this.arr.map(a=>a.subject)
+        .reduce((val, currval) => {
+          if (!val.includes(currval)) {
+            val.push(currval);
+          }
+          return val;
+          },[] );
+        getStudDetails=()=>this.arr.map((a)=>{
+          let {name,contact,email}=a;
+          return [name,contact,email]
+        })
+
+        getallDetail=(name)=>this.arr.map(a=>{
+          let {contact,email,subject,marks}=a;
+          return [contact,email,subject,marks]
+        })
+            }
      let s1=new Stud(students);
      console.log(s1);
      
@@ -113,9 +128,13 @@
     // Contact no of all students
     console.log(s1.getContact());
     // Name of subjects students are enrolled in 
-
+    console.log(s1.getSubject());
+    
     // Collect only the student data (i.e. array of object with name, email, contact No)
+    console.log(s1.getStudDetails());
     // Details of students based on their name
+    console.log(s1.getallDetail("abc"));
+    
     // Name of students with marks above 50
     // Details of students based on their subject
     // Contact No and name of students with marks below 50

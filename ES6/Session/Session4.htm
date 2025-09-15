@@ -113,10 +113,7 @@
           return [name,contact,email]
         })
 
-        // getallDetail=(name)=>this.arr.map(a=>{
-        //   let {contact,email,subject,marks}=a;
-        //   return [contact,email,subject,marks]
-        // })
+        getallDetail=(name)=>this.arr.filter(a=>a.name===name)
 
         // function getallDetail(name) {
           getstudentMark=()=>this.arr.filter(a=>a.marks>50).map(a=>a.name)
@@ -126,9 +123,10 @@
             return [name,contact]
           })
 
-          // getAvg=()=>
-          //   this.arr.reduce((a,b)=>{a+b.marks},0);
-          //   let avg= sum/this.arr.length
+          getAvg=()=>{
+           let sum= this.arr.reduce((a,b)=>a+Number(b.marks),0);
+            return sum/this.arr.length
+          }
         }
         
             
@@ -147,7 +145,7 @@
     // Collect only the student data (i.e. array of object with name, email, contact No)
     console.log(s1.getStudDetails());
     // Details of students based on their name
-    // console.log(s1.getallDetail("abc"));
+    console.log(s1.getallDetail("pqr"));
     
     // Name of students with marks above 50
     console.log(s1.getstudentMark())

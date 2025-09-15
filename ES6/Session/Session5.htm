@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6_Session_5</title>
+</head>
+<body>
+    
+    <script>
+
+        // class University{
+        //     constructor(n,j){
+        //         this.studentName=n;
+        //         this.yearOfJoining=j;
+        //     }
+        //     universityName="Mumbai University";
+        //     establishedYear=1890;
+        //     courses=["BA", "BSC", "BCom"];
+        //     getStudentDetails=()=>`${this.studentName} joined ${this.universityName} in ${this.yearOfJoining}`
+        // }
+
+        // const john=new University("John", 2024);
+        // const john1=new University("John",2021);
+        // console.log(john);
+        // console.log(john.getStudentDetails());
+        
+        // class APCollege extends University{
+        //     constructor(n,j,c){
+        //     super(n,j);
+        //     this.studentContact=c;
+        //     }
+        //     collegeName="A P College";
+        //     getStudentDetails=()=> `${this.studentName} joined ${this.collegeName} in ${this.yearOfJoining}`;
+        // }
+
+        // const kate=new APCollege("Kate", 2023 ,9678127312 );
+
+        // 4 principles
+        // Inheritance
+        // Abstraction
+        // Polymorphism
+        // Encapsulation
+
+        // session Storage
+        // sessionStorage.setItem('storage','session')
+        // console.log(sessionStorage.getItem('storage'));
+
+        // local Storage
+        // localStorage.setItem('storage','local')
+        // console.log(localStorage.getItem('storage'));
+        // localStorage.removeItem('storage')
+
+
+
+
+        // backend 
+        function f1(){
+            let x=new XMLHttpRequest();     //XMLHttpRequest is a class and used to take request
+            console.log(x);
+            x.onload=()=>{
+                if(x.readyState==4 && x.status==200){
+                    let data =JSON.parse(x.response);
+                    console.log(data.product);
+                    //  var lis= document.createElement("ul");
+                    //     var listItem=document.createElement("li");
+                    //     listItem.innerHTML=data;
+                    //     listItem.append(lis)
+                }
+                else{
+                    console.error(`Something went Wrong | status: ${x.status}`);
+                }
+            }
+            x.open('GET', 'https://dummyjson.com/products', true)
+            x.send();
+           
+        }
+
+        f1();
+        
+        
+
+        
+
+
+    </script>
+</body>
+</html>

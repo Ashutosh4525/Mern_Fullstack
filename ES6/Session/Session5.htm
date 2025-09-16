@@ -6,7 +6,8 @@
     <title>ES6_Session_5</title>
 </head>
 <body>
-    
+    <h1>Product List</h1>
+    <ul id="product-list"></ul>
     <script>
 
         // class University{
@@ -61,11 +62,21 @@
             x.onload=()=>{
                 if(x.readyState==4 && x.status==200){
                     let data =JSON.parse(x.response);
-                    console.log(data.product);
+                    console.log(data.products);
                     //  var lis= document.createElement("ul");
+                     
                     //     var listItem=document.createElement("li");
-                    //     listItem.innerHTML=data;
-                    //     listItem.append(lis)
+                    //     listItem.innerHTML=data.products;
+                    //     listItem.appendChild(lis);
+                     let productList = document.getElementById("product-list");
+                    productList.innerHTML = '';
+            // data.products.forEach(product => {
+            for(i=0;i<data.products.length;i++){
+                let product=data.products[i];
+                let listItem = document.createElement("li");
+                listItem.innerHTML = product.title; 
+                productList.appendChild(listItem);
+             }//);
                 }
                 else{
                     console.error(`Something went Wrong | status: ${x.status}`);

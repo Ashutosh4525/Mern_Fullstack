@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad_javaScript_Session_6</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #box{
+            width: 100%;
+            border: 2px solid black;
+            height: 400px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top:20px ;
+        }
+        #inbox{
+            width: 250px;
+            border: 2px solid black;
+            height: 300px;
+        }
+        #imgbox{
+            width: 100%;
+            height: 230px;
+            border: 2px solid black;
+        }
+    </style>
+    <h1> Products</h1>
+    <div id="box">
+        
+        <div id="inbox">
+            <div id="imgbox">
+                <img src="" alt="">
+            </div>
+            <h3 >hello</h3><span>price</span>
+            <h5>hello</h5>
+        </div>
+    </div>
+
+    <script>
+        function f1(){
+            let X= new XMLHttpRequest()
+            X.onload=()=>{
+                if(X.readyState==4 && X.status==200){
+                    let data =JSON.parse(X.response);
+                    const products=data.products;
+                    displayProduct(products)
+            }
+             else{
+                    console.error(`Something went Wrong | status: ${x.status}`);
+                }
+        }
+        X.open('GET', 'https://dummyjson.com/products', true)
+        X.send();
+    }
+
+    f1()
+    function displayProduct(products){
+        let parent=document.getElementById("box");
+        for(let p of products){
+            let productImg=p.images;
+            console.log(p);
+            
+            let newbox=document.createElement("div");
+            newbox.id="inbox";
+            newbox.innerHTML=`
+             <div id="imgbox">
+                <img src=${p.thumbnail} alt="">
+            </div>
+            <h3 >${p.title}</h3><span>$${p.price}</span>
+            <h5>${p.category}</h5>`
+            // let newimg=document.createElement("img");
+            // newimg.id="imgbox"
+            // newimg.src=p.thumbnail;
+            // let pname=document.createElement("h3")
+            // pname.innerHTML=p.title;
+            // let pprice=document.createElement("span")
+            // pprice.innerHTML=p.price;
+            // let pcolor=document.createElement("h5")
+            // pcolor.innerHTML=p.sku;
+            // parent.appendChild(pname,pprice,pcolor)
+            // newimg.src=productImg;
+            // parent.appendChild(newimg);
+            box.append(newbox)
+        }
+    }
+    </script>
+</body>
+</html>

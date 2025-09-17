@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad_javaScript_Session_7</title>
+</head>
+<body>
+    <script>
+        // console.log("Start");
+        // try{
+        //     let num=Math.floor(Math.random()*3);
+        //     if(numm==0){
+        //         throw new Error("The number generated is 0");
+        //     }
+        // }catch(err){
+        //     console.error(err);
+        // }finally{
+        //     console.log("Always runs");
+        // }
+        // console.log("end");
+    //     function fun1(){
+    //         return new Promise((resolve, reject) => { 
+    //     let usinp=Number(prompt("Enter the number"));
+    //     if(usinp%2==0){
+    //         resolve("Pass");
+    //     }else{
+    //         reject("Fail");
+    //     }
+    //     })
+    // }
+
+    // let r=fun1();
+    // console.log(r);
+
+    function fun2(){
+        return new Promise((resolve,reject)=>{
+            let inp=prompt("Enter the artical");
+            if(isNaN(inp)){
+                resolve ("Pass");
+            }else{
+                reject("Fail as" + inp + "is not string")
+            }
+        })
+    }
+    let r1=fun2();
+    console.log(r1);
+    </script>
+</body>
+</html>

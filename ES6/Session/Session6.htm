@@ -14,44 +14,68 @@
         }
         #box{
             width: 100%;
-            border: 2px solid black;
+            /* border: 2px solid black; */
             height: 400px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             flex-wrap: wrap;
             align-items: center;
             margin-top:20px ;
+            padding: 20px;
         }
         #inbox{
             width: 250px;
-            border: 2px solid black;
+            /* border: 2px solid black; */
             height: 300px;
+            padding: 10px;
         }
         #imgbox{
             width: 100%;
-            height: 230px;
-            border: 2px solid black;
+            height: 200px;
+            /* border: 2px solid black; */
+        }
+        img{
+            width: 100%;
+            height: 100%;
         }
     </style>
     <h1> Products</h1>
+    <input type="search" name="search" id="search" placeholder="Search" >
+    <button onclick="f2()">Search</button>
+    <br/>
+    
+    <input type="number" name="min-val" id="min" placeholder="Min">
+    <input type="number" name="max-val" id="max" placeholder="Max">
+    <button onclick="f4()">Search</button>
+    <br/>
+    <!-- <input type="search" name="category" id="category" placeholder="Category" > -->
+    <select name="category" id="category" onchange="f3()">
+        <option value=""></option>
+        <option value="beauty">beauty</option>
+        <option value="fragrances">fragrances</option>
+        <option value="furniture">furniture</option>
+        <option value="groceries">groceries</option>
+    <!-- <button onchange="f3()">Search by Category</button> -->
     <div id="box">
         
-        <div id="inbox">
+        <!-- <div id="inbox">
             <div id="imgbox">
                 <img src="" alt="">
             </div>
             <h3 >hello</h3><span>price</span>
             <h5>hello</h5>
-        </div>
+        </div> -->
     </div>
 
+
     <script>
+        let products=[];
         function f1(){
             let X= new XMLHttpRequest()
             X.onload=()=>{
                 if(X.readyState==4 && X.status==200){
                     let data =JSON.parse(X.response);
-                    const products=data.products;
+                    products=data.products;
                     displayProduct(products)
             }
              else{
@@ -67,7 +91,7 @@
         let parent=document.getElementById("box");
         for(let p of products){
             let productImg=p.images;
-            console.log(p);
+            // console.log(p);
             
             let newbox=document.createElement("div");
             newbox.id="inbox";
@@ -77,6 +101,7 @@
             </div>
             <h3 >${p.title}</h3><span>$${p.price}</span>
             <h5>${p.category}</h5>`
+
             // let newimg=document.createElement("img");
             // newimg.id="imgbox"
             // newimg.src=p.thumbnail;
@@ -89,8 +114,80 @@
             // parent.appendChild(pname,pprice,pcolor)
             // newimg.src=productImg;
             // parent.appendChild(newimg);
-            box.append(newbox)
+            parent.append(newbox)
         }
+    }
+    function f2(){
+        let parent=document.getElementById("box");
+        let inp=document.getElementById("search").value.toLowerCase();
+        let newbox=document.createElement("div");
+            newbox.id="inbox";
+            const foundProduct = products.filter(p => p.title.toLowerCase().includes(inp));
+        // for( let p of products){
+        //     if(inp==p.title){
+        //         return  newbox.innerHTML=`
+        //      <div id="imgbox">
+        //         <img src=${p.thumbnail} alt="">
+        //     </div>
+        //     <h3 >${p.title}</h3><span>$${p.price}</span>
+        //     <h5>${p.category}</h5>`
+        //     }
+        // }
+        if (foundProduct.length>0) {
+         
+        let newbox = document.createElement("div");
+        newbox.id = "inbox";
+        let searchs=foundProduct.map(p=>
+        newbox.innerHTML = `
+        <div id="inbox">
+            <div id="imgbox">
+                <img src="${p.thumbnail}" alt="${p.title}">
+            </div>
+            <h3>${p.title}</h3><span>$${p.price}</span>
+            <h5>${p.category}</h5>
+        </div>`).join('');
+            
+        parent.innerHTML=searchs;
+        // parent.append(newbox);
+    } else {
+        parent.innerHTML = '<div>No product found.</div>';
+    }
+}
+function f4(){
+        let parent=document.getElementById("box");
+        let inp2=Number(document.getElementById("min").value);
+        let inp3=Number(document.getElementById("max").value);
+        let newbox = document.createElement("div");
+        newbox.id = "inbox";
+        const price=products.filter(p=>p.price)
+}
+
+
+    function f3(){
+        let parent=document.getElementById("box");
+        let inp1=document.getElementById("category").value.toLowerCase();
+        let newbox = document.createElement("div");
+        newbox.id = "inbox";
+        const cat=products.filter(p => p.category.toLowerCase().includes(inp1));
+         if (cat.length>0) {
+            let newbox = document.createElement("div");
+        let category=cat.map(p=>
+          inbox.innerHTML=
+        `<div id="inbox">
+            <div id="imgbox">
+                <img src="${p.thumbnail}" alt="${p.title}">
+            </div>
+            <h3>${p.title}</h3><span>$${p.price}</span>
+            <h5>${p.category}</h5>
+        </div>`).join('');
+         parent.innerHTML=category;
+    }
+    else{
+        //  parent.innerHTML=category;
+    parent.innerHTML = '<div>No product found.</div>';
+    }
+       
+        // parent.append(cat)
     }
     </script>
 </body>

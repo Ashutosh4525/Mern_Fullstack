@@ -12,6 +12,9 @@
             padding: 0;
             box-sizing: border-box;
         }
+        body.clmo{
+            overflow: hidden;
+        }
         #box{
             width: 100%;
             /* border: 2px solid black; */
@@ -28,6 +31,7 @@
             /* border: 2px solid black; */
             height: 300px;
             padding: 10px;
+            cursor: pointer;
         }
         #imgbox{
             width: 100%;
@@ -38,6 +42,49 @@
             width: 100%;
             height: 100%;
         }
+        .modal{
+            background-color: rgba(0, 0, 0, 0.365);
+            height: 100%;
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 5;
+        }
+        #inboxmodal{
+            width: 500px;
+            background-color: white;
+            text-align: center;
+            position: relative;
+        }
+        #imgboxmodal{
+            width: 300px;
+            padding: 10px;
+            margin-left: 100px;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           align-content: center;
+           text-align: center;
+        }
+        #imgboxmodal img{
+            width: 100%;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+
     </style>
     <h1> Products</h1>
     <input type="search" name="search" id="search" placeholder="Search" >
@@ -67,16 +114,32 @@
             <h5>hello</h5>
         </div>  -->
     </div>
+    <div class="modal">
+        
+        <div id="inboxmodal">
+            <button class="close-btn">&times;</button>
+        <div id="imgboxmodal">
+                <img src="../../javaScript/Assignment/firework.gif" alt="">
+            </div>
+            <!-- <h3 >hel</h3>oo<span></span>
+            <h5>my</h5> -->
+            <h3 id="modal-title"></h3>
+            <span id="modal-price"></span>
+            <h5 id="modal-category"></h5>
+        </div>
+    </div>
 
 
     <script>
         let products=[];
+        let allProducts = [];
         function f1(){
             let X= new XMLHttpRequest()
             X.onload=()=>{
                 if(X.readyState==4 && X.status==200){
                     let data =JSON.parse(X.response);
                     products=data.products;
+                    allProducts = [...products];
                     displayProduct(products)
             }
              else{
@@ -90,12 +153,14 @@
     f1()
     function displayProduct(products){
         let parent=document.getElementById("box");
+        parent.innerHTML = "";
         for(let p of products){
             let productImg=p.images;
             // console.log(p);
             
             let newbox=document.createElement("div");
             newbox.id="inbox";
+            
             newbox.innerHTML=`
              <div id="imgbox">
                 <img src=${p.thumbnail} alt="">
@@ -115,8 +180,31 @@
             // parent.appendChild(pname,pprice,pcolor)
             // newimg.src=productImg;
             // parent.appendChild(newimg);
+            newbox.addEventListener("click", () => modal(p)); 
             parent.append(newbox)
         }
+    }
+    function modal(products){
+        let mod=document.querySelector(".modal");
+        mod.style.display="flex";
+        document.getElementById("modal-title").textContent = products.title;
+            document.getElementById("modal-price").textContent = `$${products.price}`;
+            document.getElementById("modal-category").textContent = products.category;
+            document.querySelector("#imgboxmodal img").src = products.thumbnail;
+            document.body.classList.add("clmo");
+    //   mod.innerHTML=` 
+    //     <div id="inboxmodal">
+    //         <button class="close-btn">&times;</button>
+    //     <div id="imgboxmodal">
+    //             <img src="${products.thumbnail}" alt="">
+    //         </div>
+    //         <h3 >${products.title}</h3><span>${products.price}</span>
+    //         <h5>${products.category}</h5>
+    //     </div>`
+        document.querySelector(".close-btn").addEventListener("click", () => {
+                mod.style.display = "none";
+                document.body.classList.remove("clmo")
+            });
     }
     function f2(){
         let parent=document.getElementById("box");
@@ -149,41 +237,44 @@
         parent.innerHTML = foundProduct||'<div>No product found.</div>';
 }
 function f4(){
-        let parent=document.getElementById("box");
-        let inp2=Number(document.getElementById("min").value);
-        let inp3=Number(document.getElementById("max").value);
-        let newbox = document.createElement("div");
-        newbox.id = "inbox";
-        let categoryDropdown = document.getElementById("category");
-    let selectedCategory = categoryDropdown.value;
-    parent.innerHTML = ""; 
-    const filteredProducts = products.filter(p => {
-        let categoryMatch = (selectedCategory === "" || p.category === selectedCategory); 
-        let priceMatch = (p.price >= inp2 && p.price <= inp3); 
-        return categoryMatch && priceMatch; 
-    });
+    let minPrice = Number(document.getElementById("min").value) || 0;
+    let maxPrice = Number(document.getElementById("max").value) || Infinity;
+    let filtered = allProducts.filter(p => p.price >= minPrice && p.price <= maxPrice);
+            // products = [...filtered];
+    displayProduct(filtered);
+    //     let parent=document.getElementById("box");
+    //     let inp2=Number(document.getElementById("min").value);
+    //     let inp3=Number(document.getElementById("max").value);
+    //     let newbox = document.createElement("div");
+    //     newbox.id = "inbox";
+    //     let selectedCategory = document.getElementById("category").value;
+    //     parent.innerHTML = ""; 
+    // const filteredProducts = products.filter(p => (p.price >= inp2 && p.price <= inp3)).map(p=>
+    //     newbox.innerHTML=`
+    //          <div id="inbox">
+    //         <div id="imgbox">
+    //             <img src="${p.thumbnail}" alt="${p.title}">
+    //         </div>
+    //         <h3>${p.title}</h3><span>$${p.price}</span>
+    //         <h5>${p.category}</h5>
+    //         </div>`
+    // ).join("")
+    //         parent.innerHTML=filteredProducts//||"<p>No products found matching your criteria.</p>";
+        }
+   
+    //     filteredProducts.forEach(product => {
+    //         let newbox = document.createElement("div"); // Create a new div for each product
+    //         newbox.id = "inbox"; // You might want to assign a unique ID or class for styling/manipulation
+    //         newbox.innerHTML = `
+           
+    //         `; // Customize this based on your product object properties
+    //         parent.appendChild(newbox); // Add the newbox to the parent element
+    //     });
+    // } else {
+    //     parent.innerHTML = "<p>No products found matching your criteria.</p>"; // Display a message if no products are found
+    // }
 
-    
-    if (filteredProducts.length > 0) { 
-        filteredProducts.forEach(product => {
-            let newbox = document.createElement("div"); // Create a new div for each product
-            newbox.id = "inbox"; // You might want to assign a unique ID or class for styling/manipulation
-            newbox.innerHTML = `
-                <div id="inbox">
-            <div id="imgbox">
-                <img src="${product.thumbnail}" alt="${product.title}">
-            </div>
-            <h3>${product.title}</h3><span>$${product.price}</span>
-            <h5>${product.category}</h5>
-            </div>
-            `; // Customize this based on your product object properties
-            parent.appendChild(newbox); // Add the newbox to the parent element
-        });
-    } else {
-        parent.innerHTML = "<p>No products found matching your criteria.</p>"; // Display a message if no products are found
-    }
 
-}
 
 
     function f3(){

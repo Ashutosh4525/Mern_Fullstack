@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad_javaScript_Session_8</title>
+</head>
+<body>
+
+   
+        <div class="innerbox">
+
+        </div>
+        <label for="color">Enter the color</label>
+        <input type="text" name="color" id="color">
+        <label for="time">Enter the time</label>
+        <input type="number" name="time" id="time">
+        <button onclick="f2()">Click for Change</button>
+    
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .innerbox{
+            width: 400px;
+            height: 400px;
+            border: 2px solid black;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        let backColor=document.getElementById("color").value;
+        let alltime=Number(document.getElementById("time").value);
+        let box=document.querySelector(".innerbox");
+        
+        function f2(){
+             let box=document.querySelector(".innerbox");
+            setTimeout(()=>{
+            box.style.backgroundColor=backColor;
+            },alltime)
+        }
+
+        function f3(backColor, alltime){
+            return new Promise((resolve, reject) => {
+                let box=document.querySelector(".innerbox");
+                 setTimeout(()=>{
+            box.style.backgroundColor=backColor;
+            resolve();
+            },alltime);
+            })
+        }
+
+        async function f4() {
+            console.log("red start");
+            await f3("red",2000);
+            console.log("red end");
+
+            console.log("pink start");
+            await f3("pink",5000);
+            console.log("pink end");
+        }
+        // function f1(){
+        //     return new Promise((resolve, reject) => {
+        //             resolve("Pass")
+        //     })
+        // }
+    //    console.log( f1());
+// Promise Method
+// resolve
+    // const p1=Promise.resolve("pass");
+
+// reject
+    // const p2=Promise.reject("Fail");
+
+    // 50% chance
+    // const p3=new Promise((resolve,reject)=>{
+    //     let n=Math.ceil(Math.random()*10);
+    //     if(n<=5){
+    //         resolve(n+" p3 is passed and it is smaller and equal to 5")
+    //     }else{
+    //         reject(n+" p3 is failed and it is greater than 5")
+    //     }
+    // })
+
+
+//  all
+    // Promise.all([p1,p3])
+    // .then((r)=>{
+    //     console.log(r);
+    // })
+    // .catch((e)=>{
+    //     console.error(r);
+    // });
+
+// allSetteled
+    // Promise.allSettled([p1,p2,p3])
+    //  .then((r)=>{
+    //     console.log(r);
+    // })
+    // .catch((e)=>{
+    //     console.error(r);
+    // });
+
+// any - return first promise that is fullfilled compareing all promises
+    // Promise.any([p1,p2,p3])
+    // .then((r)=>{
+    //     console.log(r);
+    // })
+    // .catch((e)=>{
+    //     console.error(r);
+    // });
+
+
+// race - which ever promise comes first and based on that it gives the result
+    //  Promise.race([p1,p2,p3])
+    // .then((r)=>{
+    //     console.log(r);
+    // })
+    // .catch((e)=>{
+    //     console.error(r);
+    // });
+
+// async - same as promises
+    // async function fun1(p) {
+    //     if(p>50){
+    //         return p+" passed";
+    //     }else{
+    //         return p+" failed"
+    //     }
+    // }
+
+    // fun1(60)
+    // .then((r)=>{
+    //     console.log(r);
+    //     return fun1(55);
+    // })
+    // .then((r)=>{
+    //     console.log(r);
+    // })
+    // .catch((e)=>{
+    //     console.error(e);
+    // })
+    </script>
+</body>
+</html>

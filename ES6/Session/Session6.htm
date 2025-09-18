@@ -54,17 +54,18 @@
         <option value="beauty">beauty</option>
         <option value="fragrances">fragrances</option>
         <option value="furniture">furniture</option>
-        <option value="groceries">groceries</option>
-    <!-- <button onchange="f3()">Search by Category</button> -->
+        <option value="groceries">groceries</option> 
+    </select>
+    <!-- <button onchange="f3()">Search by Category</button>-->
     <div id="box">
         
-        <!-- <div id="inbox">
+         <!-- <div id="inbox">
             <div id="imgbox">
                 <img src="" alt="">
             </div>
             <h3 >hello</h3><span>price</span>
             <h5>hello</h5>
-        </div> -->
+        </div>  -->
     </div>
 
 
@@ -122,7 +123,15 @@
         let inp=document.getElementById("search").value.toLowerCase();
         let newbox=document.createElement("div");
             newbox.id="inbox";
-            const foundProduct = products.filter(p => p.title.toLowerCase().includes(inp));
+            const foundProduct = products.filter(p => p.title.toLowerCase().includes(inp)).map(p=>
+        newbox.innerHTML = `
+        <div id="inbox">
+            <div id="imgbox">
+                <img src="${p.thumbnail}" alt="${p.title}">
+            </div>
+            <h3>${p.title}</h3><span>$${p.price}</span>
+            <h5>${p.category}</h5>
+        </div>`)//.join('');
         // for( let p of products){
         //     if(inp==p.title){
         //         return  newbox.innerHTML=`
@@ -133,25 +142,11 @@
         //     <h5>${p.category}</h5>`
         //     }
         // }
-        if (foundProduct.length>0) {
-         
-        let newbox = document.createElement("div");
-        newbox.id = "inbox";
-        let searchs=foundProduct.map(p=>
-        newbox.innerHTML = `
-        <div id="inbox">
-            <div id="imgbox">
-                <img src="${p.thumbnail}" alt="${p.title}">
-            </div>
-            <h3>${p.title}</h3><span>$${p.price}</span>
-            <h5>${p.category}</h5>
-        </div>`).join('');
-            
-        parent.innerHTML=searchs;
+ 
+        // parent.innerHTML=;
         // parent.append(newbox);
-    } else {
-        parent.innerHTML = '<div>No product found.</div>';
-    }
+   
+        parent.innerHTML = foundProduct||'<div>No product found.</div>';
 }
 function f4(){
         let parent=document.getElementById("box");
@@ -159,33 +154,67 @@ function f4(){
         let inp3=Number(document.getElementById("max").value);
         let newbox = document.createElement("div");
         newbox.id = "inbox";
-        const price=products.filter(p=>p.price)
+        let categoryDropdown = document.getElementById("category");
+    let selectedCategory = categoryDropdown.value;
+    parent.innerHTML = ""; 
+    const filteredProducts = products.filter(p => {
+        let categoryMatch = (selectedCategory === "" || p.category === selectedCategory); 
+        let priceMatch = (p.price >= inp2 && p.price <= inp3); 
+        return categoryMatch && priceMatch; 
+    });
+
+    
+    if (filteredProducts.length > 0) { 
+        filteredProducts.forEach(product => {
+            let newbox = document.createElement("div"); // Create a new div for each product
+            newbox.id = "inbox"; // You might want to assign a unique ID or class for styling/manipulation
+            newbox.innerHTML = `
+                <div id="inbox">
+            <div id="imgbox">
+                <img src="${product.thumbnail}" alt="${product.title}">
+            </div>
+            <h3>${product.title}</h3><span>$${product.price}</span>
+            <h5>${product.category}</h5>
+            </div>
+            `; // Customize this based on your product object properties
+            parent.appendChild(newbox); // Add the newbox to the parent element
+        });
+    } else {
+        parent.innerHTML = "<p>No products found matching your criteria.</p>"; // Display a message if no products are found
+    }
+
 }
 
 
     function f3(){
         let parent=document.getElementById("box");
-        let inp1=document.getElementById("category").value.toLowerCase();
+        let inp1=document.getElementById("category").value;
         let newbox = document.createElement("div");
         newbox.id = "inbox";
-        const cat=products.filter(p => p.category.toLowerCase().includes(inp1));
-         if (cat.length>0) {
-            let newbox = document.createElement("div");
-        let category=cat.map(p=>
-          inbox.innerHTML=
+        parent.innerHTML = "";
+        const cat=products.filter(p => {return inp1 === "" || p.category === inp1;}).map(p=>
         `<div id="inbox">
             <div id="imgbox">
                 <img src="${p.thumbnail}" alt="${p.title}">
             </div>
             <h3>${p.title}</h3><span>$${p.price}</span>
             <h5>${p.category}</h5>
-        </div>`).join('');
-         parent.innerHTML=category;
-    }
-    else{
-        //  parent.innerHTML=category;
-    parent.innerHTML = '<div>No product found.</div>';
-    }
+        </div>`).join("")
+        //  if (cat.length>0) {
+        //     let newbox = document.createElement("div");
+        // let category=cat.map(p=>
+        // `<div id="inbox">
+        //     <div id="imgbox">
+        //         <img src="${p.thumbnail}" alt="${p.title}">
+        //     </div>
+        //     <h3>${p.title}</h3><span>$${p.price}</span>
+        //     <h5>${p.category}</h5>
+        // </div>`)//.join('');
+         parent.innerHTML=cat;
+    // else{
+    //     //  parent.innerHTML=category;
+    // parent.innerHTML = '<div>No product found.</div>';
+    // }
        
         // parent.append(cat)
     }

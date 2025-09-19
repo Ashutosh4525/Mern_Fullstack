@@ -187,20 +187,20 @@
     function modal(products){
         let mod=document.querySelector(".modal");
         mod.style.display="flex";
-        document.getElementById("modal-title").textContent = products.title;
-            document.getElementById("modal-price").textContent = `$${products.price}`;
-            document.getElementById("modal-category").textContent = products.category;
-            document.querySelector("#imgboxmodal img").src = products.thumbnail;
+        // document.getElementById("modal-title").textContent = products.title;
+        //     document.getElementById("modal-price").textContent = `$${products.price}`;
+        //     document.getElementById("modal-category").textContent = products.category;
+        //     document.querySelector("#imgboxmodal img").src = products.thumbnail;
             document.body.classList.add("clmo");
-    //   mod.innerHTML=` 
-    //     <div id="inboxmodal">
-    //         <button class="close-btn">&times;</button>
-    //     <div id="imgboxmodal">
-    //             <img src="${products.thumbnail}" alt="">
-    //         </div>
-    //         <h3 >${products.title}</h3><span>${products.price}</span>
-    //         <h5>${products.category}</h5>
-    //     </div>`
+      mod.innerHTML=` 
+        <div id="inboxmodal">
+            <button class="close-btn">&times;</button>
+        <div id="imgboxmodal">
+                <img src="${products.thumbnail}" alt="">
+            </div>
+            <h3 >${products.title}</h3><span>${products.price}</span>
+            <h5>${products.category}</h5>
+        </div>`
         document.querySelector(".close-btn").addEventListener("click", () => {
                 mod.style.display = "none";
                 document.body.classList.remove("clmo")

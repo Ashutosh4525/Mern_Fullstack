@@ -138,8 +138,114 @@ let sum=()=>data.reduce((a,b)=>a+Number(b.price),0)
 console.log(sum());
 
 // 6. Get sum of books price whose price is greater than 300
-let sumAll=()=>data.map(a=>a.price>300).reduce((a,b)=>a+Number(b.price),0)
+let sumAll=()=>data.filter(a=>a.price>300).reduce((a,b)=>a+Number(b.price),0)
 console.log(sumAll());
+
+
+
+maindata = [
+{
+"title":"Oranges",
+"price":50,
+"status":"out of stock",
+"soldQuantity":"1000",
+"category":"Fresh Produce",
+"description":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque, ipsam?",
+},
+{
+"title":"White bread",
+"price":100,
+"status":"available",
+"soldQuantity":"250",
+"category":"Bread",
+"description":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque, ipsam?",
+},
+{
+"title":"Crackers",
+"price":50,
+"status":"available",
+"soldQuantity":"150",
+"category":"Snacks",
+"description":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque, ipsam?",
+},
+{
+"title":"Eggs",
+"price":200,
+"status":"out of stock",
+"soldQuantity":"500",
+"category":"Meat/Protein",
+"description":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque, ipsam?",
+},
+{
+"title":"Potatoes",
+"price":250,
+"status":"out of stock",
+"soldQuantity":"2000",
+"category":"Fresh Produce",
+"description":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque, ipsam?",
+},
+{
+"title":"Sugar",
+"price":350,
+"status":"available",
+"soldQuantity":"1800",
+"category":"Baking goods",
+"description":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque, ipsam?",
+},
+{
+"title":"Cinnamon",
+"price":250,
+"status":"available",
+"soldQuantity":"2000",
+"category":"Condiments/spices",
+"description":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque, ipsam?",
+},
+{
+"title":"Tomatoes",
+"price":50,
+"status":"Coming Soon",
+"soldQuantity":"0",
+"category":"Fresh Produce",
+"description":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque, ipsam?",
+},
+{
+"title":"Coconut Oil",
+"price":200,
+"status":"Coming Soon",
+"soldQuantity":"0",
+"category":"Oils",
+"description":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque, ipsam?",
+}
+]
+// 1.total available items name
+let avname=maindata.filter(p=>p.status=="available");
+console.log(avname);
+
+// 2.total available items amount
+let availamount=maindata.filter(p=>p.status=="available").reduce((a,b)=>a+Number(b.price),0);
+console.log(availamount);
+
+// 3.items which are out of stock
+let stockout=maindata.filter(p=>p.status=="out of stock");
+console.log(stockout);
+
+// 4.all items (including out of stock)
+let allitems=maindata.map(p=>p);
+console.log(allitems);
+
+// 5.particular item detail by their name
+// 6.total item sold
+// 7.item rate greater then 100 rupees
+let priceOver=maindata.filter(p=>p.price>100).map(p=>p)
+console.log(priceOver);
+
+// 8.item rate lesser then 100 rupees
+let priceUnder=maindata.filter(p=>p.price<100).map(p=>p)
+console.log(priceUnder);
+// 9.item according to their type(which means biscuits, chocolate,etc)
+let type=(item)=>maindata.filter(p=>p.category===item);
+console.log(type("Fresh Produce"));
+
 
 
     </script>

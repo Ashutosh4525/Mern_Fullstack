@@ -234,7 +234,13 @@ let allitems=maindata.map(p=>p);
 console.log(allitems);
 
 // 5.particular item detail by their name
+let itemname=(item)=>maindata.filter(p=>p.title===item);
+console.log(itemname("Coconut Oil"));
+
 // 6.total item sold
+let totalitem=maindata.reduce((a,b)=> a+Number(b.soldQuantity),0);
+console.log(totalitem);
+
 // 7.item rate greater then 100 rupees
 let priceOver=maindata.filter(p=>p.price>100).map(p=>p)
 console.log(priceOver);

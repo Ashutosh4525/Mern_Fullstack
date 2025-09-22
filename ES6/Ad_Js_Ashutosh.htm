@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+<script>
+
+	//Q1
+	const students1 = [
+	{ name: 'Alice', score: 85, age: 22 },
+	{ name: 'Bob', score: 92, age: 17 },
+	{ name: 'Charlie', score: 88, age: 19 },
+	{ name: 'David', score: 78, age: 20 },
+	{ name: 'Eve', score: 95, age: 18 },
+	];
+	let result=students1.filter(a=>a.age>=18).map(n=>n.name.toUpperCase());
+	console.log(result);
+
+//Q2x
+	function sumFun(...a){
+		return a;
+	}
+	
+	console.log(sumFun(2,3,4));
+
+
+//Q3
+	const user = {
+		name: 'Charlie',
+		};
+
+		// let {name,email="N/A"}=user;
+		// console.log(name,email);
+
+//Q4
+		people = [
+			{ name: 'John Doe', age: 30 },
+			{ name: 'Jane Smith', age: 25 },
+			{ name: 'Bob Johnson', age: 17 }
+			];
+			let output=people.filter(a=>a.age>18).map(a=>a);
+			console.log(output);
+
+// 5. Name at least 5 promise methods with examples.
+			// resolve method will always pass
+			let met1=Promise.resolve("Pass");
+			console.log(met1);
+
+            //reject method will always fail
+			let met2=Promise.reject("Fail");
+			console.log(met2);
+
+			// all this method will show the first value that is passed
+			let met3=Promise.resolve("Pass")
+			let met4=Promise.all([met1,met3,met2]);
+			console.log(met3);
+
+			// allsettled this method will show all the output of the passed promises
+			let met5=Promise.allSettled([met2,met1,met3]);
+			console.log(met5);
+
+            // race
+			let met6=Promise.race([met1,met3]);
+			console.log(met6);
+
+// 6. Explain Higher order function and callback function with examples
+			//here fun1 is Higher order function 
+			function fun1(fun2=()=>{
+				console.log("fun2 is running");
+			}){     //fun2 is call-back function as it is called in a function
+				console.log("fun1 is running");
+			}
+			function fun2(){
+				console.log("fun2 is running");
+			}
+			console.log(fun1(fun2));
+
+
+//Q7
+			const people1 = [
+		{ name: 'Alice', age: 30, email: 'alice@example.com' },
+		{ name: 'Bob', age: 25, email: 'bob@example.com' },
+		{ name: 'Charlie', age: 35, email: 'charlie@example.com' },
+		{ name: 'David', age: 28, email: 'david@example.com' },
+		{ name: 'Eve', age: 32, email: 'eve@example.com' },
+		{ name: 'Frank', age: 40, email: 'frank@example.com' },
+		{ name: 'Grace', age: 27, email: 'grace@example.com' },
+		{ name: 'Helen', age: 22, email: 'helen@example.com' },
+		{ name: 'Ivy', age: 29, email: 'ivy@example.com' },
+		{ name: 'Jack', age: 33, email: 'jack@example.com' },
+		];
+		let res=people1.find(a=>{
+			let {name,email}=a;
+			a.age>30;
+			return [name,email];
+		});
+		console.log(res);
+
+//q8x
+		const students = [
+			{ name: 'Alice', score: 85, age: 22 },
+			{ name: 'Bob', score: 92, age: 17 },
+			{ name: 'Charlie', score: 88, age: 19 },
+			{ name: 'David', score: 78, age: 20 },
+			{ name: 'Eve', score: 95, age: 18 },
+			];
+
+//not done		
+let [,{name,...Detail}]=students;
+console.log(`Name : ${name}`);
+console.log("Detail : " , Detail  );
+
+
+
+
+			
+
+// Name : ‘Bob’
+// Detail : {score: 92, age: 17}
+
+//q9
+			// let ran=Math.floor(Math.random()*10);
+			// console.log(ran);
+		let q9=new Promise((resolve,reject)=>{
+			let ran=Math.floor(Math.random()*10);
+			console.log(ran);
+			if(ran>4){
+				resolve("Successful, "+ran+" random number is greater than 4")
+			}
+			else{
+				reject("ERROR: Third promise rejected")
+			}
+		})
+console.log(q9);
+
+
+// q11
+		//https://jsonplaceholder.typicode.com/posts
+
+			fetch("https://jsonplaceholder.typicode.com/posts" )
+			.then().catch()
+			
+
+// q10
+	let arr=[{title: 'Book A', author: 'Author X', genre: 'Mystery', year: 2015 },
+{ title: 'Book B', author: 'Author Y', genre: 'Science Fiction', year: 2012 },
+{ title: 'Book C', author: 'Author Z', genre: 'Fantasy', year: 2018 },
+{ title: 'Book D', author: 'Author W', genre: 'Mystery', year: 2017 },
+{ title: 'Book E', author: 'Author V', genre: 'Science Fiction', year: 2014 },
+{ title: 'Book F', author: 'Author U', genre: 'Fantasy', year: 2016 },
+{ title: 'Book G', author: 'Author T', genre: 'Mystery', year: 2013 },
+{ title: 'Book H', author: 'Author S', genre: 'Science Fiction', year: 2019 },
+{ title: 'Book I', author: 'Author R', genre: 'Fantasy', year: 2011 },
+{ title: 'Book J', author: 'Author Q', genre: 'Mystery', year: 2020 },
+{ title: 'Book K', author: 'Author P', genre: 'Science Fiction', year: 2017 }];
+
+let q10=arr.filter(a=> {return a.year>=2015&&a.year<=2010}).map(a=>a.genre);
+console.log(q10);	
+
+
+
+
+
+</script>
+</body>
+</html>

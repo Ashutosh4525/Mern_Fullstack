@@ -6,7 +6,73 @@
 	<title></title>
 </head>
 <body>
-
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	.box{
+		/* padding: 20px 40px; */
+		width: 100%;
+		background-color: black;
+		display: flex;
+		justify-content: center;
+		text-align: center;
+		flex-wrap: wrap;
+		align-items: center;
+		padding: 10px;
+	}
+	.innerbox{
+		width: 300px;
+		padding: 10px;
+		text-align: center;
+		color: white;
+		border: 1px solid white;
+		border-radius: 10px;
+		height: 350px;
+		margin: 10px;
+		overflow: hidden;
+	}
+	.modal{
+		background-color: rgba(255, 255, 255, 0.479);
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top:0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		align-items: center;
+		text-align: center;
+		padding-top: 100px;
+		display: none;
+	}
+	.inner{
+		color: white;
+		width: 300px;
+		padding: 10px;
+		text-align: center;
+		color: white;
+		border: 1px solid white;
+		border-radius: 10px;
+		height: 350px;
+		margin: 10px;
+		overflow: hidden;
+	}
+</style>
+	<div class="box">
+		<!-- <div class="innerbox">
+			<h1>1</h1>
+			<p>hi</p>
+		</div> -->
+	</div>
+	<div class="modal">
+		<div class="inner">
+			<h1>1</h1>
+			<p>hi</p>
+		</div>
+	</div>
 <script>
 
 	//Q1
@@ -22,7 +88,11 @@
 
 //Q2x
 	function sumFun(...a){
-		return a;
+		var sum=0;
+		for(let b of a){
+			sum+=b;
+		}
+		return(sum);
 	}
 	
 	console.log(sumFun(2,3,4));
@@ -93,12 +163,19 @@
 		{ name: 'Ivy', age: 29, email: 'ivy@example.com' },
 		{ name: 'Jack', age: 33, email: 'jack@example.com' },
 		];
-		let res=people1.find(a=>{
-			let {name,email}=a;
-			a.age>30;
-			return [name,email];
-		});
-		console.log(res);
+		// let res=people1.find(a=>{
+		// 	let {name,email}=a;
+		// 	a.age>30;
+		// 	return [name,email];
+		// });
+		// console.log(res);
+
+		// let res1=people1.find(a=>a.age>30)
+		// 	let {name,email}=a;
+			
+		// console.log(res1);
+		
+
 
 //q8x
 		const students = [
@@ -125,27 +202,51 @@ console.log("Detail : " , Detail  );
 //q9
 			// let ran=Math.floor(Math.random()*10);
 			// console.log(ran);
-		let q9=new Promise((resolve,reject)=>{
+			let pr1=Promise.resolve("Successful")
+			let pr2=4;
+		    let pr3=new Promise((resolve,reject)=>{
 			let ran=Math.floor(Math.random()*10);
 			console.log(ran);
 			if(ran>4){
-				resolve("Successful, "+ran+" random number is greater than 4")
+				resolve("random number is greater than 4")
 			}
 			else{
-				reject("ERROR: Third promise rejected")
+				reject("Third promise rejected")
 			}
+		});
+
+		Promise.all([pr1,pr2,pr3])
+		.then((r)=>{
+			console.log(r);
+			
 		})
-console.log(q9);
+		.catch((e)=>{console.error(`ERROR: ${e}`)}
+		)
+// console.log(q9);
 
 
 // q11
 		//https://jsonplaceholder.typicode.com/posts
-
-			fetch("https://jsonplaceholder.typicode.com/posts" )
-			.then().catch()
+//not done		
+			// fetch("https://jsonplaceholder.typicode.com/posts" )
+			// .then((r)=>{
+			// 	if(r.ok){
+			// 		return r.json();
+			// 	}
+			// 	else{
+			// 		throw `status : ${r.status}`
+			// 	}
+			// })
+			// .then((d)=>{
+			// 	d.map(d=>console.log(d.body));
+			// })
+			// .catch((err)=>{
+			// 	console.log(err);
+			// })
 			
 
 // q10
+//not done		
 	let arr=[{title: 'Book A', author: 'Author X', genre: 'Mystery', year: 2015 },
 { title: 'Book B', author: 'Author Y', genre: 'Science Fiction', year: 2012 },
 { title: 'Book C', author: 'Author Z', genre: 'Fantasy', year: 2018 },
@@ -158,12 +259,50 @@ console.log(q9);
 { title: 'Book J', author: 'Author Q', genre: 'Mystery', year: 2020 },
 { title: 'Book K', author: 'Author P', genre: 'Science Fiction', year: 2017 }];
 
-let q10=arr.filter(a=> {return a.year>=2015&&a.year<=2010}).map(a=>a.genre);
+let q10=arr.filter(a=> {return a.year<=2015&&a.year>=2010}).map(a=>a.genre).reduce((a,b)=>{
+	if(!a.includes(b)){
+	a.push(b);}
+	return a;
+},[])
 console.log(q10);	
 
 
+let q10p2=arr.filter(a=> {return a.year<=2015&&a.year>=2010}).map(a=>a.genre);
+let q10p3=q10p2.filter((a,i)=>{
+	return i==q10p2.indexOf(a);
+})
+console.log(q10p3);
 
 
+fetch("https://jsonplaceholder.typicode.com/posts")
+.then((r)=>{
+	if(r.ok){
+		return r.json();
+	}else{
+		throw `Status: ${r.status}`
+	}
+})
+.then((r)=>{
+	let b1=document.querySelector(".box");
+	for(let p of r){
+	b1.innerHTML+=
+	`<div class="innerbox">
+			<h1>${p.id}</h1>
+			<h2>${p.title}</h2>
+			<p>${p.body}</p>
+			<button onclick="f1()">Modal</button>
+		</div>`
+	}	
+})
+
+.catch((e)=>{
+	console.error(e);
+	
+})
+
+function f1(){
+	
+}
 
 </script>
 </body>

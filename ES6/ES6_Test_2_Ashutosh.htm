@@ -69,9 +69,9 @@ const students = [
 { name: "Meena", score: 88 }
 ];
 
-let q5=students.filter(a=>a.score>90);
-let [{name,score}]=q5;
-console.log(`Name: ${name}, Score: ${score}`);
+// let q5=students.filter(a=>a.score>90);
+// let [{name,score}]=q5;
+// console.log(`Name: ${name}, Score: ${score}`);
 
 
 //q6
@@ -80,40 +80,38 @@ let q6=(n)=>new Promise((resolve,reject)=>{
 })
 
 //q7x
-// const arr = [1, 2, 2, 3, 4, 4, 5];
-// let q7=arr
-// .reduce((a,b)=>{
-// 	if(!a.includes(b)){
-// 		a.push(b);
-// 		return a;
-// 	}
-// },[]);
+const arr = [1, 2, 2, 3, 4, 4, 5];
+let q7=arr
+.reduce((a,b)=>{
+	if(!a.includes(b)){
+		a.push(b);
+		
+	}
+	return a;
+},[]);
 // .filter((a,i)=>{
 // 	console.log(i,a);
 // 	// return i==Firstindexof(a);
 // });
 
-// console.log(q7);
+console.log(q7);
 
 //q8
-// const people = [
-// { name: "A", age: 20 },
-// { name: "B", age: 21 },
-// { name: "C", age: 20 }
-// ];
+const people = [
+{ name: "A", age: 20 },
+{ name: "B", age: 21 },
+{ name: "C", age: 20 }
+];
 
-//  let q8=people.reduce((a,b)=>{
-// 	if(!a.includes(b)){
-// 		return a.push(b);
-// 	}else{
-// 		return a;
-// 	}
-// },[]);
-//map(a=>{
-// 	let {age,...name}=a;
-// 	return `${age}: ${[name]}`
-// })
-// console.log(q8);
+ let q8=people.map(a=>a.age)
+ .reduce((a,b)=>{
+	if(!a.includes(b)){
+		 a.push(b);
+	}
+		return a;
+},[])
+let{name}=people;
+console.log(...q8,...[name]);
 
 //q9r
 	const products = [
@@ -130,15 +128,15 @@ console.log(q9);
 	
 
 
-//q10r
-// const students = [
-// { name: "A", score: 90 },
-// { name: "B", score: 70 },
-// { name: "C", score: 85 }
-// ];
+// q10r
+const students1 = [
+{ name: "A", score: 90 },
+{ name: "B", score: 70 },
+{ name: "C", score: 85 }
+];
 
-// let q10=students.sort((a,b)=>{return b.score-a.score});
-// console.log(q10);
+let q10=students1.sort((a,b)=>{return b.score-a.score});
+console.log(q10);
 </script>
 </body>
 </html>

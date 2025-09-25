@@ -3,10 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
     <title>Form Creation</title>
 </head>
 <body>
-    <select name="Form" id="form">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Jersey 10", sans-serif;
+        }
+        h1{
+            color: white;
+        }
+        #labe{
+            outline-color: gold;
+        }
+        body{
+            background-color: black;
+        }
+        .opt{
+            margin: 20px;
+            padding: 10px;
+            
+        }
+        .box{
+            background-color: peru;
+            width: 70%;
+            margin: 10px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .box h3{
+            color: white;
+            text-transform: uppercase;
+        }
+        .newele{
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+    <div class="opt">
+    <h1>Form Crafter</h1>
+    <select name="Form" id="form" >
         <option value="">Choose </option>
         <option value="text">Text</option>
         <option value="number">Number</option>
@@ -16,17 +56,94 @@
         <option value="select">Select</option>
         <option value="submit">Submit</option>
     </select>
-    <button onchange="fun1()">Click</button>
-
+    <button onclick="fun2()">Click</button>
+    <p style="color: white;">Please choose the option from the above available options</p>
+    </div>
+    
     <div class="box">
-
+        <h3>create your form</h3>
+        <!-- <label for=""></label> -->
+        <!-- <input type="" name="" id=""> -->
     </div>
     <script>
-        function fun1(){
-            let box=document.querySelector("box");
-            
-        }
+        //  let sel=document.querySelector("#form").value;
+        //     console.log(sel);
+        // function fun1(){
+        //     let box=document.querySelector("box");
+        //     let sel=document.querySelector("#form").value;
+        //     console.log(sel);
 
+        //     document.createElement("input");
+        // }
+        function fun2(){
+            let box=document.querySelector(".box");
+            let sel=document.querySelector("#form").value;
+            // console.log(sel);
+            // box.innerHTML=
+            // `<input type="text" id="labe" placeholder="Enter label name">
+            // <button class="btn">Done</button>`
+               
+             let labelInput = document.createElement("input"); 
+            labelInput.type = "text";
+            labelInput.id = "labe";
+            labelInput.placeholder = "Enter label name";
+
+            let btn=document.createElement("button");
+            btn.innerHTML="Done";
+            btn.classList.add("btn");
+
+            let newLabel = document.createElement("label");
+            let newInput = document.createElement("input");
+            newInput.type = sel;
+
+            let closeButton=document.createElement("button");
+            closeButton.innerHTML="&times";
+            let container = document.createElement("div");
+            container.classList.add("newele")
+            container.append(labelInput,btn,newLabel,newInput,closeButton);
+            
+            box.appendChild(container);
+            closeButton.addEventListener("click",fun);
+             let but=document.querySelector(".btn");
+             but.addEventListener("click",()=>{
+                newLabel.innerHTML=`${labelInput.value}: `;
+                labelInput.remove();
+                btn.remove();
+                 container.innerHTML = "";
+                 container.append(newLabel, newInput,closeButton);
+                 closeButton.addEventListener("click",fun);
+    });
+            function fun(){
+                container.remove();
+                // newInput.remove();
+                // closeButton.remove();
+                // newLabel.remove();
+            }
+        //     let lab=document.createElement("input");
+        //     lab.placeholder="Enter the label";
+            
+        //     let lab1=document.createElement("label")
+        //     lab1.innerHTML=lab.value;
+        //    let txt= document.createElement("input");
+        //    txt.type=sel;
+        //    if(sel==="text"){
+        //      txt.placeholder="text"
+        //    }
+        //    else if(sel==="number"){
+        //     txt.placeholder="number"
+        //    }
+           
+        //    box.append(lab,txt);
+        }
+        // function fbtn(la){
+        //     let lab=document.getElementById("labe");
+        //    console.log(lab.value);
+            
+        //     lab.remove();
+        //     let newlab=document.createElement("label").innerHTML=lab;
+        //     let box=document.querySelector(".box");
+        //     box.append(newlab);
+        // }
     </script>
 </body>
 </html>

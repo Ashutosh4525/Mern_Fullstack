@@ -6,9 +6,62 @@
 	<title>Test 2</title>
 </head>
 <body>
+<select id="form">
+  <option value="text">Text</option>
+  <option value="number">Number</option>
+  <option value="password">Password</option>
+  <option value="email">Email</option>
+</select>
+<button onclick="fun2()">Add Field</button>
 
+<div class="box"></div>
 <script>
 	
+
+
+
+function fun2() {
+    let box = document.querySelector(".box");
+    let sel = document.querySelector("#form").value;
+
+    // Temporary inputs (for label naming)
+    let labelInput = document.createElement("input");
+    labelInput.type = "text";
+    labelInput.placeholder = "Enter label name";
+
+    let doneBtn = document.createElement("button");
+    doneBtn.textContent = "Done";
+
+    // Wrap in a container so each field stays separate
+    let container = document.createElement("div");
+    container.classList.add("field-container");
+    container.append(labelInput, doneBtn);
+
+    // Add container to the form
+    box.appendChild(container);
+
+    // On Done → replace temporary inputs with final label + input
+    doneBtn.addEventListener("click", () => {
+        let labelName = labelInput.value || "Unnamed Field";
+
+        let newLabel = document.createElement("label");
+        let newInput = document.createElement("input");
+
+        // Give input a unique ID
+        newInput.type = sel;
+        newInput.id = "field_" + Date.now();
+
+        // Link label to input
+        newLabel.setAttribute("for", newInput.id);
+        newLabel.textContent = labelName;
+
+        // Clear container and add final elements
+        container.innerHTML = "";
+        container.append(newLabel, newInput);
+    });
+}
 </script>
+
+
 </body>
 </html>

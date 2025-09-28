@@ -103,15 +103,24 @@ const people = [
 { name: "C", age: 20 }
 ];
 
- let q8=people.map(a=>a.age)
- .reduce((a,b)=>{
-	if(!a.includes(b)){
-		 a.push(b);
-	}
-		return a;
-},[])
-let{name}=people;
-console.log(...q8,...[name]);
+//  let q8=people.map(a=>a.age)
+//  .reduce((a,b)=>{
+// 	if(!a.includes(b)){
+// 		 a.push(b);
+// 	}
+// 		return a;
+// },[])
+// let{name}=people;
+// console.log(...q8,...[name]);
+const grouped = people.reduce((acc, person) => {
+  if (!acc[person.age]) {
+    acc[person.age] = []; // create array if not exists
+  }
+  acc[person.age].push(person.name); // push name
+  return acc;
+}, {});
+
+console.log(grouped);
 
 //q9r
 	const products = [

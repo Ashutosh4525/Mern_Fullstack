@@ -82,17 +82,16 @@ let q6=(n)=>new Promise((resolve,reject)=>{
 //q7x
 const arr = [1, 2, 2, 3, 4, 4, 5];
 let q7=arr
-.reduce((a,b)=>{
-	if(!a.includes(b)){
-		a.push(b);
-		
-	}
-	return a;
-},[]);
-// .filter((a,i)=>{
-// 	console.log(i,a);
-// 	// return i==Firstindexof(a);
-// });
+// .reduce((a,b)=>{
+// 	if(!a.includes(b)){
+// 		a.push(b);
+// 	}
+// 	return a;
+// },[]);
+.filter((a,i)=>{
+	// console.log(i,a);
+	return arr.indexOf(a)===i;
+});
 
 console.log(q7);
 

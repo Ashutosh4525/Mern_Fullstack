@@ -69,9 +69,9 @@ const students = [
 { name: "Meena", score: 88 }
 ];
 
-// let q5=students.filter(a=>a.score>90);
-// let [{name,score}]=q5;
-// console.log(`Name: ${name}, Score: ${score}`);
+let q5=students.filter(a=>a.score>90);
+let [{name,score}]=q5;
+console.log(`Name: ${name}, Score: ${score}`);
 
 
 //q6
@@ -145,6 +145,17 @@ const students1 = [
 
 let q10=students1.sort((a,b)=>{return b.score-a.score});
 console.log(q10);
+
+
+const obj2=[{
+	a:1,
+	b:2,
+	c:3,
+	d:4
+}]
+const obj1=obj2.map(a=>[...a],[])
+console.log(obj1);
+
 </script>
 </body>
 </html>

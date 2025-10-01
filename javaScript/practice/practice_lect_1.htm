@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //String
+        const s1="hello";
+        const s2='hello s2';
+        const s3=`hello s3`;
+
+        console.log(s1,s2,s3);
+        console.log(s1.length);
+        console.log(s1[1]);
+        console.log(s1.toUpperCase());
+        console.log(s1 +`this is not in uppercase after adding toUpperCase above`);
+        console.log(s1.indexOf('lo')); //character sensitive //it gives number
+        console.log(s1.includes('l')); //boolean
+
+        //slice
+        console.log(s1.slice(2,4)); //here 4 will not include
+        console.log(s1.slice(-2));
+
+        //substring
+        console.log(s1.substring(1,3));
+
+        //replace
+        console.log(s1.replace("s","ss"));
+
+        //trim removes start end spaces
+
+        //split
+        const names="rohit,ashu,suraj"
+        console.log(names.split(","));
+        
+        //Date
+        const now=new Date();
+        console.log(now);
+        console.log(now.toString());
+       const time=new Date(0);
+       console.log(time);
+       
+    </script>
+</body>
+</html>

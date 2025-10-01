@@ -48,7 +48,7 @@
             margin: 10px 0px;
         }
         .newele input,label,button {
-            flex: 0 0 4.5%;
+            /* flex: 0 0 4.5%; */
             margin: 0px 5px;
             font-size: 20px;
         }
@@ -58,7 +58,14 @@
             cursor: pointer;
             text-align: center;
         }
-        
+        .box1{
+          background-color: white;
+            width: 75%;
+            margin: 10px auto;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
     </style>
     <div class="opti">
     <h1>Form Crafter</h1>
@@ -78,14 +85,18 @@
     
     <div class="box">
         <h3>create your form</h3>
-        <!-- <label for=""></label> -->
-        <!-- <input type="" name="" id=""> -->
+        <!-- <label for=""></label>
+        <input type="" name="" id=""> -->
     </div>
+    <form ></form>
     <script>
 
         function fun2(){
             let box=document.querySelector(".box");
             let sel=document.querySelector("#form").value;
+            // let form=document.createElement("div")
+            let form=document.querySelector("form");
+            form.classList.add("box1")
             let labelInput = document.createElement("input");
             labelInput.type = "text";
             labelInput.placeholder = "Enter label";
@@ -97,781 +108,203 @@
             closeButton.innerHTML = "&times;";
             closeButton.classList.add("clbtn");
             closeButton.addEventListener("click", () => container.remove());
-            let optionInput = null;
-            let addOptBtn = null;
-            let optionsBox = null;
             if(!sel){
                 alert("Please select the options");
                 return;
             }
-            if (sel === "select" || sel === "checkbox" || sel === "radio") {
-                optionInput = document.createElement("input");
-                optionInput.type = "text";
-                optionInput.placeholder = "Enter option";
+            if(sel == "text" || sel == "number" || sel == "email"){
+              let newInput=document.createElement("input")
+              newInput.type=sel;
+              newInput.placeholder=sel;
+              container.append(labelInput,btn,newInput,closeButton)
+              box.append(container)
+              btn.addEventListener("click",()=>{
+                let newlab=document.createElement("label")
+                newlab.innerHTML=`${labelInput.value}:`;
+                if(!labelInput.value){
+                  alert("Enter the Label");
+                  return
+                }
+                container.append(newlab,newInput,closeButton)
+                box.append(container)
+                labelInput.remove();
+                btn.remove();
+              })  
+            } else if(sel === "checkbox" || sel === "radio"){
+              let optionsDiv = document.createElement("div");
+              let opt=document.createElement("input")
+              opt.type="text"
+              opt.innerHTML="Enter value"
+              let optLabel=document.createElement("label")
+              let addOpt = document.createElement("button");
+              addOpt.innerHTML = "Add";
+              let dnOpt= document.createElement("button")
+              dnOpt.innerHTML="Done"
+              container.append(labelInput,btn,opt,addOpt,dnOpt,closeButton)
+              box.append(container)
 
-                addOptBtn = document.createElement("button");
-                addOptBtn.innerHTML = "Add Option";
+              btn.addEventListener("click",()=>{
+                let newlab=document.createElement("label")
+                newlab.innerHTML=`${labelInput.value}:`;
+                if(!labelInput.value){
+                  alert("Enter the Label");
+                  return
+                }
+                container.append(newlab,opt,addOpt,dnOpt,closeButton)
+                box.append(container)
+                labelInput.remove();
+                btn.remove();
+              })  
+              addOpt.addEventListener("click",()=>{
+                let val=opt.value.trim();
+                if(!val){
+                  alert ("Enter the options for the input")
+                  return
+                }
+                let inp = document.createElement("input");
+                inp.type = sel;
+                inp.value = val;
+                inp.name = labelInput.value;
 
-                optionsBox = document.createElement("div");
-                optionsBox.classList.add("options-box");
+                let lbl = document.createElement("label");
+                lbl.innerHTML = val;
+
+                optionsDiv.append(inp,lbl)
+                // container.append(optionsDiv)
+                box.append(container,optionsDiv)
+                opt.value = "";
+              })
+              dnOpt.addEventListener("click",()=>{
+                let inp = document.createElement("input");
+                container.append(optionsDiv,opt,closeButton)
+                box.append(container)
+                dnOpt.remove();
+                addOpt.remove();
+                opt.remove();
+              })
+            }else if(sel === "select"){
+              let select=document.createElement("select");
+              let optionsDiv = document.createElement("div");
+
+              let opt = document.createElement("input");
+              opt.type = "text";
+              opt.placeholder = "Enter option";
+
+              let addOpt = document.createElement("button");
+              addOpt.innerHTML = "Add";
+              let dnOpt= document.createElement("button")
+              dnOpt.innerHTML="Done"
+
+              container.append(labelInput,btn,opt,addOpt,dnOpt,select,closeButton)
+              box.append(container)
+
+              btn.addEventListener("click",()=>{
+                let newlab=document.createElement("label")
+                newlab.innerHTML=`${labelInput.value}:`;
+                if(!labelInput.value){
+                  alert("Enter the Label");
+                  return
+                }
+                container.append(newlab,opt,addOpt,dnOpt,select,closeButton)
+                box.append(container)
+                labelInput.remove();
+                btn.remove();
+              })  
+              addOpt.addEventListener("click",()=>{
+                let val=opt.value.trim();
+                if(!val){
+                  alert ("Enter the options for the select dropdown")
+                  return
+                }
+                let option = document.createElement("option");
+                option.value = val;
+                option.innerHTML = val;
+
+                select.append(option)
+                opt.value = "";
+              })
+              dnOpt.addEventListener("click",()=>{
+                container.append(select,closeButton)
+                box.append(container)
+                dnOpt.remove();
+                addOpt.remove();
+                opt.remove();
+              })
+            }else if(sel==="submit"){
+              let sub=document.createElement("input")
+              sub.type="submit";
+              sub.value="Submit"
+              container.append(sub,closeButton)
+              box.append(container)
+              
+              
+              sub.addEventListener("click",()=>{
+                 let confirmed = confirm("Form created! Do you want to view the empty form?");
+                if(confirmed){
+                  displayEmptyForm();
+                }                
+              });
             }
         }
-//                 addOptBtn.addEventListener("click", () => {
-//                 if (optionInput.value.trim()) {
-//                         let val = optionInput.value.trim();
+        function displayEmptyForm(){
+          // let box=document.querySelector(".box");
+          let created=document.querySelector(".box")
+          let form=document.querySelector("form");
+          // let forminp=[];
+         form.innerHTML=created.innerHTML;
+         
+         form.querySelectorAll(".clbtn").forEach(btn=>btn.remove());
+         form.querySelectorAll("input, select, button").forEach(el => {
+        if (el.type !== "submit") el.disabled = false;
+         });
+         let heading = form.querySelector("h3");
+         heading.innerHTML="Fill Out Your Form";
+        created.style.display = "none";
+        document.querySelector(".opti").style.display = "none";
+        form.style.display = "block";
 
-//                 if (sel === "select") {
-//                     let opt = document.createElement("option");
-//                     opt.value = val;
-//                     opt.innerHTML = val;
-//                     optionsBox.appendChild(opt);
-//                 } else {
-//                     let wrapper = document.createElement("label");
-//                     let input = document.createElement("input");
-//                     input.type = sel;
-//                     input.value = val;
-//                     wrapper.append(input, document.createTextNode(val));
-//                     optionsBox.appendChild(wrapper);
-//                 }
 
-//                 optionInput.value = "";
-//             }
-//         });
-//                 container.append(labelInput, optionInput, addOptBtn, btn, closeButton, optionsBox);
-//             } else {
-//                 container.append(labelInput, btn, closeButton);
-//             }
+        form.onsubmit = function (e) {
+        e.preventDefault();
 
-//         box.appendChild(container);
-//         btn.addEventListener("click", () => {
-//     let labelName = labelInput.value.trim() || "Label";
-//     container.innerHTML = ""; 
+        let result = document.createElement("div");
+        result.classList.add("box");
+        result.style.backgroundColor = "darkblue";
+        result.style.color = "white";
 
-    
-//     if (sel === "text" || sel === "number" || sel === "email") {
-//         let label = document.createElement("label");
-//         label.innerHTML = labelName + ": ";
+        let title = document.createElement("h3");
+        title.innerHTML = "Data Submitted";
+        result.appendChild(title);
 
-//         let input = document.createElement("input");
-//         input.type = sel;   // "text", "number", or "email"
-//         input.name = labelName; // use label as field name
-
-//         container.append(label, input, closeButton);
-//     }
-
-//     // === Select ===
-//     else if (sel === "select") {
-//         let label = document.createElement("label");
-//         label.innerHTML = labelName + ": ";
-
-//         let select = document.createElement("select");
-//         select.name = labelName;
-
-//         [...optionsBox.children].forEach(opt => select.appendChild(opt));
-//         container.append(label, select, closeButton);
-//     }
-
-//     // === Checkbox / Radio ===
-//     else if (sel === "checkbox" || sel === "radio") {
-//         let label = document.createElement("label");
-//         label.innerHTML = labelName + ": ";
-//         container.append(label);
-
-//         [...optionsBox.children].forEach(wrapper => {
-//             let input = wrapper.querySelector("input");
-//             input.name = labelName; // group by label
-//             container.append(wrapper);
-//         });
-
-//         container.append(closeButton);
-//     }
-
-//     // === Submit ===
-//     else if (sel === "submit") {
-//         let submit = document.createElement("input");
-//         // submit.innerHTML = labelName || "Submit";
-//         submit.type = "submit";
-
-//         submit.addEventListener("click", () => {
-//             let opti=document.querySelector("opti");
-//             let result = {};
-//             let inputs = box.querySelectorAll("input, select");
-
-//             inputs.forEach(input => {
-//                 if (input.type === "submit" || input.type === "button") return;
-
-//                 if (input.type === "checkbox") {
-//                     if (!result[input.name]) result[input.name] = [];
-//                     if (input.checked) result[input.name].push(input.value);
-//                 }
-//                 else if (input.type === "radio") {
-//                     if (input.checked) result[input.name] = input.value;
-//                 }
-//                 else {
-//                     result[input.name] = input.value;
-//                 }
-//             });
-
-//             // Show results inside page
-//             let output = document.getElementById("form-output");
-//             if (!output) {
-//                 opti.remove();
-//                 box.remove();
-//                 output = document.createElement("div");
-//                 output.id = "form-output";
-//                 output.style.background = "white";
-//                 output.style.padding = "10px";
-//                 output.style.marginTop = "20px";
-//                 box.parentElement.appendChild(output);
-//             }
-//             output.innerHTML = "<h2>Form Submission Result</h2>";
-//             for (let key in result) {
-//                 output.innerHTML += `<p><strong>${key}:</strong> ${Array.isArray(result[key]) ? result[key].join(", ") : result[key]}</p>`;
-//             }
-//         });
-//         container.append(submit, closeButton);
         
-//     }
-// });
-
-// }
-
-
-            
-        
-        //  let sel=document.querySelector("#form").value;
-        //     console.log(sel);
-        // function fun1(){
-        //     let box=document.querySelector("box");
-        //     let sel=document.querySelector("#form").value;
-        //     console.log(sel);
-
-        //     document.createElement("input");
-        // }
-//         function fun2(){
-//             let box=document.querySelector(".box");
-//             let sel=document.querySelector("#form").value;
-//             // console.log(sel);
-//             // box.innerHTML=
-//             // `<input type="text" id="labe" placeholder="Enter label name">
-//             // <button class="btn">Done</button>`
-//              if(!sel){
-//                 alert("Please select an element type first!");
-//                 return;
-//              }  
-//             let labelInput = document.createElement("input"); 
-//             labelInput.type = "text";
-//             labelInput.id = "labe";
-//             labelInput.placeholder = "Enter label name";
-
-//             let optionsInput= null;
-//             if (sel === "select" || sel === "checkbox" || sel === "radio") {
-//                 optionsInput = document.createElement("input");
-//                 optionsInput.type = "text";
-//                 optionsInput.placeholder = "Enter options (comma separated)";
-//             }
-
-//             let btn=document.createElement("button");
-//             btn.innerHTML="Done";
-//             btn.classList.add("btn");
-
-//             let newLabel = document.createElement("label");
-//             let newInput = document.createElement("input");
-//             newInput.type = sel;
-
-//             let closeButton=document.createElement("button");
-//             closeButton.innerHTML="&times";
-//             closeButton.classList.add("clbtn")
-//             let container = document.createElement("div");
-//             container.classList.add("newele")
-//             container.append(labelInput,btn,newLabel,newInput,closeButton);
-            
-//             box.appendChild(container);
-//            closeButton.addEventListener("click",()=>{
-//                 container.remove();
-//                  });
-//              let but=document.querySelector(".btn");
-//              but.addEventListener("click",()=>{
-//                 newLabel.innerHTML=`${labelInput.value}: `;
-//                 labelInput.remove();
-//                 btn.remove();
-//                 //  container.innerHTML = "";
-//                 //  container.append(newLabel, newInput,closeButton);
-//                 if (optionsInput) {
-//             let values = optionsInput.value.split(",").map(v => v.trim());
-//             optionsInput.remove();
-
-//             if (sel === "select") {
-//                 let select = document.createElement("select");
-//                 values.forEach(val => {
-//                     let opt = document.createElement("option");
-//                     opt.innerHTML = val;
-//                     select.appendChild(opt);
-//                 });
-//                 container.append(newLabel, select, closeButton);
-
-//             } else if (sel === "checkbox") {
-//                 values.forEach(val => {
-//                     let wrapper = document.createElement("div");
-//                     let input = document.createElement("input");
-//                     input.type = "checkbox";
-//                     input.value = val;
-
-//                     let optLabel = document.createElement("label");
-//                     optLabel.innerHTML = val;
-
-//                     wrapper.append(input, optLabel);
-//                     container.appendChild(wrapper);
-//                 });
-//                 container.append(closeButton);
-
-//             } else if (sel === "radio") {
-//                 values.forEach(val => {
-//                     let wrapper = document.createElement("div");
-//                     let input = document.createElement("input");
-//                     input.type = "radio";
-//                     input.value = val;
-//                     input.name = labelName; // same name → grouped radios
-
-//                     let optLabel = document.createElement("label");
-//                     optLabel.innerHTML = val;
-
-//                     wrapper.append(input, optLabel);
-//                     container.appendChild(wrapper);
-//                 });
-//                 container.append(closeButton);
-//             }
-
-//         } else if (sel === "submit") {
-//             let submitBtn = document.createElement("button");
-//             submitBtn.type = "submit";
-//             submitBtn.innerHTML = labelName || "Submit";
-//             container.append(newLabel, submitBtn, closeButton);
-
-//         } else {
-//             // Normal text/number/email input
-//             let input = document.createElement("input");
-//             input.type = sel;
-//             container.append(newLabel, input, closeButton);
-//         }
-//     });
-    
-// }     
-// function fun2() {
-//     let box = document.querySelector(".box");
-//     let sel = document.querySelector("#form").value;
-
-//     if (!sel) {
-//         alert("Please select an element type first!");
-//         return;
-//     }
-
-//     // Input for label name
-//     let labelInput = document.createElement("input");
-//     labelInput.type = "text";
-//     labelInput.placeholder = "Enter label name";
-
-//     // Options input (for select/checkbox/radio only)
-//     let optionsInput = null;
-//     if (sel === "select" || sel === "checkbox" || sel === "radio") {
-//         optionsInput = document.createElement("input");
-//         optionsInput.type = "text";
-//         optionsInput.placeholder = "Enter options (comma separated)";
-//     }
-
-//     // Done button
-//     let btn = document.createElement("button");
-//     btn.innerHTML = "Done";
-//     btn.classList.add("btn");
-
-//     // Close (delete field) button
-//     let closeButton = document.createElement("button");
-//     closeButton.innerHTML = "&times;";
-//     closeButton.classList.add("clbtn");
-
-//     // Label element
-//     let newLabel = document.createElement("label");
-
-//     // Container
-//     let container = document.createElement("div");
-//     container.classList.add("newele");
-//     container.append(labelInput);
-//     if (optionsInput) container.append(optionsInput);
-//     container.append(btn, newLabel, closeButton);
-
-//     // Add to box
-//     box.appendChild(container);
-
-//     // Delete handler
-//     closeButton.addEventListener("click", () => container.remove());
-
-//     // Done button handler
-//     btn.addEventListener("click", () => {
-//         let labelName = labelInput.value || "Unnamed";
-//         newLabel.innerHTML = labelName + ": ";
-
-//         // Remove temporary inputs
-//         labelInput.remove();
-//         btn.remove();
-//         if (optionsInput) {
-//             let values = optionsInput.value.split(",").map(v => v.trim());
-//             optionsInput.remove();
-
-//             if (sel === "select") {
-//                 let select = document.createElement("select");
-//                 values.forEach(val => {
-//                     let opt = document.createElement("option");
-//                     opt.innerHTML = val;
-//                     select.appendChild(opt);
-//                 });
-//                 container.append(newLabel, select, closeButton);
-
-//             } else if (sel === "checkbox") {
-//                 values.forEach(val => {
-//                     let wrapper = document.createElement("div");
-//                     let input = document.createElement("input");
-//                     input.type = "checkbox";
-//                     input.value = val;
-
-//                     let optLabel = document.createElement("label");
-//                     optLabel.innerHTML = val;
-
-//                     wrapper.append(input, optLabel);
-//                     container.appendChild(wrapper);
-//                 });
-//                 container.append(closeButton);
-
-//             } else if (sel === "radio") {
-//                 values.forEach(val => {
-//                     let wrapper = document.createElement("div");
-//                     let input = document.createElement("input");
-//                     input.type = "radio";
-//                     input.value = val;
-//                     input.name = labelName; // same name → grouped radios
-
-//                     let optLabel = document.createElement("label");
-//                     optLabel.innerHTML = val;
-
-//                     wrapper.append(input, optLabel);
-//                     container.appendChild(wrapper);
-//                 });
-//                 container.append(closeButton);
-//             }
-
-//         } else if (sel === "submit") {
-//             let submitBtn = document.createElement("button");
-//             submitBtn.type = "submit";
-//             submitBtn.innerHTML = labelName || "Submit";
-//             container.append(newLabel, submitBtn, closeButton);
-
-//         } else {
-//             // Normal text/number/email input
-//             let input = document.createElement("input");
-//             input.type = sel;
-//             container.append(newLabel, input, closeButton);
-//         }
-//     });
-// }
-// function fun2() {
-//     let box = document.querySelector(".box");
-//     let sel = document.querySelector("#form").value;
-
-//     if (!sel) {
-//         alert("Please select an element type first!");
-//         return;
-//     }
-
-//     // Label input
-//     let labelInput = document.createElement("input");
-//     labelInput.type = "text";
-//     labelInput.placeholder = "Enter label name";
-
-//     // For options (only for select/checkbox/radio)
-//     let optionInput = null;
-//     let addOptionBtn = null;
-//     let optionList = []; // store options temporarily
-//     let optionPreview = null;
-
-//     if (sel === "select" || sel === "checkbox" || sel === "radio") {
-//         optionInput = document.createElement("input");
-//         optionInput.type = "text";
-//         optionInput.placeholder = "Enter option";
-
-//         addOptionBtn = document.createElement("button");
-//         addOptionBtn.innerHTML = "Add Option";
-
-//         optionPreview = document.createElement("ul");
-//         optionPreview.style.listStyle = "none";
-//         // optionPreview.style.padding = "5px";
-//         // optionPreview.style.margin = "5px 0";
-//     }
-
-//     // Done button
-//     let btn = document.createElement("button");
-//     btn.innerHTML = "Done";
-//     btn.classList.add("btn");
-
-//     // Close button
-//     let closeButton = document.createElement("button");
-//     closeButton.innerHTML = "&times;";
-//     closeButton.classList.add("clbtn");
-
-//     // Label element
-//     let newLabel = document.createElement("label");
-
-//     // Container
-//     let container = document.createElement("div");
-//     container.classList.add("newele");
-//     container.append(labelInput);
-//     if (optionInput) container.append(optionInput, addOptionBtn, optionPreview);
-//     container.append(btn, newLabel, closeButton);
-
-//     box.appendChild(container);
-
-//     // Close button → remove whole block
-//     closeButton.addEventListener("click", () => container.remove());
-
-//     // Add option handler
-//     if (addOptionBtn) {
-//         addOptionBtn.addEventListener("click", (e) => {
-//             e.preventDefault();
-//             let val = optionInput.value.trim();
-//             if (val) {
-//                 optionList.push(val);
-
-//                 // Show preview
-//                 let li = document.createElement("li");
-//                 li.innerHTML = val;
-
-//                 // delete single option button
-//                 let delBtn = document.createElement("button");
-//                 delBtn.innerHTML = "x";
-//                 delBtn.style.marginLeft = "10px";
-//                 delBtn.addEventListener("click", () => {
-//                     optionList = optionList.filter(o => o !== val);
-//                     li.remove();
-//                 });
-
-//                 li.appendChild(delBtn);
-//                 optionPreview.appendChild(li);
-
-//                 optionInput.value = "";
-//             }
-//         });
-//     }
-
-//     // Done button → finalize
-//     btn.addEventListener("click", () => {
-//         let labelName = labelInput.value || "Unnamed";
-//         newLabel.innerHTML = labelName + ": ";
-
-//         // Clear temporary inputs
-//         labelInput.remove();
-//         btn.remove();
-//         if (optionInput) {
-//             optionInput.remove();
-//             addOptionBtn.remove();
-//             optionPreview.remove();
-//         }
-
-//         // Build final input based on type
-//         if (sel === "select") {
-//             let select = document.createElement("select");
-//             optionList.forEach(val => {
-//                 let opt = document.createElement("option");
-//                 opt.innerHTML = val;
-//                 select.appendChild(opt);
-//             });
-//             container.innerHTML = "";
-//             container.append(newLabel, select, closeButton);
-
-//         } else if (sel === "checkbox") {
-//             container.innerHTML = "";
-//             container.append(newLabel);
-//             optionList.forEach(val => {
-//                 let wrapper = document.createElement("div");
-//                 let input = document.createElement("input");
-//                 input.type = "checkbox";
-//                 input.value = val;
-
-//                 let optLabel = document.createElement("label");
-//                 optLabel.innerHTML = val;
-
-//                 wrapper.append(input, optLabel);
-//                 container.appendChild(wrapper);
-//             });
-//             container.append(closeButton);
-
-//         } else if (sel === "radio") {
-//             container.innerHTML = "";
-//             container.append(newLabel);
-//             optionList.forEach(val => {
-//                 let wrapper = document.createElement("div");
-//                 let input = document.createElement("input");
-//                 input.type = "radio";
-//                 input.name = labelName; // grouped
-//                 input.value = val;
-
-//                 let optLabel = document.createElement("label");
-//                 optLabel.innerHTML = val;
-
-//                 wrapper.append(input, optLabel);
-//                 container.appendChild(wrapper);
-//             });
-//             container.append(closeButton);
-
-//         } else if (sel === "submit") {
-//             let submitBtn = document.createElement("button");
-//             submitBtn.type = "submit";
-//             submitBtn.innerHTML = labelName || "Submit";
-//             container.innerHTML = "";
-//             container.append(newLabel, submitBtn, closeButton);
-
-//         } else {
-//             // Normal text/number/email
-//             let input = document.createElement("input");
-//             input.type = sel;
-//             container.innerHTML = "";
-//             container.append(newLabel, input, closeButton);
-//         }
-//     });
-// }
-
-// function fun2() {
-//     let box = document.querySelector(".box");
-//     let sel = document.querySelector("#form").value;
-
-//     if (!sel) {
-//         alert("Please select an element type first!");
-//         return;
-//     }
-
-//     // Label input
-//     let labelInput = document.createElement("input");
-//     labelInput.type = "text";
-//     labelInput.placeholder = "Enter label name";
-
-//     // For options (only for select/checkbox/radio)
-//     let optionInput = null;
-//     let addOptionBtn = null;
-//     let optionList = [];
-//     let optionPreview = null;
-
-//     if (sel === "select" || sel === "checkbox" || sel === "radio") {
-//         optionInput = document.createElement("input");
-//         optionInput.type = "text";
-//         optionInput.placeholder = "Enter option";
-
-//         addOptionBtn = document.createElement("button");
-//         addOptionBtn.innerHTML = "Add Option";
-
-//         optionPreview = document.createElement("ul");
-//         optionPreview.style.listStyle = "none";
-//     }
-
-//     // Done button
-//     let btn = document.createElement("button");
-//     btn.innerHTML = "Done";
-//     btn.classList.add("btn");
-
-//     // Close button
-//     let closeButton = document.createElement("button");
-//     closeButton.innerHTML = "&times;";
-//     closeButton.classList.add("clbtn");
-
-//     // Label
-//     let newLabel = document.createElement("label");
-
-//     // Container
-//     let container = document.createElement("div");
-//     container.classList.add("newele");
-//     container.append(labelInput);
-//     if (optionInput) container.append(optionInput, addOptionBtn, optionPreview);
-//     container.append(btn, newLabel, closeButton);
-
-//     box.appendChild(container);
-
-//     // Delete field
-//     closeButton.addEventListener("click", () => container.remove());
-
-//     // Add option handler
-//     if (addOptionBtn) {
-//         addOptionBtn.addEventListener("click", (e) => {
-//             e.preventDefault();
-//             let val = optionInput.value.trim();
-//             if (val) {
-//                 optionList.push(val);
-
-//                 let li = document.createElement("li");
-//                 li.innerHTML = val;
-
-//                 let delBtn = document.createElement("button");
-//                 delBtn.innerHTML = "x";
-//                 delBtn.style.marginLeft = "10px";
-//                 delBtn.addEventListener("click", () => {
-//                     optionList = optionList.filter(o => o !== val);
-//                     li.remove();
-//                 });
-
-//                 li.appendChild(delBtn);
-//                 optionPreview.appendChild(li);
-
-//                 optionInput.value = "";
-//             }
-//         });
-//     }
-
-//     // Finalize on Done
-//     btn.addEventListener("click", () => {
-//         let labelName = labelInput.value || "Unnamed";
-//         newLabel.innerHTML = labelName + ": ";
-
-//         // Clean temporary inputs
-//         labelInput.remove();
-//         btn.remove();
-//         if (optionInput) {
-//             optionInput.remove();
-//             addOptionBtn.remove();
-//             optionPreview.remove();
-//         }
-
-//         // Build actual field
-//         if (sel === "select") {
-//             let select = document.createElement("select");
-//             select.setAttribute("name", labelName);
-//             optionList.forEach(val => {
-//                 let opt = document.createElement("option");
-//                 opt.value = val;
-//                 opt.innerHTML = val;
-//                 select.appendChild(opt);
-//             });
-//             container.innerHTML = "";
-//             container.append(newLabel, select, closeButton);
-
-//         } else if (sel === "checkbox") {
-//             container.innerHTML = "";
-//             container.append(newLabel);
-//             optionList.forEach(val => {
-//                 let wrapper = document.createElement("div");
-//                 let input = document.createElement("input");
-//                 input.type = "checkbox";
-//                 input.name = labelName;
-//                 input.value = val;
-
-//                 let optLabel = document.createElement("label");
-//                 optLabel.innerHTML = val;
-
-//                 wrapper.append(input, optLabel);
-//                 container.appendChild(wrapper);
-//             });
-//             container.append(closeButton);
-
-//         } else if (sel === "radio") {
-//             container.innerHTML = "";
-//             container.append(newLabel);
-//             optionList.forEach(val => {
-//                 let wrapper = document.createElement("div");
-//                 let input = document.createElement("input");
-//                 input.type = "radio";
-//                 input.name = labelName;
-//                 input.value = val;
-
-//                 let optLabel = document.createElement("label");
-//                 optLabel.innerHTML = val;
-
-//                 wrapper.append(input, optLabel);
-//                 container.appendChild(wrapper);
-//             });
-//             container.append(closeButton);
-
-//         } else if (sel === "submit") {
-//     // Final submit button
-//     let submitBtn = document.createElement("button");
-//     submitBtn.type = "button"; // avoid page reload
-//     submitBtn.innerHTML = labelName || "Submit";
-
-//     submitBtn.addEventListener("click", () => {
-//         let result = {};
-
-//         let inputs = box.querySelectorAll("input, select, textarea");
-
-//         inputs.forEach(input => {
-//             if (input.type === "submit" || input.type === "button") return;
-
-//             if (input.type === "checkbox") {
-//                 if (!result[input.name]) result[input.name] = [];
-//                 if (input.checked) result[input.name].push(input.value);
-
-//             } else if (input.type === "radio") {
-//                 if (input.checked) result[input.name] = input.value;
-
-//             } else {
-//                 result[input.name || input.previousSibling?.innerHTML?.replace(":", "").trim()] = input.value;
-//             }
-//         });
-
-//         // === Show result on page ===
-//         let outputBox = document.getElementById("form-output");
-//         if (!outputBox) {
-//             outputBox = document.createElement("div");
-//             outputBox.id = "form-output";
-//             outputBox.style.background = "white";
-//             outputBox.style.color = "black";
-//             outputBox.style.padding = "20px";
-//             outputBox.style.marginTop = "20px";
-//             outputBox.style.borderRadius = "8px";
-//             box.parentElement.appendChild(outputBox);
-//         }
-
-//         outputBox.innerHTML = "<h2>Form Submission Result</h2>";
-//         for (let key in result) {
-//             outputBox.innerHTML += `<p><strong>${key}:</strong> ${Array.isArray(result[key]) ? result[key].join(", ") : result[key]}</p>`;
-//         }
-//     });
-
-//     container.innerHTML = "";
-//     container.append(submitBtn);
-// } else {
-//             // Text, number, email
-//             let input = document.createElement("input");
-//             input.type = sel;
-//             input.setAttribute("name", labelName);
-
-//             container.innerHTML = "";
-//             container.append(newLabel, input, closeButton);
-//         }
-//     });
-// }
-
-           
-                // newInput.remove();
-                // closeButton.remove();
-                // newLabel.remove();
-        //     let lab=document.createElement("input");
-        //     lab.placeholder="Enter the label";
-            
-        //     let lab1=document.createElement("label")
-        //     lab1.innerHTML=lab.value;
-        //    let txt= document.createElement("input");
-        //    txt.type=sel;
-        //    if(sel==="text"){
-        //      txt.placeholder="text"
-        //    }
-        //    else if(sel==="number"){
-        //     txt.placeholder="number"
-        //    }
-           
-        //    box.append(lab,txt);
-        // }
-        // function fbtn(la){
-        //     let lab=document.getElementById("labe");
-        //    console.log(lab.value);
-            
-        //     lab.remove();
-        //     let newlab=document.createElement("label").innerHTML=lab;
-        //     let box=document.querySelector(".box");
-        //     box.append(newlab);
-        // }
+        const fields = form.querySelectorAll(".newele");
+        let label="";
+        fields.forEach(field => {
+            labelEl =  field.querySelector("label");
+            if(!labelEl) return;
+            let label= labelEl.innerHTML//labelEl ? labelEl.innerHTML : "No Label"; 
+            let inputs = field.querySelectorAll("input, select");
+
+            inputs.forEach(el=>{
+            if (el.type === "submit") return;
+            let value = "";
+            if (el.type === "checkbox" || el.type === "radio") {
+                if (!el.checked) return; 
+                value = el.value;
+            } else {
+                value = el.value;
+            }
+            if (value) {
+                const entry = document.createElement("p");
+                entry.innerHTML = `${label} ${value}`;
+                result.appendChild(entry);
+            }
+            })
+        })
+        form.replaceWith(result);
+      }
+    }
     </script>
 </body>
-</html>
+</html> 
+

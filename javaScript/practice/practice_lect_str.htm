@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js_Array_practice</title>
+</head>
+<body>
+    
+    <script>
+
+        //array
+        let marks1=100;
+        let marks2=90;
+        let marks3=96;
+        let marks4=80;
+
+        let marks=[100,90,96,80];
+        console.log(marks);
+
+        let arr=[100,30,"Rohit",true];
+        console.log(arr[2]);
+        console.log(typeof arr);
+        arr[1]=90;
+        console.log(arr);
+
+        //push
+        arr.push(80);
+        console.log(arr);
+        
+        //pop
+        arr.pop();
+        console.log(arr);
+        
+        //shift and unshift is not adviceable to use
+        //unshift
+        arr.unshift(10);
+        console.log(arr);
+
+        //shift
+        arr.shift();
+        console.log(arr);
+
+        //looping in arr
+        let arr1=[10,30,50,90,11];
+        for(let i=0;i<arr1.length;i++){
+            console.log(i,arr1[i]);
+        }
+        for (let v in arr1){
+            console.log(v,arr1[v]);
+        }
+        
+        for(let v1 of arr1){
+            console.log(v1);
+        }
+
+        //slice -> does not change the original array
+        
+        console.log(arr1.slice(2,4));
+        console.log(arr1);
+
+        //splice ->changes original array
+        console.log(arr1.splice(1,3,"ash",8));
+        console.log(arr1);
+
+        //spread operator
+        const arr2=[10,30,50,90,11];
+        const arr3=[100,30,"Rohit",true];
+
+    //     arr2.push(arr3)
+    //    console.log(arr2);
+       const arr4=arr2.concat(arr3);
+       console.log(arr4);
+
+       const arr5=[...arr2,...arr3];
+       console.log(arr5);
+
+       //array in string
+       console.log(arr2.toString());
+       console.log(arr2.join(","));
+       console.log(arr3.lastIndexOf("Rohit"));
+       console.log(arr2.includes(11));
+       
+       const names=["alice","rohit","ash","bob","mohit","charlie"]
+       console.log(names.sort());
+       console.log(names.reverse());
+
+       console.log(arr2.sort((a,b)=>a-b));
+
+       //flat 
+
+       const nearr=[10,20,30,10,[89,90,[0,8,9],12],11];
+       console.log(nearr[4][2][2]); //one way to access
+       console.log(nearr.flat(2)); //if multiple array in array then use "Infinity" in flat
+        
+//Array defination is that collection of same type of element but in js that is not followed       
+        
+       
+       
+       
+       
+       
+       
+       
+        
+
+        
+        
+        
+
+        
+        
+        
+
+
+        
+    </script>
+</body>
+</html>

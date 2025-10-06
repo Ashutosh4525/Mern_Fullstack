@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text" name="txt" id="txt" oninput="f1()">
+        <h2></h2>
+        <!-- <input type="text" name="txt1" id="txt1"> -->
+        <h3></h3>
+    </div>
+    <div>
+        <input type="text" name="ser" id="ser" oninput="f2()">
+        <ul> 
+        </ul>
+    </div>
+    <script>
+        const fruits = [
+            "Apple", "Banana", "Orange", "Grape", "Strawberry",
+            "Blueberry", "Raspberry", "Mango", "Pineapple", "Kiwi",
+            "Watermelon", "Cantaloupe", "Honeydew", "Peach", "Plum",
+            "Cherry", "Apricot", "Lemon", "Lime", "Pear",
+            "Fig", "Date", "Pomegranate", "Avocado", "Coconut",
+            "Guava", "Passionfruit", "Dragonfruit", "Lychee", "Papaya"
+            ];
+
+        let lis=document.querySelector("ul")
+        lis.innerHTML= fruits.map(fr=>`<li>${fr}</li>`).join("")
+        
+        //  let item=document.createElement("li")
+        // for (let fr of fruits){
+        //     let item=document.createElement("li")
+        //     item.innerHTML=fr;
+            // lis.append(item);
+        // }
+        function f2(){
+            let ser=document.getElementById("ser").value.toLowerCase();
+            let listf= fruits.filter((a)=>a.toLowerCase().includes(ser))
+            lis.innerHTML=listf.map(a=>`<li>${a}</li>`).join("")
+        }
+        function f1(){
+            let txt=document.getElementById("txt").value
+            let output=document.querySelector("h2")
+            output.innerHTML=txt;
+        }
+        let txt=document.getElementById("txt")
+        let output=document.querySelector("h3")
+        txt.addEventListener("input", ()=>{
+            output.innerHTML=txt.value;
+        })
+        
+        
+    </script>
+</body>
+</html>

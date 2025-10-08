@@ -4,6 +4,9 @@ import Contact from "../components/Contact"
 import First  from "../components/First"
 import Variable from "../components/Variable"
 import Function from "../components/Function"
+import Hello from "../components/Hello"
+import Search from "../components/Search"
+import Counter from "../components/Counter"
 function App() {
 
   return (
@@ -11,7 +14,11 @@ function App() {
       {/* <First/>
       <Variable/>
       <Contact/> */}
-      <Function/>
+      {/* <Function/> */}
+      {/* Session 3 */}
+      <Hello/>
+      <Search/>
+      <Counter/>
     </>
   )
 }

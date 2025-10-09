@@ -89,3 +89,30 @@ button:focus-visible {
   border: 2px solid black;
   background-color: lightcoral;
 }
+
+.box1{
+  background-color: rgba(97, 97, 97, 0.265);
+  width: 100%;
+  text-align: center;
+  padding: 10px 100px;
+}
+.innerbox1{
+  width: 100%;
+}
+input,textarea{
+  width: 30%;
+  display: block;
+  align-content: center;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.innerbox2{
+  width: 100%;
+  padding: 10px 20px;
+  border: 2px solid white;
+  text-align: start;
+  border-radius: 20px;
+}
+

@@ -8,6 +8,7 @@ import Hello from "../components/Hello"
 import Search from "../components/Search"
 import Counter from "../components/Counter"
 import Find from "../components/Find"
+import State_Assignment from "../components/State_Assignment";
 function App() {
 
   return (
@@ -20,7 +21,8 @@ function App() {
       {/* <Hello/>
       <Search/>
       <Counter/> */}
-      <Find/>
+      {/* <Find/> */}
+      <State_Assignment/>
     </>
   )
 }

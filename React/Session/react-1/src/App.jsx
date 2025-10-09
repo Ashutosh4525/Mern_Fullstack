@@ -7,6 +7,7 @@ import Function from "../components/Function"
 import Hello from "../components/Hello"
 import Search from "../components/Search"
 import Counter from "../components/Counter"
+import Find from "../components/Find"
 function App() {
 
   return (
@@ -16,9 +17,10 @@ function App() {
       <Contact/> */}
       {/* <Function/> */}
       {/* Session 3 */}
-      <Hello/>
+      {/* <Hello/>
       <Search/>
-      <Counter/>
+      <Counter/> */}
+      <Find/>
     </>
   )
 }

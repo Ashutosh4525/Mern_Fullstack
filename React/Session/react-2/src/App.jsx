@@ -8,6 +8,7 @@ import {Container} from "react-bootstrap";
 // import MyAccordion from './bootstrap/Accordion'
 import MyAccordion from './bootstrap/Accordion';
 import MyCard from './bootstrap/Cards';
+import Section from './bootstrap/Section'
 
 
 
@@ -20,23 +21,12 @@ function App() {
      <Scoped/> */}
     
       {/* <MyAccordion/> */}
-      {/* <Container>
-        <MyAccordion/>
+      <Container>
+        {/* <MyAccordion/> */}
+        <Section/>
       </Container>
       
-      <Container>
-        <div className='row row-cols-1 row-cols-sm-2 g-5'>
-          <div className='col'>
-             <MyCard />
-          </div>
-          <div className='col'>
-            <MyCard />
-          </div>
-          <div className="col">
-            <MyCard />
-          </div>
-        </div>
-      </Container> */}
+      
       
 
     

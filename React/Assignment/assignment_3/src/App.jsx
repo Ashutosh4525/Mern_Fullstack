@@ -6,7 +6,6 @@ import BasicExample from './Component/Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
 function App() {
   
 
@@ -14,7 +13,8 @@ function App() {
     <>
      
         <BasicExample/>
-      
+
+     
     </>
   )
 }

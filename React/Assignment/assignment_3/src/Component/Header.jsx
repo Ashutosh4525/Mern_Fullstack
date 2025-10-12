@@ -3,9 +3,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function BasicExample() {
+function Head() {
   return (
-    <Navbar expand="lg" className="bg-dark rounded-pill m-2 " style={{color:"white"}}>
+    <Navbar expand="lg"  bg="dark" variant='dark' className="rounded-pill m-2 " >
       <Container>
         <Navbar.Brand href="#home">Clarity</Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
@@ -40,4 +40,5 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default Head;
+

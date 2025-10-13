@@ -5,7 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Head() {
   return (
-    <Navbar expand="lg"  bg="dark" variant='dark' className="rounded-pill m-2 " >
+    <Navbar expand="lg"  bg="dark" variant='dark' fixed="top" className="rounded-pill m-2 " >
       <Container>
         <Navbar.Brand href="#home">Clarity</Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
@@ -31,7 +31,7 @@ function Head() {
             <Nav.Link href="#contact">Contact</Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        <Nav className='ms-auto px-2 mx-2 rounded-pill' style={{backgroundColor:"#524dd3"}}>
+        <Nav className='ms-auto px-2 mx-2 rounded-pill text-white' style={{backgroundColor:"#524dd3" , color:"white"}}>
         <Nav.Link href="#getStarted">Get Started</Nav.Link>
         </Nav>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

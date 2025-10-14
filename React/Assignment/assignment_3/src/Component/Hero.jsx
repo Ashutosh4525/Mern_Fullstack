@@ -17,7 +17,6 @@ function Hero() {
     >
       <Container>
         <Row className="align-items-lg-center">
-         
           <Col lg={6} className="hero-content">
             <h1 className="hero-title fw-bold mb-3">
               Transform Your Digital Presence

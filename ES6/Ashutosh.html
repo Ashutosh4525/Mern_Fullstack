@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Js_Test_3</title>
+</head>
+<body>
+
+
+	<script>
+		// q1
+		const students = [
+			{ name: 'Alice', score: 82 },
+			{ name: 'Bob', score: 91 },
+			{ name: 'Eve', score: 88 }
+		];
+
+		function getTopScorers(students){
+           let output = students.filter(a=>a.score>85).map(a=>a.name)
+           return output;
+        }
+
+        //q2
+        const names = ['priya', 'arjun', 'riya'];
+        function getUpperCaseNames(names){
+            let output= names.map(a=>a.toUpperCase())
+            return output;
+        }
+
+        //q3
+        const employees = [
+            { name: 'Raj', salary: 20000 },
+            { name: 'Simran', salary: 25000 },
+            { name: 'Amit', salary: 30000 }
+            ];
+        function getTotalSalary(employees){
+            let output = employees.reduce((a,b)=>{ return a+b.salary},0);
+            return output;
+        }
+
+        //q4
+        const words = ['sun', 'moon', 'galaxy', 'star'];
+        function findLongestWord(words){
+           let so= words.sort((a,b)=>{return b.length-a.length});
+        // word.max((a,b)=>{
+        //     if(a)
+        // })
+            // for(let i=0;i<=words.length;i++){
+             
+            // }
+            // return(words[i]); 
+            return so[0];
+            // words.reduce((a,b)=>{
+            //     if(!a){
+            //         if(a>b){
+
+            //         }
+            //     }
+            // })
+        }
+
+
+        //q5
+        // function createCounter(){
+        //     let count=0;
+        //    return setTimeout(() => {
+        //         createCounter()
+        //         count++;
+        //     }, 1000);
+        // }
+        // c
+
+        
+        
+
+        
+        // const counter = createCounter();
+
+        //q6
+        //Comparsion between == V/S ===
+        // "==" It is used to compare value of the variable if Yes than it gives true else False
+        var name="ashu"
+        var name1="ashu"
+        console.log(name==name1);
+       
+
+        // "===" It is used to compare the value of the variable too but it also compares the data-Type of that variable
+        var name="ashu"
+        var name1=10
+        console.log(name===name1);
+
+        //q7
+        class Person {
+            constructor(name,age) {
+                this.name=name;
+                this.age=age;
+
+                this.introduce=()=>{
+                    let intro=`Hi, I'm ${this.name}, ${this.age} years old`;
+                    return intro;
+                }
+            }
+        }
+        const p1 = new Person('Ram', 22);
+        console.log(p1.introduce());
+
+        //q8
+        const pricesUSD = [10, 20, 30];
+        let convert=(pricesUSD)=>{
+            let output=pricesUSD.map(a=>a*83);
+            return output;
+        }
+
+        //q9
+        class Rectangle{
+            constructor(width,height){
+                this.width=width;
+                this.height=height;
+
+                this.getArea=()=>{
+                    return this.width*this.height;
+                }
+            }
+        }
+        const rect = new Rectangle(5, 10);
+        console.log(rect.getArea());
+
+        //q10
+
+        function checkAge(age){
+            return new Promise((resolve,reject)=>{
+                if(age>=18){
+                    resolve("Adult");
+                }else{
+                    reject("Minor");
+                }
+            })
+        }
+        checkAge(15)
+        .then((r)=>{
+            console.log(r);
+        }).catch((e)=>{
+            console.error(e);    
+        })
+	</script>
+
+</body>
+</html>

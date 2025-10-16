@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event_Practice</title>
+</head>
+<body>
+
+    <!-- <h1 onclick="change()">Hello</h1> -->
+
+    <!-- bubbling -->
+
+    <!-- <div class="grandparent" style="width: 300px; height: 300px; background-color: black; color: white; display: flex; justify-content: center; align-items: center;">
+        <div class="parent" style="width: 200px; height: 200px; background-color: blue; color: white; display: flex; justify-content: center; align-items: center;">
+            <div class="child" style="width: 100px; height: 100px; background-color: grey; color: white; display: flex; justify-content: center; align-items: center;"></div>
+        </div>
+    </div> -->
+
+    <div class="parent1">
+        <div class="child1" style="width: 100px; height: 100px; background-color: grey; color: white; display: flex; justify-content: center; align-items: center;">1</div>
+        <div class="child1" style="width: 100px; height: 100px; background-color: grey; color: white; display: flex; justify-content: center; align-items: center;">2</div>
+        <div class="child1" style="width: 100px; height: 100px; background-color: grey; color: white; display: flex; justify-content: center; align-items: center;">3</div>
+        <div class="child1" style="width: 100px; height: 100px; background-color: grey; color: white; display: flex; justify-content: center; align-items: center;">4</div>
+    </div>
+
+
+    <script>
+
+        // const grandparent=document.querySelector(".grandparent");
+        // const parent=document.querySelector(".parent");
+        // const child=document.querySelector(".child");
+        // const ele1=document.querySelector("h1");
+        // ele1.style.cursor="pointer"
+
+        // function change(){
+        //     ele1.textContent="Ashu";
+        // }
+        //use addEventListner for multiple event to add on one element
+
+         //dom has 3 phases
+        //1. capture
+        //2. target //on clicked element
+        //3. bubbling
+         
+        // element.addEventListener("event",()=>{},Boolean by default false/this is capture phase) if you gave true then it checks for listners in dom and if element has eventlistners it triggers acutomatically
+        //in case below if true is given then the execution will be from grandparent to child
+        //if false then it will be from child to grandfather
+
+        //bubbling
+        // grandparent.addEventListener("click", ()=>{
+        //     console.log("grandparent triggered");
+        // });
+
+        //  parent.addEventListener("click", ()=>{
+        //     console.log("parent triggered");
+        // })
+
+        //  child.addEventListener("click", ()=>{
+        //     console.log("child triggered");
+        // })
+
+        const parent1=document.querySelector(".parent1");
+        const child1=document.querySelector(".child1");
+
+
+        // parent1.addEventListener("click",(e)=>{
+        //     console.log(e.target);   
+        //     e.target.textContent="clicked"  
+        // })
+        //directly applying parent1.removeEventListener this would not delete as it contains anonymus function so use method showen below
+
+        //removing event listner
+
+        function handleClick(e){
+            e.target.textContent="clicked" 
+            e.target.textContent="clicked" 
+        }
+         parent1.addEventListener("click",handleClick)
+
+         parent1.removeEventListener("click",handleClick);
+        
+
+
+        
+    </script>
+    
+</body>
+</html>

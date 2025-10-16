@@ -42,22 +42,21 @@
         //q4
         const words = ['sun', 'moon', 'galaxy', 'star'];
         function findLongestWord(words){
-           let so= words.sort((a,b)=>{return b.length-a.length});
+        //    let so= words.sort((a,b)=>{return b.length-a.length});
         // word.max((a,b)=>{
         //     if(a)
         // })
             // for(let i=0;i<=words.length;i++){
+            // for (let j = i; j < i.length ; j++) {
+            //     const element = array[j];
+                
+            // }
              
             // }
             // return(words[i]); 
-            return so[0];
-            // words.reduce((a,b)=>{
-            //     if(!a){
-            //         if(a>b){
-
-            //         }
-            //     }
-            // })
+            // return so[0];
+           let so= words.reduce((a,b)=>(b.length >a.length) ? b: a )
+            return so;
         }
 
 

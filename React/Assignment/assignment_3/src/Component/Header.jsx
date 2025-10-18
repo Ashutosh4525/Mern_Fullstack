@@ -2,14 +2,15 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import '../globalcss/global.css';
 
 function Head() {
 
   const navItem = [
-       { name: 'Home', path: '/' },
-       { name: 'About', path: '/about' },
-       { name: 'Portfolio', path: '/portfolio' },
-       { name: 'Team', path: '/team' },
+       { name: 'Home', path: '#home' },
+       { name: 'About', path: '#about' },
+       { name: 'Portfolio', path: '#portfolio' },
+       { name: 'Team', path: '#team' },
      ];
   
   
@@ -20,7 +21,7 @@ function Head() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">
             {navItem.map((a,i)=>(
-              <Nav.Link  href={a.path} key={i}>{a.name}</Nav.Link>
+              <li className='navitems'><Nav.Link  href={a.path} key={i} >{a.name}</Nav.Link></li>
             ))}
             
             {/* <Nav.Link href="#home">Home</Nav.Link>
@@ -39,7 +40,7 @@ function Head() {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="#contact">Contact</Nav.Link>
+            <li className='navitems'><Nav.Link href="#contact">Contact</Nav.Link></li>
           </Nav>
         </Navbar.Collapse>
         <Nav className='ms-auto px-2 mx-2 rounded-pill text-white' fixed="top" style={{backgroundColor:"#524dd3" , color:"white"}}>

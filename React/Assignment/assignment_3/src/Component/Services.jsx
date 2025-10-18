@@ -3,7 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function Services(){
     return (
         <>
-
+<section id="services" style={{
+        background: "#05071e",
+        padding: "120px 0px",
+        color: "white",
+        Height: "100vh",
+      }}>
         <Container className="m-2 ">
             <Row className="text-center">
                 <Col>
@@ -14,7 +19,7 @@ function Services(){
 
         </Container>
         <Container>
-        <Card style={{ width: '18rem' }}>
+        <Card className="d-flex align-items-center text-center py-6" style={{ width: '18rem' }}>
         <Card.Img variant="top" src="holder.js/100px180" />
         <Card.Body>
             <Card.Title>Card Title</Card.Title>
@@ -26,6 +31,7 @@ function Services(){
         </Card.Body>
         </Card>
         </Container>
+        </section>
         </>
     )
 }

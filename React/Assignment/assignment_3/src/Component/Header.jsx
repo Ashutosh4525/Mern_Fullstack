@@ -3,12 +3,14 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import '../globalcss/global.css';
+import { Button } from 'react-bootstrap';
 
 function Head() {
 
   const navItem = [
        { name: 'Home', path: '#home' },
        { name: 'About', path: '#about' },
+       { name: 'Services', path: '#services' },
        { name: 'Portfolio', path: '#portfolio' },
        { name: 'Team', path: '#team' },
      ];
@@ -43,8 +45,8 @@ function Head() {
             <li className='navitems'><Nav.Link href="#contact">Contact</Nav.Link></li>
           </Nav>
         </Navbar.Collapse>
-        <Nav className='ms-auto px-2 mx-2 rounded-pill text-white' fixed="top" style={{backgroundColor:"#524dd3" , color:"white"}}>
-        <Nav.Link href="#getStarted">Get Started</Nav.Link>
+        <Nav className='ms-auto'>
+        <Button className='ms-auto px-2 mx-2 rounded-pill ' fixed="top" style={{backgroundColor:"#524dd3" , color:"white"}} href="#getStarted">Get Started</Button>
         </Nav>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
       </Container>

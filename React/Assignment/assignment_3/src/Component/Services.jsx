@@ -1,5 +1,7 @@
 import { Container, Row, Col, Button,Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { IoColorPalette } from "react-icons/io5";
+
 function Services(){
     return (
         <>
@@ -19,8 +21,11 @@ function Services(){
 
         </Container>
         <Container>
-        <Card className="d-flex align-items-center text-center py-6" style={{ width: '18rem' }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
+        <Card className="d-flex align-items-center text-center py-6" style={{ width: '18rem', backgroundColor:"#131428", color:"white", boxShadow:"0 10px 30px rgba(0, 0, 0, 0.05)"}}>
+            <div style={{backgroundColor:"#524dd3", borderRadius:"10px", marginTop:"20px", padding:"15px"}}>
+            <IoColorPalette size={40} />
+            </div>
+        {/* <i className={`${iconClass} display-4 mb-3`}></i> */}
         <Card.Body>
             <Card.Title>Card Title</Card.Title>
             <Card.Text>

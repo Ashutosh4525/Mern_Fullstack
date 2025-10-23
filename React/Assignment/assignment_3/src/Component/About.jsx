@@ -9,7 +9,7 @@ import img3 from '../assets/Img3.jpg';
 
 const AboutSection = () => {
   return (
-    <section id="about" className="about-section p-3 text-white" style={{backgroundColor:"#05071e"}}>
+    <section id="about" className="about-section text-white" style={{backgroundColor:"#05071e",paddingTop:"100px"}}>
       <Container >
         <Row className="align-items-lg-center gy-5">
           <Col lg={6} >

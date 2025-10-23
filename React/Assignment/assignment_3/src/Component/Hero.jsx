@@ -1,23 +1,27 @@
+import { useEffect } from "react";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import imgSrc from '../assets/Img1.jpg'
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 function Hero() {
-
+useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
 
   return (
     <section
       id="hero"
-      className="d-flex align-items-center py-6"
+      className="d-flex align-items-center p-6"
       style={{
         background: "#05071e",
-        padding: "120px 0px",
+        paddingTop: "100px",
         color: "white",
-        Height: "100vh",
       }}
     >
       <Container>
         <Row className="align-items-lg-center">
-          <Col lg={6} className="hero-content">
+          <Col lg={6} className="hero-content" data-aos="fade-right" data-aos-delay="100">
             <h1 className="hero-title fw-bold mb-3">
               Transform Your Digital Presence
             </h1>
@@ -60,7 +64,7 @@ function Hero() {
           </Col>
 
           
-          <Col lg={6} className="text-center mt-4 mt-lg-0" >
+          <Col lg={6} className="text-center mt-4 mt-lg-0 " data-aos="fade-left" data-aos-delay="200" >
             <div className="hero-image">
               <Image src={imgSrc} alt="Digital Agency Hero" fluid rounded/>
             </div>

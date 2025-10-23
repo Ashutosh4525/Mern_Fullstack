@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+  background-color: rgb(5, 7, 30);
+}
 .navitems{
   list-style: none;
   display: inline-block;
@@ -27,7 +30,7 @@
 }
 
 .active::after{
-    content: "";
+  content: "";
   position: absolute;
   bottom: -4px;
   left: 0;
@@ -35,4 +38,8 @@
   height: 2px;
   background-color: #635cf0;
   border-radius: 2px;
+}
+
+.btnPort:hover{
+  box-shadow: 0 8px 25px color-mix(in srgb, #524dd3, transparent 85%);
 }

@@ -4,9 +4,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import '../globalcss/global.css';
 import { Button } from 'react-bootstrap';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+import { useEffect } from "react";
 
 function Head() {
-
+useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
   const navItem = [
        { name: 'Home', path: '#home' },
        { name: 'About', path: '#about' },
@@ -23,7 +28,7 @@ function Head() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">
             {navItem.map((a,i)=>(
-              <li className='navitems'><Nav.Link  href={a.path} key={i} >{a.name}</Nav.Link></li>
+              <li className='navitems' key={i}><Nav.Link  href={a.path}  >{a.name}</Nav.Link></li>
             ))}
             
             {/* <Nav.Link href="#home">Home</Nav.Link>

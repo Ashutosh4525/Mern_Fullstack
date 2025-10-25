@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FaArrowRight,FaExclamation } from "react-icons/fa6";
 
 
-const Cards=({icon,title,description})=>{
+const Cards=({icon,title,description,display})=>{
     return (
         <>
    <Container>

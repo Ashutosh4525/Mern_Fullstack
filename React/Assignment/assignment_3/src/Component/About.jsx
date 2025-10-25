@@ -11,8 +11,8 @@ const AboutSection = () => {
   return (
     <section id="about" className="about-section text-white" style={{backgroundColor:"#05071e",paddingTop:"100px"}}>
       <Container >
-        <Row className="align-items-lg-center gy-5">
-          <Col lg={6} >
+        <Row className="align-items-lg-center gy-5 px-3">
+          <Col lg={6} data-aos="fade-right" data-aos-delay="100">
             <div className="content">
               <h6 className="text-primary text-uppercase fw-semibold mb-2">
                 Discover Our Story
@@ -49,7 +49,7 @@ const AboutSection = () => {
           </Col>
 
           
-          <Col lg={6} >
+          <Col lg={6} data-aos="fade-left" data-aos-delay="200">
             <div className="position-relative image-composition">
               
               <div className="image-main">
@@ -82,9 +82,9 @@ const AboutSection = () => {
               <div
                 className="stats-card shadow position-absolute text-center rounded p-3"
                 style={{
-                  top: "-20%",
+                  top: "-10%",
                   right: "0",
-                  transform: "translate(10%, 40%)",
+                  // transform: "translate(10%, 40%)",
                   width: "150px",
                   backgroundColor:"#131428"
                 }}

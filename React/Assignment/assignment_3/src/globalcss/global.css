@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body{
-  background-color: rgb(5, 7, 30);
+  background-color: #05071e;
 }
 .navitems{
   list-style: none;
@@ -40,6 +40,53 @@ body{
   border-radius: 2px;
 }
 
+.portfolio-wrapper {
+  background: #131428;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-wrapper:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(82, 77, 211, 0.2);
+}
+
+.portfolio-hover {
+  position: absolute;
+  inset: 0;
+  background: rgba(82, 77, 211, 0.75);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 12px;
+}
+.rate{
+  color: #fbbf24;
+}
+.portfolio-wrapper:hover .portfolio-hover {
+  opacity: 1;
+}
+.footer h4 {
+  position: relative;
+}
+
+
+/* .footer a:hover {
+  color: #0d6efd !important;
+} */
+.social-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  border: 1px solid #444;
+}
 .btnPort:hover{
   box-shadow: 0 8px 25px color-mix(in srgb, #524dd3, transparent 85%);
 }

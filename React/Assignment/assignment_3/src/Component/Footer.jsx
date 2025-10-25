@@ -28,14 +28,15 @@ function Footer(){
   ];
     return(
         <>
-         <footer id="footer" className="footer position-relative dark-background text-light pt-5" style={{background: "#0b0c10",color: "#ddd"}}>
-      <div className="container footer-top">
-        <div className="row gy-4">
-          {/* About Section */}
-          <div className="col-lg-4 col-md-6 footer-about">
+        <footer className="footer bg-dark text-light pt-5 pb-3 position-relative">
+      <Container className="footer-top">
+        <Row className="gy-4">
+          
+          <Col lg={4} md={6} className="footer-about">
             <a href="/" className="logo d-flex align-items-center text-decoration-none mb-3">
               <span className="fs-3 fw-bold text-white">Clarity</span>
             </a>
+
             <div className="footer-contact">
               <p>A108 Adam Street</p>
               <p>New York, NY 535022</p>
@@ -46,45 +47,47 @@ function Footer(){
                 <strong>Email:</strong> <span>info@example.com</span>
               </p>
             </div>
-            <div className="social-links d-flex mt-4 gap-3">
-              <a href="#" className="text-white"><i className="bi bi-twitter-x"></i></a>
-              <a href="#" className="text-white"><i className="bi bi-facebook"></i></a>
-              <a href="#" className="text-white"><i className="bi bi-instagram"></i></a>
-              <a href="#" className="text-white"><i className="bi bi-linkedin"></i></a>
-            </div>
-          </div>
 
-          {/* Dynamic Link Sections */}
+            <div className="social-links d-flex gap-3 mt-4">
+              <a href="#"><i className="social-circle bi bi-twitter-x text-white"></i></a>
+              <a href="#"><i className="social-circle bi bi-facebook text-white"></i></a>
+              <a href="#"><i className="social-circle bi bi-instagram text-white"></i></a>
+              <a href="#"><i className="social-circle bi bi-linkedin text-white"></i></a>
+            </div>
+          </Col>
+
+         
           {sections.map((section, index) => (
-            <div key={index} className="col-lg-2 col-md-3 footer-links">
-              <h4>{section.title}</h4>
+            <Col key={index} lg={2} md={3} className="footer-links">
+              <h4 className="text-white mb-3">{section.title}</h4>
               <ul className="list-unstyled">
                 {section.links.map((link, i) => (
-                  <li key={i}>
+                  <li key={i} className="mb-2">
                     <a href="#" className="text-decoration-none text-light">
                       {link}
                     </a>
                   </li>
                 ))}
               </ul>
-            </div>
+            </Col>
           ))}
-        </div>
-      </div>
+        </Row>
+      </Container>
 
-      <div className="container text-center mt-4 border-top border-secondary pt-3">
-        <p>
+      
+      <Container className="text-center border-top border-secondary pt-3 mt-4">
+        <p className="mb-1">
           © <span>Copyright</span>{" "}
-          <strong className="px-1 sitename">Clarity</strong>{" "}
+          <strong className="px-1">Clarity</strong>{" "}
           <span>All Rights Reserved</span>
         </p>
-        <div className="credits">
+        <p className="small mb-0">
           Designed by{" "}
           <a href="https://bootstrapmade.com/" className="text-decoration-none text-light fw-semibold">
             BootstrapMade
           </a>
-        </div>
-      </div>
+        </p>
+      </Container>
     </footer>
         </>
     )

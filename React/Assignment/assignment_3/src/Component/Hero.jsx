@@ -3,6 +3,7 @@ import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import imgSrc from '../assets/Img1.jpg'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
+import Counter from "./Counter/Counter";
 
 function Hero() {
 useEffect(() => {
@@ -42,13 +43,17 @@ useEffect(() => {
 
            
             <div className="hero-stats d-flex flex-wrap gap-4">
-              <div className="stat-item">
+              {/* <div className="stat-item">
                 <span className="stat-number d-block fs-2 fw-bold" style={{ color: "#524dd3", border: "none" }}>
                   150+
                 </span>
                 <span className="stat-label">Projects Completed</span>
-              </div>
-              <div className="stat-item">
+              </div> */}
+              <Counter end1={150} addOn="+" label="Projects Completed" speed="10"/>
+              <Counter end1={95} addOn="%" label="Client Satisfaction" speed="20"/>
+              <Counter end1={24} addOn="" label="Team Members" speed="100"/>
+              
+              {/* <div className="stat-item">
                 <span className="stat-number d-block fs-2 fw-bold" style={{ color: "#524dd3", border: "none" }}>
                   95%
                 </span>
@@ -59,7 +64,7 @@ useEffect(() => {
                   24
                 </span>
                 <span className="stat-label">Team Members</span>
-              </div>
+              </div> */}
             </div>
           </Col>
 

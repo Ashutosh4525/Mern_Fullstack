@@ -22,13 +22,18 @@ useEffect(() => {
   
   
   return (
-    <Navbar expand="lg"  bg="dark" variant='dark' fixed="top" className=" m-2 "  style={{borderRadius:"30px"}}>
+    <Navbar expand="lg"  bg="dark" variant='dark' fixed="top" className=" m-2  "  style={{borderRadius:"30px"}}>
       <Container>
         <Navbar.Brand href="#home">Clarity</Navbar.Brand>
+         <div className=' d-flex align-items-end order-lg-2 '>
+          <Button className='ms-auto px-2 mx-2 rounded-pill' style={{backgroundColor:"#524dd3" , color:"white"}} href="#getStarted">Get Started</Button>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        </div>
+       
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">
             {navItem.map((a,i)=>(
-              <li className='navitems' key={i}><Nav.Link  href={a.path}  >{a.name}</Nav.Link></li>
+              <Nav.Link className='navitems' href={a.path} key={i}>{a.name}</Nav.Link>
             ))}
             
             {/* <Nav.Link href="#home">Home</Nav.Link>
@@ -50,11 +55,9 @@ useEffect(() => {
             <li className='navitems'><Nav.Link href="#contact">Contact</Nav.Link></li>
           </Nav>
         </Navbar.Collapse>
-        <Nav className='ms-auto'>
-        <Button className='ms-auto px-2 mx-2 rounded-pill ' fixed="top" style={{backgroundColor:"#524dd3" , color:"white"}} href="#getStarted">Get Started</Button>
-        </Nav>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+         
       </Container>
+      
     </Navbar>
   );
 }

@@ -10,6 +10,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import Portfolio from './Component/Portfolio';
 import Footer from './Component/Footer';
+import Contact from './Component/Contact';
+
 
 
 function App() {
@@ -22,6 +24,7 @@ function App() {
         <About/>
         <Services/>
         <Portfolio/>
+        <Contact/>
         <Footer/>
     </>
   )

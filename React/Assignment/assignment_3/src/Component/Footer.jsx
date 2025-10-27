@@ -48,7 +48,7 @@ function Footer(){
               </p>
             </div>
 
-            <div className="social-links d-flex gap-3 mt-4">
+            <div className="social-links d-flex flex-wrap gap-3 mt-4">
               <a href="#"><i className="social-circle bi bi-twitter-x text-white"></i></a>
               <a href="#"><i className="social-circle bi bi-facebook text-white"></i></a>
               <a href="#"><i className="social-circle bi bi-instagram text-white"></i></a>

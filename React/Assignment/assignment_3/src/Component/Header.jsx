@@ -7,17 +7,19 @@ import { Button } from 'react-bootstrap';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import { useEffect } from "react";
+import {  NavLink } from 'react-router-dom';
 
-function Head() {
+function Header() {
 useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
   const navItem = [
-       { name: 'Home', path: '#home' },
-       { name: 'About', path: '#about' },
-       { name: 'Services', path: '#services' },
-       { name: 'Portfolio', path: '#portfolio' },
-       { name: 'Team', path: '#team' },
+       { name: 'Home', path: '/home' },
+       { name: 'About', path: '/about' },
+       { name: 'Services', path: '/services' },
+       { name: 'Portfolio', path: '/portfolio' },
+       { name: 'Why-us', path: '/why-us' },
+       { name: 'Team', path: '/team' },
      ];
   
   
@@ -33,7 +35,8 @@ useEffect(() => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">
             {navItem.map((a,i)=>(
-              <Nav.Link className='navitems' href={a.path} key={i}>{a.name}</Nav.Link>
+              <NavLink  to ={a.path} key={i}>{a.name} </NavLink>
+              
             ))}
             
             {/* <Nav.Link href="#home">Home</Nav.Link>
@@ -52,7 +55,7 @@ useEffect(() => {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>
-            <li className='navitems'><Nav.Link href="#contact">Contact</Nav.Link></li>
+            <li ><Link to href="/contact" className='navitems'>Contact</Link></li>
           </Nav>
         </Navbar.Collapse>
          
@@ -62,5 +65,5 @@ useEffect(() => {
   );
 }
 
-export default Head;
+export default Header;
 

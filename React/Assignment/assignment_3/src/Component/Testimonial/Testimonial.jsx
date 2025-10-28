@@ -61,7 +61,7 @@ const Testimonials = () => {
   ];
 
   return (
-    <section id="testimonials" className="testimonials section">
+    <section id="testimonials" className="testimonials section" style={{padding:"100px 0px"}}>
       <Container>
         <div className="section-title" data-aos="fade-up">
           <h2>Testimonials</h2>

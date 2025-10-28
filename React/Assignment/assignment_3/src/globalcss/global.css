@@ -93,3 +93,9 @@ body{
 .btnPort:hover{
   box-shadow: 0 8px 25px color-mix(in srgb, #524dd3, transparent 85%);
 }
+
+@media screen and (max-width:800px) {
+  .navitems:hover::after {
+  width: 30%;
+}
+}

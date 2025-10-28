@@ -13,10 +13,10 @@ useEffect(() => {
   return (
     <section
       id="hero"
-      className="d-flex align-items-center p-6"
+      className="d-flex align-items-center"
       style={{
         background: "#05071e",
-        paddingTop: "100px",
+        padding: "100px 0px",
         color: "white",
       }}
     >

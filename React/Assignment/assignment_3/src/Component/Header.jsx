@@ -24,7 +24,7 @@ useEffect(() => {
   
   
   return (
-    <Navbar expand="lg"  bg="dark" variant='dark' fixed="top" className=" m-2  "  style={{borderRadius:"30px"}}>
+    <Navbar expand="lg"  bg="dark" variant='dark' fixed="top" className=" m-2 "  style={{borderRadius:"30px"}}>
       <Container>
         <Navbar.Brand href="#home">Clarity</Navbar.Brand>
          <div className=' d-flex align-items-end order-lg-2 '>
@@ -35,7 +35,7 @@ useEffect(() => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">
             {navItem.map((a,i)=>(
-              <NavLink  to ={a.path} key={i}>{a.name} </NavLink>
+              <NavLink  to ={a.path} key={i} className={({isActive})=>isActive? `navitems active`:`navitems`}>{a.name} </NavLink>
               
             ))}
             
@@ -55,7 +55,7 @@ useEffect(() => {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>
-            <li ><Link to href="/contact" className='navitems'>Contact</Link></li>
+            <NavLink to href="/contact" className={({isActive})=>isActive? `navitems`:`navitems`}>Contact</NavLink>
           </Nav>
         </Navbar.Collapse>
          

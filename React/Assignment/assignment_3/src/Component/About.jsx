@@ -9,7 +9,7 @@ import img3 from '../assets/Img3.jpg';
 
 const AboutSection = () => {
   return (
-    <section id="about" className="about-section text-white" style={{backgroundColor:"#05071e",paddingTop:"100px"}}>
+    <section id="about" className="about-section text-white" style={{backgroundColor:"#05071e",padding:"100px 0px"}}>
       <Container >
         <Row className="align-items-lg-center gy-5 px-3">
           <Col lg={6} data-aos="fade-right" data-aos-delay="100">

@@ -68,7 +68,7 @@ function Portfolio(){
   };
       return(
         <>
-        <section id="portfolio" style={{backgroundColor: "#05071e",color:"white",paddingBottom:"100px"}}>
+        <section id="portfolio" style={{backgroundColor: "#05071e",color:"white",padding:"100px 0px"}}>
         <Container>
           {/* <Container className=" text-center ">
               <h1>Portfolio</h1>

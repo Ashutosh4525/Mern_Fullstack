@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base:"/React/Assignment/dashboard/",
+  base:"Mern_Fullstack/React/Assignment/dashboard",
   plugins: [react()],
 })

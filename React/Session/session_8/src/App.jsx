@@ -6,6 +6,7 @@ import Features from "./components/pages/Features"
 import NotFound from "./components/pages/NotFound"
 import Lifecycle from "./components/pages/Lifecycle"
 import ProductList from "./components/pages/ProductList"
+import SingleProduct from "./components/pages/SingleProduct"
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
       <Route path="/lifecycle" element={<Lifecycle/>}/>
       <Route path="/product-list" element={<ProductList/>}/>
       {/* Dynamic Routing */}
-      <Route path="/product/:id" element={<SingleProduct/>}/>
+      <Route path="/product/:id" element={<SingleProduct />}/>
       <Route path="*" element={<NotFound/>}/>
     </Routes>
 

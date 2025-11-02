@@ -6,7 +6,7 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import { MdOutlineAdd,MdCategory } from "react-icons/md";
 import { HiArchiveBox } from "react-icons/hi2";
 import {  NavLink, Outlet } from 'react-router-dom';
-import Dashboard from "../Dashboard/Dashboard";
+
 
 
 
@@ -28,14 +28,14 @@ const Sidenav= () => {
       <Sidebar collapsed={collapsed}>   
         
         <Menu style={{paddingTop:"50px"}}>
-          <MenuItem component={<NavLink to="/home"/>}><BiHome /> Dashboard</MenuItem>
+          <MenuItem icon={<BiHome />}component={<NavLink to="/home"/>}> Dashboard</MenuItem>
           <SubMenu icon={<MdCategory/>} label="Category" >
-            <MenuItem component={<NavLink to="/category-list"/>}> <TfiMenuAlt />Category List</MenuItem>
-            <MenuItem component={<NavLink to="/add-category"/>}> <MdOutlineAdd />Add Category</MenuItem>
+            <MenuItem icon={<TfiMenuAlt />}component={<NavLink to="/category-list"/>}> Category List</MenuItem>
+            <MenuItem icon={<MdOutlineAdd />}component={<NavLink to="/add-category"/>}> Add Category </MenuItem>
           </SubMenu>
           <SubMenu icon={<HiArchiveBox/>} label="Product">
-            <MenuItem component={<NavLink to="/product-list"/>}><TfiMenuAlt /> Product List</MenuItem>
-            <MenuItem component={<NavLink to="/add-product"/>}><MdOutlineAdd />Add Product</MenuItem>
+            <MenuItem icon={<TfiMenuAlt />}component={<NavLink to="/product-list"/>}> Product List </MenuItem>
+            <MenuItem icon={<MdOutlineAdd />}component={<NavLink to="/add-product"/>}>Add Product </MenuItem>
           </SubMenu>
         </Menu>
       </Sidebar> 

@@ -47,6 +47,10 @@ export default function ProductList() {
     useEffect(()=>{
         axios.get("https://dummyjson.com/products")
         .then((respone)=>{
+          // console.log(respone.data);
+          // console.log(respone.data.products);
+          
+          
             setData(respone.data.products)
         })
         .catch((e)=>{
@@ -72,10 +76,10 @@ export default function ProductList() {
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-sm text-gray-700">
-                    <a href={product.title}>
+                    {/* <a href={product.title}> */}
                       <span aria-hidden="true" className="absolute inset-0" />
                       {product.title}
-                    </a>
+                    {/* </a> */}
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">{product.category}</p>
                 </div>

@@ -7,6 +7,7 @@ import NotFound from "./components/pages/NotFound"
 import Lifecycle from "./components/pages/Lifecycle"
 import ProductList from "./components/pages/ProductList"
 import SingleProduct from "./components/pages/SingleProduct"
+import Login from "./components/pages/Login"
 
 function App() {
 
@@ -14,7 +15,9 @@ function App() {
     <>
     <Header/>
     <Routes>
+      
       <Route index element={<Introduction/>}/>
+      <Route path="/login" element={<Login/>}/>
       <Route path="/home" element={<Introduction/>}/>
       <Route path="/features" element={<Features/>}/>
       <Route path="/lifecycle" element={<Lifecycle/>}/>

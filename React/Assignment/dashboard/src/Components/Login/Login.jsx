@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Formik } from 'formik';
 import { useState } from 'react';
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -18,7 +18,8 @@ export default function Login() {
         <body class="h-full">
         ```
       */}
-      <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-gray-900">
+      <div className="flex h-screen flex-col justify-center px-6 py-12 lg:px-8 bg-white items-center">
+        <div className="flex flex-col justify-center w-100 h-100 p-4 border border-gray-300 rounded-lg shadow-md bg-gray-300 items-center">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Your Company"
@@ -52,7 +53,7 @@ export default function Login() {
                 })
                 .catch((error)=>{
                     console.error(error.response.data.message);
-                    setformError(message);
+                    setformError(error.response.data.message);
                 })
                 setSubmitting(false);
                 }, 400);
@@ -132,6 +133,7 @@ export default function Login() {
               Start a 14 day free trial
             </a>
           </p>
+        </div>
         </div>
       </div>
     </>

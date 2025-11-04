@@ -5,6 +5,7 @@ import Dashboard from './Components/Dashboard/Dashboard'
 import CategoryAdd from './Components/Category/Category1'
 import CategoryList from './Components/Category/Category2'
 import PageNotFound from './Components/NotFound/PageNotFound'
+import Login from './Components/Login/Login'
 
 function App() {
   
@@ -13,6 +14,7 @@ function App() {
     <>
       {/* <Sidenav/> */}
       <Routes>
+        <Route path="/login" element={<Login/>}/>
         <Route path='/' element={<Sidenav/>}>
         <Route index element={<Navigate to="home"/>}/>
         <Route path='/home' element={<Dashboard/>}/>

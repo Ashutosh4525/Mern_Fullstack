@@ -49,6 +49,7 @@ export default function Login() {
                 .post("https://dummyjson.com/auth/login",values)
                 .then((response)=>{
                     console.log(response); 
+                    sessionStorage.setItem("token",response.data.accessToken);
                     navigate("/home");
                 })
                 .catch((error)=>{

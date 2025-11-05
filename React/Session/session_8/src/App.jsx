@@ -8,23 +8,25 @@ import Lifecycle from "./components/pages/Lifecycle"
 import ProductList from "./components/pages/ProductList"
 import SingleProduct from "./components/pages/SingleProduct"
 import Login from "./components/pages/Login"
+import ProtectedRoute from "./components/global/ProtectedRoute"
 
 function App() {
 
   return (
     <>
-    <Header/>
+    {/* <Header/> */}
     <Routes>
-      
-      <Route index element={<Introduction/>}/>
       <Route path="/login" element={<Login/>}/>
+      <Route path="*" element={<NotFound/>}/>
+      <Route element={<ProtectedRoute/>}>
+      <Route index element={<Introduction/>}/>
       <Route path="/home" element={<Introduction/>}/>
       <Route path="/features" element={<Features/>}/>
       <Route path="/lifecycle" element={<Lifecycle/>}/>
       <Route path="/product-list" element={<ProductList/>}/>
       {/* Dynamic Routing */}
       <Route path="/product/:id" element={<SingleProduct />}/>
-      <Route path="*" element={<NotFound/>}/>
+      </Route>
     </Routes>
 
     </>

@@ -94,6 +94,9 @@ const Header = () =>{
                   >
                     Log in
                   </Link>
+                  <a>
+                    Log Out
+                  </a>
                 </div>
               </div>
             </div>

@@ -120,7 +120,7 @@ export default function CategoryList() {
     .catch((error)=>{
         console.error(error);
     })
-  })
+  },[])
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {

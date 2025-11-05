@@ -47,7 +47,8 @@ export default function Login() {
                 axios
                 .post("https://dummyjson.com/auth/login",values)
                 .then((response)=>{
-                    console.log(response); 
+                    console.log(response.data.accessToken); 
+                    sessionStorage.setItem("token",response.data.accessToken);
                     navigate("/home");
                 })
                 .catch((error)=>{

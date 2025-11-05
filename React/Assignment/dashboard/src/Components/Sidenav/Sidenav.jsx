@@ -5,7 +5,7 @@ import { BiHome } from "react-icons/bi";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { MdOutlineAdd,MdCategory } from "react-icons/md";
 import { HiArchiveBox } from "react-icons/hi2";
-import {  NavLink, Outlet ,Link} from 'react-router-dom';
+import {  NavLink ,Outlet,Link} from 'react-router-dom';
 
 
 

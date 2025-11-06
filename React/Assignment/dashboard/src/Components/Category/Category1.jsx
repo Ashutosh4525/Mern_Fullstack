@@ -96,8 +96,8 @@ export default function CategoryList() {
     if(window.confirm("Are you sure")){
       axios
       .delete(`https://6904a8d46b8dabde496499d6.mockapi.io/session9/category/${id}`)
-      .then((response)=>{
-        setRows(response.data)
+      .then(()=>{
+        setRows((prev) => prev.filter((item) => item.id !== id));
       })
       .catch((error)=>{
         console.log(error);
@@ -214,7 +214,10 @@ export default function CategoryList() {
       />
       <Modal open={openView} onClose={() => setOpenView(false)}>
         <Box sx={style}>
-          <h3> View Category</h3>
+          <div className='flex justify-between'>
+          <h3>Category</h3>
+          <h3 className='cursor-pointer' onClick={() => setOpenView(false)}>x</h3>
+          </div>
           {selectedRow && (
             <>
               <Avatar
@@ -226,14 +229,18 @@ export default function CategoryList() {
               <p><strong>Description:</strong> {selectedRow.description}</p>
             </>
           )}
-          <Button variant="contained" onClick={() => setOpenView(false)}>
+          {/* <Button variant="contained" onClick={() => setOpenView(false)}>
             Close
-          </Button>
+          </Button> */}
         </Box>
       </Modal>
        <Modal open={openEdit} onClose={() => setOpenEdit(false)}>
+        
         <Box sx={style}>
+         <div className='flex justify-between'>
           <h3>Edit Category</h3>
+          <h3 className='cursor-pointer' onClick={() => setOpenEdit(false)}>x</h3>
+          </div>
           <br />
           <TextField
             label="Category Name"
@@ -268,11 +275,11 @@ export default function CategoryList() {
           />
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Button variant="contained" onClick={handleSaveEdit}>
-              Save
+              Submit
             </Button>
-            <Button variant="outlined" onClick={() => setOpenEdit(false)}>
+            {/* <Button variant="outlined" onClick={() => setOpenEdit(false)}>
               Cancel
-            </Button>
+            </Button> */}
           </Box>
         </Box>
         </Modal>

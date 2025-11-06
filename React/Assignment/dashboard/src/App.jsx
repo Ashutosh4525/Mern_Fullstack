@@ -20,8 +20,8 @@ function App() {
         <Route  path='/' element={<Sidenav/>}>
         <Route index element={<Navigate to="home"/>}/>
         <Route path='/home' element={<Dashboard/>}/>
-        <Route path='/category-List' element={<CategoryList/>}/>
-        <Route path='/add-category' element={<CategoryAdd/>}/>
+        <Route path='/category-List' element={<CategoryAdd/>}/>
+        <Route path='/add-category' element={<CategoryList/>}/>
         </Route>
         </Route>
         <Route path='*' element={<PageNotFound/>}/>

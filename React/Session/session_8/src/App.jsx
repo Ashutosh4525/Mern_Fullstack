@@ -9,6 +9,8 @@ import ProductList from "./components/pages/ProductList"
 import SingleProduct from "./components/pages/SingleProduct"
 import Login from "./components/pages/Login"
 import ProtectedRoute from "./components/global/ProtectedRoute"
+import Counter from "./components/pages/Counter"
+import CounterContext from "./components/pages/Context/CounterContext"
 
 function App() {
 
@@ -23,7 +25,10 @@ function App() {
       <Route path="/home" element={<Introduction/>}/>
       <Route path="/features" element={<Features/>}/>
       <Route path="/lifecycle" element={<Lifecycle/>}/>
+      <Route path="/counter" element={<Counter/>}/>
+      <Route path="/context" element={<CounterContext/>}/>
       <Route path="/product-list" element={<ProductList/>}/>
+      
       {/* Dynamic Routing */}
       <Route path="/product/:id" element={<SingleProduct />}/>
       </Route>

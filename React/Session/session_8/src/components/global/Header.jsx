@@ -11,6 +11,8 @@ const navigation = [
   { name: 'Product-List', href: '/product-list' },
   { name: 'Lifecycle', href: '/lifecycle' },
   { name: 'Contact', href: '/contact' },
+  { name: 'Counter', href: '/counter' },
+  { name: 'Context', href: '/context' },
 ]
 
 const Header = () =>{

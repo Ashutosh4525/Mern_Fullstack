@@ -133,23 +133,6 @@ export default function CategoryList() {
         // console.log(id);
         
           return [
-            // <GridActionsCellItem
-            //   icon={<SaveIcon />}
-            //   label="Save"
-            //   material={{
-            //     sx: {
-            //       color: 'primary.main',
-            //     },
-            //   }}
-            //   onClick={handleSaveClick(id)}
-            // />,
-            // <GridActionsCellItem
-            //   icon={<CancelIcon />}
-            //   label="Cancel"
-            //   className="textPrimary"
-            //   onClick={handleCancelClick(id)}
-            //   color="inherit"
-            // />,
             <GridActionsCellItem
             icon={<RemoveRedEyeOutlinedIcon />}
             label="View"
@@ -219,19 +202,18 @@ export default function CategoryList() {
           <h3 className='cursor-pointer' onClick={() => setOpenView(false)}>x</h3>
           </div>
           {selectedRow && (
-            <>
-              <Avatar
+            <div className='flex justify-between'>
+              <Avatar 
                 src={selectedRow.image}
                 alt={selectedRow.name}
                 sx={{ width: 60, height: 60, mb: 2 }}
               />
-              <p><strong>Name:</strong> {selectedRow.name}</p>
-              <p><strong>Description:</strong> {selectedRow.description}</p>
-            </>
+              <div>
+              <h2>Name: {selectedRow.name}</h2>
+              <h2>Description: {selectedRow.description}</h2>
+              </div>
+            </div>
           )}
-          {/* <Button variant="contained" onClick={() => setOpenView(false)}>
-            Close
-          </Button> */}
         </Box>
       </Modal>
        <Modal open={openEdit} onClose={() => setOpenEdit(false)}>
@@ -277,9 +259,6 @@ export default function CategoryList() {
             <Button variant="contained" onClick={handleSaveEdit}>
               Submit
             </Button>
-            {/* <Button variant="outlined" onClick={() => setOpenEdit(false)}>
-              Cancel
-            </Button> */}
           </Box>
         </Box>
         </Modal>

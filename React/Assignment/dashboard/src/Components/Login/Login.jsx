@@ -19,14 +19,14 @@ export default function Login() {
         ```
       */}
       <div className="flex h-screen flex-col justify-center px-6 py-12 lg:px-8 bg-white items-center">
-        <div className="flex flex-col justify-center w-100 h-100 p-4 border border-gray-300 rounded-lg shadow-md bg-gray-300 items-center">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="flex flex-col justify-center w-100 h-100 p-15px border border-gray-300 rounded-lg shadow-md bg-gray-300 items-center">
+        <div className="flex flex-col justify-center sm:mx-auto sm:w-full sm:max-w-sm items-center ">
           <img
             alt="Your Company"
-            src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-            className="mx-auto h-10 w-auto"
+            src="https://img.freepik.com/free-vector/gradient-dome-logo-template_23-2149847332.jpg?t=st=1762508831~exp=1762512431~hmac=aa8e759363a170cd6dfc7c9bc5d9a1fd8e8c48768ed452ff9af68503ac581804&w=1480"
+            className="mx-auto h-10 w-10 rounded-xs"
           />
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in to your account</h2>
+          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-black">Sign in to your account</h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -83,7 +83,7 @@ export default function Login() {
                   onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.username}
-                  className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                  className="block w-full rounded-md bg-white/5 p-2 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
                 />
                 <p className="text-sm text-red-700">{errors.username && touched.username && errors.username}</p>
               </div>
@@ -119,16 +119,17 @@ export default function Login() {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" disabled={isSubmitting}
+                className="flex w-1/2 justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" disabled={isSubmitting}
               >
                 Sign in
               </button>
             </div>
+            {formError && <p className='text-sm text-red-700'>{formError}</p>}
           </form>
        )}
             </Formik>
 
-        {formError && <p className='text-sm text-red-700'>{formError}</p>}
+        
           <p className="mt-10 text-center text-sm/6 text-gray-400">
             Not a member?{' '}
             <a href="#" className="font-semibold text-indigo-400 hover:text-indigo-300">

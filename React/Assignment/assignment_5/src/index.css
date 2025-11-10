@@ -1,0 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: black;
+}
+#inp{
+  outline: none;
+}
+#inp:focus-visible{
+  box-shadow: 0px 0px 10px 10px rgb(243, 80, 134);
+}

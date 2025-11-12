@@ -1,6 +1,12 @@
-
+import {useDispatch} from 'react-redux';
+import { counterActions } from '../../../redux/slice/counter.slice';
 
 export default function Introduction() {
+  const dispatch=useDispatch();
+
+  const handleClick=()=>{
+    dispatch(counterActions.increment());
+  }
  
 
   return (
@@ -39,12 +45,12 @@ export default function Introduction() {
               fugiat veniam occaecat.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
+              <button
+                onClick={handleClick}
                 className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Get started
-              </a>
+                Get started 
+              </button>
               <a href="#" className="text-sm/6 font-semibold text-gray-900">
                 Learn more <span aria-hidden="true">→</span>
               </a>

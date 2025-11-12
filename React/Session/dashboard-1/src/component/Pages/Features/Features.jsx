@@ -3,7 +3,7 @@ import {
   LockClosedIcon,
   ServerIcon,
 } from "@heroicons/react/20/solid";
-
+import {useSelector} from 'react-redux';
 const features = [
   {
     name: "Push to deploy.",
@@ -26,6 +26,11 @@ const features = [
 ];
 
 export default function Features() {
+
+  const data=useSelector((state)=>state.counter);
+  console.log(data);
+  const {count}=data;
+
   return (
     <div className="overflow-hidden bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -33,7 +38,7 @@ export default function Features() {
           <div className="lg:pt-4 lg:pr-8">
             <div className="lg:max-w-lg">
               <h2 className="text-base/7 font-semibold text-indigo-600">
-                Deploy faster
+                Deploy faster {count}
               </h2>
               <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
                 A better workflow

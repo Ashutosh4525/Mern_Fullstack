@@ -5,7 +5,7 @@ export default function Introduction() {
   const dispatch=useDispatch();
 
   const handleClick=()=>{
-    dispatch(counterActions.increment());
+    dispatch(counterActions.increaseBy(10));
   }
  
 

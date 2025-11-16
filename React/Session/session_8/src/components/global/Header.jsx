@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, NavLink,useNavigate } from "react-router-dom";
 
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -17,6 +17,18 @@ const navigation = [
 
 const Header = () =>{
      const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+      const [isLoggedIn, setIsLoggedIn] = useState(false);
+      const navigate = useNavigate();
+      useEffect(()=>{
+        const token=sessionStorage.getItem("token");
+        setIsLoggedIn(!!token);
+      },[]);
+
+      const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
     return (
         <>
          <header className="sticky inset-x-0 top-0 z-50 bg-white/75">
@@ -51,9 +63,21 @@ const Header = () =>{
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+             {isLoggedIn ? (
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setMobileMenuOpen(false);
+                      }}
+                      // className="-mx-3 block w-full text-left rounded-lg px-3 py-2.5 text-base font-semibold text-gray-900 hover:bg-gray-50"
+                    >
+                      Log out <span aria-hidden="true">&rarr;</span>
+                    </button>
+                    ) : (
             <Link to={"/login"} className="text-sm/6 font-semibold text-gray-900">
               Log in <span aria-hidden="true">&rarr;</span>
             </Link>
+                    )}
           </div>
         </nav>
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
@@ -91,14 +115,23 @@ const Header = () =>{
                   ))}
                 </div>
                 <div className="py-6">
+                  {isLoggedIn ? (
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="-mx-3 block w-full text-left rounded-lg px-3 py-2.5 text-base font-semibold text-gray-900 hover:bg-gray-50"
+                    >
+                      Log out
+                    </button>
+                    ) : (
                   <Link to={"/login"}
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                   >
                     Log in
                   </Link>
-                  <a>
-                    Log Out
-                  </a>
+                    )}
                 </div>
               </div>
             </div>

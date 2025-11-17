@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.hero{
+    background-image: url("./assets/fixtures-banner-desktop_S11.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 700px;
+    position: relative;
+}
+.hero-img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.parent-skew {
+  transform: translateX(5%) skewX(-15deg); 
+  width: 100%;
+  padding: 0px 10px;
+}
+
+.child-unskew {
+  transform: skewX(30deg);
+}

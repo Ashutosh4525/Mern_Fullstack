@@ -5,24 +5,37 @@
     padding: 0;
     box-sizing: border-box;
 }
-.hero{
+/* .hero{
     background-image: url("./assets/fixtures-banner-desktop_S11.jpg");
     background-position: center;
     background-repeat: no-repeat;
     height: 700px;
     position: relative;
-}
+} */
 .hero-img{
     display: block;
-    max-width: 100%;
+    width: 100%;
     height: auto;
 }
 .parent-skew {
   transform: translateX(5%) skewX(-15deg); 
   width: 100%;
   padding: 0px 10px;
+  background-color: #0000004d;
+  height: 100px;
+  font-family: "Exo", sans-serif;
 }
 
 .child-unskew {
-  transform: skewX(30deg);
+  transform: skewX(15deg) !important;
+}
+
+@media screen and (max-width: 900px) {
+  .parent-skew{
+    transform: none;
+    transform: translateX(5%);
+  }
+  .child-unskew {
+  transform: none;
+}
 }

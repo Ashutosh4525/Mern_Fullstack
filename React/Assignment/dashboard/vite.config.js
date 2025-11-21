@@ -4,6 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // base:"/Mern_Fullstack/React/Assignment/dashboard",
+  base:"/Mern_Fullstack/React/Assignment/dashboard",
   plugins: [react(),tailwindcss()],
 })

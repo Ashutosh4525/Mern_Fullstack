@@ -12,6 +12,9 @@
     height: 700px;
     position: relative;
 } */
+ .body-hid{
+  overflow: hidden;
+ }
 .hero-img{
     display: block;
     width: 100%;
@@ -25,17 +28,65 @@
   height: 100px;
   font-family: "Exo", sans-serif;
 }
-
+.parent-skew::before{
+   content: '';
+    background: linear-gradient(to right, #000, white 50%, #000);
+    position: absolute;
+    top: 0;
+    width: 60%;
+    height: 2px;
+    right: 4px;
+    animation: blink 3s linear infinite;
+}
+.parent-skew::after{
+  content: '';
+   background: linear-gradient(to right, #000, white 50%, #000);
+    position: absolute;
+    bottom: 0;
+    width: 60%;
+    height: 2%;
+    left: 15%;
+    animation: blink 3s linear infinite;
+}
+@keyframes blink {
+  0% {
+    opacity: .2;
+  }
+  50% {
+      opacity: .5;
+  }
+  100% {
+      opacity: 1;
+  }
+}
 .child-unskew {
   transform: skewX(15deg) !important;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1023px) {
   .parent-skew{
     transform: none;
     transform: translateX(5%);
+    height: 50px;
   }
-  .child-unskew {
-  transform: none;
+  .navbar{
+    top: 50px;
+  }
+  .logo{
+    width: 100px;
+  }
 }
+@media screen and (max-width:500px) {
+  .parent-skew{
+    transform: none;
+    transform: translateX(5%);
+    height: 40px;
+    top: 20px;
+  }
+  .logo{
+    width: 70px;
+  }
+  .navbar{
+    top: 40px;
+  }
 }

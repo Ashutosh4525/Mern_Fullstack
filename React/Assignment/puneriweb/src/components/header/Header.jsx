@@ -1,6 +1,6 @@
 
 import { useState } from 'react'
-import { Dialog, DialogPanel } from '@headlessui/react'
+// import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/logo.gif'
 
@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <div className='container w-full relative'>
-      <header className="fixed max-w-9/10 z-50 h-16 w-full flex items-center top-10 parent-skew px-0 py-0">
+      <header className="fixed max-w-9/10 z-50 h-16 w-full flex items-center top-10 parent-skew px-0 py-0 lg:h-10">
         <div className='child-skew w-full flex items-center'>
           <nav aria-label="Global" className="w-full flex items-center justify-between lg:justify-center p-4 lg:px-8 child-skew">
             <div className="flex items-center">
@@ -26,7 +26,7 @@ export default function Header() {
                 <img
                   alt=""
                   src={logo}
-                  className="child-skew skew-x-15 sm:skew-x-0"
+                  className="z-50 skew-x-0 lg:skew-x-15 logo"
                 />
               </a>
             </div>
@@ -40,49 +40,33 @@ export default function Header() {
             <div className="flex lg:hidden flex-1 justify-end">
               <button
                 type="button"
-                onClick={() => setMobileMenuOpen(true)}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
               >
-                <span className="sr-only">Open main menu</span>
-                <Bars3Icon aria-hidden="true" className="size-6 skew-x-15" />
+                {mobileMenuOpen ? (
+                  <XMarkIcon aria-hidden="true" className="size-6 skew-x-15" />
+                ) : (
+                  <Bars3Icon aria-hidden="true" className="size-6 skew-x-15" />
+                )}
               </button>
+
             </div>
           </nav>
-
-          
-          <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
-            <div className='fixed inset-0 z-50 flex justify-end'>
-              <DialogPanel className="fixed max-w-9/10 translate-x-4 top-26 inset-x-0 z-50 bg-gray-900 p-6 shadow-lg border-t border-gray-700">
-               
-                <div className="flex items-center justify-end mb-4">
-                  {/* <a href="/" className="-m-1.5 p-1.5">
-                    <span className="sr-only">Your Company</span>
-                    <img src={logo} alt="Logo" className="h-8 w-auto" />
-                  </a> */}
-                  <button
-                    type="button"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="rounded-md p-2.5 text-gray-200"
-                  >
-                    <span className="sr-only">Close menu</span>
-                    <XMarkIcon aria-hidden="true" className="size-6" />
-                  </button>
-                </div>
-               
-                <nav>
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="block rounded-lg px-3 py-2 text-base font-semibold text-white hover:bg-white/5"
-                    >
-                      {item.name}
-                    </a>
-                  ))}
-                </nav>
-              </DialogPanel>
-            </div>
-          </Dialog>
+        {mobileMenuOpen && (
+          <div className="fixed w-full top-25 inset-x-0 -z-10 p-6 bg-black/60 backdrop-blur-lg border-t border-gray-600 child-skew transition-all duration-500 navbar">
+            <nav className="flex flex-col text-center gap-4">
+              {navigation.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-white text-lg font-semibold hover:bg-white/10 px-3 py-2 rounded"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </nav>
+          </div>
+        )}
         </div>
       </header>
     </div>

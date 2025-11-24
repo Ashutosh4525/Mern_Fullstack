@@ -3,6 +3,7 @@ import { useState } from 'react'
 // import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/logo.gif'
+import { Link } from 'react-router-dom'
 
 const navigation = [
   { name: 'Player', href: '/player' },
@@ -17,18 +18,18 @@ export default function Header() {
 
   return (
     <div className='container w-full relative'>
-      <header className="fixed max-w-9/10 z-50 h-16 w-full flex items-center top-10 parent-skew px-0 py-0 lg:h-10">
+      <header className="fixed max-w-9/10 z-50 h-16 flex items-center top-10 parent-skew px-0 py-0 lg:h-10">
         <div className='child-skew w-full flex items-center'>
           <nav aria-label="Global" className="w-full flex items-center justify-between lg:justify-center p-4 lg:px-8 child-skew">
             <div className="flex items-center">
-              <a href="/player" className="-m-1.5 p-1.5">
+              <Link to="/hero" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
                 <img
                   alt=""
                   src={logo}
                   className="z-50 skew-x-0 lg:skew-x-15 logo"
                 />
-              </a>
+              </Link>
             </div>
             <div className="hidden lg:flex flex-1 justify-center items-center gap-x-12">
               {navigation.map((item) => (

@@ -1,0 +1,38 @@
+.description{
+    background-image: url("../../../assets/description-bg-new.jpg");
+    background-position: top;
+    background-repeat: no-repeat;
+    position: relative;
+    padding: 50px 50px;
+}
+.scroll{
+    text-align: center;
+    position: relative;
+    color: white;
+    letter-spacing: 65px;
+    font-size: 20px;
+    text-transform: uppercase;
+    height: 100px;
+}
+.line{
+    height: 140px;
+    top: -20%;
+    width: 2px;
+    background-color: white;
+    position: absolute;
+    left: 47%;
+    /* transform: translateX(50%); */
+    z-index: 9;
+    color: white; 
+}
+.despara{
+    background-size: cover;
+    background-position: 30% 20%;
+    font-size: 50px;
+    text-align: justify;
+    line-height: 1.3;
+    padding: 30px 50px;
+    font-family: "Exo-Bold";
+    font-size: 50px;
+    color: #ff7500;
+}

@@ -5,7 +5,10 @@ import Hero from "./components/pages/Hero/Hero"
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import Players from "./components/pages/players/Players";
+import NotFound from "./components/pages/NotFound";
+import PlayersBanner from "./components/pages/players/PlayerBanner";
+import SinglePlayer from "./components/pages/players/SinglePlayer";
 function App() {
    useEffect(() => {
         AOS.init({
@@ -24,6 +27,9 @@ function App() {
      <Routes>
       <Route index element={<Hero/>}/>
       <Route path="/hero" element={<Hero/>}/>
+      <Route path="/player" element={<PlayersBanner/>}/>
+      <Route path="/player/:id" element={<SinglePlayer />} />
+      <Route path="*" element={<NotFound/>}/>
      </Routes>
      <Footer/>
     </>

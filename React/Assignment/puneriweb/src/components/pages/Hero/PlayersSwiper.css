@@ -1,0 +1,103 @@
+.players-section {
+  width: 100%;
+  padding: 20px;
+  color: white;
+  position: relative;
+}
+
+.title h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.player-card {
+  text-align: center;
+  transition: 0.3s ease-in-out;
+}
+.player-card:focus{
+  transform: scale(1.05);
+}
+.player-card:hover {
+  transform: scale(1.05);
+}
+
+.player-img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.name h3 {
+  margin: 5px 0;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+
+.role {
+  color: #ff8500;
+  font-size: 14px;
+  margin-top: 4px;
+  font-weight: 600;
+}
+.players-section .swiper{
+   overflow: hidden !important;
+}
+.players-section .swiper-wrapper{
+  overflow: visible;
+}
+.swiper-button-prev, .swiper-button-next{
+ bottom: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  color: white !important;
+}
+
+.swiper-pagination{
+  bottom: -40px !important; 
+  z-index: 50;
+  position: absolute 
+}
+
+.player-slide .player-card {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: visible;
+}
+
+.player-slide .player-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* display: block; */
+}
+
+
+.player-slide .name {
+  position: absolute;
+  bottom: 10px; 
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-align: center;
+  color: white;
+  transition: all 0.3s ease;
+  /* width: max-content; */
+}
+
+
+.player-slide.swiper-slide-active .name {
+  bottom: -50px; 
+  background: transparent;
+  color: #fff;
+}
+
+@media screen and (max-width:1024px) {
+  .play{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

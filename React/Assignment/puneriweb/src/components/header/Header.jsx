@@ -33,7 +33,7 @@ export default function Header() {
             </div>
             <div className="hidden lg:flex flex-1 justify-center items-center gap-x-12">
               {navigation.map((item) => (
-                <a key={item.name} href={item.href} className="text-sm/6 font-semibold text-white">
+                <a key={item.name} href={item.href} className="text-sm/6 font-semibold text-white hover:text-[#ff7500] transition-all duration-500">
                   {item.name}
                 </a>
               ))}

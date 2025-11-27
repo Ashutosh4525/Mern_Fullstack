@@ -5,25 +5,24 @@
     position: relative;
     padding: 50px 50px;
 }
-.scroll{
-    text-align: center;
-    position: relative;
-    color: white;
-    letter-spacing: 65px;
-    font-size: 20px;
-    text-transform: uppercase;
-    height: 100px;
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.right, .left{
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 50px;
+  white-space: nowrap;
 }
 .line{
-    height: 140px;
-    top: -20%;
-    width: 2px;
-    background-color: white;
-    position: absolute;
-    left: 47%;
-    /* transform: translateX(50%); */
-    z-index: 9;
-    color: white; 
+  width: 2px;
+  height: 120px;
+  background-color: white;
+  margin-left: -45px;
 }
 .despara{
     background-size: cover;
@@ -33,6 +32,19 @@
     line-height: 1.3;
     padding: 30px 50px;
     font-family: "Exo-Bold";
-    font-size: 50px;
     color: #ff7500;
+}
+
+@media screen and (max-width:500px) {
+   .left, .right {
+    letter-spacing: 10px;
+    font-size: 14px;
+  }
+  .line {
+    height: 70px;
+    margin-left: -10px;
+  }
+  .despara{
+    font-size: 20px;
+  }
 }

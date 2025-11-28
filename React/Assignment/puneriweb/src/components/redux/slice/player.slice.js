@@ -7,14 +7,18 @@ const initialState={
     error: null,
     message: null,
     playersByCategory: {},
-    singlePlayer:false
+    singlePlayer:false,
+    playerList:[]
 }
 
 const playerSlice=createSlice({
     name:"player",
     initialState,
     reducers: {
-    clearSinglePlayer(state) { state.singlePlayer = null; }
+    clearSinglePlayer(state) { state.singlePlayer = null; },
+    clearPlayerList(state) {
+      state.playerList = [];
+    }
   },
     extraReducers:(builders)=>{
         builders
@@ -54,8 +58,13 @@ const playerSlice=createSlice({
         .addCase(fetchSinglePlayer.fulfilled,(state,action)=>{
             console.log(action.payload);
             // state.products=action.payload.product
-            
-            state.singlePlayer=action.payload
+            // state.playerList=[...state.playerList,action.payload]
+            state.singlePlayer=action.payload;
+            const exists = state.playerList.some(p => p.id === action.payload.id);
+            if (!exists) {
+                state.playerList.push(action.payload);
+            }
+            state.singlePlayer=action.payload;
             state.loading=false;
             state.message="Player fetched successfully"
         })
@@ -66,7 +75,7 @@ const playerSlice=createSlice({
 
     }
 })
-export const { clearSinglePlayer } = playerSlice.actions;
+export const { clearSinglePlayer,clearPlayerList } = playerSlice.actions;
 export const playerAction=playerSlice.actions;
 const playerReducer=playerSlice.reducer;
 export default playerReducer;

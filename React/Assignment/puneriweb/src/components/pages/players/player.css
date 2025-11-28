@@ -50,7 +50,7 @@
 }
 
 .players.card {
-  background: #ffffff;
+  background: transparent;
   padding: 20px 10px;
   /* border-radius: 15px; */
   text-align: center;

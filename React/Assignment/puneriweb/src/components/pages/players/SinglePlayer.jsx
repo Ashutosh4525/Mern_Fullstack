@@ -3,6 +3,8 @@ import {  useDispatch, useSelector } from 'react-redux';
 import { fetchSinglePlayer } from '../../redux/action/player.action';
 import { clearSinglePlayer } from '../../redux/slice/player.slice';
 import { useEffect } from 'react';
+import PlayerDescription from './SinglePlayer/PlayerDescription';
+import PlayerStatistics from './SinglePlayer/Statistics';
 function SinglePlayer() {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -20,8 +22,12 @@ function SinglePlayer() {
   const p = singlePlayer;
 
   return (
+    <>
+    <PlayerDescription player={p}/>
+    <PlayerStatistics stats={p}/>
     <div className="container" style={{padding:20}}>
       <Link to="/player">← Back</Link>
+      
       <h1 style={{marginTop:8}}>{(p.fname || p.player_name || '') + ' ' + (p.lname || '')}</h1>
       <img src={p.img || p.image || p.profile_image || p.player_image || ''} alt={`${p.fname || p.player_name || ''}`} style={{width:300,height:300,objectFit:'cover',borderRadius:8}} />
       <div className="details" style={{marginTop:12}}>
@@ -33,6 +39,7 @@ function SinglePlayer() {
         ))}
       </div>
     </div>
+    </>
   );
 }
 export default SinglePlayer;

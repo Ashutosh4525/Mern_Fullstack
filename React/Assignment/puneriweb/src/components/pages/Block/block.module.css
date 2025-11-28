@@ -1,0 +1,15 @@
+.block2{
+    content: '';
+    background-color: #f40;
+    width: 7px;
+    height: 100%;
+    margin-left: 3px;
+}
+.block1{
+    content: '';
+    background-color: #f40;
+    margin-left: 3px;
+    width: 10px;
+    height: 100%;
+    margin: 0px 3px;
+}

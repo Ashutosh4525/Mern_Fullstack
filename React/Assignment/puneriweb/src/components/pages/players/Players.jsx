@@ -50,7 +50,8 @@ function Players() {
       {loading && <p>Loading...</p>}
       {error && <p className="error">Error: {String(error.message || error)}</p>}
       {/* {console.log(categories)} */}
-      <div className="categories-list">
+    </div>
+    <div className="categories-list">
         {Array.isArray(categories) && categories.length > 0 ? (
           categories.map((cat) => (
             <CategoryBlock key={cat.id} category={cat} players={playersByCategory[cat.id] || []} />
@@ -59,7 +60,6 @@ function Players() {
           <p>No categories found.</p>
         )}
       </div>
-    </div>
     </section>
     </>
   );

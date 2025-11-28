@@ -1,6 +1,8 @@
 import img1 from "../../../assets/homepage-mobile-banner-s12.webp";
 import classes from './hero.module.css'
-
+import { useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { fetchSinglePlayer } from "../../redux/action/player.action";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -41,6 +43,17 @@ const players = [
     },
   ];
 export default function Hero(){
+  const dispatch=useDispatch();
+  const {playerList,loading,error}=useSelector((s)=>s.player);
+  const totalPlayers=10;
+  useEffect(()=>{
+    for (let id = 1; id <= totalPlayers; id++) {
+    dispatch(fetchSinglePlayer(id))
+    }
+  },[dispatch,totalPlayers]);
+   const apiPlayers = Array.isArray(playerList) ? playerList : [];
+   const minSlidesForLoop = 3; // set to the smallest slidesPerView you expect
+  const enableLoop = apiPlayers.length >= minSlidesForLoop;
     return(
         <>
         <div className="hero">  
@@ -55,19 +68,21 @@ export default function Hero(){
                 <h2 className={classes.left} >oll</h2>   
             </div>
             <p className={classes.despara}>Puneri Paltan is currently one of the top performing teams in the Pro Kabaddi League. With a mix of unstoppable energy, honed-out skills and steely nerves, here's a force that consistently looks forward to perform better, challenge its opponents and make a difference.</p>
-            <section className="players-section">
+            <div className="players-section">
                   <div className="play flex md:justify-center items-center w-full gap-4 px-4">
                   <div className="title w-[20%]">
                     <h2>Players</h2>
                   </div>
-            
-                <div className="w-[80%]">
+            {loading && apiPlayers.length === 0 ? <p>Loading...</p> : null}
+                <div className="w-[80%] min-h-[300px]">
+                  <div className="w-full  h-100">
                   <Swiper
+                    style={{height:"100%"}}
                     modules={[Navigation, Pagination, Autoplay]}
                     navigation
                     pagination={{ clickable: true }}
                     loop
-                    autoplay={{ delay: 2000 }}
+                    autoplay={{ delay: 6000 }}
                     spaceBetween={20}
                     breakpoints={{
                       320: { slidesPerView: 1 },
@@ -76,23 +91,33 @@ export default function Hero(){
                       1024: { slidesPerView: 4 },
                     }}
                   >
-                    {players.map((player, index) => (
+                    {loading && <p>Loading...</p>}
+                    {apiPlayers.length === 0 ? (
+                  // fallback slides so UI doesn't break
+                  <SwiperSlide>
+                    <div className="player-card">
+                      <p>No players available</p>
+                    </div>
+                  </SwiperSlide>
+                  ) :(
+                    apiPlayers.map((player, index) => (
                       <SwiperSlide key={index} className="player-slide">
                         <div className="player-card">
-                          <img src={player.img} alt={player.fname} className="player-img" />
+                          <img src={player.profile_image} alt={player.fname} className="player-img" />
             
                           <div className="name">
-                            <h3>{player.fname}</h3>
+                            <h3>{player.name}</h3>
                             <h3>{player.lname}</h3>
-                            <p className="role">{player.role}</p>
+                            <p className="role">{player.position}</p>
                           </div>
                         </div>
                       </SwiperSlide>
-                    ))}
+                    )))}
                   </Swiper>
                   </div>
                   </div>
-                </section>
+                  </div>
+                </div>
         </section>
        
             

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 export default function PaltanWorld(){
     return(
     <>
-    <section className="paltan w-full">
+    <section className="w-full">
         <div className='w-full'>
             <img src={img} alt="paltan_world_img" className='w-full'/>
         </div>

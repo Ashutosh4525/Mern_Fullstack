@@ -5,6 +5,7 @@
     background-size: cover;
     height: 420px;
     position: relative;
+    width: 100%;
 }
 .innergallery{
     position: absolute;
@@ -16,4 +17,22 @@
     color: white;
     font-weight: bolder;
     letter-spacing: 6px;
+    width: 100%;
+}
+@media screen and (max-width:900px) {
+    .imggal{
+        height: 300px;
+    }
+    .innergalleryh{
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .imggal{
+        height: 200px;
+    }
+    .innergalleryh{
+        font-size: 15px;
+    }
 }

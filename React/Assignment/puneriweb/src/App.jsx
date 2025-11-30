@@ -16,13 +16,12 @@ function App() {
   const location =useLocation();
   const current = location.pathname;
 
-  const hideHeader =
-  !(
-    current === "/hero" ||
-    current === "/paltan-world" ||
-    current.startsWith("/player") ||
-    current.startsWith("/gallery")
-   );
+  const showHeader =
+  current === "/" ||
+  current === "/hero" ||
+  current === "/paltan-world" ||
+  current.startsWith("/player") ||
+  current.startsWith("/gallery");
    useEffect(() => {
         AOS.init({
           // Optional: Configure global settings for AOS
@@ -36,7 +35,7 @@ function App() {
 
   return (
     <>
-     {!hideHeader && <Header />}
+     {showHeader && <Header />}
      <Routes>
       <Route index element={<Hero/>}/>
       <Route path="/hero" element={<Hero/>}/>
@@ -47,7 +46,7 @@ function App() {
       <Route path="/gallery/:id" element={<SingleGallery/>}/>
       <Route path="*" element={<NotFound/>}/>
      </Routes>
-     <Footer/>
+     {showHeader && <Footer/>}
     </>
   )
 }

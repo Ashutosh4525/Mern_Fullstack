@@ -1,5 +1,5 @@
 
-import { useState,useEffect } from 'react'
+import { useState,useEffect,useRef } from 'react'
 // import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/logo.gif'
@@ -16,48 +16,48 @@ const navigation = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
+  const lastScrollY = useRef(0)
   // const [lastScrollY, setLastScrollY] = useState(0);
+ 
+//   useEffect(() => {
+//     function controlHeader() {
+//       if (window.scrollY > lastScrollY) {
+//         setShowHeader(false);    
+//       } else {
+//         setShowHeader(true);    
+//       }
+//       setLastScrollY(window.scrollY);
+//     }
 
-  /* Detect scroll direction */
+//     window.addEventListener("scroll", controlHeader);
+//     return () => window.removeEventListener("scroll", controlHeader);
+// },[showHeader])
   useEffect(() => {
-    // function controlHeader() {
-    //   if (window.scrollY > lastScrollY) {
-    //     setShowHeader(false);    // scroll down → hide
-    //   } else {
-    //     setShowHeader(true);     // scroll up → show
-    //   }
-    //   setLastScrollY(window.scrollY);
-    // }
+    const handleScroll = () => {
+      const currentY = window.scrollY
 
-    // window.addEventListener("scroll", controlHeader);
-    // return () => window.removeEventListener("scroll", controlHeader);
-     let lastY = window.scrollY;
+      if (currentY > lastScrollY.current && currentY > 20) {
+        setShowHeader(false)
+      } else {
+        setShowHeader(true)
+      }
 
-  const handleScroll = () => {
-    const currentY = window.scrollY;
-    if (currentY > lastY && currentY > 20) {
-      setShowHeader(false);
-    } 
-    else if (currentY < lastY) {
-      setShowHeader(true);
+      lastScrollY.current = currentY
     }
 
-    lastY = currentY;
-  };
-
-  window.addEventListener("scroll", handleScroll, { passive: true });
-  return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
   return (
-    <div className='w-full relative'>
-      <header className={`fixed max-w-9/10 z-50 h-16 flex items-center top-0 lg:top-10 parent-skew px-0 py-0 lg:h-10 transition-all duration-500 ease-in-out 
-        ${showHeader ? "translate-y-0" : "-translate-y-full opacity-0"}`}>
+    <div className='container'>
+      <header className={`fixed max-w-[90%] z-50 h-16 flex items-center top-10 parent-skew px-0 py-0 lg:h-10 transition-all duration-500 ease-in-out
+        ${showHeader ? "translate-y-0" : "-translate-y-full opacity-0"} `}> 
+        
         <div className='child-skew w-full flex items-center'>
           <nav aria-label="Global" className="w-full flex items-center justify-between lg:justify-center p-4 lg:px-8 child-skew">
             <div className="flex items-center">
               <Link to="/hero" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
+                {/* <span className="sr-only">Your Company</span> */}
                 <img
                   alt=""
                   src={logo}
@@ -84,11 +84,10 @@ export default function Header() {
                   <Bars3Icon aria-hidden="true" className="size-6 skew-x-15" />
                 )}
               </button>
-
             </div>
           </nav>
         {mobileMenuOpen && (
-          <div className="fixed w-full top-2 inset-x-0 p-6 bg-black/60 backdrop-blur-lg border-t border-gray-600 child-skew transition-all duration-500 navbar">
+          <div className="fixed w-full top-16 z-40 inset-x-0 p-6 bg-black/60 backdrop-blur-lg border-t border-gray-600 child-skew transition-all duration-500 navbar">
             <nav className="flex flex-col text-center gap-4">
               {navigation.map((item) => (
                 <Link

@@ -16,7 +16,7 @@ const navigation = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  // const [lastScrollY, setLastScrollY] = useState(0);
 
   /* Detect scroll direction */
   useEffect(() => {
@@ -50,9 +50,9 @@ export default function Header() {
   }, []);
 
   return (
-    <div className='container w-full relative'>
+    <div className='w-full relative'>
       <header className={`fixed max-w-9/10 z-50 h-16 flex items-center top-10 parent-skew px-0 py-0 lg:h-10 transition-all duration-500 ease-in-out 
-        ${showHeader ? "translate-y-0" : "-translate-y-full"}`}>
+        ${showHeader ? "translate-y-0" : "-translate-y-full opacity-0"}`}>
         <div className='child-skew w-full flex items-center'>
           <nav aria-label="Global" className="w-full flex items-center justify-between lg:justify-center p-4 lg:px-8 child-skew">
             <div className="flex items-center">
@@ -88,7 +88,7 @@ export default function Header() {
             </div>
           </nav>
         {mobileMenuOpen && (
-          <div className="fixed w-full top-25 inset-x-0 p-6 bg-black/60 backdrop-blur-lg border-t border-gray-600 child-skew transition-all duration-500 navbar">
+          <div className="fixed w-full top-2 inset-x-0 p-6 bg-black/60 backdrop-blur-lg border-t border-gray-600 child-skew transition-all duration-500 navbar">
             <nav className="flex flex-col text-center gap-4">
               {navigation.map((item) => (
                 <Link

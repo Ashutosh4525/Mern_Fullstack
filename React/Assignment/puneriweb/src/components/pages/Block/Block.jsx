@@ -1,5 +1,5 @@
 import classes from './block.module.css'
- const Blockele=({title ,translate="10",translateLine="9",width="1/3"})=>{
+ const Blockele=({title ,translate="10",translateLine="10",width="1/3"})=>{
     return(
         <>
         <div className="flex h-20">

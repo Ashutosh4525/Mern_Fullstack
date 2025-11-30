@@ -1,0 +1,19 @@
+.imggal{
+    background-image: url(../../../assets/gallery-s12.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 420px;
+    position: relative;
+}
+.innergallery{
+    position: absolute;
+    top: 40%;
+    left: 30%;
+}
+.innergalleryh{
+    font-size: 70px;
+    color: white;
+    font-weight: bolder;
+    letter-spacing: 6px;
+}

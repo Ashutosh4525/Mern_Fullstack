@@ -10,6 +10,9 @@
     color: black;
     border-radius: 50%;
 }
+.wholefoot{
+    padding: 10px;
+}
 .footImg{
     padding: 20px 5px;
     height: 80px;
@@ -29,4 +32,9 @@
 .footTxt2{
     text-align: end;
     margin-top: 2px;
+}
+@media screen and (max-width:500px) {
+    .wholefoot{
+        justify-content: center;
+    }
 }

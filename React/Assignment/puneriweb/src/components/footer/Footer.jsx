@@ -4,7 +4,7 @@ import classes from './footer.module.css'
 export default function Footer(){
     return(
         <>
-        <div className="bg-black text-white flex justify-between items-center flex-wrap px-3">
+        <div className={`bg-black text-white flex justify-between items-center flex-wrap px-3 ${classes.wholefoot}` }>
         <div className="col-md-4 col-xs-12 col-sm-12 foot-left">
             <h6>Copyright © 2025 Puneri Paltan</h6>
         </div>

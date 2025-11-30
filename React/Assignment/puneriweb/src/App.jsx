@@ -1,4 +1,4 @@
-import { Routes,Route } from "react-router-dom"
+import { Routes,Route,useLocation } from "react-router-dom"
 import Footer from "./components/footer/Footer"
 import Header from "./components/header/Header"
 import Hero from "./components/pages/Hero/Hero"
@@ -9,7 +9,16 @@ import Players from "./components/pages/players/Players";
 import NotFound from "./components/pages/NotFound";
 import PlayersBanner from "./components/pages/players/PlayerBanner";
 import SinglePlayer from "./components/pages/players/SinglePlayer";
+import PaltanWorld from "./components/pages/PaltanWorld/PaltanWorld";
+import SeasonGalleryPage from "./components/pages/PaltanWorld/Season/SeasonList";
+import SingleGallery from "./components/pages/PaltanWorld/Season/SingleGallery";
 function App() {
+  const location =useLocation();
+  const hideHeader = location.pathname !== "/" 
+  && !location.pathname.startsWith("/player")
+  && location.pathname !== "/hero"
+  && location.pathname !== "/paltan-world"
+  && !location.pathname.startsWith("/gallery");
    useEffect(() => {
         AOS.init({
           // Optional: Configure global settings for AOS
@@ -23,12 +32,15 @@ function App() {
 
   return (
     <>
-     <Header/>
+     {!hideHeader && <Header />}
      <Routes>
       <Route index element={<Hero/>}/>
       <Route path="/hero" element={<Hero/>}/>
       <Route path="/player" element={<PlayersBanner/>}/>
       <Route path="/player/:id" element={<SinglePlayer />} />
+      <Route path="/paltan-world" element={<PaltanWorld/>}/>
+      <Route path="/gallery" element={<SeasonGalleryPage/>}/>
+      <Route path="/gallery/:id" element={<SingleGallery/>}/>
       <Route path="*" element={<NotFound/>}/>
      </Routes>
      <Footer/>

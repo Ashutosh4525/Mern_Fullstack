@@ -75,13 +75,13 @@ export default function Header() {
           <div className="fixed w-full top-25 inset-x-0 -z-10 p-6 bg-black/60 backdrop-blur-lg border-t border-gray-600 child-skew transition-all duration-500 navbar">
             <nav className="flex flex-col text-center gap-4">
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
                   className="text-white text-lg font-semibold hover:bg-white/10 px-3 py-2 rounded"
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>

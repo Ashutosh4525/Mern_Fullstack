@@ -72,7 +72,7 @@ export default function Header() {
             </div>
           </nav>
         {mobileMenuOpen && (
-          <div className="fixed w-full top-25 inset-x-0 -z-10 p-6 bg-black/60 backdrop-blur-lg border-t border-gray-600 child-skew transition-all duration-500 navbar">
+          <div className="fixed w-full top-25 inset-x-0 p-6 bg-black/60 backdrop-blur-lg border-t border-gray-600 child-skew transition-all duration-500 navbar">
             <nav className="flex flex-col text-center gap-4">
               {navigation.map((item) => (
                 <Link

@@ -14,9 +14,8 @@ import SeasonGalleryPage from "./components/pages/PaltanWorld/Season/SeasonList"
 import SingleGallery from "./components/pages/PaltanWorld/Season/SingleGallery";
 function App() {
   const location =useLocation();
-  const hideHeader = location.pathname !== "/" 
+  const hideHeader = location.pathname !== "/hero"
   && !location.pathname.startsWith("/player")
-  && location.pathname !== "/hero"
   && location.pathname !== "/paltan-world"
   && !location.pathname.startsWith("/gallery");
    useEffect(() => {

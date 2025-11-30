@@ -4,6 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/puneriweb/",
+  base: "Mern_Fullstack/React/Assignment/puneriweb/",
   plugins: [react(),tailwindcss()],
 })

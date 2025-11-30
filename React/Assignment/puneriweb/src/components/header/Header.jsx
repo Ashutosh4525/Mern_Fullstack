@@ -51,7 +51,7 @@ export default function Header() {
 
   return (
     <div className='w-full relative'>
-      <header className={`fixed max-w-9/10 z-50 h-16 flex items-center top-10 parent-skew px-0 py-0 lg:h-10 transition-all duration-500 ease-in-out 
+      <header className={`fixed max-w-9/10 z-50 h-16 flex items-center top-0 lg:top-10 parent-skew px-0 py-0 lg:h-10 transition-all duration-500 ease-in-out 
         ${showHeader ? "translate-y-0" : "-translate-y-full opacity-0"}`}>
         <div className='child-skew w-full flex items-center'>
           <nav aria-label="Global" className="w-full flex items-center justify-between lg:justify-center p-4 lg:px-8 child-skew">

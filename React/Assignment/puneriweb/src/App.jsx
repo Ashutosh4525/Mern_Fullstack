@@ -14,10 +14,15 @@ import SeasonGalleryPage from "./components/pages/PaltanWorld/Season/SeasonList"
 import SingleGallery from "./components/pages/PaltanWorld/Season/SingleGallery";
 function App() {
   const location =useLocation();
-  const hideHeader = location.pathname !== "/hero"
-  && !location.pathname.startsWith("/player")
-  && location.pathname !== "/paltan-world"
-  && !location.pathname.startsWith("/gallery");
+  const current = location.pathname;
+
+  const hideHeader =
+  !(
+    current === "/hero" ||
+    current === "/paltan-world" ||
+    current.startsWith("/player") ||
+    current.startsWith("/gallery")
+   );
    useEffect(() => {
         AOS.init({
           // Optional: Configure global settings for AOS

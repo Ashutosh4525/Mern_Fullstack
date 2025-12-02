@@ -55,17 +55,20 @@
   /* border-radius: 15px; */
   text-align: center;
   /* box-shadow: 0 0 12px rgba(0, 0, 0, 0.12); */
-  transition: all 0.3s ease-in-out;
+  /* transition: all 0.3s ease-in-out; */
   cursor: pointer;
-  overflow: hidden;
-  position: relative;
+   transition: box-shadow 0.3s ease-in-out, filter 0.3s ease-in-out;
+  will-change: transform;
+  /* overflow: hidden; */
+  /* position: relative; */
 }
 
 /* Hover Effect */
-.players.card:hover {
+/* .players.card:hover {
   transform: translateY(-8px) scale(1.02);
-  /* box-shadow: 0 6px 20px rgba(255, 136, 0, 0.3); */
-}
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.3);
+  transform: perspective(300px) rotateX(0deg) rotateY(0deg);
+} */
 
 
 .player-img {

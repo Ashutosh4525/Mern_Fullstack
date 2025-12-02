@@ -13,7 +13,6 @@ export default function SeasonGalleryPage() {
 const [activeSeason, setActiveSeason] = useState(null);
    useEffect(() => {
     dispatch(fetchSeasonList());
-    // AOS.init();
   }, []);
 
   useEffect(() => {
@@ -29,19 +28,17 @@ const [activeSeason, setActiveSeason] = useState(null);
     dispatch(fetchGalleryList(id));
   };
 
-//   console.log({galleryBySeason});
-  
   return (
     <>
     <div className="w-full">
     <Banner text={"Gallery"}/>
-    <div className={`${classes.blockSeason} w-full`}>
-      <div className={`flex justify-center align-middle text-center items-center gap-4 ${classes.blockSeason}`} >
+    <div className={`${classes.blockSeason}`}>
+      <div className={`flex justify-center flex-wrap align-middle text-center items-center gap-4 ${classes.blockSeason}`} >
         {seasons.map((s) => (
           <button
             key={s.id}
             onClick={() => selectSeason(s.id)}
-            className={`w-full p-6 text-white text-3xl mb-5 ${classes.seasonList}
+            className={`w-50 p-6 text-white text-3xl mb-5 ${classes.seasonList}
               ${activeSeason === s.id ? "bg-orange-600" : "bg-gray-400"} -skew-x-10 
             `}
           >
@@ -52,23 +49,24 @@ const [activeSeason, setActiveSeason] = useState(null);
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 w-full p-10 h-full">
         {activeSeason &&
-        (
-          galleryBySeason[activeSeason]?.length>0 ?(  
+        ( galleryBySeason[activeSeason]?.length>0 ?(  
           galleryBySeason[activeSeason].map((g) => (
             <Link
               to={`/gallery/${g.id}`}
               key={g.id}
               data-aos="fade-up"
-              className="shadow-lg rounded-lg overflow-hidden"
             >
               <img
                 src={g.main_image}
                 alt="Gallery"
-                className="w-full h-60 object-cover"
+                className="w-full h-60 object-cover p-5"
               />
-              <div className="h-full">
-              <Blockele title={g.name} translate="0" translateLine="0" width="full"/>
+              <div className="h-5"></div>
+              
+              <div className="overflow-hidden">
+              <Blockele title={g.name} translate="15" translateLine="2" width="full"/>
               </div>
+              <div className="h-2"></div>
             </Link>
           ))
         ):(

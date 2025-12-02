@@ -12,6 +12,7 @@ import SinglePlayer from "./components/pages/players/SinglePlayer";
 import PaltanWorld from "./components/pages/PaltanWorld/PaltanWorld";
 import SeasonGalleryPage from "./components/pages/PaltanWorld/Season/SeasonList";
 import SingleGallery from "./components/pages/PaltanWorld/Season/SingleGallery";
+import TvList from "./components/pages/PaltanWorld/PuneriTv/TvList";
 function App() {
   const location =useLocation();
   const current = location.pathname;
@@ -21,6 +22,7 @@ function App() {
   current === "/hero" ||
   current === "/paltan-world" ||
   current.startsWith("/player") ||
+  current.startsWith("/puneri-tv") ||
   current.startsWith("/gallery");
    useEffect(() => {
         AOS.init({
@@ -44,6 +46,7 @@ function App() {
       <Route path="/paltan-world" element={<PaltanWorld/>}/>
       <Route path="/gallery" element={<SeasonGalleryPage/>}/>
       <Route path="/gallery/:id" element={<SingleGallery/>}/>
+      <Route path="/puneri-tv" element={<TvList/>}/>
       <Route path="*" element={<NotFound/>}/>
      </Routes>
      {showHeader && <Footer/>}

@@ -1,24 +1,39 @@
 import { useNavigate } from "react-router-dom";
 import './player.css'
+import VanillaTilt from "vanilla-tilt";
+import { useEffect,useRef } from "react";
+
 function PlayerCard({ player }) {
   const navigate = useNavigate();
+  const tiltRef = useRef(null);
   const handleClick = () => navigate(`/player/${player.id}`);
+  
+  useEffect(() => {
+    if (!tiltRef.current) return;
+   VanillaTilt.init(tiltRef.current, {
+      max: 20,
+      speed: 1000,
+      glare: true,
+      "max-glare": 0,
+      perspective: 800,
+      scale: 1.03,
+      reverse: false,
+      "mouse-event-element": tiltRef.current,
+      gyroscope: false,  
+    });
+
+    return () => tiltRef.current?.vanillaTilt?.destroy();
+  }, []);
+    
 
   return (
     <>
-    {/* // <div className="player-card" onClick={handleClick} role="button" tabIndex={0} style={{cursor:'pointer',border:'1px solid #333',padding:8,borderRadius:6}}>
-    //   <img src={player.img || player.image || player.profile_image || ''} alt={`${player.fname || ''} ${player.lname || ''}`} style={{width:'100%',height:180,objectFit:'cover',borderRadius:6}} />
-    //   <div className="player-info" style={{marginTop:8}}>
-    //     <strong>{(player.fname || '') + ' ' + (player.lname || '')}</strong>
-    //     <div className="role" style={{color:'#ff8500'}}>{player.role || player.position || ''}</div>
-    //   </div>
-    // </div> */}
     <div
       className="col-md-6 col-lg-4 col-xs-12 col-sm-6 " 
       data-id={player.id}
     >
-      <div onClick={handleClick} style={{ cursor: "pointer" }}>
-        <div className="players card" data-tilt="" data-aos="fade-up" data-aos-delay={player.id * 100}>
+      <div onClick={handleClick} style={{ cursor: "pointer" }} data-aos="fade-up" data-aos-delay={player.id * 100}>
+        <div ref={tiltRef} className="players card"  >
           <div className="player-img">
             <img src={  player.profile_image || ''} className="img-responsive" alt={player.fname} />
           </div>

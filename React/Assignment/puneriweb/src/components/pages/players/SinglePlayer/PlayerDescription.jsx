@@ -5,7 +5,7 @@ export default function PlayerDescription({ player }) {
 
   return (
     <>
-    <div className="player-desc py-10 bg-white">
+    {/* <div className="player-desc p-10 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-10">
 
@@ -18,22 +18,27 @@ export default function PlayerDescription({ player }) {
           </div>
 
          
-          <div data-aos="fade-right" className="space-y-6">
+          <div data-aos="fade-right" className="py-6">
 
-            
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 ">
 
-              <div className="text-center bg-orange-600 text-white p-4 rounded-xl shadow-lg">
-                <h5 className="uppercase text-sm opacity-80">Jersey No.</h5>
-                <h6 className="text-3xl font-bold tracking-wide">
+              <div className="text-center  text-white p-4 ">
+                <h5 className="uppercase bg-[#f40] text-xl opacity-80">Jersey No.</h5>
+                <div>
+                <h6 className="text-3xl font-bold tracking-wide text-black">
                   {player.jersey_no}
                 </h6>
               </div>
+              
 
-              <div className="text-center bg-blue-900 text-white p-4 rounded-xl shadow-lg">
-                <h5 className="uppercase text-sm opacity-80">Position</h5>
-                <h6 className="text-lg font-semibold">{player.position}</h6>
+              <div className="text-center  text-white p-4">
+                <h5 className="uppercase bg-[#f40] text-xl opacity-80">Position</h5>
+                <div>
+                <h6 className="text-3xl font-bold text-black">{player.position}</h6>
               </div>
+              </div>
+              </div>
+              
 
             </div>
 
@@ -88,6 +93,61 @@ export default function PlayerDescription({ player }) {
                 </tbody>
               </table>
             </div>
+          </div>
+        </div>
+      </div>
+    </div> */}
+     <div className="player-desc-image-style">
+      <div className="desc-content">
+        <div className="desc-left">
+          <img
+            src={player.full_image}
+            alt={player.name}
+            className="player-image"
+          />
+        </div>
+        <div className="desc-right">
+          <div className="desc-headings-row">
+            <div className="desc-box desc-jersey">
+              <span className="desc-label">Jersey No.</span>
+              <span className="desc-value">{player.jersey_no}</span>
+            </div>
+            <div className="desc-box desc-position">
+              <span className="desc-label">Position</span>
+              <span className="desc-value">{player.position}</span>
+            </div>
+          </div>
+          <div className="desc-vitals-box">
+            <hr />
+            <span className="desc-label vitals-title">Vitals</span>
+            <table className="desc-vitals-table">
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td>{player.name}</td>
+                </tr>
+                <tr>
+                  <td>Date of Birth</td>
+                  <td>{player.date_of_birth}</td>
+                </tr>
+                <tr>
+                  <td>Nationality</td>
+                  <td>{player.nationality}</td>
+                </tr>
+                {/* <tr>
+                  <td>Matches Played</td>
+                  <td>{player.Matches_played}</td>
+                </tr>
+                <tr>
+                  <td>Total Points</td>
+                  <td>{player.total_ponints_earned}</td>
+                </tr>
+                <tr>
+                  <td>Super Tackles</td>
+                  <td>{player.no_of_super_tackles}</td>
+                </tr> */}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ export default function TvList(){
         dispatch(fetchTvList(6));
         dispatch(fetchTvList(7));
     },[])
+    
     useEffect(()=>{
         setSeason(tvList)
     },[tvList])

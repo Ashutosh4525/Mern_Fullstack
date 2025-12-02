@@ -4,6 +4,23 @@
     background-repeat: no-repeat;
     position: relative;
     /* padding: 50px 50px; */
+    padding-top: 50px;
+    padding-bottom:150px ;
+}
+
+.fix{
+  background-image: url(../../../assets/fixtures-bg.jpg);
+    background-position: center;
+    background-repeat: repeat;
+    height: auto;
+    position: relative;
+    padding-top: 220px;
+}
+.whticket{
+  padding: 20px;
+  position: absolute;
+  top:-120px;
+  
 }
 .container{
   display: flex;
@@ -34,8 +51,35 @@
     font-family: "Exo-Bold";
     color: #ff7500;
 }
+.buyTicket{
+  width: 100%;
+  background-image: url(../../../assets/buy-tickets-homepage_s12.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 300px;
+  transform: skewX(20deg);
+  overflow: hidden;
+}
+.ticket{
+  width: 100%;
+  background-image: url(../../../assets/tickets.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 300px;
+  transform: skewX(20deg);
+  overflow: hidden;
+}
+.btn{
+  text-align: center;
+  width: 100px;
+  padding: 5px;
+  font-weight: 900;
+  transform: skewX(-10deg);
+}
 
-@media screen and (max-width:500px) {
+@media screen and (max-width:640px) {
    .left, .right {
     letter-spacing: 10px;
     font-size: 14px;
@@ -47,4 +91,18 @@
   .despara{
     font-size: 20px;
   }
+   .buyTicket, .ticket{
+    transform: none;
+    height: 150px;
+  }
+  
+}
+@media screen and (max-width:768px) {
+  .buyTicket, .ticket{
+    /* transform: none; */
+    height: 150px;
+  }
+  .btn{
+    transform: translateY(50px);
+}
 }

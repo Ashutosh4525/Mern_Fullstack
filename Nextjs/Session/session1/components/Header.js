@@ -8,7 +8,7 @@ import Link from 'next/link'
 const navigation = [
   { name: 'Product', href: '/product' },
   { name: 'Features', href: '/features' },
-//   { name: 'Marketplace', href: '#' },
+  { name: 'Blog', href: '/blog'},
   { name: 'Contact', href: '/contact' },
   {name:'Services',href:'/services'}
 ]
@@ -16,7 +16,7 @@ const navigation = [
 export default function Header(){
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     return(
-         <header className="fixed inset-x-0 top-0 z-50">
+         <header className="fixed inset-x-0 top-0 z-50 bg-black">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5">

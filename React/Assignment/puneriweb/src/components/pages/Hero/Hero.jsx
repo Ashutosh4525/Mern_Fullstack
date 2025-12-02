@@ -1,4 +1,6 @@
 import img1 from "../../../assets/homepage-mobile-banner-s12.webp";
+// import img2 from "../../assets/buy-ticket-homepage_s12.png"
+// import img3 from '../../assets/tickets.png'
 import classes from './hero.module.css'
 import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
@@ -10,39 +12,12 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./PlayersSwiper.css"; 
 import { Link } from "react-router-dom";
+import { IoMdArrowDropright } from "react-icons/io";
+import Partners from "./Partners";
 
-// const players = [
-//     {
-//       fname: "Pankaj",
-//       lname: "Mohite",
-//       role: "Raider",
-//       img: "https://www.puneripaltan.com/uploads/image/Puneri Paltan-68dfd0a8e498d7.97722611dezhtwxv.png",
-//     },
-//     {
-//       fname: "Mohit",
-//       lname: "Goyat",
-//       role: "Raider",
-//       img: "https://www.puneripaltan.com/uploads/image/Puneri Paltan-68dfd10858cde7.048900145pra7(vk.png",
-//     },
-//     {
-//       fname: "Abinesh",
-//       lname: "Nadarajan",
-//       role: "Defender",
-//       img: "https://www.puneripaltan.com/uploads/image/Puneri Paltan-68dfd28ae32209.24892287t3sn$c)j.png",
-//     },
-//     {
-//       fname: "Gaurav",
-//       lname: "Khatri",
-//       role: "Defender",
-//       img: "https://www.puneripaltan.com/uploads/image/Puneri Paltan-68dfd1e2c00934.39079211h20uirxl.png",
-//     },
-//     {
-//       fname: "Aslam",
-//       lname: "Inamdar",
-//       role: "All Rounder",
-//       img: "https://www.puneripaltan.com/uploads/image/Puneri Paltan-68dfd235b23638.49901849shwd6gvr.png",
-//     },
-//   ];
+
+
+
 export default function Hero(){
   const dispatch=useDispatch();
   const {playerList,loading,error}=useSelector((s)=>s.player);
@@ -126,8 +101,22 @@ export default function Hero(){
                     <span className="p-5">Enter</span></button>
                 </div>
                 </Link>
-                
         </section>
+        <div className={classes.fix}>
+            <section className={`w-[95%] flex justify-center flex-wrap align-middle text-center transform-none sm:translate-x-5  md:translate-x-2 ${classes.whticket}`}>
+          <div className="w-5/6 mx-auto flex justify-center flex-wrap text-center h-30 md:h-75 transform-none sm:-skew-x-20 ">
+            <div className="w-full md:w-1/2 bg-[#2b2521]">
+              <div className={classes.buyTicket} >
+                <button className={`text-white bg-[#f40] md:translate-y-30 md:translate-x-20 ${classes.btn}`}>Buy Tickets</button>
+              </div>
+            </div>
+            <div className=" w-full md:w-1/2 bg-black">
+              <div className={classes.ticket}></div>
+            </div>
+          </div>
+        </section>
+        </div>       
+        <Partners/>
        
             
         </>

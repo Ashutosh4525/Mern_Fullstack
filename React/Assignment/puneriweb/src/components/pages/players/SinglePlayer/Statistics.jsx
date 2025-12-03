@@ -3,14 +3,14 @@ import Blockele from "../../Block/Block";
 export default function PlayerStatistics({ stats }) {
   return (
     <div className="w-full bg-white py-10 px-4">
-      {/* Section Title */}
+     
       <div className="text-center mb-8" data-aos="fade-up">
         <h2 className="text-3xl font-bold uppercase tracking-wide text-[#002147]">
           Statistics
         </h2>
       </div>
 
-      {/* OVERALL SECTION */}
+      
       <div className="w-full bg-gray-100 rounded-xl p-6 mb-10">
         {/* <h3 className="text-xl font-bold uppercase text-[#FF6A00] mb-4">
           Overall
@@ -37,7 +37,6 @@ export default function PlayerStatistics({ stats }) {
         </div>
       </div>
 
-      {/* RAID SECTION */}
       <div className="w-full bg-gray-100 rounded-xl p-6 mb-10">
         {/* <h3 className="text-xl font-bold uppercase text-[#FF6A00] mb-4">
           Raid
@@ -45,14 +44,13 @@ export default function PlayerStatistics({ stats }) {
         <Blockele title={"Raid"}/>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Stats */}
+         
           <div className="grid grid-cols-2 gap-6">
             <StatBox value={stats.no_of_super_raids} label="SUPER RAIDS" />
             <StatBox value={stats.super_10s} label="SUPER 10s" />
             <StatBox value={stats.avg_raid_points} label="AVG RAID POINTS" />
           </div>
 
-          {/* Circular Progress + Strike Rate */}
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-center w-28 h-28 rounded-full border-4 border-[#FF6A00]">
               <div className="text-center text-sm font-bold">
@@ -71,7 +69,6 @@ export default function PlayerStatistics({ stats }) {
         </div>
       </div>
 
-      {/* TACKLES SECTION */}
       <div className="w-full bg-gray-100 rounded-xl p-6">
         {/* <h3 className="text-xl font-bold uppercase text-[#FF6A00] mb-4">
           Tackles

@@ -1,6 +1,4 @@
 import img1 from "../../../assets/homepage-mobile-banner-s12.webp";
-// import img2 from "../../assets/buy-ticket-homepage_s12.png"
-// import img3 from '../../assets/tickets.png'
 import classes from './hero.module.css'
 import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
@@ -12,7 +10,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./PlayersSwiper.css"; 
 import { Link } from "react-router-dom";
-import { IoMdArrowDropright } from "react-icons/io";
+// import { IoMdArrowDropright } from "react-icons/io";
 import Partners from "./Partners";
 
 
@@ -28,8 +26,6 @@ export default function Hero(){
     }
   },[dispatch,totalPlayers]);
    const apiPlayers = Array.isArray(playerList) ? playerList : [];
-  //  const minSlidesForLoop = 3; 
-  // const enableLoop = apiPlayers.length >= minSlidesForLoop;
     return(
         <>
         <div className="hero">  
@@ -69,7 +65,6 @@ export default function Hero(){
                   >
                     {loading && <p>Loading...</p>}
                     {apiPlayers.length === 0 ? (
-                  // fallback slides so UI doesn't break
                   <SwiperSlide>
                     <div className="player-card">
                       <p>No players available</p>

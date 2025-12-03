@@ -1,6 +1,5 @@
 
 import { useState,useEffect,useRef } from 'react'
-// import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/logo.gif'
 import { Link } from 'react-router-dom'
@@ -17,21 +16,6 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const lastScrollY = useRef(0)
-  // const [lastScrollY, setLastScrollY] = useState(0);
- 
-//   useEffect(() => {
-//     function controlHeader() {
-//       if (window.scrollY > lastScrollY) {
-//         setShowHeader(false);    
-//       } else {
-//         setShowHeader(true);    
-//       }
-//       setLastScrollY(window.scrollY);
-//     }
-
-//     window.addEventListener("scroll", controlHeader);
-//     return () => window.removeEventListener("scroll", controlHeader);
-// },[showHeader])
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY
@@ -93,6 +77,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   to={item.href}
+                  onClick={()=>setMobileMenuOpen(false)}
                   className="text-white text-lg font-semibold hover:bg-white/10 px-3 py-2 rounded"
                 >
                   {item.name}

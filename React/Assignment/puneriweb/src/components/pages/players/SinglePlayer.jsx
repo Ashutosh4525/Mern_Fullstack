@@ -25,19 +25,6 @@ function SinglePlayer() {
     <>
     <PlayerDescription player={p}/>
     <PlayerStatistics stats={p}/>
-    {/* <div className="container" style={{padding:20}}>
-      <Link to="/player">← Back</Link>
-      
-      <h1 style={{marginTop:8}}>{(p.fname || p.player_name || '') + ' ' + (p.lname || '')}</h1>
-      <img src={p.img || p.image || p.profile_image || p.player_image || ''} alt={`${p.fname || p.player_name || ''}`} style={{width:300,height:300,objectFit:'cover',borderRadius:8}} />
-      <div className="details" style={{marginTop:12}}>
-        <p><strong>Role:</strong> {p.role || p.position || p.player_role || '—'}</p>
-        <p><strong>Bio:</strong> {p.description || p.bio || p.about || '—'}</p>
-        {Object.keys(p).filter(k => !['img','image','profile_image','player_image','fname','lname','player_name','role','position','player_role','description','bio','about'].includes(k)).map((k) => (
-          <p key={k}><strong>{k}:</strong> {String(p[k])}</p>
-        ))}
-      </div>
-    </div> */}
     </>
   );
 }

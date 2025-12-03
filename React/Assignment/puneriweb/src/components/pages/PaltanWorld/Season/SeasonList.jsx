@@ -8,7 +8,7 @@ import classes from './season.module.css'
 
 export default function SeasonGalleryPage() {
   const dispatch = useDispatch();
-  const { seasons, galleryBySeason } = useSelector((s) => s.gallery);
+  const { seasons, galleryBySeason, loading } = useSelector((s) => s.gallery);
 
 const [activeSeason, setActiveSeason] = useState(null);
    useEffect(() => {
@@ -48,9 +48,24 @@ const [activeSeason, setActiveSeason] = useState(null);
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 w-full p-10 h-full">
-        {activeSeason &&
+        
+        {loading ? null : (
+          activeSeason &&
         ( galleryBySeason[activeSeason]?.length>0 ?(  
-          galleryBySeason[activeSeason].map((g) => (
+          galleryBySeason[activeSeason].map((g) => {
+            if (!g?.id) {
+          return (
+            <div className="col-span-full flex justify-center py-20" key={Math.random()}>
+              <Blockele
+                title="Invalid Gallery Item"
+                translate="0"
+                translateLine="0"
+                width="full"
+              />
+            </div>
+          );
+        }
+        return(
             <Link
               to={`/gallery/${g.id}`}
               key={g.id}
@@ -68,12 +83,13 @@ const [activeSeason, setActiveSeason] = useState(null);
               </div>
               <div className="h-2"></div>
             </Link>
-          ))
+          );
+        })
         ):(
           <div className="col-span-full flex justify-center py-20">
           <Blockele title={"No Gallery Found"} translate="0" translateLine="0" width="full"/>
           </div>
-        )
+        ))
         )}
       </div>
     </div>

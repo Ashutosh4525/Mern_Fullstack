@@ -13,6 +13,7 @@ import PaltanWorld from "./components/pages/PaltanWorld/PaltanWorld";
 import SeasonGalleryPage from "./components/pages/PaltanWorld/Season/SeasonList";
 import SingleGallery from "./components/pages/PaltanWorld/Season/SingleGallery";
 import TvList from "./components/pages/PaltanWorld/PuneriTv/TvList";
+import SingleTv from "./components/pages/PaltanWorld/PuneriTv/SingleTv";
 function App() {
   const location =useLocation();
   const current = location.pathname;
@@ -26,13 +27,10 @@ function App() {
   current.startsWith("/gallery");
    useEffect(() => {
         AOS.init({
-          // Optional: Configure global settings for AOS
-          duration: 1000, // Animation duration
-          once: true, // Whether animation should only happen once
-          disable: "mobile", // Disable AOS on mobile devices
+          duration: 1000, 
+          once: true, 
+          disable: "mobile", 
         });
-        // AOS.refresh() or AOS.refreshHard() can be called here if needed
-        // to re-calculate element positions after dynamic content loading.
       }, []);
 
   return (
@@ -47,6 +45,7 @@ function App() {
       <Route path="/gallery" element={<SeasonGalleryPage/>}/>
       <Route path="/gallery/:id" element={<SingleGallery/>}/>
       <Route path="/puneri-tv" element={<TvList/>}/>
+      <Route path="/puneri-tv/:id" element={<SingleTv/>}/>
       <Route path="*" element={<NotFound/>}/>
      </Routes>
      {showHeader && <Footer/>}

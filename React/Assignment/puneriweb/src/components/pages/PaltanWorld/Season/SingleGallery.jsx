@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { fetchSingleGallery } from "../redux/actions/gallery.actions";
 import { fetchSingleList } from "../../../redux/action/gallery.action";
 import Banner from "../../players/Banner";
 export default function SingleGallery() {
@@ -11,13 +10,8 @@ export default function SingleGallery() {
 
   useEffect(() => {
     dispatch(fetchSingleList(id));
-    // console.log(fetchSingleList(1));
     
   }, [dispatch, id]);
-//   console.log(singleGallery);
-  
-
-//  if (loading || !singleGallery) return <p>Loading...</p>;
 
   return (
     <>

@@ -7,7 +7,7 @@ import classes from './block.module.css'
             ? `skewX(-20deg) translateX(-${translate}px)`   
             : `none`                 
         }}>
-        <h2 className="p-2 text-sm sm:text-xl md:text-2xl text-center md:text-end uppercase text-white" style={{marginBottom:12,padding:"15px"}} data-aos="fade-right">{title}</h2>
+        <h2 className="p-2 text-sm lg:text-xl xl:text-2xl text-center md:text-end uppercase text-white" style={{marginBottom:12,padding:"15px"}} data-aos="fade-right">{title}</h2>
         </div>
         <div className={`${classes.block1} `} style={{transform: window.innerWidth >= 568 
             ? `skewX(-20deg) translateX(-${translate}px)`   

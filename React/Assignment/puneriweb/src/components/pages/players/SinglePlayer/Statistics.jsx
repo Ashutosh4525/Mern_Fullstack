@@ -43,7 +43,7 @@ export default function PlayerStatistics({ stats }) {
         </h3> */}
         <Blockele title={"Raid"}/>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
          
           <div className="grid grid-cols-2 gap-6">
             <StatBox value={stats.no_of_super_raids} label="SUPER RAIDS" />
@@ -51,7 +51,7 @@ export default function PlayerStatistics({ stats }) {
             <StatBox value={stats.avg_raid_points} label="AVG RAID POINTS" />
           </div>
 
-          <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
             <div className="flex items-center justify-center w-28 h-28 rounded-full border-4 border-[#FF6A00]">
               <div className="text-center text-sm font-bold">
                 total raid <br />
@@ -65,7 +65,7 @@ export default function PlayerStatistics({ stats }) {
               </h6>
               <p className="uppercase text-xs tracking-wide">Raid Strike Rate</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -87,11 +87,11 @@ export default function PlayerStatistics({ stats }) {
             />
           </div>
 
-          <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
             <div className="flex items-center justify-center w-28 h-28 rounded-full border-4 border-[#002147]">
               <div className="text-center text-sm font-bold">
                 total tackle <br />
-                <span className="text-2xl">{stats.total_tackle || 15}</span>
+                <span className="text-2xl">{stats.total_tackle}</span>
               </div>
             </div>
 
@@ -103,7 +103,7 @@ export default function PlayerStatistics({ stats }) {
                 Tackle Strike Rate
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -114,11 +114,16 @@ export default function PlayerStatistics({ stats }) {
 function StatBox({ value, label }) {
   return (
     <div
-      className="animatedParent"
+      className="animatedParent text-center w-full"
+      style={{margin:"10px 0px"}}
       data-aos="fade-up"
     >
-      <h4 className="text-3xl font-bold text-[#002147]">{value}</h4>
-      <h5 className="text-sm uppercase tracking-wide text-gray-600">{label}</h5>
+      <div className="flex justify-center items-center">
+      <div className="bg-white w-1/2 " style={{padding:"10px"}}>
+      <h4 className="text-l  md:text-3xl font-bold text-black text-center">{value}</h4>
+      </div>
+      </div>
+      <h5 className="text-sm uppercase tracking-wide text-gray-600 text-center">{label}</h5>
     </div>
   );
 }

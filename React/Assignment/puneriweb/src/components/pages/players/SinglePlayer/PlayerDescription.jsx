@@ -1,3 +1,4 @@
+import Banner from '../Banner';
 import './playerDescription.css'
 export default function PlayerDescription({ player }) {
 
@@ -5,6 +6,7 @@ export default function PlayerDescription({ player }) {
 
   return (
     <>
+    <Banner text={player.name} Image={player.profile_image}/>
      <div className="player-desc-image-style">
       <div className="desc-content">
         <div className="desc-left">
@@ -16,18 +18,18 @@ export default function PlayerDescription({ player }) {
         </div>
         <div className="desc-right">
           <div className="desc-headings-row">
-            <div className="desc-box desc-jersey">
-              <span className="desc-label">Jersey No.</span>
+            <div className="desc-jersey">
+              <span className="desc-box desc-label">Jersey No.</span>
               <span className="desc-value">{player.jersey_no}</span>
             </div>
-            <div className="desc-box desc-position">
-              <span className="desc-label">Position</span>
+            <div className=" desc-position">
+              <span className=" desc-box desc-label">Position</span>
               <span className="desc-value">{player.position}</span>
             </div>
           </div>
           <div className="desc-vitals-box">
             <hr />
-            <span className="desc-label vitals-title">Vitals</span>
+            <span className=" desc-label vitals-title">Vitals</span>
             <table className="desc-vitals-table">
               <tbody>
                 <tr>

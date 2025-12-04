@@ -12,6 +12,8 @@ import "./PlayersSwiper.css";
 import { Link } from "react-router-dom";
 // import { IoMdArrowDropright } from "react-icons/io";
 import Partners from "./Partners";
+import News from "./News";
+import PaltanWorld from "./PaltanBlock";
 
 
 
@@ -110,10 +112,11 @@ export default function Hero(){
             </div>
           </div>
         </section>
-        </div>       
+        </div>  
+        <PaltanWorld/> 
+        <News/> 
         <Partners/>
-       
-            
+         
         </>
     )
 }

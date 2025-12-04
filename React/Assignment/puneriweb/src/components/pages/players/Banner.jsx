@@ -1,5 +1,5 @@
 import './player.css'
-export default function Banner({text}) {
+export default function Banner({text, Image="https://www.puneripaltan.com/dist/img/players/players_page_banner_desktop_S12.png"}) {
   return (
     <>
     <section className='banner w-full'>
@@ -13,14 +13,14 @@ export default function Banner({text}) {
           <div className="inner-sec text-center md:text-left">
             <img 
               src="https://www.puneripaltan.com/dist/img/banner-title.png" 
-              className="w-full max-w-sm mx-auto md:mx-0" 
+              className="w-48 sm:w-56 md:w-full mx-auto md:mx-0" 
               alt="Banner Title Background"
               data-aos="zoom-in"
               data-aos-delay="300"
             />
             
             <h1 
-              className=" md:text-6xl font-extrabold text-gray-800 mt-4 pl"
+              className="text-3xl sm:text-4xl md:text-6xl w-1/2 font-extrabold text-gray-800 mt-4 pl"
               data-aos="fade-down"
               data-aos-delay="500"
             >
@@ -35,11 +35,11 @@ export default function Banner({text}) {
         data-aos="fade-left"
         data-aos-duration="1000"
       >
-        <div className="outer-sec translate-x-3">
+        <div className="outer-sec w-5/6 translate-x-3 h-full">
           <div className="inner-sec">
             <img 
-              src="https://www.puneripaltan.com/dist/img/players/players_page_banner_desktop_S12.png" 
-              className="w-full h-auto max-w-2xl" 
+              src={Image}
+              className="w-full max-w-2xl h-1/2" 
               alt="Puneri Paltan Players Banner"
               data-aos="zoom-in"
               data-aos-delay="800"

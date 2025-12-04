@@ -2,7 +2,7 @@ import classes from './block.module.css'
  const Blockele=({title ,translate="10",translateLine="10",width="1/3"})=>{
     return(
         <>
-        <div className="flex h-20 pt-4">
+        <div className="flex w-5/6 h-20 pt-4">
         <div className={`w-full p-5 md:w-${width}  ${classes.blockPad}`} style={{backgroundColor:"#f40",  transform: window.innerWidth >= 568 
             ? `skewX(-20deg) translateX(-${translate}px)`   
             : `none`                 

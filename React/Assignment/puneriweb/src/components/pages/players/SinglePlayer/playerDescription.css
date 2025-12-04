@@ -1,93 +1,3 @@
-/* *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-.player-desc {
-  width: 100%;
-  padding: 60px 0;
-  background: #ffffff;
-  background-image: url('../../../../assets/player-desc-bg.jpg');
-}
-
-.player-img-ipad {
-  width: 100%;
-  max-width: 380px;
-  margin: auto;
-  display: block;
-}
-
-.player-full-desc h5 {
-  text-transform: uppercase;
-  font-size: 14px;
-  color: #ff6b00;
-  margin-bottom: 6px;
-  letter-spacing: 1px;
-}
-
-.player-full-desc h6 {
-  font-size: 26px;
-  font-weight: 700;
-  color: #1b1b1b;
-}
-
-.player-jersey-num,
-.player-position {
-  margin-bottom: 20px;
-}
-
-.player-bio p {
-  font-size: 16px;
-  color: #333;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.player-vitals h5 {
-  text-transform: uppercase;
-  font-size: 16px;
-  font-weight: bold;
-  color: #ff6b00;
-  margin-bottom: 12px;
-}
-
-.player-table table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.player-table td {
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.player-bio-title {
-  font-weight: bold;
-  color: #333;
-  width: 35%;
-}
-
-.player-bio-desc {
-  color: #555;
-  width: 65%;
-}
-
-
-
-@media (max-width: 768px) {
-  .player-desc {
-    padding: 30px 0;
-  }
-
-  .player-full-desc {
-    margin-top: 30px;
-  }
-
-  .player-img-ipad {
-    max-width: 280px;
-  }
-} */
-
 .player-desc-image-style {
   background: #fff;
   min-height: 100vh;
@@ -132,7 +42,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 4rem;
-  justify-content: center;
+  padding: 32px 40px;
+  justify-content: space-between;
 }
 
 .desc-box {
@@ -142,8 +53,10 @@
   transform: skewX(-10deg);
   min-width: 160px;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .desc-label {
@@ -155,9 +68,12 @@
 
 .desc-value {
   font-size: 2.1rem;
-  font-weight: bold;
-  color: #111;
+  /* font-weight: bold; */
+  color: black;
   margin-top: 0.5rem;
+  text-align: center;
+  display:flex;
+  justify-content: center;
 }
 
 .desc-vitals-box {
@@ -167,11 +83,15 @@
 }
 
 .vitals-title {
-  display: block;
+  display: flex;
   font-size: 1.4rem;
   font-weight: 700;
-  margin-bottom: 16px;
-  color: #ff5900;
+  margin: 16px 0px;
+   background: #f40;
+  color: #fff;
+  padding: 1.2rem 2rem;
+  transform: skewX(-10deg);
+  width: 150px;
 }
 
 .desc-vitals-table {
@@ -189,4 +109,10 @@
 
 .desc-vitals-table tr:last-child td {
   border-bottom: none;
+}
+
+@media(max-width:1000px){
+  .desc-left, .desc-right{
+    width: 100%;
+  }
 }

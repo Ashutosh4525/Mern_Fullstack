@@ -137,11 +137,17 @@
   }
 
   .players-section .swiper-button-prev {
-    left: 70% !important;
+    left: 40% !important;
+  }
+  .players-section .swiper-button-next {
+    right: 40% !important;
   }
 }
-@media screen and (max-width:500px){
+@media screen and (max-width:600px){
   .players-section .swiper-button-prev {
-    left: 50% !important;
+    left: 30% !important;
+  }
+  .players-section .swiper-button-next{
+    right: 30% !important;
   }
 }

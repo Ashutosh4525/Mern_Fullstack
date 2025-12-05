@@ -22,12 +22,18 @@ export default function Hero(){
   const dispatch=useDispatch();
   const {playerList,loading,error}=useSelector((s)=>s.player);
   const totalPlayers=10;
+  const apiPlayers = Object.values(playerList);
   useEffect(()=>{
-    for (let id = 1; id <= totalPlayers; id++) {
-    dispatch(fetchSinglePlayer(id))
-    }
-  },[dispatch,totalPlayers]);
-   const apiPlayers = Array.isArray(playerList) ? playerList : [];
+  if (apiPlayers.length < totalPlayers) {
+            const cachedIds = Object.keys(playerList).map(Number);
+            for (let id = 1; id <= totalPlayers; id++) {
+                if (!cachedIds.includes(id)) {
+                    dispatch(fetchSinglePlayer(id));
+                }
+            }
+        }
+    }, [dispatch, playerList, totalPlayers]);
+   
     return(
         <>
         <div className="hero">  

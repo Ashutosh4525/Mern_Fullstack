@@ -33,3 +33,15 @@ export const fetchSinglePlayer = createAsyncThunk('pp/fetchSinglePlayer', async 
         throw error
     }
 });
+
+export const fetchPlayersBatch = createAsyncThunk(
+    'player/fetchPlayersBatch',
+    async (ids) => {
+        try {
+            const res = await axiosNew.get(`/single_player?id=${ids}`); 
+            const data = (res.data && res.data.data) ? res.data.data : (res.data || []);
+            return data; 
+        } catch (error) {
+            throw error
+    }
+});

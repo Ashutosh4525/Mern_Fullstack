@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCategory,fetchPlayersByCat,fetchSinglePlayer } from '../action/player.action';
+import { fetchCategory,fetchPlayersByCat,fetchSinglePlayer,fetchPlayersBatch } from '../action/player.action';
 
 const initialState={
     categories:[],
@@ -7,17 +7,21 @@ const initialState={
     error: null,
     message: null,
     playersByCategory: {},
-    singlePlayer:false,
-    playerList:[]
+    singlePlayer:null,
+    playerList:{},
 }
 
 const playerSlice=createSlice({
     name:"player",
     initialState,
     reducers: {
-    clearSinglePlayer(state) { state.singlePlayer = null; },
+    clearSinglePlayer(state) {
+         state.singlePlayer = null; 
+         state.loading = false;
+         state.error = null;
+        },
     clearPlayerList(state) {
-      state.playerList = [];
+      state.playerList = {};
     }
   },
     extraReducers:(builders)=>{
@@ -58,12 +62,17 @@ const playerSlice=createSlice({
         .addCase(fetchSinglePlayer.fulfilled,(state,action)=>{
             console.log(action.payload);
             // state.playerList=[...state.playerList,action.payload]
-            state.singlePlayer=action.payload;
-            const exists = state.playerList.some(p => p.id === action.payload.id);
-            if (!exists) {
-                state.playerList.push(action.payload);
+            // state.singlePlayer=action.payload;
+            // const exists = state.playerList.some(p => p.id === action.payload.id);
+            // if (!exists) {
+            //     state.playerList.push(action.payload);
+            // }
+            // state.singlePlayer=action.payload;
+            const player = action.payload;
+            state.singlePlayer = player;
+            if (player && player.id) {
+                state.playerList[player.id] = player;
             }
-            state.singlePlayer=action.payload;
             state.loading=false;
             state.message="Player fetched successfully"
         })
@@ -71,8 +80,20 @@ const playerSlice=createSlice({
             state.loading=false;
             state.error="Could not fetch data"
         })
-
-    }
+        .addCase(fetchPlayersBatch.pending, (state) => { state.loading = true; state.error = null; })
+        .addCase(fetchPlayersBatch.fulfilled, (state, action) => {
+            const playersArray = action.payload;
+            playersArray.forEach(player => {
+                if (player && player.id) {
+                    state.playerList[player.id] = player;
+                }
+            });
+            state.loading = false; state.message = "Batch players fetched successfully";
+        })
+        .addCase(fetchPlayersBatch.rejected, (state, action) => {
+            state.loading = false; state.error = action.payload || "Could not fetch player batch";
+        });
+        }
 })
 export const { clearSinglePlayer,clearPlayerList } = playerSlice.actions;
 export const playerAction=playerSlice.actions;

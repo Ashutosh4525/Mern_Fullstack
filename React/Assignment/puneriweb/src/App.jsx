@@ -14,6 +14,7 @@ import SeasonGalleryPage from "./components/pages/PaltanWorld/Season/SeasonList"
 import SingleGallery from "./components/pages/PaltanWorld/Season/SingleGallery";
 import TvList from "./components/pages/PaltanWorld/PuneriTv/TvList";
 import SingleTv from "./components/pages/PaltanWorld/PuneriTv/SingleTv";
+import ScrollTop from "./components/Scrolltop/ScrollTop";
 function App() {
   const location =useLocation();
   const current = location.pathname;
@@ -35,6 +36,7 @@ function App() {
 
   return (
     <>
+    <ScrollTop/>
      {showHeader && <Header />}
      <Routes>
       <Route index element={<Hero/>}/>

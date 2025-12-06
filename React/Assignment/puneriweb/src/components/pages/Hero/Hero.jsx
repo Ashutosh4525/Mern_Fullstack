@@ -122,7 +122,7 @@ export default function Hero(){
         <PaltanWorld/> 
         <News/> 
         <Partners/>
-         
+        <div className="h-5"></div>
         </>
     )
 }

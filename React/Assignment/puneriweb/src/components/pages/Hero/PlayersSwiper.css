@@ -13,6 +13,7 @@
   top: auto !important;  
   bottom: 0px !important;        
   color: #fff !important;
+  background-color: #ddd !important;
 }
 
 .players-section .swiper-button-prev {

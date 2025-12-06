@@ -6,7 +6,7 @@ export default function PlayerDescription({ player }) {
 
   return (
     <>
-    <Banner text={player.name} Image={player.profile_image}/>
+    <Banner text={player.name} Image={player.full_image}/>
      <div className="player-desc-image-style">
       <div className="desc-content">
         <div className="desc-left">

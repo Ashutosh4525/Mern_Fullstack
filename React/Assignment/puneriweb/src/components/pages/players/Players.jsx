@@ -23,7 +23,7 @@ function Players() {
     <>
     <section className="w-full">
     <div style={{padding:20}}>
-      <h1>Players by Category</h1>
+      {/* <h1>Players by Category</h1> */}
     </div>
     <div className="categories-list">
         {Array.isArray(categories) && categories.length > 0 ? (

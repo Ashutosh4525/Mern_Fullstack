@@ -30,11 +30,17 @@ export default function Partners() {
       alt: "Bellteralt Logo",
       label: "Wellness Partner",
     },
+    {
+      href: "https://shivnaresh.in/",
+      imgSrc: "https://www.puneripaltan.com/dist/img/shivnaresh-logo.webp",
+      alt: "Shivnaresh Logo",
+      label: "Kit Partner",
+    },
   ];
 
   return (
     <>
-    <div className="relative">
+    <div className="relative" style={{paddingBottom:"30px"}}>
      <div className="flex justify-center items-center ">
         <div
           className="absolute -top-30 md:-top-25 md:flex md:flex-column md:m-20 bg-orange-500 p-3 md:p-10 gap-15 md:px-20 clip-mobile md:clip-desktop"
@@ -89,6 +95,10 @@ export default function Partners() {
       <a href={partnersData[4].href} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center">
         <img src={partnersData[4].imgSrc} alt={partnersData[4].alt} className="h-8 md:h-30 object-contain mb-2" />
         <span className="text-lg font-bold">{partnersData[4].label}</span>
+      </a>
+      <a href={partnersData[5].href} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center">
+        <img src={partnersData[5].imgSrc} alt={partnersData[5].alt} className="h-8 md:h-30 object-contain mb-2" />
+        <span className="text-lg font-bold">{partnersData[5].label}</span>
       </a>
     </div>
     </>

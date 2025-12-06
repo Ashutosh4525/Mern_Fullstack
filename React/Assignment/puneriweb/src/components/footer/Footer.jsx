@@ -5,7 +5,7 @@ export default function Footer(){
     return(
         <>
         <div className={`bg-black text-white flex justify-between items-center flex-wrap px-3 ${classes.wholefoot}` }>
-        <div className="col-md-4 col-xs-12 col-sm-12 foot-left">
+        <div className="col-md-4 col-xs-12 col-sm-12 foot-left" style={{padding:"10px"}}>
             <h6>Copyright © 2025 Puneri Paltan</h6>
         </div>
         <div className={`flex flex-wrap gap-2 justify-center items-center ${classes.links}`} >

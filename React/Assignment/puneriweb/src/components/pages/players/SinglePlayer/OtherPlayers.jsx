@@ -31,7 +31,8 @@ export default function OtherPlayers({ excludeId }) {
                         
                         <div className="other-player-card bg-black h-full overflow-hidden flex flex-col justify-end relative shadow-lg">
                             
-                            <div className="absolute top-0 left-0 bg-[#f40] text-white text-4xl sm:text-5xl font-extrabold px-3 py-1 sm:px-4 sm:py-2 z-10">
+                            <div className="absolute top-0 left-0 bg-[#f40] text-white text-4xl sm:text-5xl font-extrabold px-3 py-1 sm:px-4 sm:py-2 z-10"
+                            style={{padding:"10px"}}>
                                 {player.jersey_no || '0'} 
                             </div>
                             
@@ -43,9 +44,9 @@ export default function OtherPlayers({ excludeId }) {
                                 <img 
                                     src={player.full_image || player.profile_image || "https://via.placeholder.com/300x400"} 
                                     alt={`${player.name} ${player.lname}`} 
-                                    className="other-player-img w-full h-full object-cover object-top absolute top-0 left-0" 
+                                    className="other-player-img w-3/4 h-3/4 object-cover object-top absolute bottom-0 left-20" 
                                 />
-                                <div className="other-player-name absolute bottom-4 left-4 right-4 z-20 text-white">
+                                <div className="other-player-name absolute top-20 left-4 md:bottom-4 md:left-4 md:right-4 z-20 text-white">
                                     <h3 className="text-xl sm:text-2xl font-bold uppercase leading-tight">{player.name} {player.lname}</h3>
                                     <p className="other-player-role text-base sm:text-lg text-[#f40] uppercase">{player.position}</p>
                                 </div>
@@ -70,8 +71,8 @@ export default function OtherPlayers({ excludeId }) {
             <div className="other-players-content flex justify-center items-center w-full px-4">
                 
               
-                <div className="w-full max-w-7xl min-h-[400px]">
-                    <div className="w-full h-full other-players-swiper-wrapper">
+                <div className="w-5/6 min-h-[400px]">
+                    <div className="w-full h-full other-players-swiper-wrapper transform-none lg:-skew-x-6">
                         
                         {(loading && filteredPlayers.length === 0) ? (
                             <div className="flex justify-center items-center h-[300px]">
@@ -85,15 +86,10 @@ export default function OtherPlayers({ excludeId }) {
                                 pagination={{ clickable: true }}
                                 loop={filteredPlayers.length > 2} 
                                 autoplay={{ delay: 6000 }}
-                                spaceBetween={10} 
-                                
-                                // --- RESPONSIVE BREAKPOINTS ---
                                 breakpoints={{
-                                    // Mobile: 1 slide per view
-                                    320: { slidesPerView: 1, spaceBetween: 10 },
-                                    // Tablet/Desktop: 2 slides per view
-                                    768: { slidesPerView: 2, spaceBetween: 20 },
-                                    1024: { slidesPerView: 2, spaceBetween: 30 },
+                                    320: { slidesPerView: 1 },
+                                    768: { slidesPerView: 2},
+                                    1024: { slidesPerView: 2 },
                                 }}
                             >
                                 {swiperContent}
@@ -101,7 +97,7 @@ export default function OtherPlayers({ excludeId }) {
                         )}
                     </div>
                 </div>
-            </div>        
+            </div>
         </div>
     );
 }

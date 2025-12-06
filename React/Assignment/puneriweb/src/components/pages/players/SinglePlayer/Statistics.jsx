@@ -5,7 +5,7 @@ export default function PlayerStatistics({ stats }) {
     <div className="w-full bg-white py-10 px-4">
      
       <div className="text-center mb-8" data-aos="fade-up">
-        <h2 className="text-3xl font-bold uppercase tracking-wide text-[#002147]">
+        <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-wide text-[#f40]">
           Statistics
         </h2>
       </div>

@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom'
 
 const navigation = [
   { name: 'Player', href: '/player' },
-  { name: 'Standings', href: '/standings' },
-  { name: 'Fixtures', href: '/fixtures' },
   { name: 'Paltan-World', href: '/paltan-world' },
-  { name: 'Tickets', href: '/tickets' },
+  { name: 'Tickets', 
+    href: 'https://www.district.in/events/pkl-2025-chennai-team',
+     target: '_blank',
+     rel: 'noopener noreferrer' },
 ]
 
 export default function Header() {
@@ -51,7 +52,8 @@ export default function Header() {
             </div>
             <div className="hidden lg:flex flex-1 justify-center items-center gap-x-12">
               {navigation.map((item) => (
-                <Link key={item.name} to={item.href} className="text-sm/6 font-semibold text-white hover:text-[#ff7500] transition-all duration-500">
+                <Link key={item.name} to={item.href} target={item.target} rel={item.rel} 
+                className="text-sm/6 font-semibold text-white hover:text-[#ff7500] transition-all duration-500">
                   {item.name}
                 </Link>
               ))}
@@ -77,6 +79,8 @@ export default function Header() {
                 <Link
                   key={item.name}
                   to={item.href}
+                  target={item.target} 
+                  rel={item.rel}
                   onClick={()=>setMobileMenuOpen(false)}
                   className="text-white text-lg font-semibold hover:bg-white/10 px-3 py-2 rounded"
                 >

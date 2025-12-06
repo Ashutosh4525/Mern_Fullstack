@@ -1,50 +1,43 @@
-/* --- Global Swiper Overrides (If applicable) --- */
 
-/* Ensures the swiper wrapper height is honored */
 .other-players-swiper-wrapper {
     height: 100%;
 }
 
-/* --- Card Specific Styling for Visual Alignment (Matching the Image) --- */
-
-/* Ensures the individual slide container takes full height for the card to fit */
 .other-player-slide {
-    height: auto; /* Allow height to be determined by content/viewport */
-    min-height: 400px; /* Ensures a minimum visible height */
-    padding-bottom: 20px; /* Padding for pagination dots */
+    height: auto; 
+    min-height: 400px; 
+    padding-bottom: 20px; 
 }
 
-/* The Player Card itself: Ensures the card fills its slide container */
+
 .other-player-card {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    /* Tailwind classes handle the rest: bg-black, overflow-hidden, relative, shadow-lg */
     height: 100%; 
 }
 
-/* Image styling: This is mostly handled by Tailwind (object-cover, absolute) */
+
 .other-player-img {
-    transition: transform 0.3s ease; /* Smooth transition on hover/focus if needed */
+    transition: transform 0.3s ease; 
 }
 
-/* --- Navigation Button Styling (To match the orange arrows in the image) --- */
-
-/* Targeting Swiper's default navigation buttons */
 .swiper-button-next,
 .swiper-button-prev {
-    color: white !important; /* Arrow color */
-    background-color: #f40 !important; /* Orange background */
+    color: white !important; 
+    background-color: #f40 !important; 
     border-radius: 50%;
     width: 40px !important;
     height: 40px !important;
-    opacity: 0.9;
+    opacity: 1;
+    padding: 10px ;
+    border-radius: 25px;
     transition: opacity 0.2s ease;
 }
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
-    font-size: 18px !important; /* Size of the arrow icon */
+    font-size: 18px !important; 
     font-weight: bold;
 }
 
@@ -53,17 +46,15 @@
     opacity: 1;
 }
 
-/* Positioning adjustments to match the image's centered arrows */
+
 .swiper-button-prev {
-    left: 10px; /* Adjust position relative to the edge */
+    left: 10px; 
 }
 
 .swiper-button-next {
-    right: 10px; /* Adjust position relative to the edge */
+    right: 10px; 
 }
 
-/* --- Pagination Dot Styling (If needed) --- */
-/* Makes the active dot orange */
 .swiper-pagination-bullet-active {
     background: #f40 !important;
 }

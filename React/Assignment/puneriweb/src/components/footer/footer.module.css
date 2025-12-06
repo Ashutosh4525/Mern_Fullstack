@@ -1,7 +1,11 @@
+.wholefoot{
+    padding: 10px;
+}
 .links{
     font-size: 20px;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 .link_icons{
     padding: 10px;
@@ -21,6 +25,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    padding: 10px;
 }
 .footTxt1, .footTxt2{
     background-color: #ff7500;

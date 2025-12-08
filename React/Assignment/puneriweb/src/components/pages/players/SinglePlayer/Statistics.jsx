@@ -12,12 +12,9 @@ export default function PlayerStatistics({ stats }) {
 
       
       <div className="w-full bg-gray-100 rounded-xl p-6 mb-10">
-        {/* <h3 className="text-xl font-bold uppercase text-[#FF6A00] mb-4">
-          Overall
-        </h3> */}
         <Blockele title={"Overall"}/>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center" style={{padding:'10px'}}>
           <StatBox
             value={stats.Matches_played}
             label="MATCHES PLAYED"
@@ -38,18 +35,15 @@ export default function PlayerStatistics({ stats }) {
       </div>
 
       <div className="w-full bg-gray-100 rounded-xl p-6 mb-10">
-        {/* <h3 className="text-xl font-bold uppercase text-[#FF6A00] mb-4">
-          Raid
-        </h3> */}
         <Blockele title={"Raid"}/>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center" style={{padding:'10px'}}>
          
-          <div className="grid grid-cols-2 gap-6">
+          {/* <div className="grid grid-cols-2 gap-6"> */}
             <StatBox value={stats.no_of_super_raids} label="SUPER RAIDS" />
             <StatBox value={stats.super_10s} label="SUPER 10s" />
             <StatBox value={stats.avg_raid_points} label="AVG RAID POINTS" />
-          </div>
+          {/* </div> */}
 
           {/* <div className="flex items-center justify-between">
             <div className="flex items-center justify-center w-28 h-28 rounded-full border-4 border-[#FF6A00]">
@@ -75,8 +69,8 @@ export default function PlayerStatistics({ stats }) {
         </h3> */}
         <Blockele title={"Tackles"}/>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center" style={{padding:'10px'}}>
+          {/* <div className="grid grid-cols-2 gap-6"> */}
             <StatBox
               value={stats.no_of_super_tackles}
               label="SUPER TACKLES"
@@ -85,7 +79,7 @@ export default function PlayerStatistics({ stats }) {
               value={stats.total_tacle_points}
               label="TACKLE POINTS"
             />
-          </div>
+          {/* </div> */}
 
           {/* <div className="flex items-center justify-between">
             <div className="flex items-center justify-center w-28 h-28 rounded-full border-4 border-[#002147]">

@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import {useDispatch,useSelector} from 'react-redux'
 import { fetchCategory,fetchPlayersByCat } from "../../redux/action/player.action";
 import CategoryBlock from "./CategoryBlock";
+import Loading from "../Loading";
 
 
 function Players() {
@@ -25,6 +26,7 @@ function Players() {
     <div style={{padding:20}}>
       {/* <h1>Players by Category</h1> */}
     </div>
+    {loading && <Loading/>}
     <div className="categories-list">
         {Array.isArray(categories) && categories.length > 0 ? (
           categories.map((cat) => (

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { fetchPuneriTv,fetchTvList } from "../../../redux/action/tv.action";
 import Blockele from "../../Block/Block";
 import Banner from "../../players/Banner";
+import Loading from "../../Loading";
 export default function TvList(){
     const dispatch=useDispatch();  
     const {tvList,loading}=useSelector((state)=>state.puneritv);
@@ -65,7 +66,7 @@ export default function TvList(){
       </div>
        <div className="flex flex-wrap justify-center text-center align-middle gap-4" style={{padding:"20px"}}>
         {/* <div className=" w-full md:w-1/3 "> */}
-          {loading && <p>Loading…</p>}
+          {loading && <Loading/>}
 
           {!loading &&
             currentVideos.map((item) => (

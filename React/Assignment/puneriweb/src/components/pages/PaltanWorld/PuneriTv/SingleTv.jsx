@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { fetchPuneriTv } from "../../../redux/action/tv.action";
 import Banner from "../../players/Banner";
 import Blockele from "../../Block/Block";
+import Loading from "../../Loading";
 
 export default function SingleTv() {
   const { id } = useParams(); 
@@ -16,9 +17,7 @@ export default function SingleTv() {
 
   if (loading || !singleTv)
     return (
-      <div className="p-4 text-center text-white">
-        <h2>Loading video...</h2>
-      </div>
+      <Loading/>
     );
 
   return (

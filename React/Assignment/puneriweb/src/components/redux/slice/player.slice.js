@@ -9,6 +9,7 @@ const initialState={
     playersByCategory: {},
     singlePlayer:null,
     playerList:{},
+    cachedPlayers: {}
 }
 
 const playerSlice=createSlice({
@@ -20,9 +21,9 @@ const playerSlice=createSlice({
          state.loading = false;
          state.error = null;
         },
-    clearPlayerList(state) {
-      state.playerList = {};
-    }
+    // clearPlayerList(state) {
+    //   state.playerList = {};
+    // }
   },
     extraReducers:(builders)=>{
         builders
@@ -85,7 +86,7 @@ const playerSlice=createSlice({
             const playersArray = action.payload;
             playersArray.forEach(player => {
                 if (player && player.id) {
-                    state.playerList[player.id] = player;
+                    state.cachedPlayers[player.id] = player;
                 }
             });
             state.loading = false; state.message = "Batch players fetched successfully";
@@ -95,7 +96,7 @@ const playerSlice=createSlice({
         });
         }
 })
-export const { clearSinglePlayer,clearPlayerList } = playerSlice.actions;
+export const { clearSinglePlayer } = playerSlice.actions;
 export const playerAction=playerSlice.actions;
 const playerReducer=playerSlice.reducer;
 export default playerReducer;

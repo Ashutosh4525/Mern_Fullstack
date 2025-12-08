@@ -20,7 +20,7 @@ export default function PlayerDescription({ player }) {
           <div className="desc-headings-row">
             <div className="desc-jersey">
               <span className="desc-box desc-label">Jersey No.</span>
-              <span className="desc-value">{player.jersey_no}</span>
+              <span className="desc-value">{player.jersey_no||"--"}</span>
             </div>
             <div className=" desc-position">
               <span className=" desc-box desc-label">Position</span>

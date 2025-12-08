@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import Partners from "./Partners";
 import News from "./News";
 import PaltanWorld from "./PaltanBlock";
+import Loading from "../Loading";
 
 
 
@@ -53,7 +54,7 @@ export default function Hero(){
                   <div className="title w-[20%]">
                     <h2>Players</h2>
                   </div>
-                {loading && apiPlayers.length === 0 ? <p>Loading...</p> : null}
+                {loading && apiPlayers.length === 0 ? <Loading/> : null}
                 <div className="w-[80%] min-h-[300px]">
                   <div className="w-full  h-100 swip" >
                   <Swiper
@@ -71,7 +72,7 @@ export default function Hero(){
                       1024: { slidesPerView: 4 },
                     }}
                   >
-                    {loading && <p>Loading...</p>}
+                    {loading && <Loading/>}
                     {apiPlayers.length === 0 ? (
                   <SwiperSlide>
                     <div className="player-card">

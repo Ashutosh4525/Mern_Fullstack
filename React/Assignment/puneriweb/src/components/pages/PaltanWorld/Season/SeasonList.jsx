@@ -5,6 +5,7 @@ import Banner from "../../players/Banner";
 import { Link } from "react-router-dom";
 import Blockele from "../../Block/Block";
 import classes from './season.module.css'
+import Loading from "../../Loading";
 
 export default function SeasonGalleryPage() {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const [activeSeason, setActiveSeason] = useState(null);
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 w-full p-10 h-full">
         
-        {loading ? null : (
+        {loading ? <Loading/> : (
           activeSeason &&
         ( galleryBySeason[activeSeason]?.length>0 ?(  
           galleryBySeason[activeSeason].map((g) => {

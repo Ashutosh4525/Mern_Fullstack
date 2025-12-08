@@ -1,5 +1,5 @@
-
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector,useDispatch } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { Link } from "react-router-dom";
@@ -7,10 +7,29 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import './swip.css'
+import Loading from "../../Loading";
+import { fetchSinglePlayer,fetchPlayersBatch } from "../../../redux/action/player.action";
 
 export default function OtherPlayers({ excludeId }) {
-    const { playerList, loading, error } = useSelector((s) => s.player);
-    const apiPlayers = Object.values(playerList);
+    const dispatch = useDispatch();
+    const { cachedPlayers, loading, error } = useSelector((s) => s.player);
+    const totalPlayers = 10;
+     useEffect(() => {
+        const cachedIds = Object.keys(cachedPlayers).map(Number);
+
+        const missingIds = [];
+        for (let id = 1; id <= totalPlayers; id++) {
+            if (!cachedIds.includes(id)) {
+                missingIds.push(id);
+            }
+        }
+
+        if (missingIds.length === 0) return;
+
+        missingIds.forEach((id) => dispatch(fetchPlayersBatch(id)));
+
+    }, []);
+    const apiPlayers = Object.values(cachedPlayers);
     
     const filteredPlayers = apiPlayers.filter(p => p.id && Number(p.id) !== Number(excludeId));
     
@@ -73,8 +92,8 @@ export default function OtherPlayers({ excludeId }) {
               
                 <div className="w-5/6 min-h-[400px]">
                     <div className="w-full h-full other-players-swiper-wrapper transform-none lg:-skew-x-6">
-                        
-                        {(loading && filteredPlayers.length === 0) ? (
+                        {loading && <Loading/>}
+                        {( filteredPlayers.length === 0) ? (
                             <div className="flex justify-center items-center h-[300px]">
                                 <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#f40]"></div>
                             </div>

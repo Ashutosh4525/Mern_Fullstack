@@ -1,3 +1,7 @@
+// in typescript import type and file in diffrent line as it shows error 
+// but it still works just for better understanding
+// below line show problem and further it is solved
+// import axios,{AxiosResponse} from "axios";
 import axios from "axios";
 import type { AxiosResponse } from "axios";
 

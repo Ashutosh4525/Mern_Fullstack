@@ -72,5 +72,28 @@ console.log(array);
 
 
 
+// Array chuncking
+// var chunck=([1,2,3,4,5,6,7,8],3);
+
+function getchunk(array,part){
+
+    const chuncked=[];
+    let index=0;
+
+    while(index<array.length){
+        const chunck=array.slice(index,index+part)
+        console.log(chunck);
+        chuncked.push(chunck);
+        index+=part;
+    } 
+    return chuncked
+}
+
+console.log(getchunk([1,2,3,4,4,5,6,7], 3));
+
+// two sum 2 for loop
+
+
+
 
 

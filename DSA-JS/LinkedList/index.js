@@ -63,18 +63,34 @@ class LinkedList{
         t1=t1.next
        }
     }
-    // popNode(){
-    //      if(this.head !=null){
-    //         let t1=this.head
-    //         while(t1.next!=null){
-    //             t1=t1.next
-    //         }
-    //         t1.next=temp
-    //     }
-    //     else{
-    //         this.head=temp
-    //     }
-    // }
+    popNode(){
+         if(!this.head){
+            return "LinkedList is Empty"
+        }
+        // if(this.next==null){
+        //     const val=this.head;
+        //     this.head=null;
+        //     this.length--
+        //     return val
+        // }
+        if(!this.head.next){
+            const val=this.head;
+            this.head=null;
+            this.length--
+            return val
+        }
+            let curr=this.head;
+            let prev=null
+            while(curr.next!=null){
+                // console.log(curr.next);
+                
+                 prev = curr;
+                 curr = curr.next;
+            }
+            prev.next=null;
+            this.length--;
+            return curr.head
+    }
 
     deletell(value){
         // let t1=this.head
@@ -142,6 +158,7 @@ mylinklist.pushIndex(50,30)
 // mylinklist.deletell(30)
 // mylinklist.deletell(40)
 mylinklist.deletell(20)
+mylinklist.popNode();
 mylinklist.printlist();
 // console.log(mylinklist);
 

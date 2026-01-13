@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="val"></p>
+    <p id="val2"></p>
+    <p id="val3"></p>
+    <script>
+
+        const val =document.getElementById("val")
+        const val2 =document.getElementById("val2")
+        const val3 =document.getElementById("val3")
+        for(let i=0;i<5;i++){
+            val.innerHTML+="<br/>"
+            for (let j = 0; j < i; j++) {
+                val.innerHTML+= "*"
+            }
+            // val.innerHTML+=""
+        }
+
+         for(let i=0;i<6;i++){
+            val2.innerHTML+="<br/>"
+            for (let j = 1; j < i; j++) {
+                if (j%2==0) {
+                    val2.innerHTML+=2
+                }
+                else{
+                    val2.innerHTML+= 1
+                }
+                
+            }
+            // val.innerHTML+=""
+        }
+
+        // for(let i=5;i>=0;i--){
+        //     val3.innerHTML+="1";
+        //     for (let j = 0; j < i-1; j++) {
+        //         val3.innerHTML+= "0"
+        //     }
+        //     if (i > 0) {
+        //         val3.innerHTML+= "1"
+        //     }
+        //     val3.innerHTML+="<br/>"
+        // }
+
+        //  for(let i=5;i>=0;i--){
+        //     val3.innerHTML+="1";
+        //     for (let j = 0; j < i-1; j++) {
+        //         val3.innerHTML+= "0"
+        //     }
+        //     if (i>0) {
+        //         val3.innerHTML+= "1"
+        //     }
+        //     val3.innerHTML+="<br/>"
+        // }
+
+    </script>
+    
+</body>
+</html>

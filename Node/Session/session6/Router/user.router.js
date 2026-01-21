@@ -1,0 +1,8 @@
+import express from "express";
+import { createUser } from "../Controller/user.controller";
+
+const userRouter=express.Router();
+
+userRouter.post("/",createUser);
+
+export default userRouter;

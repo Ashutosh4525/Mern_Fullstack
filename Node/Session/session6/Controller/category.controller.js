@@ -1,21 +1,19 @@
-import brand from "../Models/brand.model.js";
+import category from "../Models/category.model.js";
 
-export const createBrand=async (req,res) => {
+export const createCategory=async (req,res) => {
     try {
-        //  const data=req.body;
-        //  console.log(data);
+         const data=req.body;
+         console.log(data);
 
          const {name,description,status}=req.body;
-         console.log(name,description);
-         const statusval=Number(status)
-        //  const cat= new brand({name,description,status:statusval})
+         console.log(name,description,status);
+         
+         const cat= new category({name,description,status})
 
-        //  const savedBrand=await cat.save();
-
-        const cat= await brand.create({name, description,status:statusval})
+         const res=await cat.save();
 
           return res.status(201).json({
-            data:cat,
+            data:res,
             message:"All Good",
             success:true
         })
@@ -28,9 +26,9 @@ export const createBrand=async (req,res) => {
     }
 }
 
-export const getBrand=async (req,res) => {
+export const getCategory=async (req,res) => {
     try {
-         const cat= await brand.find();
+         const cat= await category.find();
 
 
           return res.status(200).json({
@@ -47,14 +45,14 @@ export const getBrand=async (req,res) => {
     }
 }
 
-export const updateBrand=async (req,res) => {
+export const updateCategory=async (req,res) => {
     try {
          const {id}=req.params;
-         const cat= await brand.findById(id)
+         const cat= await category.findById(id)
 
          if (!cat) {
             return res.status(400).json({
-            message:"brand does not exist",
+            message:"category does not exist",
             success:false
         })}
 
@@ -62,12 +60,11 @@ export const updateBrand=async (req,res) => {
         console.log(catdata);
 
         const {name,description,status}=catdata;        
-        const statusval = Number(status);
-        const newcat=await brand.updateOne({_id:id},{name,description,status:statusval})
+        const newcat=await category.updateOne({_id:id},{name,description,status})
         console.log(newcat);
         
           return res.status(201).json({
-            data: await brand.findById(id),
+            data:cat,
             message:"All Good",
             success:true
         })
@@ -80,27 +77,27 @@ export const updateBrand=async (req,res) => {
     }
 }
 
-export const deleteBrand=async (req,res) => {
+export const deleteCategory=async (req,res) => {
     try {
          const {id}=req.params;
-         const cat= await brand.findById(id)
+         const cat= await category.findById(id)
 
          if (!cat) {
             return res.status(400).json({
-            message:"brand does not exist",
+            message:"category does not exist",
             success:false
         })}
 
-        const delcat=await brand.updateOne({_id:id},{$set:{status:0}})
+        const delcat=await category.updateOne({_id:id},{$set:{status:0}})
          return res.status(201).json({
-            message:"brand deleted successfully",
+            message:"cat deleted successfully",
             success:true
         })
     } catch (error) {
         console.log(error);
 
         return res.status(500).json({
-            message:"Something went wrong",
+            message:"Somethhing went wrong",
             success:false
         })
     }

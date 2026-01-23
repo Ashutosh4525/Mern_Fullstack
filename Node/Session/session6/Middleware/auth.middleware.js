@@ -39,3 +39,15 @@ export const authMiddleware= async (req,res,next) => {
         })
     }
 }
+
+export const isAdmin= async (req,res,next) => {
+    console.log(req.user)
+    const {id, role}=req.user;
+    if (role!=="admin") {
+        return res.status(403).json({
+            message:"Only admin can delete brands",
+            success:false
+        })
+    }
+    next()    
+}

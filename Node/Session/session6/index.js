@@ -23,4 +23,4 @@ mongoose.connect("mongodb://127.0.0.1:27017/node-20Jan").then(()=>{console.log("
 
 
 app.use("/api/v1/users",userRouter)
-app.use("api/v1/brands",brandRouter)
+app.use("/api/v1/brands",brandRouter)

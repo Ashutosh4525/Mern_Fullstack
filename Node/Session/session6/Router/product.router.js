@@ -9,4 +9,4 @@ ProductRouter.get("/",getProduct)
 // ProductRouter.put("/:id",authMiddleware,isAdmin,updateCategory)
 // ProductRouter.delete("/:id",authMiddleware,isAdmin,deleteCategory)
 
-export default categoryRouter;
+export default ProductRouter;

@@ -35,6 +35,10 @@ const productSchema=new Schema({
         type:Number,
         required:true,
         default:1
+    },
+    inStock:{
+        type:Boolean,
+        default: true
     }
 })
 

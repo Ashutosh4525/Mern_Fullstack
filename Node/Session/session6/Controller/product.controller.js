@@ -39,8 +39,42 @@ export const createProduct= async (req,res) => {
 
 export const getProduct= async (req,res) => {
     try {
-        const products=await product.find().populate("BrandId","CategoryId");
+        
 
+        const {limit, page, inStock, search, sort}=req.query;
+        const skipval = limit * (page-1);
+
+        let filter={}
+        if(inStock){
+           filter.inStock=inStock
+        }
+
+        if (search) {
+            const searchReqx=new RegExp(`.*${search}.*`);
+            console.log(searchReqx);
+            
+            filter={
+                ...filter,
+                $or: [
+                    {name:searchReqx},
+                    {description:searchReqx}
+                ]
+            }
+        }
+
+        let sortValue={_id:-1}
+        if (sort==='htl') {
+            sortValue={price:-1}
+        }else if(sort==='lth'){
+            sortValue={price:1}
+        }
+
+      // products less than price
+      // products greater than price
+      // product in range of 
+      // product in particular brand
+      // product in particular category
+        const products=await product.find().populate("BrandId").populate("CategoryId").limit(limit).skip(skipval).sort(sortValue);
         return res.status(201).json({
             data:products,
             message:"All Good",

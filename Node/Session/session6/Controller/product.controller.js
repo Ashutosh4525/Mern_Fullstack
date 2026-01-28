@@ -39,9 +39,7 @@ export const createProduct= async (req,res) => {
 
 export const getProduct= async (req,res) => {
     try {
-        
-
-        const {limit, page, inStock, search, sort}=req.query;
+        const {limit, page, inStock, search, sort, minPrice, maxPrice ,brandId, categoryId}=req.query;
         const skipval = limit * (page-1);
 
         let filter={}
@@ -53,11 +51,18 @@ export const getProduct= async (req,res) => {
             const searchReqx=new RegExp(`.*${search}.*`);
             console.log(searchReqx);
             
+            const [brands, categories] = await Promise.all([
+                brand.find({ name: searchRegex }).select("_id"),
+                category.find({ name: searchRegex }).select("_id")
+            ]);
+
             filter={
                 ...filter,
                 $or: [
                     {name:searchReqx},
-                    {description:searchReqx}
+                    {description:searchReqx},
+                    { BrandId: { $in: brands.map(b => b._id) } },
+                    { CategoryId: { $in: categories.map(c => c._id) } }
                 ]
             }
         }
@@ -70,11 +75,45 @@ export const getProduct= async (req,res) => {
         }
 
       // products less than price
+    //   if (minPrice) {
+    //     filter.price={};
+    //     if (minPrice) {
+    //         filter.price.$gte=minPrice
+    //     }
+    //     console.log(minPrice);
+        
+    //   }
       // products greater than price
+    //   if (maxPrice) {
+    //     filter.price={};
+    //     if (maxPrice) {
+    //         filter.price.$gte=Number(maxPrice)
+    //     }
+    //   }
       // product in range of 
+      if (maxPrice||minPrice) {
+        filter.price={};
+        if (maxPrice) {
+            filter.price.$lte=Number(maxPrice)
+        }
+        if (minPrice) {
+            filter.price.$gte=Number(minPrice)
+        }
+      }
       // product in particular brand
+    //   if (brandId||search) {
+    //     const searchReqx=new RegExp(`.*${search}.*`);
+    //     filter.BrandId={brandId,
+    //         $lookup: [
+    //                 {name:searchReqx},
+    //                 {description:searchReqx}
+    //             ]}
+    //   }
       // product in particular category
-        const products=await product.find().populate("BrandId").populate("CategoryId").limit(limit).skip(skipval).sort(sortValue);
+      if (categoryId) {
+        filter.CategoryId=categoryId
+      }
+        const products=await product.find(filter).populate("BrandId").populate("CategoryId").limit(limit).skip(skipval).sort(sortValue);
         return res.status(201).json({
             data:products,
             message:"All Good",

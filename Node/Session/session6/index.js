@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import express from "express";
+import express, { urlencoded } from "express";
 import mongoose from "mongoose";
 import userRouter from "./Router/user.router";
 import brandRouter from "./Router/brand.router";
@@ -11,6 +11,8 @@ import ProductRouter from "./Router/product.router";
 const PORT=process.env.PORT || 8080;
 const app=express(); 
 app.use(express.json());
+app.use(express.urlencoded());
+app.use("/image",express.static("uploads"))
 
 app.listen(PORT,()=>{
     console.log("Database Connected");

@@ -4,7 +4,7 @@ import { authMiddleware, isAdmin } from "../Middleware/auth.middleware.js";
 
 const brandRouter=express.Router();
 
-brandRouter.post("/",authMiddleware, createBrand)
+brandRouter.post("/", createBrand)
 brandRouter.get("/",getBrand)
 brandRouter.put("/:id",authMiddleware,isAdmin,updateBrand)
 brandRouter.delete("/:id",authMiddleware,isAdmin,deleteBrand)

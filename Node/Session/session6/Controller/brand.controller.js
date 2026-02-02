@@ -1,24 +1,39 @@
 import brand from "../Models/brand.model.js";
-
+import uploads from "../Middleware/upload.middleware.js";
 export const createBrand=async (req,res) => {
     try {
         //  const data=req.body;
         //  console.log(data);
 
-         const {name,description,status}=req.body;
-         console.log(name,description);
+        const fileWithUploads=uploads.single("logo");
+        fileWithUploads(req,res, async function (err) {
+            console.log("Multer Error"+err);
+            if (err) {
+              return res.status(400).json({
+                message:"Wrong wiyh multer",
+                success:false
+            })  
+            }
+            const {name,description,status}=req.body;
+
+         const logo=req.file ? req.file.filename :null
+        
          const statusval=Number(status)
+          console.log(name,description,logo);
         //  const cat= new brand({name,description,status:statusval})
 
         //  const savedBrand=await cat.save();
 
-        const cat= await brand.create({name, description,status:statusval})
+        const cat= await brand.create({name, description,logo,status:statusval})
 
           return res.status(201).json({
             data:cat,
             message:"All Good",
             success:true
         })
+        })
+
+         
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -36,6 +51,7 @@ export const getBrand=async (req,res) => {
           return res.status(200).json({
             data:cat,
             message:"All Good",
+            path:"http://localhost:8000/image/",
             success:true
         })
     } catch (error) {

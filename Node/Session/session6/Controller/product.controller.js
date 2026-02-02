@@ -10,7 +10,7 @@ export const createProduct= async (req,res) => {
         const existingCategory= await brand.findById(CategoryId);
         if (!existingBrand) {
             return res.status(400).json({
-            message:"category does not exist",
+            message:"brand does not exist",
             success:false
             })}
 
@@ -48,12 +48,12 @@ export const getProduct= async (req,res) => {
         }
 
         if (search) {
-            const searchReqx=new RegExp(`.*${search}.*`);
+            const searchReqx=new RegExp(`.*${search}.*`,'i');
             console.log(searchReqx);
             
             const [brands, categories] = await Promise.all([
-                brand.find({ name: searchRegex }).select("_id"),
-                category.find({ name: searchRegex }).select("_id")
+                brand.find({ name: searchReqx }).select("_id"),
+                category.find({ name: searchReqx }).select("_id")
             ]);
 
             filter={
@@ -110,9 +110,9 @@ export const getProduct= async (req,res) => {
     //             ]}
     //   }
       // product in particular category
-      if (categoryId) {
-        filter.CategoryId=categoryId
-      }
+    //   if (categoryId) {
+    //     filter.CategoryId=categoryId
+    //   }
         const products=await product.find(filter).populate("BrandId").populate("CategoryId").limit(limit).skip(skipval).sort(sortValue);
         return res.status(201).json({
             data:products,

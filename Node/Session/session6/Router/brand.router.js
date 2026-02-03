@@ -6,7 +6,7 @@ const brandRouter=express.Router();
 
 brandRouter.post("/", createBrand)
 brandRouter.get("/",getBrand)
-brandRouter.put("/:id",authMiddleware,isAdmin,updateBrand)
+brandRouter.put("/:id",updateBrand)
 brandRouter.delete("/:id",authMiddleware,isAdmin,deleteBrand)
 
 export default brandRouter;

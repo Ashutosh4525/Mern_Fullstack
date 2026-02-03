@@ -11,6 +11,9 @@ const brandSchema=new Schema({
     logo:{
         type:String,
     },
+    images:{
+        type:Array,
+    },
     status:{
         type:Number,
         default:1

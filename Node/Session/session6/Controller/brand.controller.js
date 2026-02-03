@@ -1,5 +1,6 @@
 import brand from "../Models/brand.model.js";
 import uploads from "../Middleware/upload.middleware.js";
+import multer from "multer";
 export const createBrand=async (req,res) => {
     try {
         //  const data=req.body;
@@ -65,7 +66,17 @@ export const getBrand=async (req,res) => {
 
 export const updateBrand=async (req,res) => {
     try {
-         const {id}=req.params;
+
+        const fileWithUploads=uploads.single("logo");
+        fileWithUploads(req,res, async function (err) {
+            console.log("Multer Error"+err);
+            if (err) {
+              return res.status(400).json({
+                message:"Wrong wiyh multer",
+                success:false
+            })  
+            }
+            const {id}=req.params;
          const cat= await brand.findById(id)
 
          if (!cat) {
@@ -77,9 +88,14 @@ export const updateBrand=async (req,res) => {
         const catdata=req.body;
         console.log(catdata);
 
-        const {name,description,status}=catdata;        
+        const {name,description,status}=catdata;     
+
+        let logo=cat.logo
+        if(req.file){
+            logo=req.file.filename;
+        }   
         const statusval = Number(status);
-        const newcat=await brand.updateOne({_id:id},{name,description,status:statusval})
+        const newcat=await brand.updateOne({_id:id},{name,description,status:statusval,logo})
         console.log(newcat);
         
           return res.status(201).json({
@@ -87,6 +103,8 @@ export const updateBrand=async (req,res) => {
             message:"All Good",
             success:true
         })
+        })
+         
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -98,7 +116,16 @@ export const updateBrand=async (req,res) => {
 
 export const deleteBrand=async (req,res) => {
     try {
-         const {id}=req.params;
+        const fileWithUploads=multer.single("logo");
+        fileWithUploads(req,res,async function (err) {
+            console.log("Multer Error"+err);
+            if (err) {
+              return res.status(400).json({
+                message:"Wrong wiyh multer",
+                success:false
+            })  
+            }
+            const {id}=req.params;
          const cat= await brand.findById(id)
 
          if (!cat) {
@@ -112,6 +139,8 @@ export const deleteBrand=async (req,res) => {
             message:"brand deleted successfully",
             success:true
         })
+        })
+         
     } catch (error) {
         console.log(error);
 

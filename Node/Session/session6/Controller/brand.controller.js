@@ -6,35 +6,41 @@ export const createBrand=async (req,res) => {
         //  const data=req.body;
         //  console.log(data);
 
-        const fileWithUploads=uploads.single("logo");
-        fileWithUploads(req,res, async function (err) {
-            console.log("Multer Error"+err);
-            if (err) {
-              return res.status(400).json({
-                message:"Wrong wiyh multer",
-                success:false
-            })  
-            }
+        // const fileWithUploads=uploads.single("logo");
+
+        // const fileWithUploads=uploads.fields([
+        //     {name:"logo", maxCount:1},
+        //     {name:"images", maxCount:5}
+        // ])
+        // fileWithUploads(req,res, async function (err) {
+        //     console.log("Multer Error"+err);
+        //     if (err) {
+        //       return res.status(400).json({
+        //         message:"Wrong wiyh multer",
+        //         success:false
+        //     })  
+        //     }
             const {name,description,status}=req.body;
 
-         const logo=req.file ? req.file.filename :null
+         const logo=req.files && req.files.logo && req.files.logo[0] ? req.files.logo[0].filename:null
+
+         const images=req.files && req.files.images ? req.files.images.map(f=>f.filename):[];
         
          const statusval=Number(status)
-          console.log(name,description,logo);
+          console.log(name,description,logo,images);
         //  const cat= new brand({name,description,status:statusval})
 
         //  const savedBrand=await cat.save();
 
-        const cat= await brand.create({name, description,logo,status:statusval})
+        const cat= await brand.create({name, description,logo,images,status:statusval})
 
           return res.status(201).json({
             data:cat,
             message:"All Good",
             success:true
         })
-        })
-
-         
+        // }
+    // )
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -67,15 +73,19 @@ export const getBrand=async (req,res) => {
 export const updateBrand=async (req,res) => {
     try {
 
-        const fileWithUploads=uploads.single("logo");
-        fileWithUploads(req,res, async function (err) {
-            console.log("Multer Error"+err);
-            if (err) {
-              return res.status(400).json({
-                message:"Wrong wiyh multer",
-                success:false
-            })  
-            }
+        // const fileWithUploads=uploads.single("logo");
+        // const fileWithUploads=uploads.fields([
+        //     {name:"logo", maxCount:1},
+        //     {name:"images", maxCount:5}
+        // ])
+        // fileWithUploads(req,res, async function (err) {
+        //     console.log("Multer Error"+err);
+        //     if (err) {
+        //       return res.status(400).json({
+        //         message:"Wrong wiyh multer",
+        //         success:false
+        //     })  
+        //     }
             const {id}=req.params;
          const cat= await brand.findById(id)
 
@@ -91,11 +101,16 @@ export const updateBrand=async (req,res) => {
         const {name,description,status}=catdata;     
 
         let logo=cat.logo
-        if(req.file){
-            logo=req.file.filename;
-        }   
+        let images=cat.images
+        if (req.files?.logo?.[0]) {
+            logo = req.files.logo[0].filename;
+        }
+
+        if (req.files?.images) {
+            images = req.files.images.map(f => f.filename);
+        }
         const statusval = Number(status);
-        const newcat=await brand.updateOne({_id:id},{name,description,status:statusval,logo})
+        const newcat=await brand.updateOne({_id:id},{name,description,status:statusval,logo,images})
         console.log(newcat);
         
           return res.status(201).json({
@@ -103,7 +118,7 @@ export const updateBrand=async (req,res) => {
             message:"All Good",
             success:true
         })
-        })
+        // })
          
     } catch (error) {
         console.log(error);
@@ -116,15 +131,15 @@ export const updateBrand=async (req,res) => {
 
 export const deleteBrand=async (req,res) => {
     try {
-        const fileWithUploads=multer.single("logo");
-        fileWithUploads(req,res,async function (err) {
-            console.log("Multer Error"+err);
-            if (err) {
-              return res.status(400).json({
-                message:"Wrong wiyh multer",
-                success:false
-            })  
-            }
+        // const fileWithUploads=multer.single("logo");
+        // fileWithUploads(req,res,async function (err) {
+        //     console.log("Multer Error"+err);
+        //     if (err) {
+        //       return res.status(400).json({
+        //         message:"Wrong wiyh multer",
+        //         success:false
+        //     })  
+        //     }
             const {id}=req.params;
          const cat= await brand.findById(id)
 
@@ -139,7 +154,7 @@ export const deleteBrand=async (req,res) => {
             message:"brand deleted successfully",
             success:true
         })
-        })
+        // })
          
     } catch (error) {
         console.log(error);

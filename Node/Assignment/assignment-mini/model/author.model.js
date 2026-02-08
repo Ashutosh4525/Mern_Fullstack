@@ -17,6 +17,10 @@ const authorSchema=new mongoose.Schema({
         type:Date,
         required:true,
     },
+    book:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Book"
+    },
     isDeleted:{
         type:Boolean,
         default:false

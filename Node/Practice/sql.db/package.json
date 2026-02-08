@@ -1,0 +1,30 @@
+{
+  "name": "sql.db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev":"nodemon --exec babel-node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.29.0",
+    "@babel/node": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "mysql2": "^3.16.3",
+    "nodemon": "^3.1.11",
+    "sequelize": "^6.37.7"
+  },
+  "babel":{
+    "presets":[
+      "@babel/preset-env"
+    ]
+  }
+}

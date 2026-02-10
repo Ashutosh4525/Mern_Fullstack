@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const userSchema=new mongoose.Schema({
     firstname:{
         type:String,
-        required:true
+        // required:true
     },
     lastname:{
         type:String,
-        required:true
+        // required:true
     },
     email:{
         type:String,
@@ -25,6 +25,8 @@ const userSchema=new mongoose.Schema({
     avatar:{
         type:String
     },
+    otp: String,
+    otpExpires: Date,
     isEmailVerified: {
         type: Boolean,
         default: false
@@ -32,8 +34,13 @@ const userSchema=new mongoose.Schema({
     isDeleted:{
         type:Boolean,
         default:false
+    },
+    deletedAt: {
+        type: Date,
+        default: null
     }
 },{timestamps:true})
 
+userSchema.index({ deletedAt: 1 }, { expireAfterSeconds: 2592000 });
 const User=mongoose.model("User",userSchema);
 export default User;

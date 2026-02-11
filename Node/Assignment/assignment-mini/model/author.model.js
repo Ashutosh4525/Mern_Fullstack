@@ -9,17 +9,13 @@ const authorSchema=new mongoose.Schema({
         type:String,
         required:true
     },
-    Bio:{
+    bio:{
         type:String,
         unique:true
     },
-    Birthdate:{
+    birthDate:{
         type:Date,
         required:true,
-    },
-    book:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Book"
     },
     isDeleted:{
         type:Boolean,

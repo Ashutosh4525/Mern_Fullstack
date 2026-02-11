@@ -1,16 +1,21 @@
 import mongoose from "mongoose";
 
 const bookSchema=mongoose.Schema({
-    name:{
+    title:{
         type:String,
-        required:true
+        required:true,
+        trim:true
     },
     coverImage:{
         type:String
     },
-    author:{
+    authorID:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Author"
+    },
+    publishedDate:{
+        type:Date,
+        required:true
     },
     isDeleted:{
         type:Boolean,
@@ -18,5 +23,6 @@ const bookSchema=mongoose.Schema({
     },
 },{timestamps:true})
 
+// bookSchema.index({ deletedAt: 1 }, { expireAfterSeconds: 2592000 });
 const Book=mongoose.model("Book",bookSchema);
 export default Book;

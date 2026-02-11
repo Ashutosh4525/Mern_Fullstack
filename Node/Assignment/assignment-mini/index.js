@@ -8,7 +8,7 @@ dotenv.config();
 const PORT=process.env.PORT || 8080;
 const app=express();
 app.use(express.json());
-
+app.use("/images",express.static("uploads"))
 
 // user
 app.use("/api/v1/users", userRouter);

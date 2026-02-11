@@ -14,13 +14,14 @@ import {
     softDeleteUser
  } from "../controller/user.controller";
 import { authware, isAdmin } from "../middlewares/auth.middleware";
+import uploads from "../middlewares/upload.middleware";
 
 const userRouter=express.Router();
 const app=express();
 
 const avatarUploads = uploads.single("avatar");
 
-userRouter.post("/",avatarUploads, createUser);
+userRouter.post("/",avatarUploads,isAdmin, createUser);
 userRouter.post("/signup", signUp)
 userRouter.post("/login",login)
 userRouter.post("/sendotp",sendOtp)

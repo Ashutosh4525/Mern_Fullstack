@@ -4,18 +4,22 @@ const userSchema=new mongoose.Schema({
     firstname:{
         type:String,
         // required:true
+        trim:true
     },
     lastname:{
         type:String,
         // required:true
+        trim:true
     },
     email:{
         type:String,
-        unique:true
+        unique:true,
+        trim:true
     },
     password:{
         type:String,
         required:true,
+        trim:true
     },
     role:{
         type:Array,
@@ -23,7 +27,8 @@ const userSchema=new mongoose.Schema({
         default:"user"
     },
     avatar:{
-        type:String
+        type:String,
+        trim:true
     },
     otp: String,
     otpExpires: Date,
@@ -41,6 +46,5 @@ const userSchema=new mongoose.Schema({
     }
 },{timestamps:true})
 
-userSchema.index({ deletedAt: 1 }, { expireAfterSeconds: 2592000 });
 const User=mongoose.model("User",userSchema);
 export default User;

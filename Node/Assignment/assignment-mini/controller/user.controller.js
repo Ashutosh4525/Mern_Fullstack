@@ -42,7 +42,6 @@ export const createUser= asyncHandler(async (req,res,next) => {
 })
 
 export const login=asyncHandler(async(req,res,next)=>{
-
     let {email,password}=req.body;
 
     const existingUser=await User.findOne({email})
@@ -252,7 +251,7 @@ export const resetPass=asyncHandler(async (req, res, next) => {
 
 export const getUser=asyncHandler(async (req,res,next) =>{
 
-    const user = await User.find();
+    const user = await User.find({isDeleted:false});
     if (!user) {
         const error = new Error("User not found");
         error.code = 404;
@@ -271,7 +270,7 @@ export const getUser=asyncHandler(async (req,res,next) =>{
 export const UpdateUser=asyncHandler(async (req,res,next) => {
     const {id}=req.params;
 
-    const user=await User.findById(id);
+    const user=await User.findById({_id:id},{isDeleted:false});
 
     if (!user) {
         const error = new Error("User not found");
@@ -279,9 +278,7 @@ export const UpdateUser=asyncHandler(async (req,res,next) => {
         return next(error);
     }
 
-    const userdata=req.body;
-
-    const {firstname,lastname,email,isDeleted}=userdata;
+    const {firstname,lastname,email}=req.body;
 
     let avatar=user.avatar
     if (req.file?.avatar) {
@@ -293,7 +290,6 @@ export const UpdateUser=asyncHandler(async (req,res,next) => {
         lastname,
         email,
         avatar,
-        isDeleted
     })
     return res.status(200).json({
         success: true,

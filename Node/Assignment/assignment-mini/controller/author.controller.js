@@ -20,7 +20,25 @@ export const createAuthor = asyncHandler(async(req,res,next)=>{
 })
 
 export const getAllAuthor=asyncHandler(async (req,res,next) => {
-    const author= await Author.find({isDeleted:false});
+
+    const { limit = 10, page = 1, search, sort } = req.query;
+    const skipval = Number(limit) * (Number(page) - 1);
+    let filter = { isDeleted: false };
+
+    if (search) {
+        const searchRegex = new RegExp(`.*${search}.*`, 'i');
+        filter = {
+            ...filter,
+            $or: [{ firstname: searchRegex }, { lastname: searchRegex }, { bio: searchRegex }]
+        };
+    }
+
+    let sortValue = { createdAt: -1 };
+    if (sort === 'az') sortValue = { firstname: 1 };
+    const author= await Author.find(filter)
+        .limit(Number(limit))
+        .skip(skipval)
+        .sort(sortValue);
 
     if (!author){
         const error= new Error ("No Author Found")
@@ -28,7 +46,7 @@ export const getAllAuthor=asyncHandler(async (req,res,next) => {
         next(error)
     }
      return res.status(200).json({
-            data:book,
+            data:author,
             message:"Author",
             success:true
         })
@@ -61,7 +79,11 @@ export const getSingleAuthor= asyncHandler(async (req,res,next) => {
 export const updateAuthor= asyncHandler(async (req,res,next) => {
     const {id}=req.params;
 
-    const author=await Author.findById({_id:id},{isDeleted:false})
+    const author = await Author.findOneAndUpdate(
+        { _id: id, isDeleted: false },
+        req.body,
+        { new: true, runValidators: true }
+    );
 
     if (!author) {
         const error = new Error("Author not found");
@@ -69,14 +91,14 @@ export const updateAuthor= asyncHandler(async (req,res,next) => {
         return next(error);
     }
 
-    const {firstname,lastname,bio,birthDate}=req.body;
+    // const {firstname,lastname,bio,birthDate}=req.body;
 
-    const newAuthor= await Author.updateOne({_id:id},{isDeleted:false},{
-        firstname, 
-        lastname,
-        bio,
-        birthDate
-    })
+    // const newAuthor= await Author.updateOne({_id:id},{isDeleted:false},{
+    //     firstname, 
+    //     lastname,
+    //     bio,
+    //     birthDate
+    // })
 
     return res.status(200).json({
             success: true,
@@ -112,7 +134,7 @@ export const softDeleteAuthor = asyncHandler(async (req, res, next) => {
     });
 })
 
-export const restoreUser = asyncHandler(async (req, res, next) => {
+export const restoreAuthor = asyncHandler(async (req, res, next) => {
     const { id } = req.body;
 
     const user = await Author.findOneAndUpdate(

@@ -23,5 +23,6 @@ const authorSchema=new mongoose.Schema({
     }
 },{timestamps:true})
 
+authorSchema.index({ deletedAt: 1 }, { expireAfterSeconds: 2592000 });
 const Author=mongoose.model("Author",authorSchema);
 export default Author;

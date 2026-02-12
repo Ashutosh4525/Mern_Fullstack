@@ -4,7 +4,8 @@ const bookSchema=mongoose.Schema({
     title:{
         type:String,
         required:true,
-        trim:true
+        trim:true,
+        index: true
     },
     coverImage:{
         type:String
@@ -21,6 +22,10 @@ const bookSchema=mongoose.Schema({
         type:Boolean,
         default:false
     },
+    deletedAt: {
+        type: Date,
+        default: null 
+    }
 },{timestamps:true})
 
 // bookSchema.index({ deletedAt: 1 }, { expireAfterSeconds: 2592000 });

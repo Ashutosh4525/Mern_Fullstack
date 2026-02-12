@@ -1,27 +1,14 @@
-import {params, body, validationResult} from "express-validator";
+import { validationResult} from "express-validator";
 
-export const validateCreateUser=[
-    body("firstname")
-    .trim()
-    .length({min: 3}).withMessage("Length should be greater than 3"),
 
-    body("lastname")
-    .trim()
-    .length({min: 3}).withMessage("Length should be greater than 3"),
-
-    body("email")
-    .trim()
-    .isLowercase()
-    .isEmail().withMessage("Enter proper Email")
-    .length({min: 10}).withMessage("Length should be greater than 3"),
-
-    body("password")
-    .trim()
-    .length({min: 6}).withMessage("Length should be greater than 6"),
-]
-
-const validateUpdateUser=[
-    params("id")
-     .notEmpty().withMessage("ID is required")
-     .isMongoId().withMessage("Invalid ID format")
-]
+export const handleValidationErrors = (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            message: "Validation failed",
+            errors: errors.array(),
+            success: false
+        });
+    }
+    next();
+};

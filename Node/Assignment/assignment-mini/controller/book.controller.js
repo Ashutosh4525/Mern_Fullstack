@@ -14,9 +14,44 @@ export const createBook = asyncHandler(async(req,res,next)=>{
 })
 
 export const getAllBook=asyncHandler(async (req,res,next) => {
-    const book= await Book.find({isDeleted:false});
 
-    if (!author){
+    const { limit = 10, page = 1, search, sort, authorID, categoryId } = req.query;
+
+    const skipval = Number(limit) * (Number(page) - 1);
+    let filter = { isDeleted: false };
+
+    if (search) {
+        const searchRegex = new RegExp(`.*${search}.*`, 'i');
+
+        const matchingAuthors = await User.find({ 
+            $or: [{ firstname: searchRegex }, { lastname: searchRegex }] 
+        }).select("_id");
+
+        filter = {
+            ...filter,
+            $or: [
+                { title: searchRegex },
+                { description: searchRegex },
+                { authorID: { $in: matchingAuthors.map(a => a._id) } }
+            ]
+        };
+    }
+    
+    if (authorID) filter.authorID = authorID;
+    if (categoryId) filter.categoryId = categoryId;
+
+    let sortValue = { createdAt: -1 }; 
+    if (sort === 'newest') sortValue = { publishedDate: -1 };
+    if (sort === 'oldest') sortValue = { publishedDate: 1 };
+    if (sort === 'az') sortValue = { title: 1 };
+
+    const book= await Book.find(filter)
+        .populate("authorID", "firstname lastname avatar")
+        .limit(Number(limit))
+        .skip(skipval)
+        .sort(sortValue);
+
+    if (!book || book.length ===0){
         const error= new Error ("No Book Found")
         error.code=404;
         next(error)
@@ -32,21 +67,17 @@ export const getAllBook=asyncHandler(async (req,res,next) => {
 export const getSingleBook= asyncHandler(async (req,res,next) => {
     const {id}=req.params;
 
-    const author = Book.findOne({_id:id},{isDeleted:false});
+    const book = await Book.findOne({_id:id},{isDeleted:false})
+    .populate("authorID");
 
-    if (!author) {
+    if (!book) {
         const error= new Error("book not found");
         error.code=404;
         return next(error)
     }
 
-    // const book= Book.find({
-    //     author:author._id,
-    //     isDeleted:false
-    // })
-
     return res.status(200).json({
-        data:author,
+        data:book,
         success:true,
         message:"All data"
     })
@@ -55,23 +86,34 @@ export const getSingleBook= asyncHandler(async (req,res,next) => {
 export const updateBook= asyncHandler(async (req,res,next) => {
     const {id}=req.params;
 
-    const author=await Book.findById({_id:id},{isDeleted:false})
+    // const author=await Book.findById({_id:id},{isDeleted:false})
 
-    if (!author) {
-        const error = new Error("Book not found");
+    // if (!author) {
+    //     const error = new Error("Book not found");
+    //     error.code = 404;
+    //     return next(error);
+    // }
+
+    const book = await Book.findOneAndUpdate(
+        { _id: id, isDeleted: true }, 
+        { isDeleted: false, deletedAt: null },
+        { new: true } 
+    );
+
+    if (!book) {
+        const error = new Error("Deleted book not found");
         error.code = 404;
         return next(error);
     }
+    // const {title,coverImage,authorID,publishedDate}=req.body;
 
-    const {title,coverImage,authorID,publishedDate}=req.body;
-
-    const newBook= await Book.updateOne({_id:id},{isDeleted:false},{
-        title,coverImage,authorID,publishedDate
-    })
+    // const newBook= await Book.updateOne({_id:id},{isDeleted:false},{
+    //     title,coverImage,authorID,publishedDate
+    // })
 
     return res.status(200).json({
             success: true,
-            data: await Book.findById(id),
+            data: book,
             message:"Updated data"
         });
 })
@@ -103,7 +145,7 @@ export const softDeleteBook = asyncHandler(async (req, res, next) => {
     });
 })
 
-export const restoreUser = asyncHandler(async (req, res, next) => {
+export const restoreBook = asyncHandler(async (req, res, next) => {
     const { id } = req.body;
 
     const book = await Book.findOneAndUpdate(

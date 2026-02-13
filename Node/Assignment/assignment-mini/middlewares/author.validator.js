@@ -54,10 +54,10 @@ export const authorValidator = {
                 }
                 return true;
             }),
-        body('avatar')
-            .optional()
-            .isURL()
-            .withMessage('Avatar must be a valid URL')
+        // body('avatar')
+        //     .optional()
+        //     .isURL()
+        //     .withMessage('Avatar must be a valid URL')
     ],
 
     

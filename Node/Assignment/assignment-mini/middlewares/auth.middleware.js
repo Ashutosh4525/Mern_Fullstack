@@ -13,6 +13,8 @@ export const authware=asyncHandler(async (req,res,next) => {
     }
 
     const token=headers.split(" ").pop();
+    // console.log(token);
+    
 
     jwt.verify(token,process.env.TOKEN_SECRET_KEY, (error,decoded)=>{
         if(error){
@@ -24,7 +26,6 @@ export const authware=asyncHandler(async (req,res,next) => {
 
             console.log("DECODED");
             console.log(decoded);
-            
             const {id, role} = decoded;
             req.user={id,role};
 
@@ -36,9 +37,13 @@ export const isAdmin=asyncHandler(async (req,res,next) => {
     console.log(req.user);
     const {id, role}=req.user;
 
-    if (role !=="admin") {
+        const hasAdminRole = Array.isArray(role) 
+        ? role.includes("admin") 
+        : role === "admin";
+
+    if (!hasAdminRole) {
         return res.status(403).json({
-            message:"Only admin can delete brands",
+            message:"Only admin can create & delete brands",
             success:false
         })
     }

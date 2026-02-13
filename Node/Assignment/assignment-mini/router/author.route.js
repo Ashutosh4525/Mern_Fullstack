@@ -1,8 +1,8 @@
 import express from "express"
 import { authware,isAdmin } from "../middlewares/auth.middleware"
-import { validationResult } from "express-validator"
+import { handleValidationErrors } from "../middlewares/validation.middleware";
 import { 
-    createAuthor, getAllAuthors, getSingleAuthor, 
+    createAuthor, getAllAuthor, getSingleAuthor, 
     updateAuthor, softDeleteAuthor, restoreAuthor 
 } from "../controller/author.controller";
 import { authorValidator } from "../middlewares/author.validator"; 
@@ -10,43 +10,42 @@ import { authorValidator } from "../middlewares/author.validator";
 const authorRouter = express.Router();
 
 authorRouter.get("/", 
-    authorValidator.search, 
-    validationResult, 
-    getAllAuthors
+    ...authorValidator.search, 
+    handleValidationErrors, 
+    getAllAuthor
 );
 
 authorRouter.get("/:id", 
-    authorValidator.idParam, 
-    validationResult, 
+    ...authorValidator.idParam, 
+    handleValidationErrors, 
     getSingleAuthor
 );
 
 authorRouter.post("/create", 
     authware, isAdmin,
-    authorValidator.create, 
-    validationResult, 
-    uploads.single('avatar'),  // Optional
+    ...authorValidator.create, 
+    handleValidationErrors, 
     createAuthor
 );
 
 authorRouter.put("/:id", 
     authware, isAdmin,
-    authorValidator.update, 
-    validationResult, 
+    ...authorValidator.update, 
+    handleValidationErrors, 
     updateAuthor
 );
 
 authorRouter.delete("/softdelete/:id", 
     authware, isAdmin,
-    authorValidator.idParam, 
-    validationResult, 
+    ...authorValidator.idParam, 
+    handleValidationErrors, 
     softDeleteAuthor
 );
 
 authorRouter.post("/restore/:id", 
     authware, isAdmin,
-    authorValidator.idParam, 
-    validationResult, 
+    ...authorValidator.idParam, 
+    handleValidationErrors, 
     restoreAuthor
 );
 

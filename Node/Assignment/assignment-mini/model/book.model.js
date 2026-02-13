@@ -8,7 +8,11 @@ const bookSchema=mongoose.Schema({
         index: true
     },
     coverImage:{
-        type:String
+        localPath: {type:String},
+        cloudinary: {
+            public_id: {type:String},
+            url: {type:String}
+        }
     },
     authorID:{
         type:mongoose.Schema.Types.ObjectId,
@@ -24,7 +28,11 @@ const bookSchema=mongoose.Schema({
     },
     deletedAt: {
         type: Date,
-        default: null 
+        default: null,
+        index: { 
+            expireAfterSeconds: 30 * 24 * 60 * 60,  
+            partialFilterExpression: { isDeleted: true }
+        } 
     }
 },{timestamps:true})
 

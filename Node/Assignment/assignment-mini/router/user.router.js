@@ -14,12 +14,13 @@ import {
     softDeleteUser
  } from "../controller/user.controller";
 import { authware, isAdmin } from "../middlewares/auth.middleware";
-import uploads from "../middlewares/upload.middleware";
-
+// import uploads from "../middlewares/upload.middleware";
+import { avatarUpload } from "../middlewares/upload.middleware";
 const userRouter=express.Router();
+import { handleValidationErrors } from "../middlewares/validation.middleware";
 const app=express();
 
-const avatarUploads = uploads.single("avatar");
+const avatarUploads = avatarUpload.single("avatar");
 
 userRouter.post("/",avatarUploads,isAdmin, createUser);
 userRouter.post("/signup", signUp)

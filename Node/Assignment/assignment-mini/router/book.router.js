@@ -1,34 +1,44 @@
 import express from "express"
 import { authware,isAdmin } from "../middlewares/auth.middleware"
-import { validationResult } from "express-validator"
-import uploads from "../middlewares/upload.middleware"
-import { createBook, getAllBook, restoreBook, softDeleteBook } from "../controller/book.controller";
+import {handleValidationErrors} from "../middlewares/validation.middleware"
+import { bookCoverMulter } from "../middlewares/upload.middleware";
+import { createBook, getAllBook, restoreBook, softDeleteBook, updateBook } from "../controller/book.controller";
 import { bookValidator } from "../middlewares/book.middleware";
-
+import { body } from "express-validator";
 const bookRouter=express.Router();
-const app=express();
 
 bookRouter.get("/getbooks", 
-    bookValidator.search, 
-    validationResult, 
+    ...bookValidator.search, 
+    handleValidationErrors, 
     getAllBook
 )
 
 bookRouter.post("/createbook", 
-    bookValidator.create, 
-    validationResult, 
+    authware,
+    isAdmin,
+    bookCoverMulter.single("coverImage"),
+    ...bookValidator.create, 
+    handleValidationErrors, 
     createBook
 );
 
+bookRouter.put("/updatebook/:id", 
+  authware,
+  isAdmin,
+  bookCoverMulter.single("coverImage"),
+  ...bookValidator.update,
+  handleValidationErrors, 
+  updateBook
+);
 bookRouter.delete("/softdelete/:id", 
-    bookValidator.idParam, 
-    validationResult, 
+    ...bookValidator.idParam, 
+    handleValidationErrors, 
     softDeleteBook
 );
 
 bookRouter.post("/restore", 
     body("id").isMongoId().withMessage("Valid ID required in body"), 
-    validationResult, 
+    handleValidationErrors, 
     restoreBook
 );
 

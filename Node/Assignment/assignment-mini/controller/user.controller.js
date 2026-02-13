@@ -5,6 +5,7 @@ import crypto from "crypto";
 import { asyncHandler } from "../middlewares/error.middleware";
 import sendEmail from "../utils/sendEmail";
 import uploads from "../middlewares/upload.middleware";
+import { processImageUpload, replaceImage } from "../utils/imageUpload";
 
 export function generateOtp() {
     const min=100000;
@@ -31,8 +32,8 @@ export const createUser= asyncHandler(async (req,res,next) => {
 
     
     // avatarUploads(req,res,)
-    const avatar = req.file ? req.file.filename:null
-    const newuser=await User.create({firstname,lastname,role,email,password:hashedPassword,avatar})
+    const avatar = await processImageUpload(req, 'avatar');
+    const newuser=await User.create({firstname,lastname,role:role||["user"],email,password:hashedPassword,avatar})
     
     return res.status(200).json({
             data:newuser,
@@ -68,7 +69,7 @@ export const login=asyncHandler(async(req,res,next)=>{
             return next(error)
     }
 
-    const token=jwt.sign({id:existingUser._id},process.env.TOKEN_SECRET_KEY,{expiresIn:"1d"})
+    const token=jwt.sign({id:existingUser._id, role:existingUser.role},process.env.TOKEN_SECRET_KEY,{expiresIn:"1d"})
     console.log(token);
     
     return res.status(200).json({
@@ -99,7 +100,7 @@ export const signUp=asyncHandler(async (req,res,next) => {
         password:hashedPassword
     })
 
-    const token =jwt.sign({id:newUser._id},process.env.TOKEN_SECRET_KEY,{
+    const token =jwt.sign({id:newUser._id,role:newUser.role},process.env.TOKEN_SECRET_KEY,{
         expiresIn:"1d"
     })
     return res.status(201).json({
@@ -282,7 +283,7 @@ export const UpdateUser=asyncHandler(async (req,res,next) => {
 
     let avatar=user.avatar
     if (req.file?.avatar) {
-        avatar = req.file.avatar.filename;
+        avatar = await replaceImage(req, user.avatar, 'avatar');
     }
 
     const newUser=await User.updateOne({_id:id},{
@@ -317,7 +318,7 @@ export const changePassword=asyncHandler(async(req,res,next)=>{
 
     await user.save();
 
-     const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET_KEY, { expiresIn: "1d" });
+     const token = jwt.sign({ id: user._id, role: user.role }, process.env.TOKEN_SECRET_KEY, { expiresIn: "1d" });
 
     return res.status(200).json({
         success: true,

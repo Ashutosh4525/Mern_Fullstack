@@ -1,13 +1,29 @@
 import Book from "../model/book.model";
+import Author from "../model/author.model";
 import { asyncHandler } from "../middlewares/error.middleware";
+import { processImageUpload, replaceImage } from "../utils/imageUpload";
 
 export const createBook = asyncHandler(async(req,res,next)=>{
-    const {title,coverImage,authorID,publishedDate}=req.body;
+    const {title,authorID,publishedDate,coverImage}=req.body;
 
-    const newBook= await Book.create({title,coverImage,authorID,publishedDate});
+    let coverImageData;
+    if (req.file) {
+        coverImageData = await processImageUpload(req, 'coverImage');
+    } else if (coverImage) {
+        coverImageData = { cloudinary: { url: coverImage } };
+    } else {
+        coverImageData = null;
+    }
+
+    const newBook= await Book.create({title,
+        coverImage:coverImageData,
+        authorID,
+        publishedDate});
+    
+    const populatedBook = await Book.findById(newBook._id).populate("authorID", "firstname lastname avatar");
 
     return res.status(201).json({
-            data:newBook,
+            data:populatedBook,
             message:"All Good",
             success:true
         })
@@ -23,7 +39,7 @@ export const getAllBook=asyncHandler(async (req,res,next) => {
     if (search) {
         const searchRegex = new RegExp(`.*${search}.*`, 'i');
 
-        const matchingAuthors = await User.find({ 
+        const matchingAuthors = await Author.find({ 
             $or: [{ firstname: searchRegex }, { lastname: searchRegex }] 
         }).select("_id");
 
@@ -94,17 +110,22 @@ export const updateBook= asyncHandler(async (req,res,next) => {
     //     return next(error);
     // }
 
-    const book = await Book.findOneAndUpdate(
-        { _id: id, isDeleted: true }, 
-        { isDeleted: false, deletedAt: null },
-        { new: true } 
-    );
-
+    const book = await Book.findById(id);
     if (!book) {
         const error = new Error("Deleted book not found");
         error.code = 404;
         return next(error);
     }
+    const updates = req.body;
+    updates.coverImage = await replaceImage(req, book.coverImage, 'coverImage');
+    const newbook = await Book.findOneAndUpdate(
+        { _id: id, isDeleted: false }, 
+        updates,
+        { new: true }
+    );
+
+    await newbook.populate("authorID");
+    
     // const {title,coverImage,authorID,publishedDate}=req.body;
 
     // const newBook= await Book.updateOne({_id:id},{isDeleted:false},{

@@ -22,13 +22,17 @@ const userSchema=new mongoose.Schema({
         trim:true
     },
     role:{
-        type:Array,
-        value:["admin","user"],
-        default:"user"
+        type:[String],
+        enum:["admin","user"],
+        default:["user"]
     },
     avatar:{
         type:String,
-        trim:true
+        trim:true,
+        cloudinary: {
+           public_id: { type: String },
+           url: { type: String }
+        }
     },
     otp: String,
     otpExpires: Date,
@@ -42,7 +46,11 @@ const userSchema=new mongoose.Schema({
     },
     deletedAt: {
         type: Date,
-        default: null
+        default: null,
+        index: { 
+            expireAfterSeconds: 30 * 24 * 60 * 60,  
+            partialFilterExpression: { isDeleted: true }  
+        }
     }
 },{timestamps:true})
 

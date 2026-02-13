@@ -11,7 +11,7 @@ const authorSchema=new mongoose.Schema({
     },
     bio:{
         type:String,
-        unique:true
+        // unique:true
     },
     birthDate:{
         type:Date,
@@ -20,6 +20,10 @@ const authorSchema=new mongoose.Schema({
     isDeleted:{
         type:Boolean,
         default:false
+    },
+    deletedAt: {
+        type: Date,
+        default: null 
     }
 },{timestamps:true})
 

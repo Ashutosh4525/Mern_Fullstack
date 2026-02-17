@@ -1,27 +1,27 @@
-import {params, body} from "express-validator";
+import {param, body} from "express-validator";
 
 export const validateCreateUser=[
     body("firstname")
     .trim()
-    .length({min: 3}).withMessage("Length should be greater than 3"),
+    .isLength({min: 3}).withMessage("Length should be greater than 3"),
 
     body("lastname")
     .trim()
-    .length({min: 3}).withMessage("Length should be greater than 3"),
+    .isLength({min: 3}).withMessage("Length should be greater than 3"),
 
     body("email")
     .trim()
     .isLowercase()
     .isEmail().withMessage("Enter proper Email")
-    .length({min: 10}).withMessage("Length should be greater than 3"),
+    .isLength({min: 10}).withMessage("Length should be greater than 3"),
 
     body("password")
     .trim()
-    .length({min: 6}).withMessage("Length should be greater than 6"),
+    .isLength({min: 6}).withMessage("Length should be greater than 6"),
 ]
 
 export const validateUpdateUser=[
-    params("id")
+    param("id")
      .notEmpty().withMessage("ID is required")
      .isMongoId().withMessage("Invalid ID format")
 ]

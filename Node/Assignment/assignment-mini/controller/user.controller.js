@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { asyncHandler } from "../middlewares/error.middleware";
 import sendEmail from "../utils/sendEmail";
-import uploads from "../middlewares/upload.middleware";
 import { processImageUpload, replaceImage } from "../utils/imageUpload";
 
 export function generateOtp() {
@@ -16,7 +15,7 @@ export function generateOtp() {
 
 export const createUser= asyncHandler(async (req,res,next) => {
      const {firstname,lastname,email,password,role}=req.body;
-        console.log(firstname,lastname,email,password,role,avatar);
+        // console.log(firstname,lastname,email,password,role,avatar);
         const finduser=await User.findOne({email})
 
     if (finduser) {
@@ -266,6 +265,21 @@ export const getUser=asyncHandler(async (req,res,next) =>{
     });
 })
 
+export const getsingleUser = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const user = await User.findById(id).select("-password"); 
+
+    if (!user) {
+        const error = new Error("User not found");
+        error.code = 404;
+        return next(error);
+    }
+
+    return res.status(200).json({
+        success: true,
+        data: user
+    });
+});
 
 //update user info
 export const UpdateUser=asyncHandler(async (req,res,next) => {

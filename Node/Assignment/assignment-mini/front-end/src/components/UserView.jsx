@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams,useNavigate } from "react-router-dom";
 import BooksList from "./AllBook";
 const UserView = () => {
     const { id } = useParams();
    const { user, logout } = useAuth();
   const [profile, setProfile] = useState(null);
-
+ const navigate = useNavigate();
   useEffect(() => {
     const fetchProfile = async () => {
         try {

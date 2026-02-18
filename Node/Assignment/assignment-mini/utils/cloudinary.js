@@ -13,6 +13,7 @@ export const uploadToCloudinary = async (localPath) => {
     resource_type: 'image',
     quality: 'auto'
   });
+  fs.unlinkSync(localPath); 
   return {
     public_id: result.public_id,
     url: result.secure_url

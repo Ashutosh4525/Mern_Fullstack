@@ -2,15 +2,20 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const ProtectedRoute = ({ adminOnly = false }) => {
-  const { user } = useAuth();
+  const { user,loading } = useAuth();
 
+  if (loading) {
+    return <div>Loading Authentication...</div>; 
+  }
     if (!user) {
     return <Navigate to="/login" replace />;
    }
 
-    const isAdmin = user.role?.includes("admin");
-     if (adminOnly && !user.isAdmin) {
-    return <Navigate to="/" replace />; // Redirect non-admins to home
+    const isAdmin = Array.isArray(user.role) 
+    ? user.role.includes("admin") 
+    : user.role === "admin";
+     if (adminOnly && !isAdmin) {
+    return <Navigate to="/" replace />; 
   }
 
   return <Outlet />;

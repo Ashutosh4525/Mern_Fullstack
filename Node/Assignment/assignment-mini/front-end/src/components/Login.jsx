@@ -34,15 +34,16 @@ export default function Login(){
         token: result.token,
       };
       login(userToStore);
-      if (result.data.role?.includes("admin")) {
-        navigate("/admin/books");
-      } else {
+      // if (result.data.role?.includes("admin")) {
+      //   navigate("/admin/books");
+      // } else {
         navigate(`/dashboard/${result.data._id}`);
-      }
+      // }
         // alert("Login successful!");
-      } else {
-      alert(result.message || "Login failed");
+      // } else {
+     
     }
+    //  alert(result.message || "Login failed");
       
     } catch (error) {
       console.error("Login failed:", error);

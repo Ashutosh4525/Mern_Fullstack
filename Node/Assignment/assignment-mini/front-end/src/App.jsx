@@ -7,6 +7,7 @@ import UserView from "./components/userView";
 import EditBook from "./components/EditBook"
 import UserUpdate from "./components/UserUpdate"
 import AdminBooks from "./components/AdminBooks"
+import SingleBook from "./components/SingleBook"
 
 function App() {
   
@@ -24,12 +25,14 @@ function App() {
           <Route path="/dashboard/:id" element={<UserView/>}/>
           <Route path="/update-profile/:id" element={<UserUpdate />} />
           <Route path="/books" element={<h1>User View: All Books</h1>} />
+          <Route path="/books/:id" element={<SingleBook/>}/>
         </Route>
         <Route element={<ProtectedRoute adminOnly={true}/>}>
         <Route path="/dashboard/:id" element={<UserView/>}/>
           <Route path="/admin/books" element={<AdminBooks />} />
           <Route path="/admin/edit-book/:id" element={<EditBook />} />
           <Route path="/admin/manage-user/:id" element={<UserUpdate />} />
+          {/* <Route path="/books/:id" element={<SingleBook/>}/> */}
         </Route>
         <Route path="*" element={<h1>404: Page Not Found</h1>} />
       </Routes>

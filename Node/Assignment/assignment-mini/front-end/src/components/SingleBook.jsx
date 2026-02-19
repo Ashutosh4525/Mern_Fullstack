@@ -40,11 +40,10 @@ const SingleBook = () => {
             <img src={book.data.coverImage?.cloudinary?.url} alt={book.data.title} style={{ width: "100%", height:"400px" }} />
           </div>
           <div style={{width:"50%"}}>
-          <h3>{book.data.title}</h3>
+          <h3>Book Title <br/>{book.data.title}</h3>
           {/* <p>{book.description}</p> */}
-          <p>{book.data.authorID.firstname}</p>
-          <p>{book.data.authorID.lastname}</p>
-          <p>{book.data.authorID.bio}</p>
+          <p>Author Name: {book.data.authorID.firstname} {book.data.authorID.lastname}</p>    
+          <p>Author Bio: <br/>{book.data.authorID.bio}</p>
           </div>
           </div>
         </div>

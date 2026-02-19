@@ -285,7 +285,7 @@ export const getsingleUser = asyncHandler(async (req, res, next) => {
 export const UpdateUser=asyncHandler(async (req,res,next) => {
     const {id}=req.params;
 
-    const user=await User.findById({_id:id},{isDeleted:false});
+    const user=await User.findOne({_id:id,isDeleted:false});
 
     if (!user) {
         const error = new Error("User not found");
@@ -293,19 +293,19 @@ export const UpdateUser=asyncHandler(async (req,res,next) => {
         return next(error);
     }
 
-    const {firstname,lastname,email}=req.body;
+    // const {firstname,lastname,email}=req.body;
 
-    let avatar=user.avatar
-    if (req.file?.avatar) {
-        avatar = await replaceImage(req, user.avatar, 'avatar');
+    const updates={...req.body};
+    // updates.avatar= await replaceImage(req, user.avatar, 'avatar');
+    if (req.file) {
+        updates.avatar = await replaceImage(req, user.avatar, 'avatar');
     }
 
-    const newUser=await User.updateOne({_id:id},{
-        firstname,
-        lastname,
-        email,
-        avatar,
-    })
+    const newUser=await User.findOneAndUpdate(
+        { _id: id, isDeleted: false },
+        { $set: updates },
+        { new: true, runValidators: true },
+    )
     return res.status(200).json({
         success: true,
         data: await User.findById(id),

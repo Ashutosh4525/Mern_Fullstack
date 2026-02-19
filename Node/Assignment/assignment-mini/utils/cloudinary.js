@@ -8,16 +8,28 @@ cloudinary.config({
 });
 
 export const uploadToCloudinary = async (localPath) => {
-  const result = await cloudinary.uploader.upload(localPath, {
+  try {
+    if (!localPath) return null;
+
+    const result = await cloudinary.uploader.upload(localPath, {
     folder: localPath.includes('avatars') ? 'library/users/avatars' : 'library/books/covers',
     resource_type: 'image',
     quality: 'auto'
   });
-  fs.unlinkSync(localPath); 
-  return {
+    console.log("file uploaded", result.url); 
+    console.log(result);
+      fs.unlinkSync(localPath); 
+   return {
     public_id: result.public_id,
     url: result.secure_url
   };
+  } catch (error) {
+    //  fs.unlinkSync(localPath); 
+     if (fs.existsSync(localPath)) {
+      fs.unlinkSync(localPath);
+    }
+     throw error;
+  }
 };
 
 export const deleteCloudinaryImage = async (public_id) => {

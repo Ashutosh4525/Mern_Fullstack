@@ -27,8 +27,9 @@ const userSchema=new mongoose.Schema({
         default:["user"]
     },
     avatar:{
-        type:String,
-        trim:true,
+        // type:String,
+        localPath: {type:String},
+        // trim:true,
         cloudinary: {
            public_id: { type: String },
            url: { type: String }

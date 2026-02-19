@@ -116,11 +116,14 @@ export const updateBook= asyncHandler(async (req,res,next) => {
         error.code = 404;
         return next(error);
     }
-    const updates = req.body;
-    updates.coverImage = await replaceImage(req, book.coverImage, 'coverImage');
+    const updates = {...req.body};
+
+     if (req.file) {
+       updates.coverImage = await replaceImage(req, book.coverImage, 'coverImage');
+     }
     const newbook = await Book.findOneAndUpdate(
         { _id: id, isDeleted: false }, 
-        updates,
+        { $set: updates },
         { new: true }
     );
 

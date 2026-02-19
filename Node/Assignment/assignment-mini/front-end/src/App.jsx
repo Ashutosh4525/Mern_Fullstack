@@ -8,6 +8,7 @@ import EditBook from "./components/EditBook"
 import UserUpdate from "./components/UserUpdate"
 import AdminBooks from "./components/AdminBooks"
 import SingleBook from "./components/SingleBook"
+import UserList from "./components/UserList"
 
 function App() {
   
@@ -32,7 +33,7 @@ function App() {
           <Route path="/admin/books" element={<AdminBooks />} />
           <Route path="/admin/edit-book/:id" element={<EditBook />} />
           <Route path="/admin/manage-user/:id" element={<UserUpdate />} />
-          {/* <Route path="/books/:id" element={<SingleBook/>}/> */}
+          <Route path="/admin/users" element={<UserList/>}/>
         </Route>
         <Route path="*" element={<h1>404: Page Not Found</h1>} />
       </Routes>

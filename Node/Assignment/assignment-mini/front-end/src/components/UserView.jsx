@@ -41,7 +41,7 @@ const UserView = () => {
                 <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
                     {profile.data.avatar && (
                         <img 
-                            src={profile.data.avatar} 
+                            src={profile.data.avatar.cloudinary.url} 
                             alt="Avatar" 
                             style={{ width: "60px", height: "60px", borderRadius: "50%", objectFit: "cover" }} 
                         />
@@ -60,9 +60,12 @@ const UserView = () => {
       <div style={{ marginTop: "20px" }}>
                 {user?.role?.includes("admin") && (
                     <div style={{ marginBottom: "20px", padding: "10px", backgroundColor: "#f0f7ff", border: "1px solid #007bff" }}>
-                        <strong>Admin Actions: </strong>
+                        <strong style={{color:"blue"}}>Admin Actions: </strong>
                         <Link to="/admin/books" style={{ marginLeft: "10px", color: "#007bff", fontWeight: "bold" }}>
                             Manage All Books
+                        </Link>
+                        <Link to="/admin/users" style={{ marginLeft: "10px", color: "#007bff", fontWeight: "bold" }}>
+                            Manage All Users
                         </Link>
                     </div>
                 )}

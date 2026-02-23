@@ -5,6 +5,8 @@ import crypto from "crypto";
 import { asyncHandler } from "../middlewares/error.middleware";
 import sendEmail from "../utils/sendEmail";
 import { processImageUpload, replaceImage } from "../utils/imageUpload";
+// import dotenv from "dotenv"
+// dotenv.config()
 
 export function generateOtp() {
     const min=100000;
@@ -226,16 +228,20 @@ export const forgotPassword = asyncHandler(async (req,res,next) =>{
 export const resetPass=asyncHandler(async (req, res, next) => {
     const { email, otp, newPassword } = req.body;
 
+    console.log(req.body);
+    
     const user = await User.findOne({ 
         email, 
-        resetPasswordExpires: { $gt: Date.now() } 
+        otpExpires: { $gt: Date.now() } 
     });
 
-    if (!user || !user.resetPasswordOtp) {
+    if (!user || !user.otp) {
         return next(new Error("OTP expired or invalid request", 400));
     }
 
-    const isMatch = bcrypt.compareSync(otp.toString(), user.resetPasswordOtp);
+     if (!otp) return next(new Error("OTP is required", 400));
+
+    const isMatch = bcrypt.compareSync(otp.toString(), user.otp);
     if (!isMatch) return next(new Error("Invalid OTP code", 400));
     const P_SALT = Number(process.env.PASS_SALT) || 10;
     user.password = bcrypt.hashSync(newPassword, P_SALT);
@@ -251,7 +257,7 @@ export const resetPass=asyncHandler(async (req, res, next) => {
 
 export const getUser=asyncHandler(async (req,res,next) =>{
 
-    const user = await User.find({isDeleted:false});
+    const user = await User.find(); //{isDeleted:false}
     if (!user) {
         const error = new Error("User not found");
         error.code = 404;

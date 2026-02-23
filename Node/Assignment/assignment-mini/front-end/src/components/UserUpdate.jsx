@@ -109,7 +109,7 @@ export default function UserUpdate() {
           <input 
             {...register("email", { required: "Email is required" })} 
             type="email"
-            style={{ width: "100%", padding: "10px", borderRadius: "4px", border: "1px solid #ccc", backgroundColor: "#f9f9f9" }}
+            style={{ width: "100%", padding: "10px", borderRadius: "4px", border: "1px solid #ccc", backgroundColor: "#f9f9f9",color:"black" }}
           />
           {errors.email && <span style={{ color: "red", fontSize: "12px" }}>{errors.email.message}</span>}
         </div>

@@ -4,6 +4,7 @@ import * as z from "zod";
 import { Link, useNavigate } from "react-router-dom";
 import SignUp from "./Signup";
 import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
 
 const schema = z.object({
         email:z.string().email().min(3, {message: 'Required'}),
@@ -12,8 +13,16 @@ const schema = z.object({
 
     // type SignUpInput= z.infer<typeof schema>
 export default function Login(){
-    const {login} =useAuth();
+    const {user,login,loading} =useAuth();
     const navigate= useNavigate();
+
+    useEffect(()=>{
+      if (user?.token) {
+        navigate(`/dashboard/${user._id || user.id}`, { replace: true });
+      }
+    },[user,navigate])
+
+    // if (user?.token) return null;
     const {register, handleSubmit,formState:{errors},} = useForm({
         resolver:zodResolver(schema)
     })
@@ -37,7 +46,7 @@ export default function Login(){
       // if (result.data.role?.includes("admin")) {
       //   navigate("/admin/books");
       // } else {
-        navigate(`/dashboard/${result.data._id}`);
+        navigate(`/dashboard/${result.data._id}`,{ replace: true });
       // }
         // alert("Login successful!");
       // } else {
@@ -63,6 +72,7 @@ export default function Login(){
       <div>
         <button><Link to="/Signup">Sign Up</Link></button>
       <button type="submit">Login</button>
+      <button type="button" onClick={()=>navigate("/forgot-pass")}>Forgot password</button>
       </div>
     </form>
     </div>

@@ -9,6 +9,8 @@ import UserUpdate from "./components/UserUpdate"
 import AdminBooks from "./components/AdminBooks"
 import SingleBook from "./components/SingleBook"
 import UserList from "./components/UserList"
+import Forgetpasword from "./components/Forgetpasword"
+import ResetPassword from "./components/ResetPassword"
 
 function App() {
   
@@ -21,6 +23,9 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/" element={<Login/>}/>
         <Route path="/signup" element={<SignUp/>}/>
+
+        <Route path="/forgot-pass" element={<Forgetpasword/>}/>
+          <Route path="/reset-pass" element={<ResetPassword/>}/>
 
         <Route element={<ProtectedRoute/>}>
           <Route path="/dashboard/:id" element={<UserView/>}/>

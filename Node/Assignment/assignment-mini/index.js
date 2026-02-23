@@ -1,20 +1,24 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+import express, { urlencoded } from "express";
 import connectDB from "./utils/DB";
 import userRouter from "./router/user.router";
 import errorHandler from "./middlewares/error.middleware";
 import bookRouter from "./router/book.router";
 import authorRouter from "./router/author.route";
 import cors from "cors";
-dotenv.config();
+
 
 const PORT=process.env.PORT || 8080;
 const app=express();
 app.use(express.json());
+app.use(urlencoded({ extended: true }))
 app.use("/images",express.static("uploads"))
 app.use(express.static("public"))
 app.use(cors({
-  origin:['http://127.0.0.1:5500','http://localhost:5173']
+  origin:['http://127.0.0.1:5500','http://localhost:5173'],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
 

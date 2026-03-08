@@ -47,11 +47,20 @@ const userSchema=mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Rental"
     }],
+    watchHistory: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Modal"
+        }
+        ],
     otp: String,
     otpExpires: Date,
     isEmailVerified: {
         type: Boolean,
         default: false
+    },
+    refreshToken: {
+        type: String
     },
     isDeleted:{
         type:Boolean,

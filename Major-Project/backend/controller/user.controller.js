@@ -227,3 +227,54 @@ const changeCurrentPassword = asyncHandler(async(req, res) => {
 
 //     const updates={}
 // })
+
+const refreshAccessToken = asyncHandler(async (req, res) => {
+    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
+
+    if (!incomingRefreshToken) {
+        const error = new Error("unauthorized request");
+        error.code = 404;
+        return next(error);
+    }
+
+    try {
+        const decodedToken = jwt.verify(
+            incomingRefreshToken,
+            process.env.REFRESH_TOKEN_SECRET
+        )
+    
+        const user = await User.findById(decodedToken?._id)
+    
+        if (!user) {
+            const error = new Error("Invalid refresh token");
+            error.code = 404;
+            return next(error);
+        }
+
+         if (incomingRefreshToken !== user?.refreshToken) {
+            const error = new Error("Refresh token is expired or used");
+            error.code = 404;
+            return next(error);
+        }
+
+        const options = {
+            httpOnly: true,
+            secure: true
+        }
+    
+        const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id)
+    
+        return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", newRefreshToken, options)
+        .json({
+            data:{accessToken, refreshToken: newRefreshToken},
+            message:"Access token refreshed"
+        })
+    } catch (error) {
+            error = new Error("Invalid refresh token");
+            error.code = 404;
+            return next(error);
+    }
+})

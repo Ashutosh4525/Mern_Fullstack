@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt"
-import jwt from "jwt"
+import jwt from "jsonwebtoken"
+import crypto from "crypto"
 
 const userSchema=mongoose.Schema({
     firstname:{
@@ -27,7 +28,7 @@ const userSchema=mongoose.Schema({
     role:{
         type:[String],
         enum:["admin", "user"],
-        default:["admin"]
+        default:["user"]
     },
     otp: String,
     otpExpires: Date,
@@ -49,8 +50,8 @@ const userSchema=mongoose.Schema({
     }],
     watchHistory: [
         {
-            type: Schema.Types.ObjectId,
-            ref: "Modal"
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Movie"
         }
         ],
     otp: String,
@@ -74,17 +75,36 @@ const userSchema=mongoose.Schema({
             partialFilterExpression: { isDeleted: true }  
         }
     }
-},{Timestamp:true})
+},{timestamps:true})
 
-userSchema.pre("save",async function (next) {
-    if (!this.isModified("password")) return next();
-    this.password=bcrypt.hashSync(this.password,process.env.PASS_SALT)
-    next()
+userSchema.pre("save",async function () {
+    if (!this.isModified("password")) return;
+    const saltRounds = Number(process.env.PASS_SALT)
+    this.password= bcrypt.hashSync(this.password,saltRounds)
+    // next()
 })
+
+userSchema.pre("save", async function () {
+    if (!this.isModified("otp")) return;
+     const Otp_Salt = Number(process.env.OTP_SALT)
+     this.otp=bcrypt.hashSync(this.otp,Otp_Salt)
+});
 
 userSchema.methods.isPasswordCorrect= async function (password) {
     return await bcrypt.compare(password,this.password)
 }
+
+userSchema.methods.isOtpCorrect = async function (userInputOtp) {
+    return await bcrypt.compare(userInputOtp, this.otp);
+};
+
+userSchema.methods.generateOTP = function () {
+    // const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const rawOtp=crypto.randomInt(100000,999999).toString();
+    this.otp = rawOtp;
+    this.otpExpires = Date.now() + 10 * 60 * 1000; // 10 mins
+    return rawOtp;
+};
 
 userSchema.methods.generateAccessToken= function () {
     return jwt.sign(

@@ -210,15 +210,25 @@ export const forgotPassword = asyncHandler(async (req,res,next) =>{
 
     try {
         await sendEmail({
+            // email: user.email,
+            // subject: "Password Reset Code",
+            // message: `Your password reset code is ${resetOtp}.`,
+            // html: `<h1>Reset Password</h1><p>Use this code: <b>${resetOtp}</b></p>`
             email: user.email,
-            subject: "Password Reset Code",
-            message: `Your password reset code is ${resetOtp}.`,
-            html: `<h1>Reset Password</h1><p>Use this code: <b>${resetOtp}</b></p>`
+            subject: "Your Verification Code",
+            message: `Your OTP is ${resetOtp}. It expires in 5 minutes.`,
+            html: `
+                <div style="font-family: sans-serif; text-align: center;">
+                    <h2>Verify Your Account</h2>
+                    <p>Use the code below to complete your verification:</p>
+                    <h1 style="color: #4A90E2; letter-spacing: 5px;">${resetOtp}</h1>
+                    <p>This code <b>expires in 5 minutes</b>.</p>
+                </div>`
         });
         return res.status(200).json({ success: true, message: "Reset OTP sent to email" });
     } catch (err) {
-        user.resetPasswordOtp = undefined;
-        user.resetPasswordExpires = undefined;
+        user.otp = undefined;
+        user.otpExpires = undefined;
         await user.save({ validateBeforeSave: false });
         return next(new Error("Email failed to send"));
     }

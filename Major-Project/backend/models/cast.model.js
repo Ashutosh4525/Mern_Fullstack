@@ -3,10 +3,13 @@ import mongoose from "mongoose";
 const castSchema=mongoose.Schema({
     name:{
         type:String,
-        trim:true
+        required:true,
+        trim:true,
+        index:true
     },
     profileImage:{
-        type:String,
+        url:String,
+        public_id:String
     },
     bio:{
         type:String
@@ -23,7 +26,7 @@ const castSchema=mongoose.Schema({
             partialFilterExpression: { isDeleted: true }  
         }
     }
-},{Timestamp:true})
+},{timestamps:true})
 
 const Cast=mongoose.model("Cast",castSchema)
 export default Cast;

@@ -16,34 +16,37 @@ const userSchema=mongoose.Schema({
         type:String,
         unique:true,
         required:true,
-        trim:true
+        trim:true,
+        lowercase:true
     },
     password:{
         type:String,
-        required:true
+        required:true,
+        select:false
     },
     avatar:{
-        type:String,
+        url: String,
+        public_id: String
     },
     role:{
-        type:[String],
+        type:String,
         enum:["admin", "user"],
-        default:["user"]
+        default:"user"
     },
-    otp: String,
-    otpExpires: Date,
-    isEmailVerified: {
-        type: Boolean,
-        default: false
-    },
-    isDeleted:{
-        type:Boolean,
-        default:false
-    },
-    deletedAt: {
-        type: Date,
-        default: null,
-    },
+    // otp: String,
+    // otpExpires: Date,
+    // isEmailVerified: {
+    //     type: Boolean,
+    //     default: false
+    // },
+    // isDeleted:{
+    //     type:Boolean,
+    //     default:false
+    // },
+    // deletedAt: {
+    //     type: Date,
+    //     default: null,
+    // },
     rental:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Rental"
@@ -61,7 +64,8 @@ const userSchema=mongoose.Schema({
         default: false
     },
     refreshToken: {
-        type: String
+        type: String,
+        select:false
     },
     isDeleted:{
         type:Boolean,
@@ -77,17 +81,18 @@ const userSchema=mongoose.Schema({
     }
 },{timestamps:true})
 
-userSchema.pre("save",async function () {
-    if (!this.isModified("password")) return;
+userSchema.pre("save",async function (next) {
+    if (!this.isModified("password")) return next();
     const saltRounds = Number(process.env.PASS_SALT)
     this.password= bcrypt.hashSync(this.password,saltRounds)
-    // next()
+    next()
 })
 
-userSchema.pre("save", async function () {
-    if (!this.isModified("otp")) return;
+userSchema.pre("save", async function (next) {
+    if (!this.isModified("otp")) return next();
      const Otp_Salt = Number(process.env.OTP_SALT)
      this.otp=bcrypt.hashSync(this.otp,Otp_Salt)
+     next();
 });
 
 userSchema.methods.isPasswordCorrect= async function (password) {
@@ -112,8 +117,8 @@ userSchema.methods.generateAccessToken= function () {
             _id:this._id,
             email:this.email,
             role:this.role,
-            firstname:this.firstname,
-            lastname:this.lastname,
+            // firstname:this.firstname,
+            // lastname:this.lastname,
         },
         process.env.ACCESS_TOKEN_SECRET_KEY,
         {

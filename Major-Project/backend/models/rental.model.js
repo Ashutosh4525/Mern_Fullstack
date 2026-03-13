@@ -27,7 +27,19 @@ const rentalSchema = new Schema({
     type: String,
     enum: ["active", "expired"], 
     default: "active"
-  }
+  },
+  isDeleted:{
+        type:Boolean,
+        default:false
+    },
+    deletedAt: {
+        type: Date,
+        default: null,
+        index: { 
+            expireAfterSeconds: 30 * 24 * 60 * 60,  
+            partialFilterExpression: { isDeleted: true }  
+        }
+    },
 }, { timestamps: true }); 
 
 const Rental = mongoose.model("Rental", rentalSchema);

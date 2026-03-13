@@ -57,7 +57,7 @@ export const registerUser = asyncHandler(async(req,res,next)=>{
         return next(error)
     }
     
-    const avatar=await uploadOnCloudinary(avatarLocalPath)
+    const avatar=await uploadOnCloudinary(avatarLocalPath,"avatars")
 
     if (!avatar) {
         const error = new Error ("Avatar file not found")
@@ -67,7 +67,10 @@ export const registerUser = asyncHandler(async(req,res,next)=>{
 
     const user=await User.create({
         firstname,
-        avatar:avatar.url,
+        avatar:{
+        url: avatar.url,
+        public_id: avatar.public_id
+        },
         lastname,
         email,
         password
@@ -91,19 +94,19 @@ export const registerUser = asyncHandler(async(req,res,next)=>{
 
 })
 
-export const login=asyncHandler(async (req,res) => {
+export const login=asyncHandler(async (req,res,next) => {
     const {email,password}=req.body;
 
-    if (!email && !password) {
+    if (!email || !password) {
         const error = new Error ("username or email is required")
         error.code=400;
         return next(error)
     }
 
-     const user = await User.findOne({email})
+     const user = await User.findOne({email, isDeleted:false})
 
      if (!user) {
-        const error = new Error ("User does not exist")
+        const error = new Error ("User does not exist or account is deactivated")
         error.code=400;
         return next(error)
      }
@@ -135,7 +138,7 @@ export const login=asyncHandler(async (req,res) => {
     })
 })
 
-export const logoutUser = asyncHandler(async(req, res) => {
+export const logoutUser = asyncHandler(async(req, res,next) => {
     await User.findByIdAndUpdate(
         req.user._id,
         {
@@ -161,7 +164,7 @@ export const logoutUser = asyncHandler(async(req, res) => {
     .json({ message:"User logged Out"})
 })
 
-export const getAllUser = asyncHandler(async (req,res) => {
+export const getAllUser = asyncHandler(async (req,res,next) => {
     const user = await User.find();
 
     if (!user) {
@@ -178,7 +181,7 @@ export const getAllUser = asyncHandler(async (req,res) => {
     })
 })
 
-export const getUser = asyncHandler(async (req,res) => {
+export const getUser = asyncHandler(async (req,res,next) => {
     const {id}=req.params
     const user = await User.findById(id)
         .populate("rental")
@@ -192,7 +195,7 @@ export const getUser = asyncHandler(async (req,res) => {
     }
 
     return res.status(200)
-    .json(req.user,{
+    .json({
         success:true,
         data:user,
         message:"Fectched user detail"
@@ -200,7 +203,7 @@ export const getUser = asyncHandler(async (req,res) => {
 });
 
 
-export const changeCurrentPassword = asyncHandler(async(req, res) => {
+export const changeCurrentPassword = asyncHandler(async(req, res,next) => {
     const {oldPassword, newPassword} = req.body
 
     const user = await User.findById(req.user?._id)
@@ -223,10 +226,17 @@ export const changeCurrentPassword = asyncHandler(async(req, res) => {
     })
 })
 
-export const UpdateUser = asyncHandler(async (req,res) => {
+export const UpdateUser = asyncHandler(async (req,res,next) => {
     const {id} =req.params;
 
     const user = await User.findOne({_id:id, isDeleted:false});
+
+    if(req.body.email && req.body.email !== user.email){
+    const emailExists = await User.findOne({email:req.body.email})
+        if(emailExists){
+            return next(new Error("Email already in use",404))
+        }
+    }
 
     if(!user){
         const error = new Error("User not found");
@@ -237,15 +247,15 @@ export const UpdateUser = asyncHandler(async (req,res) => {
     let avatarUrl = user.avatar; 
     const avatarLocalPath=req.file?.path;
     if(avatarLocalPath){
-        const avatar= await uploadOnCloudinary(avatarLocalPath)
+        const avatar= await uploadOnCloudinary(avatarLocalPath,"avatars")
         if(!avatar.url){
         const error = new Error ("Error while uploading avatar")
         error.code=400;
         return next(error)
     }
         if (user.avatar) {
-            const oldPublicId = user.avatar.split("/").pop().split(".")[0];
-            await cloudinary.uploader.destroy(oldPublicId);
+            // const oldPublicId = user.avatar.split("/").pop().split(".")[0];
+            await cloudinary.uploader.destroy(user.avatar.public_id);
         }
 
         avatarUrl = avatar.url;
@@ -456,7 +466,7 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
     });
 });
 
-export const refreshAccessToken = asyncHandler(async (req, res) => {
+export const refreshAccessToken = asyncHandler(async (req, res,next) => {
     const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
 
     if (!incomingRefreshToken) {
@@ -506,3 +516,60 @@ export const refreshAccessToken = asyncHandler(async (req, res) => {
             return next(error);
     }
 })
+
+
+export const softDeleteUser = asyncHandler(async (req, res, next) => {
+    // Note: We use req.user._id if the user is deleting their own account
+    // or req.params.id if an admin is deleting it.
+    const userId = req.params.id || req.user?._id;
+
+    const user = await User.findByIdAndUpdate(
+        userId,
+        {
+            $set: {
+                isDeleted: true,
+                deletedAt: new Date()
+            }
+        },
+        { new: true }
+    ).select("-password -refreshToken");
+
+    if (!user) {
+        const error = new Error("User not found");
+        error.code = 404;
+        return next(error);
+    }
+
+    // Optional: Clear cookies if the user deleted their own account
+    const options = { httpOnly: true, secure: true };
+
+    return res
+        .status(200)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
+        .json({
+            success: true,
+            message: "Account deactivated. It will be permanently deleted in 30 days."
+        });
+});
+
+
+export const restoreUser = asyncHandler(async (req, res, next) => {
+    const user = await User.findByIdAndUpdate(
+        req.params.id,
+        { $set: { isDeleted: false, deletedAt: null } },
+        { new: true }
+    ).select("-password -refreshToken");
+
+    if (!user) {
+        const error = new Error("User not found");
+        error.code = 404;
+        return next(error);
+    }
+
+    return res.status(200).json({
+        success: true,
+        data: user,
+        message: "User account restored successfully"
+    });
+});

@@ -8,8 +8,20 @@ const categorySchema=mongoose.Schema({
     },
     description:{
         type:String,
+    },
+    isDeleted:{
+        type:Boolean,
+        default:false
+    },
+    deletedAt: {
+        type: Date,
+        default: null,
+        index: { 
+            expireAfterSeconds: 30 * 24 * 60 * 60,  
+            partialFilterExpression: { isDeleted: true }  
+        }
     }
-},{Timestamp:true})
+},{timestamps:true})
 
 const Category=mongoose.model("Category", categorySchema);
 export default Category;

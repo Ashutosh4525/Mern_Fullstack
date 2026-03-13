@@ -15,10 +15,10 @@ export const Authverify = asyncHandler(async (req,res,next) => {
     
         const decodedToken=jwt.verify(token,process.env.ACCESS_TOKEN_SECRET_KEY)
     
-        const user=await User.findById(decodedToken?._id).select("-password -refreshToken")
+        const user=await User.findById({_id:decodedToken?._id,isDeleted:false}).select("-password -refreshToken")
     
         if (!user) {
-            const error = new Error ("Invalid Access Token")
+            const error = new Error ("Invalid Access Token or Account Deactivated")
             error.code=400;
             return next(error)
         }
@@ -31,3 +31,14 @@ export const Authverify = asyncHandler(async (req,res,next) => {
         return next(error)
     }
 })
+
+export const verifyAdmin = (req, res, next) => {
+   
+    if (req.user && (req.user.role === "admin" || req.user.isAdmin === true)) {
+        next();
+    } else {
+        const error = new Error("Access denied. Admin permissions required.");
+        error.code = 403; 
+        return next(error);
+    }
+};

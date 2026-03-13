@@ -30,7 +30,19 @@ const paymentSchema = new Schema({
     type: String, 
     unique: true,
     sparse: true 
-  }
+  },
+  isDeleted:{
+        type:Boolean,
+        default:false
+    },
+    deletedAt: {
+        type: Date,
+        default: null,
+        index: { 
+            expireAfterSeconds: 30 * 24 * 60 * 60,  
+            partialFilterExpression: { isDeleted: true }  
+        }
+    },
 }, { timestamps: true });
 
 const Payment = mongoose.model("Payment", paymentSchema);

@@ -4,22 +4,27 @@ const movieSchema=mongoose.Schema({
     title:{
         type:String,
         trim:true,
+        required:true
     },
     description:{
         type:String
     },
     categoryID:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Category"
+        ref:"Category",
+        required:true
     },
     poster:{
-        type:String,
+        url:String,
+        public_id:String
     },
     trailer:{
-        type:String,
+        url:String,
+        public_id:String
     },
     video:{
-        type:String
+        url:String,
+        public_id:String
     },
     rentalPrice:{
         type:Number
@@ -39,7 +44,7 @@ const movieSchema=mongoose.Schema({
             partialFilterExpression: { isDeleted: true }  
         }
     }
-},{Timestamp:true});
+},{timestamps:true});
 
 const Movie = mongoose.model("Movie", movieSchema);
 export default Movie;

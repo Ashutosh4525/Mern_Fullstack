@@ -11,19 +11,45 @@ const paymentSchema = new Schema({
     ref: "Rental", 
     required: true
   },
+  movieId:{
+    type:Schema.Types.ObjectId,
+    ref:"Movie",
+    required:true
+  },
   amount: {
     type: Number,
     required: true,
     min: 0
   },
+  currency:{
+    type:String,
+    default:"INR"
+  },
   status: {
     type: String,
-    enum: ["pending", "completed", "failed", "refunded"],
-    default: "pending"
+    enum: ["created","pending", "completed", "failed", "refunded"],
+    default: "created"
+  },
+  paymentGateway:{
+    type:String,
+    default:"razorpay"
+  },
+
+  razorpayOrderId:{
+    type:String,
+    required:true
+  },
+
+  razorpayPaymentId:{
+    type:String
+  },
+
+  razorpaySignature:{
+    type:String
   },
   paymentMethod: {
     type: String,
-    enum: ["card", "paypal", "stripe", "wallet"],
+    enum: ["card", "wallet"],
     required: true
   },
   transactionId: {
@@ -31,18 +57,18 @@ const paymentSchema = new Schema({
     unique: true,
     sparse: true 
   },
-  isDeleted:{
-        type:Boolean,
-        default:false
-    },
-    deletedAt: {
-        type: Date,
-        default: null,
-        index: { 
-            expireAfterSeconds: 30 * 24 * 60 * 60,  
-            partialFilterExpression: { isDeleted: true }  
-        }
-    },
+  // isDeleted:{
+  //       type:Boolean,
+  //       default:false
+  //   },
+  //   deletedAt: {
+  //       type: Date,
+  //       default: null,
+  //       index: { 
+  //           expireAfterSeconds: 30 * 24 * 60 * 60,  
+  //           partialFilterExpression: { isDeleted: true }  
+  //       }
+  //   },
 }, { timestamps: true });
 
 const Payment = mongoose.model("Payment", paymentSchema);

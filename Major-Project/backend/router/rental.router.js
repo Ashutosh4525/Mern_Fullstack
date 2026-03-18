@@ -1,19 +1,22 @@
-
-
-
 import express from "express"
 import {
  createRental,
  getUserRentals,
  expireRental
-} from "../controllers/rental.controller.js"
+} from "../controller/rental.controller.js"
+import { 
+    Authverify ,
+    verifyAdmin
+} from "../middlewares/auth.middleware.js"
+import { rentalValidator } from "../validators/rental.validator.js"
 
-const router = express.Router()
 
-router.post("/", createRental)
+const rentalRouter = express.Router()
 
-router.get("/user/:userId", getUserRentals)
+rentalRouter.post("/",rentalValidator.create,Authverify, createRental)
 
-router.patch("/expire/:id", expireRental)
+rentalRouter.get("/user/:userId",rentalValidator.userParams,Authverify, getUserRentals)
 
-export default router
+rentalRouter.patch("/expire/:id",rentalValidator.idParam,Authverify, expireRental)
+
+export default rentalRouter

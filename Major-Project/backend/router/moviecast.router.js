@@ -3,14 +3,16 @@ import {
  createMovieCast,
  getMovieCast,
  deleteMovieCast
-} from "../controllers/movieCast.controller.js"
+} from "../controller/moviecast.controller.js"
+import { verifyAdmin, Authverify } from "../middlewares/auth.middleware.js"
+import { movieCastValidator } from "../validators/moviecast.validator.js"
 
-const router = express.Router()
+const movieCastRouter = express.Router()
 
-router.post("/movie-cast", createMovieCast)
+movieCastRouter.post("/cast-create",movieCastValidator.create, Authverify,verifyAdmin ,createMovieCast)
 
-router.get("/:movieId", getMovieCast)
+movieCastRouter.get("/:movieId",movieCastValidator.getByMovie, getMovieCast)
 
-router.delete("/:id", deleteMovieCast)
+movieCastRouter.delete("/:id", movieCastValidator.delete, Authverify,verifyAdmin ,deleteMovieCast)
 
-export default router
+export default movieCastRouter

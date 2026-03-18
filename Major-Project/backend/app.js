@@ -3,6 +3,13 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import userRouter from "./router/user.router.js"
 import movieRouter from "./router/movie.router.js"
+import castRouter from "./router/cast.router.js"
+import movieCastRouter from "./router/moviecast.router.js"
+import paymentRouter from "./router/payment.router.js"
+import rentalRouter from "./router/rental.router.js"
+import categoryRouter from "./router/category.router.js"
+import errorHandler from "./middlewares/err.middleware.js"
+import { limiter } from "./middlewares/rateLimit.middleware.js"
 
 const app=express()
 
@@ -15,9 +22,18 @@ app.use(express.json({limit:"16kb"}))
 app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
+app.use(limiter)
 
 app.use("/api/v1/users",userRouter)
 app.use("/api/v1/movie",movieRouter)
+app.use("/api/v1/movie-Cast",movieCastRouter)
+app.use("/api/v1/payment",paymentRouter)
+app.use("/api/v1/rental",rentalRouter)
+app.use("/api/v1/cast",castRouter)
+app.use("/api/v1/category",categoryRouter)
+
+
+app.use(errorHandler)
 
 
 export {app}

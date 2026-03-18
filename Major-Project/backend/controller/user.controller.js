@@ -125,7 +125,8 @@ export const login=asyncHandler(async (req,res,next) => {
 
      const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+        sameSite: "strict"
     }
 
     return res
@@ -154,7 +155,8 @@ export const logoutUser = asyncHandler(async(req, res,next) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+        sameSite: "strict"
     }
 
     return res
@@ -165,7 +167,8 @@ export const logoutUser = asyncHandler(async(req, res,next) => {
 })
 
 export const getAllUser = asyncHandler(async (req,res,next) => {
-    const user = await User.find();
+    const user = await User.find()
+    .select("-password -refreshToken -otp -otpExpires");;
 
     if (!user) {
         const error = new Error("User not found");
@@ -234,7 +237,9 @@ export const UpdateUser = asyncHandler(async (req,res,next) => {
     if(req.body.email && req.body.email !== user.email){
     const emailExists = await User.findOne({email:req.body.email})
         if(emailExists){
-            return next(new Error("Email already in use",404))
+            const error = new Error("Email already in use");
+            error.code = 409;
+            return next(error);
         }
     }
 
@@ -258,7 +263,10 @@ export const UpdateUser = asyncHandler(async (req,res,next) => {
             await cloudinary.uploader.destroy(user.avatar.public_id);
         }
 
-        avatarUrl = avatar.url;
+        avatarUrl = {
+            url: avatar.url,
+            public_id: avatar.public_id
+        };
     }
 
     
@@ -339,7 +347,9 @@ export const verifyEmail=asyncHandler(async (req,res,next) => {
     const {email, otp}=req.body;
 
     if (!email || !otp) {
-        return next(new Error("Email and OTP are required", 400));
+        const error = new Error("Email and OTP are required");
+        error.code = 409;
+        return next(error);
     }
 
     const user =await User.findOne({
@@ -360,7 +370,10 @@ export const verifyEmail=asyncHandler(async (req,res,next) => {
         user.otpExpires = undefined;
         await user.save({ validateBeforeSave: false });
         
-        return next(new Error("OTP has expired. Please request a new one", 410));
+        
+        const error = new Error("OTP has expired. Please request a new one");
+        error.code = 410;
+        return next(error);
     }
 
     // const isOtpValid = bcrypt.compareSync(otp.toString(), user.otp);
@@ -374,7 +387,9 @@ export const verifyEmail=asyncHandler(async (req,res,next) => {
     const isCorrect = await user.isOtpCorrect(otp);
 
     if (!isCorrect) {
-        return next(new Error("Invalid OTP", 401));
+        const error = new Error("Invalid OTP");
+        error.code = 401;
+        return next(error);
     }
 
     user.otp = undefined;
@@ -424,7 +439,9 @@ export const forgotPassword = asyncHandler(async (req,res,next) =>{
             user.otp = undefined;
             user.otpExpires = undefined;
             await user.save({ validateBeforeSave: false });
-            return next(new Error("Email failed to send"));
+            const error = new Error("Email failed to send");
+            error.code = 409;
+            return next(error);
         }
     })
 
@@ -433,24 +450,32 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
     const { email, otp, newPassword } = req.body;
 
      if (!email || !otp || !newPassword) {
-        return next(new Error("Email, OTP, and new password are required", 400));
+        const error = new Error("Email, OTP, and new password are required");
+        error.code = 400;
+        return next(error);
     }
 
     const user = await User.findOne({ email, isDeleted: false });
 
     if (!user || !user.otp) {
-        return next(new Error("Invalid request or OTP not found", 404));
+        const error = new Error("Invalid request or OTP not found");
+        error.code = 404;
+        return next(error);
     }
 
     if (user.otpExpires < Date.now()) {
         user.otp = undefined;
         user.otpExpires = undefined;
         await user.save({ validateBeforeSave: false });
-        return next(new Error("OTP has expired", 410));
+        const error = new Error("OTP has expired");
+        error.code = 410;
+        return next(error);
     }
     const isOtpCorrect = await user.isOtpCorrect(otp);
     if (!isOtpCorrect) {
-        return next(new Error("Invalid OTP", 401));
+        const error = new Error("Invalid Otp");
+        error.code = 401;
+        return next(error);
     }
 
     user.password = newPassword;
@@ -497,7 +522,8 @@ export const refreshAccessToken = asyncHandler(async (req, res,next) => {
 
         const options = {
             httpOnly: true,
-            secure: true
+            secure: true,
+            sameSite: "strict"
         }
     
         const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id)
@@ -541,7 +567,7 @@ export const softDeleteUser = asyncHandler(async (req, res, next) => {
     }
 
     // Optional: Clear cookies if the user deleted their own account
-    const options = { httpOnly: true, secure: true };
+    const options = { httpOnly: true, secure: true, sameSite: "strict" };
 
     return res
         .status(200)

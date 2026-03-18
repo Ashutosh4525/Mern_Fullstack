@@ -62,7 +62,7 @@ export const getAllCast = asyncHandler(async (req, res, next) => {
 
 export const updateCast = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
-    const cast = await Cast.findById(id);
+    const cast = await Cast.findOne({_id:id,isDeleted:false});
 
     if (!cast) {
         const error = new Error("Cast member not found");

@@ -4,6 +4,7 @@ import crypto from "crypto"
 import Movie from "../models/movie.model.js"
 import Rental from "../models/rental.model.js"
 import { asyncHandler } from "../middlewares/err.middleware.js"
+import mongoose from "mongoose";
 
 export const createOrder = asyncHandler(async (req,res,next)=>{
 
@@ -12,7 +13,9 @@ export const createOrder = asyncHandler(async (req,res,next)=>{
  const movie = await Movie.findById(movieId)
 
  if(!movie){
-  return next(new Error("Movie not found"))
+    const error = new Error("Movie not found");
+    error.code = 404;
+    return next(error);
  }
 
  const order = await razorpay.orders.create({
@@ -29,7 +32,7 @@ export const createOrder = asyncHandler(async (req,res,next)=>{
   status: "created"
  })
 
- res.json({
+ return res.status(200).json({
   success:true,
   order,
   paymentId: payment._id
@@ -55,31 +58,127 @@ export const verifyPayment = asyncHandler(async (req,res,next)=>{
    .digest("hex")
 
  if(expected !== razorpay_signature){
-  return next(new Error("Payment verification failed"))
+        const error = new Error("Payment verification failed: Invalid signature");
+        error.code = 400;
+        return next(error);
  }
 
- const payment = await Payment.findById(paymentId)
+    const session = await mongoose.startSession();
+    session.startTransaction();
 
- payment.status = "completed"
- payment.razorpayPaymentId = razorpay_payment_id
- payment.razorpaySignature = razorpay_signature
+     try {
+        const payment = await Payment.findById(paymentId).session(session);
 
- await payment.save()
+        if (!payment) {
+            const error = new Error("Payment record not found");
+            error.code = 404;
+            throw error; 
+        }
 
- const expires = new Date()
- expires.setHours(expires.getHours() + 48)
+        if (payment.status === "completed") {
+            const error = new Error("This payment has already been processed");
+            error.code = 400;
+            throw error;
+        }
 
- const rental = await Rental.create({
-  userId: payment.userId,
-  movieId: payment.movieId,
-  paymentId: payment._id,
-  expiresAt: expires
- })
+        const order = await razorpay.orders.fetch(razorpay_order_id);
 
- res.json({
-  success:true,
-  message:"Payment successful",
-  rental
- })
+        if (order.amount !== payment.amount * 100) {
+          const error = new Error("Amount mismatch detected");
+          error.code = 400;
+          throw error;
+        }
 
-})
+        const existingRental = await Rental.findOne({
+          userId: payment.userId,
+          movieId: payment.movieId,
+          status: "active",
+          expiresAt: { $gt: new Date() },
+        }).session(session);
+
+        if (existingRental) {
+          const error = new Error("Movie already rented");
+          error.code = 400;
+          throw error;
+        }
+
+        payment.status = "completed";
+        payment.razorpayPaymentId = razorpay_payment_id;
+        payment.razorpaySignature = razorpay_signature;
+        await payment.save({ session });
+
+        
+        const expires = new Date();
+        expires.setHours(expires.getHours() + 48); 
+
+        const rental = await Rental.create([{
+            userId: payment.userId,
+            movieId: payment.movieId,
+            paymentId: payment._id,
+            expiresAt: expires,
+            status: "active"
+        }], { session });
+
+        
+        await session.commitTransaction();
+        session.endSession();
+
+        return res.status(200).json({
+            success: true,
+            message: "Payment verified and rental activated successfully",
+            data: rental[0]
+        });
+
+    } catch (error) {
+        await session.abortTransaction();
+        session.endSession();
+        
+        if (!error.code) error.code = 500;
+        return next(error);
+    }
+});
+
+
+export const razorpayWebhook = asyncHandler(async (req, res, next) => {
+  const signature = req.headers["x-razorpay-signature"];
+
+  const expectedSignature = crypto
+    .createHmac("sha256", process.env.RAZORPAY_WEBHOOK_SECRET)
+    .update(JSON.stringify(req.body))
+    .digest("hex");
+
+  if (signature !== expectedSignature) {
+    return res.status(400).send("Invalid webhook signature");
+  }
+
+  const event = req.body.event;
+
+  if (event === "payment.captured") {
+    const paymentData = req.body.payload.payment.entity;
+
+    const payment = await Payment.findOne({
+      razorpayOrderId: paymentData.order_id,
+    });
+
+    if (!payment || payment.status === "completed") {
+      return res.json({ success: true });
+    }
+
+    payment.status = "completed";
+    payment.razorpayPaymentId = paymentData.id;
+    await payment.save();
+
+    const expires = new Date();
+    expires.setHours(expires.getHours() + 48);
+
+    await Rental.create({
+      userId: payment.userId,
+      movieId: payment.movieId,
+      paymentId: payment._id,
+      expiresAt: expires,
+      status: "active",
+    });
+  }
+
+  return res.json({ received: true });
+});

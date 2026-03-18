@@ -43,21 +43,32 @@ export const updateCategory = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
     const { name, description } = req.body;
 
-    const updatedCategory = await Category.findByIdAndUpdate(
-        id,
-        { $set: { name, description } },
-        { new: true, runValidators: true }
-    );
+    // const updatedCategory = await Category.findByIdAndUpdate(
+    //     id,
+    //     { $set: { name, description } },
+    //     { new: true, runValidators: true }
+    // );
+    const category = await Category.findOne({ _id: id, isDeleted: false });
 
-    if (!updatedCategory) {
-        const error = new Error("Category not found");
+    if (!category) {
+        const error = new Error("Category not found or already deleted");
         error.code = 404;
         return next(error);
     }
 
+    // if (!updatedCategory) {
+    //     const error = new Error("Category not found");
+    //     error.code = 404;
+    //     return next(error);
+    // }
+
+    if (name) category.name = name;
+    if (description !== undefined) category.description = description;
+
+    await category.save();
     return res.status(200).json({
         success: true,
-        data: updatedCategory,
+        data: category,
         message: "Category updated successfully"
     });
 });

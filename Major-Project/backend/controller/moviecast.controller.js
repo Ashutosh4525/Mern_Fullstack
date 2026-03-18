@@ -11,6 +11,13 @@ export const createMovieCast = asyncHandler(async (req,res,next)=>{
     return next(error)
     }
 
+    const existingRelation = await MovieCast.findOne({ movieID, castID });
+    if (existingRelation) {
+        const error = new Error("This cast member is already assigned to this movie");
+        error.code = 400;
+        return next(error);
+    }
+
     const relation = await MovieCast.create({
     movieID,
     castID
@@ -41,7 +48,9 @@ export const deleteMovieCast = asyncHandler(async (req,res,next)=>{
     const relation = await MovieCast.findByIdAndDelete(req.params.id)
 
     if(!relation){
-    return next(new Error("Relation not found"))
+        const error = new Error("Relation not found");
+        error.code = 400;
+        return next(error);
     }
 
     res.json({

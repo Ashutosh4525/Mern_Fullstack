@@ -30,8 +30,8 @@ const userSchema=mongoose.Schema({
     },
     role:{
         type:String,
-        enum:["admin", "user"],
-        default:"user"
+        enum:['admin', 'user'],
+        default:'user'
     },
     // otp: String,
     // otpExpires: Date,

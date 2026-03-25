@@ -1,16 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { Dialog, DialogPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon,MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { Dialog, DialogPanel, Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon,MagnifyingGlassIcon,ChevronDownIcon } from '@heroicons/react/24/outline'
 
 import Link from 'next/link'
 
 
 const navigation = [
   { name: 'Home', href: '/home' },
-  { name: 'Movies', href: '/movies' },
-  { name: 'TV Shows', href: '/tv-shows'},
+  // { name: 'Movies', href: '/movies' },
+  // { name: 'TV Shows', href: '/tv-shows'},
   { name: 'Contact', href: '/contact' },
   { name: 'Services',href:'/services'}
 ]
@@ -41,19 +41,60 @@ export default function Header(){
             </button>
           </div>
           <div className="hidden lg:flex lg:gap-x-12 ">
+            <Menu as="div" className="relative">
+            <MenuButton className="flex items-center gap-1 text-sm font-semibold text-white">
+              Categories
+              <ChevronDownIcon className="size-4" />
+            </MenuButton>
+
+            <MenuItems className="absolute mt-2 w-40 bg-gray-900 border border-gray-700 rounded-lg shadow-lg">
+              <MenuItem>
+                {({ active }) => (
+                  <Link
+                    href="/movies"
+                    className={`block px-4 py-2 text-sm ${active ? 'bg-gray-800' : ''}`}
+                  >
+                    Movies
+                  </Link>
+                )}
+              </MenuItem>
+
+              <MenuItem>
+                {({ active }) => (
+                  <Link
+                    href="/tv-shows"
+                    className={`block px-4 py-2 text-sm ${active ? 'bg-gray-800' : ''}`}
+                  >
+                    TV Shows
+                  </Link>
+                )}
+              </MenuItem>
+            </MenuItems>
+          </Menu>
             {navigation.map((item) => (
               <Link key={item.name} href={item.href} className="text-sm/6 font-semibold text-white text-center">
                 {item.name}
               </Link>
             ))}
+            
+
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <button className='size-6 pr-2 mr-2'>
                     <MagnifyingGlassIcon/>
             </button>
-            <a href="#" className="text-sm/6 font-semibold text-white">
-              Log in <span aria-hidden="true">&rarr;</span>
+            <button className='bg-fuchsia-800 rounded-2xl p-1 mr-0.5'>
+            <a href="login" className="text-sm/6 font-semibold text-white">
+              Log in 
+              {/* <span aria-hidden="true">&rarr;</span> */}
             </a>
+            </button>
+            <button className='bg-fuchsia-800 rounded-2xl p-1 ml-0.5'>
+            <a href="sign-up" className="text-sm/6 font-semibold text-white">
+              Sign up 
+              {/* <span aria-hidden="true">&rarr;</span> */}
+            </a>
+            </button>
           </div>
         </nav>
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
@@ -80,6 +121,11 @@ export default function Header(){
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-white/10">
                 <div className="space-y-2 py-6">
+                  <div>
+                    <p className="text-gray-400 text-sm">Categories</p>
+                    <Link href="/movies" className="block text-white mt-2">Movies</Link>
+                    <Link href="/tv-shows" className="block text-white mt-2">TV Shows</Link>
+                  </div>
                   {navigation.map((item) => (
                     <a
                       key={item.name}
@@ -95,10 +141,16 @@ export default function Header(){
                     <MagnifyingGlassIcon/>
                   </button>
                   <a
-                    href="#"
+                    href="/login"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
                   >
                     Log in
+                  </a>
+                  <a
+                    href="/sign-up"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
+                  >
+                    Sign-up
                   </a>
                 </div>
               </div>

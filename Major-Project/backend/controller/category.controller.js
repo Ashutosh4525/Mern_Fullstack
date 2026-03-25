@@ -3,7 +3,7 @@ import { asyncHandler } from "../middlewares/err.middleware.js";
 
 // Create a new Category
 export const createCategory = asyncHandler(async (req, res, next) => {
-    const { name, description } = req.body;
+    const { name, description,type } = req.body;
 
     if (!name || name.trim() === "") {
         const error = new Error("Category name is required");
@@ -18,7 +18,7 @@ export const createCategory = asyncHandler(async (req, res, next) => {
         return next(error);
     }
 
-    const category = await Category.create({ name, description });
+    const category = await Category.create({ name, description, type });
 
     return res.status(201).json({
         success: true,
@@ -41,7 +41,7 @@ export const getAllCategories = asyncHandler(async (req, res, next) => {
 // Update Category
 export const updateCategory = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
-    const { name, description } = req.body;
+    const { name, description, type } = req.body;
 
     // const updatedCategory = await Category.findByIdAndUpdate(
     //     id,
@@ -64,6 +64,7 @@ export const updateCategory = asyncHandler(async (req, res, next) => {
 
     if (name) category.name = name;
     if (description !== undefined) category.description = description;
+    if (type !== undefined) category.type = type;
 
     await category.save();
     return res.status(200).json({

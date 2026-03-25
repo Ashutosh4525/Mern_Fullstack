@@ -75,6 +75,12 @@ export const getAllMovies = asyncHandler(async (req, res, next) => {
     .skip(skip)
     .limit(limit);
 
+    if(!movies){
+        const error = new Error("No movies");
+        error.code = 400;
+        return next(error);
+    }
+
     const total = await Movie.countDocuments({ isDeleted:false })
     return res.status(200).json({
         success: true,

@@ -9,6 +9,10 @@ const categorySchema=mongoose.Schema({
     description:{
         type:String,
     },
+    type:{
+        type:String,
+        enum:['Movie', 'TV-Show']
+    },
     isDeleted:{
         type:Boolean,
         default:false

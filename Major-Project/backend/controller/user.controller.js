@@ -10,7 +10,14 @@ import {v2 as cloudinary} from "cloudinary";
 
 const generateAccessAndRefereshTokens = async(userId) =>{
     try {
-        const user = await User.findById(userId)
+        const user = await User.findById(userId).select("+refreshToken")
+
+        if (!user) {
+            const error = new Error("User not found for token generation");
+            error.code = 500;
+            throw error;
+        }
+
         const accessToken = user.generateAccessToken()
         const refreshToken = user.generateRefreshToken()
 
@@ -20,8 +27,11 @@ const generateAccessAndRefereshTokens = async(userId) =>{
         return {accessToken, refreshToken}
 
 
-    } catch (error) {
-        throw new Error(500, "Something went wrong while generating referesh and access token")
+    } catch (err) {
+        console.log(err);
+        const error = new Error("Something went wrong while generating refresh and access token");
+        error.code = 500;
+        throw error;
     }
 }
 
@@ -103,11 +113,11 @@ export const login=asyncHandler(async (req,res,next) => {
         return next(error)
     }
 
-     const user = await User.findOne({email, isDeleted:false})
+     const user = await User.findOne({email, isDeleted:false}).select("+password");
 
      if (!user) {
         const error = new Error ("User does not exist or account is deactivated")
-        error.code=400;
+        error.code=404;
         return next(error)
      }
 
@@ -167,7 +177,7 @@ export const logoutUser = asyncHandler(async(req, res,next) => {
 })
 
 export const getAllUser = asyncHandler(async (req,res,next) => {
-    const user = await User.find()
+    const user = await User.find({isDeleted: false})
     .select("-password -refreshToken -otp -otpExpires");;
 
     if (!user) {
@@ -180,7 +190,7 @@ export const getAllUser = asyncHandler(async (req,res,next) => {
     .json({
         success:true,
         data:user,
-        message:"Fectched user detail"
+        message:"Fetched user detail"
     })
 })
 
@@ -209,7 +219,7 @@ export const getUser = asyncHandler(async (req,res,next) => {
 export const changeCurrentPassword = asyncHandler(async(req, res,next) => {
     const {oldPassword, newPassword} = req.body
 
-    const user = await User.findById(req.user?._id)
+    const user = await User.findById(req.user?._id).select("+password")
     const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
 
     if (!isPasswordCorrect) {
@@ -356,7 +366,7 @@ export const verifyEmail=asyncHandler(async (req,res,next) => {
         email,
         isDeleted:false
         // otpExpires: {$gt: Date.now()}
-    })
+    }).select("+otp otpExpires")
 
     if (!user||!user.otp) {
         const error = new Error("User not found"||"otp not found");
@@ -455,7 +465,7 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
         return next(error);
     }
 
-    const user = await User.findOne({ email, isDeleted: false });
+    const user = await User.findOne({ email, isDeleted: false }).select("+otp otpExpires");
 
     if (!user || !user.otp) {
         const error = new Error("Invalid request or OTP not found");
@@ -503,10 +513,10 @@ export const refreshAccessToken = asyncHandler(async (req, res,next) => {
     try {
         const decodedToken = jwt.verify(
             incomingRefreshToken,
-            process.env.REFRESH_TOKEN_SECRET
+            process.env.REFRESH_TOKEN_SECRET_KEY
         )
     
-        const user = await User.findById(decodedToken?._id)
+        const user = await User.findById(decodedToken?._id).select("+refreshToken")
     
         if (!user) {
             const error = new Error("Invalid refresh token");

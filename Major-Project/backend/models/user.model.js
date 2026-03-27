@@ -31,22 +31,9 @@ const userSchema=mongoose.Schema({
     role:{
         type:String,
         enum:['admin', 'user'],
-        default:'user'
+        default:'user',
+        select: true
     },
-    // otp: String,
-    // otpExpires: Date,
-    // isEmailVerified: {
-    //     type: Boolean,
-    //     default: false
-    // },
-    // isDeleted:{
-    //     type:Boolean,
-    //     default:false
-    // },
-    // deletedAt: {
-    //     type: Date,
-    //     default: null,
-    // },
     rental:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Rental"
@@ -57,7 +44,10 @@ const userSchema=mongoose.Schema({
             ref: "Movie"
         }
         ],
-    otp: String,
+    otp: {
+        type:String,
+        select:false
+    },
     otpExpires: Date,
     isEmailVerified: {
         type: Boolean,
@@ -81,18 +71,16 @@ const userSchema=mongoose.Schema({
     }
 },{timestamps:true})
 
-userSchema.pre("save",async function (next) {
-    if (!this.isModified("password")) return next();
+userSchema.pre("save",async function () {
+    if (!this.isModified("password")) return ;
     const saltRounds = Number(process.env.PASS_SALT)
     this.password= bcrypt.hashSync(this.password,saltRounds)
-    next()
 })
 
-userSchema.pre("save", async function (next) {
-    if (!this.isModified("otp")) return next();
+userSchema.pre("save", async function () {
+    if (!this.isModified("otp")) return ;
      const Otp_Salt = Number(process.env.OTP_SALT)
-     this.otp=bcrypt.hashSync(this.otp,Otp_Salt)
-     next();
+     this.otp=bcrypt.hashSync(this.otp,Otp_Salt);
 });
 
 userSchema.methods.isPasswordCorrect= async function (password) {
@@ -104,10 +92,9 @@ userSchema.methods.isOtpCorrect = async function (userInputOtp) {
 };
 
 userSchema.methods.generateOTP = function () {
-    // const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const rawOtp=crypto.randomInt(100000,999999).toString();
     this.otp = rawOtp;
-    this.otpExpires = Date.now() + 10 * 60 * 1000; // 10 mins
+    this.otpExpires = Date.now() + 10 * 60 * 1000; 
     return rawOtp;
 };
 

@@ -5,7 +5,7 @@ import User from "../models/user.model.js";
 export const Authverify = asyncHandler(async (req,res,next) => {
     try {
         const token=req.cookies?.accessToken||req.header
-        ("Authorization")?.replace("Bearer","")
+        ("Authorization")?.replace("Bearer ","")
     
         if(!token){
             const error = new Error ("UnAuthorized request")
@@ -14,8 +14,10 @@ export const Authverify = asyncHandler(async (req,res,next) => {
         }
     
         const decodedToken=jwt.verify(token,process.env.ACCESS_TOKEN_SECRET_KEY)
+        console.log(decodedToken)
     
-        const user=await User.findById({_id:decodedToken?._id,isDeleted:false}).select("-password -refreshToken")
+        const user=await User.findOne({_id:decodedToken?._id,isDeleted:false}).select("-password -refreshToken") 
+        console.log("User from DB:", user);
     
         if (!user) {
             const error = new Error ("Invalid Access Token or Account Deactivated")
@@ -26,17 +28,31 @@ export const Authverify = asyncHandler(async (req,res,next) => {
         req.user=user;
         next()
     } catch (error) {
-        new Error (error.message||"Invalid Access Token")
-        error.code=400;
-        return next(error)
+        const err=new Error (error.message||"Invalid Access Token")
+        err.code=400;
+        return next(err)
     }
 })
 
 export const verifyAdmin = (req, res, next) => {
    
-    if (req.user && (req.user.role === "admin" || req.user.isAdmin === true)) {
-        next();
-    } else {
+    if (!req.user) {
+        const error = new Error("Unauthorized");
+        error.code = 401;
+        return next(error);
+    }
+
+    const roles = Array.isArray(req.user.role)
+        ? req.user.role
+        : [req.user.role];
+
+    console.log("User roles:", roles); // 🔥 debug
+    console.log("User role:", req.user.role); // 🔥 debug
+
+    if (roles.includes("admin")) {
+        return next();
+    }
+    else{
         const error = new Error("Access denied. Admin permissions required.");
         error.code = 403; 
         return next(error);

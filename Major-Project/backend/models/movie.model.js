@@ -1,33 +1,43 @@
 import mongoose from "mongoose";
 
 const movieSchema=mongoose.Schema({
-    title:{
-        type:String,
-        trim:true,
-        required:true
-    },
-    description:{
-        type:String
-    },
-    categoryID:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Category",
-        required:true
-    },
-    poster:{
-        url:String,
-        public_id:String
-    },
-    trailer:{
-        url:String,
-        public_id:String
+    // title:{
+    //     type:String,
+    //     trim:true,
+    //     required:true
+    // },
+    // description:{
+    //     type:String
+    // },
+    // type:{
+    //     type:String,
+    //     enum: ["movie", "tv"],
+    //     required:true
+    // },
+    // categoryIDs:[{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:"Category",
+    //     required:true
+    // }],
+    // poster:{
+    //     url:String,
+    //     public_id:String
+    // },
+    // trailer:{
+    //     url:String,
+    //     public_id:String
+    // },
+    // rentalPrice:{
+    //     type:Number
+    // },
+     contentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Content",
+      required: true,
     },
     video:{
         url:String,
         public_id:String
-    },
-    rentalPrice:{
-        type:Number
     },
     duration:{
         type:Number,
@@ -39,10 +49,10 @@ const movieSchema=mongoose.Schema({
     deletedAt: {
         type: Date,
         default: null,
-        index: { 
-            expireAfterSeconds: 30 * 24 * 60 * 60,  
-            partialFilterExpression: { isDeleted: true }  
-        }
+        // index: { 
+        //     expireAfterSeconds: 30 * 24 * 60 * 60,  
+        //     partialFilterExpression: { isDeleted: true }  
+        // }
     }
 },{timestamps:true});
 

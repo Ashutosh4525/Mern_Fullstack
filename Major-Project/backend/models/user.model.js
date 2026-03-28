@@ -41,7 +41,7 @@ const userSchema=mongoose.Schema({
     watchHistory: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Movie"
+            ref: "Content"
         }
         ],
     otp: {
@@ -64,23 +64,19 @@ const userSchema=mongoose.Schema({
     deletedAt: {
         type: Date,
         default: null,
-        index: { 
-            expireAfterSeconds: 30 * 24 * 60 * 60,  
-            partialFilterExpression: { isDeleted: true }  
-        }
     }
 },{timestamps:true})
 
 userSchema.pre("save",async function () {
     if (!this.isModified("password")) return ;
     const saltRounds = Number(process.env.PASS_SALT)
-    this.password= bcrypt.hashSync(this.password,saltRounds)
+    this.password= bcrypt.hash(this.password,saltRounds)
 })
 
 userSchema.pre("save", async function () {
     if (!this.isModified("otp")) return ;
      const Otp_Salt = Number(process.env.OTP_SALT)
-     this.otp=bcrypt.hashSync(this.otp,Otp_Salt);
+     this.otp=bcrypt.hash(this.otp,Otp_Salt);
 });
 
 userSchema.methods.isPasswordCorrect= async function (password) {
@@ -94,7 +90,7 @@ userSchema.methods.isOtpCorrect = async function (userInputOtp) {
 userSchema.methods.generateOTP = function () {
     const rawOtp=crypto.randomInt(100000,999999).toString();
     this.otp = rawOtp;
-    this.otpExpires = Date.now() + 10 * 60 * 1000; 
+    this.otpExpires = Date.now() + 5 * 60 * 1000; 
     return rawOtp;
 };
 

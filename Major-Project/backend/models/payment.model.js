@@ -11,10 +11,15 @@ const paymentSchema = new Schema({
     ref: "Rental", 
     required: true
   },
-  movieId:{
-    type:Schema.Types.ObjectId,
-    ref:"Movie",
-    required:true
+  // movieId:{
+  //   type:Schema.Types.ObjectId,
+  //   ref:"Movie",
+  //   required:true
+  // },
+  contentId: {
+    type: Schema.Types.ObjectId,
+    ref: "Content",
+    required: true
   },
   amount: {
     type: Number,
@@ -57,18 +62,6 @@ const paymentSchema = new Schema({
     unique: true,
     sparse: true 
   },
-  // isDeleted:{
-  //       type:Boolean,
-  //       default:false
-  //   },
-  //   deletedAt: {
-  //       type: Date,
-  //       default: null,
-  //       index: { 
-  //           expireAfterSeconds: 30 * 24 * 60 * 60,  
-  //           partialFilterExpression: { isDeleted: true }  
-  //       }
-  //   },
 }, { timestamps: true });
 
 const Payment = mongoose.model("Payment", paymentSchema);

@@ -6,11 +6,16 @@ const rentalSchema = new Schema({
     ref: "User", 
     required: true
   },
-  movieId: {
-    type: Schema.Types.ObjectId,
-    ref: "Movie", 
-    required: true
-  },
+   contentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Content",
+      required: true,
+    },
+  // movieId: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "Movie", 
+  //   required: true
+  // },
   paymentId: {
     type:mongoose.Schema.Types.ObjectId,
     ref:"Payment"
@@ -21,7 +26,8 @@ const rentalSchema = new Schema({
   },
   expiresAt: {
     type: Date,
-    required: true 
+    required: true,
+    index: { expires: 0 } 
   },
   status: {
     type: String,

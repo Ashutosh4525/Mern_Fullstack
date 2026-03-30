@@ -1,14 +1,15 @@
 import User from "../models/user.model.js";
-import bcrypt from "bcrypt"
+// import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import crypto from "crypto"
+// import crypto from "crypto"
+import sendEmail from "../utils/sendEmail.js"
 import { asyncHandler } from "../middlewares/err.middleware.js";
 import { uploadOnCloudinary } from "../config/cloudinary.config.js";
 import {v2 as cloudinary} from "cloudinary";
 
 
 
-const generateAccessAndRefereshTokens = async(userId) =>{
+const generateAccessAndRefreshTokens = async(userId) =>{
     try {
         const user = await User.findById(userId).select("+refreshToken")
 
@@ -25,6 +26,7 @@ const generateAccessAndRefereshTokens = async(userId) =>{
         await user.save({ validateBeforeSave: false })
 
         return {accessToken, refreshToken}
+        // const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
 
 
     } catch (err) {
@@ -53,34 +55,41 @@ export const registerUser = asyncHandler(async(req,res,next)=>{
 
     if(finduser){
         const error = new Error ("This email already exist")
-        error.code=401;
+        error.code=409;
         return next(error)
     }
     
     const avatarLocalPath=req.file?.path;
     console.log(avatarLocalPath);
     
+    // if (!avatarLocalPath) {
+    //     const error = new Error ("Avatar file is required")
+    //     error.code=409;
+    //     return next(error)
+    // }
 
-    if (!avatarLocalPath) {
-        const error = new Error ("Avatar file is required")
-        error.code=409;
-        return next(error)
+    // const avatar=await uploadOnCloudinary(avatarLocalPath,"avatars")
+
+    // if (!avatar) {
+    //     const error = new Error ("Avatar file not found")
+    //     error.code=400;
+    //     return next(error)
+    // }
+
+
+    let avatar = null;
+
+    if (avatarLocalPath) {
+        avatar = await uploadOnCloudinary(avatarLocalPath, "avatars");
+        avatar = {
+            url: avatar.url,
+            public_id: avatar.public_id
+        };
     }
     
-    const avatar=await uploadOnCloudinary(avatarLocalPath,"avatars")
-
-    if (!avatar) {
-        const error = new Error ("Avatar file not found")
-        error.code=400;
-        return next(error)
-    }
-
     const user=await User.create({
         firstname,
-        avatar:{
-        url: avatar.url,
-        public_id: avatar.public_id
-        },
+        avatar:avatar|| undefined,
         lastname,
         email,
         password
@@ -108,7 +117,7 @@ export const login=asyncHandler(async (req,res,next) => {
     const {email,password}=req.body;
 
     if (!email || !password) {
-        const error = new Error ("username or email is required")
+        const error = new Error ("Email and password are required")
         error.code=400;
         return next(error)
     }
@@ -121,6 +130,12 @@ export const login=asyncHandler(async (req,res,next) => {
         return next(error)
      }
 
+     if (!user.isEmailVerified) {
+        const error = new Error("Please verify your email first");
+        error.code = 403;
+        return next(error);
+    }
+
      const isPasswordValid= await user.isPasswordCorrect(password)
 
      if (!isPasswordValid) {
@@ -129,14 +144,14 @@ export const login=asyncHandler(async (req,res,next) => {
         return next(error)
      }
 
-     const {accessToken, refreshToken}=await generateAccessAndRefereshTokens(user._id)
+     const {accessToken, refreshToken}=await generateAccessAndRefreshTokens(user._id)
 
-     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
+    //  const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
 
      const options = {
         httpOnly: true,
-        secure: true,
-        sameSite: "strict"
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax"
     }
 
     return res
@@ -165,8 +180,8 @@ export const logoutUser = asyncHandler(async(req, res,next) => {
 
     const options = {
         httpOnly: true,
-        secure: true,
-        sameSite: "strict"
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax"
     }
 
     return res
@@ -177,15 +192,20 @@ export const logoutUser = asyncHandler(async(req, res,next) => {
 })
 
 export const getAllUser = asyncHandler(async (req,res,next) => {
-    const user = await User.find({isDeleted: false})
-    .select("-password -refreshToken -otp -otpExpires");;
-
-    if (!user) {
-        const error = new Error("User not found");
+    if (req.user.role !== "admin") {
+        const error = new Error("Unauthorized");
         error.code = 404;
         return next(error);  
     }
+    const user = await User.find({isDeleted: false})
+    .select("-password -refreshToken -otp -otpExpires");
 
+    // if (!user) {
+    //     const error = new Error("User not found");
+    //     error.code = 404;
+    //     return next(error);  
+    // }
+    
     return res.status(200)
     .json({
         success:true,
@@ -197,7 +217,7 @@ export const getAllUser = asyncHandler(async (req,res,next) => {
 export const getUser = asyncHandler(async (req,res,next) => {
     const {id}=req.params
     const user = await User.findById(id)
-        .populate("rental")
+        // .populate("rental")
         .populate("watchHistory")
         .select("-password -refreshToken");
 
@@ -220,6 +240,11 @@ export const changeCurrentPassword = asyncHandler(async(req, res,next) => {
     const {oldPassword, newPassword} = req.body
 
     const user = await User.findById(req.user?._id).select("+password")
+    if (!user) {
+        const error = new Error("User not found or disabled");
+        error.code = 404;
+        return next(error);
+    }
     const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
 
     if (!isPasswordCorrect) {
@@ -229,7 +254,7 @@ export const changeCurrentPassword = asyncHandler(async(req, res,next) => {
     }
 
     user.password = newPassword
-    await user.save({validateBeforeSave: false})
+    await user.save()
 
     return res
     .status(200)
@@ -240,12 +265,17 @@ export const changeCurrentPassword = asyncHandler(async(req, res,next) => {
 })
 
 export const UpdateUser = asyncHandler(async (req,res,next) => {
-    const {id} =req.params;
+    // const {id} =req.params;
 
-    const user = await User.findOne({_id:id, isDeleted:false});
+    const user = await User.findOne({_id:req.user._id, isDeleted:false});
 
+    if (!user) {
+        const error = new Error("User not found");
+        error.code = 404;
+        return next(error);
+    }
     if(req.body.email && req.body.email !== user.email){
-    const emailExists = await User.findOne({email:req.body.email})
+    const emailExists = await User.findOne({email:req.body.email,_id: { $ne: user._id }})
         if(emailExists){
             const error = new Error("Email already in use");
             error.code = 409;
@@ -253,11 +283,11 @@ export const UpdateUser = asyncHandler(async (req,res,next) => {
         }
     }
 
-    if(!user){
-        const error = new Error("User not found");
-        error.code = 404;
-        return next(error);
-    }
+    // if(!user){
+    //     const error = new Error("User not found");
+    //     error.code = 404;
+    //     return next(error);
+    // }
 
     let avatarUrl = user.avatar; 
     const avatarLocalPath=req.file?.path;
@@ -268,7 +298,7 @@ export const UpdateUser = asyncHandler(async (req,res,next) => {
         error.code=400;
         return next(error)
     }
-        if (user.avatar) {
+        if (user.avatar?.public_id) {
             // const oldPublicId = user.avatar.split("/").pop().split(".")[0];
             await cloudinary.uploader.destroy(user.avatar.public_id);
         }
@@ -303,7 +333,9 @@ export const UpdateUser = asyncHandler(async (req,res,next) => {
 
 export const sendOtp=asyncHandler(async (req,res,next) => {
     console.log("sendOtp called with body:", req.body);
-    const {email} = req.body;
+    // const {email} = req.body;
+    let { email } = req.body;
+    email = email.toLowerCase();
 
     const user = await User.findOne({ email });
     if (!user) {
@@ -321,6 +353,12 @@ export const sendOtp=asyncHandler(async (req,res,next) => {
     // user.otp=hashedOtp;
     // user.otpExpires = Date.now()+ 5 * 60 * 1000;
 
+    
+    if (user.otpExpires && user.otpExpires > Date.now() ) {
+        const error = new Error("Please wait before requesting another OTP");
+        error.code = 429;
+        return next(error);
+    }
     const otp = user.generateOTP(); 
     await user.save({ validateBeforeSave: false });
 
@@ -342,8 +380,8 @@ export const sendOtp=asyncHandler(async (req,res,next) => {
             message: "OTP sent successfully to your email!"
         });
     }catch (err) {
-        // user.otp = undefined;
-        // user.otpExpires = undefined;
+        user.otp = undefined;
+        user.otpExpires = undefined;
         await user.save({ validateBeforeSave: false });
         
         const error = new Error("Failed to send email. Please try again.");
@@ -354,8 +392,8 @@ export const sendOtp=asyncHandler(async (req,res,next) => {
 
 
 export const verifyEmail=asyncHandler(async (req,res,next) => {
-    const {email, otp}=req.body;
-
+    let {email, otp}=req.body;
+    email = email.toLowerCase();
     if (!email || !otp) {
         const error = new Error("Email and OTP are required");
         error.code = 409;
@@ -369,7 +407,7 @@ export const verifyEmail=asyncHandler(async (req,res,next) => {
     }).select("+otp otpExpires")
 
     if (!user||!user.otp) {
-        const error = new Error("User not found"||"otp not found");
+        const error = new Error("User not found or otp not found");
         error.code = 400;
         return next(error);
     }
@@ -415,7 +453,8 @@ export const verifyEmail=asyncHandler(async (req,res,next) => {
 
 
 export const forgotPassword = asyncHandler(async (req,res,next) =>{
-    const {email} = req.body;
+    let {email} = req.body;
+    email = email.toLowerCase();
     const user = await User.findOne({email});
 
     if (!user) {
@@ -492,7 +531,7 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
 
     user.otp = undefined;
     user.otpExpires = undefined;
-
+    user.refreshToken = undefined;
     await user.save(); 
 
     return res.status(200).json({
@@ -526,28 +565,28 @@ export const refreshAccessToken = asyncHandler(async (req, res,next) => {
 
          if (incomingRefreshToken !== user?.refreshToken) {
             const error = new Error("Refresh token is expired or used");
-            error.code = 404;
+            error.code = 401;
             return next(error);
         }
 
         const options = {
             httpOnly: true,
-            secure: true,
-            sameSite: "strict"
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax"
         }
     
-        const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id)
+        const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id)
     
         return res
         .status(200)
         .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", newRefreshToken, options)
+        .cookie("refreshToken", refreshToken, options)
         .json({
-            data:{accessToken, refreshToken: newRefreshToken},
+            data:{accessToken, refreshToken},
             message:"Access token refreshed"
         })
-    } catch (error) {
-            error = new Error("Invalid refresh token");
+    } catch (err) {
+            const error = new Error("Invalid refresh token");
             error.code = 404;
             return next(error);
     }
@@ -557,6 +596,11 @@ export const refreshAccessToken = asyncHandler(async (req, res,next) => {
 export const softDeleteUser = asyncHandler(async (req, res, next) => {
     // Note: We use req.user._id if the user is deleting their own account
     // or req.params.id if an admin is deleting it.
+    if (req.params.id && req.user.role !== "admin") {
+            const error = new Error("Unauthorized");
+            error.code = 404;
+            return next(error);
+    }
     const userId = req.params.id || req.user?._id;
 
     const user = await User.findByIdAndUpdate(
@@ -577,7 +621,7 @@ export const softDeleteUser = asyncHandler(async (req, res, next) => {
     }
 
     // Optional: Clear cookies if the user deleted their own account
-    const options = { httpOnly: true, secure: true, sameSite: "strict" };
+    const options = { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax" };
 
     return res
         .status(200)

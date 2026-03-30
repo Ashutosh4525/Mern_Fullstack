@@ -21,10 +21,10 @@ const castSchema=mongoose.Schema({
     deletedAt: {
         type: Date,
         default: null,
-        index: { 
-            expireAfterSeconds: 30 * 24 * 60 * 60,  
-            partialFilterExpression: { isDeleted: true }  
-        }
+        // index: { 
+        //     expireAfterSeconds: 30 * 24 * 60 * 60,  
+        //     partialFilterExpression: { isDeleted: true }  
+        // }
     }
 },{timestamps:true})
 

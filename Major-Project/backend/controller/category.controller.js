@@ -3,7 +3,7 @@ import { asyncHandler } from "../middlewares/err.middleware.js";
 
 // Create a new Category
 export const createCategory = asyncHandler(async (req, res, next) => {
-    const { name, description,type } = req.body;
+    const { name, description } = req.body;
 
     if (!name || name.trim() === "") {
         const error = new Error("Category name is required");
@@ -11,14 +11,14 @@ export const createCategory = asyncHandler(async (req, res, next) => {
         return next(error);
     }
 
-    const existingCategory = await Category.findOne({ name });
+    const existingCategory = await Category.findOne({ name,  isDeleted: false });
     if (existingCategory) {
         const error = new Error("Category already exists");
         error.code = 409;
         return next(error);
     }
 
-    const category = await Category.create({ name, description, type });
+    const category = await Category.create({ name, description });
 
     return res.status(201).json({
         success: true,
@@ -43,11 +43,6 @@ export const updateCategory = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
     const { name, description, type } = req.body;
 
-    // const updatedCategory = await Category.findByIdAndUpdate(
-    //     id,
-    //     { $set: { name, description } },
-    //     { new: true, runValidators: true }
-    // );
     const category = await Category.findOne({ _id: id, isDeleted: false });
 
     if (!category) {
@@ -55,6 +50,27 @@ export const updateCategory = asyncHandler(async (req, res, next) => {
         error.code = 404;
         return next(error);
     }
+    // const updatedCategory = await Category.findByIdAndUpdate(
+    //     id,
+    //     { $set: { name, description } },
+    //     { new: true, runValidators: true }
+    // );
+    if (name) {
+        const existing = await Category.findOne({
+            name,
+            isDeleted: false,
+            _id: { $ne: id }
+        });
+
+        if (existing) {
+            const error = new Error("Category name already in use");
+            error.code = 409;
+            return next(error);
+        }
+
+        category.name = name;
+    }
+    
 
     // if (!updatedCategory) {
     //     const error = new Error("Category not found");
@@ -94,7 +110,7 @@ export const deleteCategory = asyncHandler(async (req, res, next) => {
 
     return res.status(200).json({
         success: true,
-        message: "Category moved to trash (auto-deletes in 30 days)"
+        message: "Category moved to trash"
     });
 });
 

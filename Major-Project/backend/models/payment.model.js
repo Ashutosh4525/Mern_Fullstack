@@ -9,7 +9,7 @@ const paymentSchema = new Schema({
   rentalId: {
     type: Schema.Types.ObjectId,
     ref: "Rental", 
-    required: true
+    // required: true
   },
   // movieId:{
   //   type:Schema.Types.ObjectId,
@@ -55,7 +55,7 @@ const paymentSchema = new Schema({
   paymentMethod: {
     type: String,
     enum: ["card", "wallet"],
-    required: true
+    // required: true
   },
   transactionId: {
     type: String, 
@@ -64,5 +64,6 @@ const paymentSchema = new Schema({
   },
 }, { timestamps: true });
 
+paymentSchema.index({ userId: 1 })
 const Payment = mongoose.model("Payment", paymentSchema);
 export default Payment;

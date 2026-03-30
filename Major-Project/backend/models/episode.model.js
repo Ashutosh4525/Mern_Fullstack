@@ -18,7 +18,18 @@ const episodeSchema = new mongoose.Schema(
       url: String,
       public_id: String
     },
-    duration: Number,
+    duration: {
+      type:Number,
+      min:0
+    },
+    isDeleted:{
+        type:Boolean,
+        default:false
+    },
+    deletedAt: {
+        type: Date,
+        default: null,
+    },
   },
   { timestamps: true }
 );

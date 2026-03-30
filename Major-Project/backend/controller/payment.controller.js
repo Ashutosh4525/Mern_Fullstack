@@ -5,29 +5,30 @@ import Movie from "../models/movie.model.js"
 import Rental from "../models/rental.model.js"
 import { asyncHandler } from "../middlewares/err.middleware.js"
 import mongoose from "mongoose";
+import Content from "../models/content.model.js"
 
 export const createOrder = asyncHandler(async (req,res,next)=>{
 
- const { movieId } = req.body
+ const { contentId } = req.body
 
- const movie = await Movie.findById(movieId)
+ const content = await Content.findById(contentId)
 
- if(!movie){
-    const error = new Error("Movie not found");
+ if(!content){
+    const error = new Error("Content not found");
     error.code = 404;
     return next(error);
  }
 
  const order = await razorpay.orders.create({
-  amount: movie.rentalPrice * 100,
+  amount: content.rentalPrice * 100,
   currency: "INR",
   receipt: "order_" + Date.now()
  })
 
  const payment = await Payment.create({
   userId: req.user._id,
-  movieId,
-  amount: movie.rentalPrice,
+  contentId,
+  amount: content.rentalPrice,
   razorpayOrderId: order.id,
   status: "created"
  })
@@ -91,8 +92,8 @@ export const verifyPayment = asyncHandler(async (req,res,next)=>{
 
         const existingRental = await Rental.findOne({
           userId: payment.userId,
-          movieId: payment.movieId,
-          status: "active",
+          contentId: payment.contentId,
+          // status: "active",
           expiresAt: { $gt: new Date() },
         }).session(session);
 
@@ -113,10 +114,10 @@ export const verifyPayment = asyncHandler(async (req,res,next)=>{
 
         const rental = await Rental.create([{
             userId: payment.userId,
-            movieId: payment.movieId,
+            contentId: payment.contentId,
             paymentId: payment._id,
             expiresAt: expires,
-            status: "active"
+            // status: "active"
         }], { session });
 
         
@@ -173,10 +174,10 @@ export const razorpayWebhook = asyncHandler(async (req, res, next) => {
 
     await Rental.create({
       userId: payment.userId,
-      movieId: payment.movieId,
+      contentId: payment.contentId,
       paymentId: payment._id,
       expiresAt: expires,
-      status: "active",
+      // status: "active",
     });
   }
 

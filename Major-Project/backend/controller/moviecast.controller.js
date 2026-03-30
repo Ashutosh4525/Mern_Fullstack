@@ -3,15 +3,15 @@ import { asyncHandler } from "../middlewares/err.middleware.js";
 
 export const createMovieCast = asyncHandler(async (req,res,next)=>{
 
-    const {movieID, castID} = req.body
+    const {contentId, castID} = req.body
 
-    if(!movieID || !castID){
-    const error = new Error("movieID and castID required")
+    if(!contentId || !castID){
+    const error = new Error("contentId and castID required")
     error.code = 400
     return next(error)
     }
 
-    const existingRelation = await MovieCast.findOne({ movieID, castID });
+    const existingRelation = await MovieCast.findOne({ contentId, castID });
     if (existingRelation) {
         const error = new Error("This cast member is already assigned to this movie");
         error.code = 400;
@@ -19,7 +19,7 @@ export const createMovieCast = asyncHandler(async (req,res,next)=>{
     }
 
     const relation = await MovieCast.create({
-    movieID,
+    contentId,
     castID
     })
 
@@ -33,7 +33,7 @@ export const createMovieCast = asyncHandler(async (req,res,next)=>{
 
 export const getMovieCast = asyncHandler(async (req,res)=>{
 
-    const cast = await MovieCast.find({movieID:req.params.movieId})
+    const cast = await MovieCast.find({contentId:req.params.contentId})
     .populate("castID")
 
     return res.json({
@@ -53,7 +53,7 @@ export const deleteMovieCast = asyncHandler(async (req,res,next)=>{
         return next(error);
     }
 
-    res.json({
+    return res.json({
     success:true,
     message:"Cast removed from movie"
     })

@@ -41,6 +41,7 @@ const movieSchema=mongoose.Schema({
     },
     duration:{
         type:Number,
+        min:0
     },
     isDeleted:{
         type:Boolean,
@@ -55,6 +56,6 @@ const movieSchema=mongoose.Schema({
         // }
     }
 },{timestamps:true});
-
+movieSchema.index({ contentId: 1 }, { unique: true })
 const Movie = mongoose.model("Movie", movieSchema);
 export default Movie;

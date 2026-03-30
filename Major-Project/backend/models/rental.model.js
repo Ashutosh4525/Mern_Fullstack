@@ -29,11 +29,11 @@ const rentalSchema = new Schema({
     required: true,
     index: { expires: 0 } 
   },
-  status: {
-    type: String,
-    enum: ["active", "expired"], 
-    default: "active"
-  },
+  // status: {
+  //   type: String,
+  //   enum: ["active", "expired"], 
+  //   default: "active"
+  // },
   // isDeleted:{
   //       type:Boolean,
   //       default:false
@@ -48,5 +48,6 @@ const rentalSchema = new Schema({
   //   },
 }, { timestamps: true }); 
 
+rentalSchema.index({ userId: 1, contentId: 1 })
 const Rental = mongoose.model("Rental", rentalSchema);
 export default Rental;

@@ -34,10 +34,10 @@ const userSchema=mongoose.Schema({
         default:'user',
         select: true
     },
-    rental:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Rental"
-    }],
+    // rental:[{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:"Rental"
+    // }],
     watchHistory: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -67,16 +67,43 @@ const userSchema=mongoose.Schema({
     }
 },{timestamps:true})
 
-userSchema.pre("save",async function () {
-    if (!this.isModified("password")) return ;
-    const saltRounds = Number(process.env.PASS_SALT)
-    this.password= bcrypt.hash(this.password,saltRounds)
-})
+// userSchema.pre("save",async function () {
+//     if (!this.isModified("password")) return ;
+//     const saltRounds = Number(process.env.PASS_SALT)
+//     this.password=await bcrypt.hash(this.password,saltRounds)
+// })
 
-userSchema.pre("save", async function () {
-    if (!this.isModified("otp")) return ;
-     const Otp_Salt = Number(process.env.OTP_SALT)
-     this.otp=bcrypt.hash(this.otp,Otp_Salt);
+userSchema.pre("save", async function (next) {
+    try {
+        if (!this.isModified("password")) return next();
+
+        const saltRounds = Number(process.env.PASS_SALT);
+        this.password = await bcrypt.hash(this.password, saltRounds);
+
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
+
+
+// userSchema.pre("save", async function () {
+//     if (!this.isModified("otp")) return ;
+//      const Otp_Salt = Number(process.env.OTP_SALT)
+//      this.otp= await bcrypt.hash(this.otp,Otp_Salt);
+// });
+
+userSchema.pre("save", async function (next) {
+    try {
+        if (!this.isModified("otp")) return next();
+
+        const Otp_Salt = Number(process.env.OTP_SALT)
+        this.otp = await bcrypt.hash(this.otp, Otp_Salt);
+
+        next();
+    } catch (err) {
+        next(err);
+    }
 });
 
 userSchema.methods.isPasswordCorrect= async function (password) {

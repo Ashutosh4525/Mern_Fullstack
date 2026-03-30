@@ -46,7 +46,8 @@ const contentSchema = new mongoose.Schema(
         public_id:String
     },
     rentalPrice:{
-        type:Number
+        type:Number,
+        min:0,
     },
     isDeleted: {
       type: Boolean,
@@ -56,6 +57,6 @@ const contentSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
+contentSchema.index({ categoryIds: 1 })
 const Content=mongoose.model("Content", contentSchema);
 export default Content;

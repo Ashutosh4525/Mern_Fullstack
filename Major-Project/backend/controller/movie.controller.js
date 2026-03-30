@@ -3,59 +3,35 @@ import { asyncHandler } from "../middlewares/err.middleware.js";
 import { uploadOnCloudinary } from "../config/cloudinary.config.js";
 import {v2 as cloudinary} from "cloudinary";
 import Rental from "../models/rental.model.js";
-import fetch from "node-fetch";
+import Content from "../models/content.model.js";
 
 export const createMovie = asyncHandler(async (req, res, next) => {
-    const { title, description, categoryID, rentalPrice, duration } = req.body;
+    const { contentId, duration } = req.body;
 
-    if (!title?.trim() || !description?.trim() || !categoryID) {
-        const error = new Error("Title, description, and category are required");
+    const content = await Content.findById(contentId);
+    if (!content || content.type !== "movie") {
+        const error = new Error("Invalid content");
         error.code = 400;
         return next(error);
     }
-
-    if(!Number(rentalPrice) || !Number(duration)){
-        const error = new Error("Invalid price or duration");
-        error.code = 400;
-        return next(error);
-    }
-
-    const posterLocalPath = req.files?.poster?.[0]?.path;
-    const trailerLocalPath = req.files?.trailer?.[0]?.path;
     const videoLocalPath = req.files?.video?.[0]?.path;
 
-    if (!posterLocalPath || !videoLocalPath) {
-        const error = new Error("Poster and Video files are required");
+     if (!videoLocalPath) {
+        const error = new Error("Video required");
         error.code = 400;
         return next(error);
     }
-
-    const poster = await uploadOnCloudinary(posterLocalPath, "movies/posters");
+    
     const video = await uploadOnCloudinary(videoLocalPath, "movies/videos");
-    const trailer = trailerLocalPath
-    ? await uploadOnCloudinary(trailerLocalPath, "movies/trailers")
-    : null
+    
 
     const movie = await Movie.create({
-        title,
-        description,
-        categoryID,
-        rentalPrice,
+        contentId,
         duration,
-        poster: {
-            url:poster.url,
-            public_id:poster.public_id
-        },
         video: {
             url:video.url,
             public_id:video.public_id
         },
-        trailer: trailer
-            ? {
-                url: trailer.url,
-                public_id: trailer.public_id
-                }
-            : null
     });
 
     return res.status(201).json({
@@ -65,37 +41,65 @@ export const createMovie = asyncHandler(async (req, res, next) => {
     });
 });
 
+// export const getAllMovies = asyncHandler(async (req, res, next) => {
+//     const page = parseInt(req.query.page) || 1
+//     const limit = parseInt(req.query.limit) || 10
+//     const skip = (page - 1) * limit
+//     const movies = await Movie.find({ isDeleted: false })
+//     .select("-video.public_id -video.url")
+//     .populate("categoryID")
+//     .skip(skip)
+//     .limit(limit);
+
+//     if(!movies){
+//         const error = new Error("No movies");
+//         error.code = 400;
+//         return next(error);
+//     }
+
+//     const total = await Movie.countDocuments({ isDeleted:false })
+//     return res.status(200).json({
+//         success: true,
+//         totalMovies:total,
+//         data: movies,
+//         page,
+//         limit,
+//         totalPages: Math.ceil(total/limit),
+//         message: "Movies fetched successfully"
+//     });
+// });
 export const getAllMovies = asyncHandler(async (req, res, next) => {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 10
     const skip = (page - 1) * limit
     const movies = await Movie.find({ isDeleted: false })
-    .select("-video.public_id -video.url")
-    .populate("categoryID")
-    .skip(skip)
-    .limit(limit);
+        .populate({
+            path: "contentId",
+            match: { isDeleted: false },
+            select: "title poster rentalPrice type"
+        })
+        .skip(skip)
+        .limit(limit)
+        .sort({ createdAt: -1 });
 
-    if(!movies){
+    if(movies.length === 0){
         const error = new Error("No movies");
         error.code = 400;
         return next(error);
     }
-
-    const total = await Movie.countDocuments({ isDeleted:false })
-    return res.status(200).json({
+    return res.json({
         success: true,
-        totalMovies:total,
-        data: movies,
-        page,
-        limit,
-        totalPages: Math.ceil(total/limit),
-        message: "Movies fetched successfully"
+        count: movies.length,
+        data: movies
     });
 });
 
+
 export const getMovieById = asyncHandler(async (req, res, next) => {
-    const { id } = req.params;
-    const movie = await Movie.findOne({ _id: id, isDeleted: false }).populate("categoryID");
+    const movie = await Movie.findOne({
+        _id: req.params.id,
+        isDeleted: false
+    }).populate("contentId");
 
     if (!movie) {
         const error = new Error("Movie not found");
@@ -110,115 +114,136 @@ export const getMovieById = asyncHandler(async (req, res, next) => {
 });
 
 
-export const updateMovie = asyncHandler(async (req, res, next) => {
-    const { id } = req.params;
-    const movie = await Movie.findOne({_id:id,isDeleted:false});
+export const updateMovie = asyncHandler(async (req, res,next) => {
+    const movie = await Movie.findById(req.params.id);
 
-    if (!movie) {
+    if (!movie|| movie.isDeleted) {
         const error = new Error("Movie not found");
         error.code = 404;
         return next(error);
     }
 
-    const { title, description, categoryID, rentalPrice, duration } = req.body;
-    // let updateData = { ...req.body };
+    if (req.body.duration) movie.duration = req.body.duration;
 
-    const updateFields = {};
-    if (title) updateFields.title = title;
-    if (description) updateFields.description = description;
-    if (categoryID) updateFields.categoryID = categoryID;
-    if (rentalPrice !== undefined) updateFields.rentalPrice = Number(rentalPrice);
-    if (duration !== undefined) updateFields.duration = Number(duration);
-    // Handle Poster Update
-    // if (req.files?.poster?.[0]?.path) {
-    //     const poster = await uploadOnCloudinary(req.files.poster[0].path,"movies/posters");
-    //     if (movie.poster) {
-    //         // const oldId = movie.poster.split("/").pop().split(".")[0];
-    //         await cloudinary.uploader.destroy(movie.poster.public_id);
-    //     }
-    //     updateData.poster = {
-    //         url: poster.url,
-    //         public_id: poster.public_id
-    //     };
-    // }
-
-    // if (req.files?.trailer?.[0]?.path) {
-    // const trailer = await uploadOnCloudinary(
-    //     req.files.trailer[0].path,
-    //     "movies/trailers"
-    // )
-
-    // if (movie.trailer?.public_id) {
-    //     await cloudinary.uploader.destroy(movie.trailer.public_id)
-    // }
-
-    if (req.files?.poster?.[0]?.path) {
-        const poster = await uploadOnCloudinary(req.files.poster[0].path, "movies/posters");
-        if (movie.poster?.public_id) await cloudinary.uploader.destroy(movie.poster.public_id);
-        updateFields.poster = { url: poster.url, public_id: poster.public_id };
-    }
-
-    // Trailer
-    if (req.files?.trailer?.[0]?.path) {
-        const trailer = await uploadOnCloudinary(req.files.trailer[0].path, "movies/trailers");
-        if (movie.trailer?.public_id) await cloudinary.uploader.destroy(movie.trailer.public_id);
-        updateFields.trailer = { url: trailer.url, public_id: trailer.public_id };
-    }
-
-    // Video
     if (req.files?.video?.[0]?.path) {
-        const video = await uploadOnCloudinary(req.files.video[0].path, "movies/videos");
-        if (movie.video?.public_id) await cloudinary.uploader.destroy(movie.video.public_id);
-        updateFields.video = { url: video.url, public_id: video.public_id };
+        const video = await uploadOnCloudinary(req.files.video[0].path, "movies");
+
+        if (movie.video?.public_id) {
+            await cloudinary.uploader.destroy(movie.video.public_id);
+        }
+
+         movie.video = {
+            url: video.url,
+            public_id: video.public_id
+        };
     }
 
-    // updateData.trailer = {
-    //     url: trailer.url,
-    //     public_id: trailer.public_id
-    // }
-    // }
+    await movie.save();
 
-    // if (req.files?.video?.[0]?.path) {
-
-    // const video = await uploadOnCloudinary(
-    //     req.files.video[0].path,
-    //     "movies/videos"
-    // )
-
-    // if (movie.video?.public_id) {
-    //     await cloudinary.uploader.destroy(movie.video.public_id)
-    // }
-
-    // updateData.video = {
-    //     url: video.url,
-    //     public_id: video.public_id
-    // }
-    // }
-
-    const updatedMovie = await Movie.findByIdAndUpdate(
-        id,
-        { $set: updateFields },
-        { new: true, runValidators: true }
-    ).populate("categoryID");
-
-    return res.status(200).json({
-        success: true,
-        data: updatedMovie,
-        message: "Movie updated successfully"
-    });
+    return res.json({ success: true, message: "Movie updated", data: movie });
 });
 
-export const deleteMovie = asyncHandler(async (req, res, next) => {
-    const movie = await Movie.findByIdAndUpdate(
-        req.params.id,
-        {
-            $set: {
-                isDeleted: true,
-                deletedAt: new Date()
-            }
-        },
-        { new: true }
-    );
+// export const updateMovie1 = asyncHandler(async (req, res, next) => {
+//     const { id } = req.params;
+//     const movie = await Movie.findOne({_id:id,isDeleted:false});
+
+//     if (!movie) {
+//         const error = new Error("Movie not found");
+//         error.code = 404;
+//         return next(error);
+//     }
+
+//     const { title, description, categoryID, rentalPrice, duration } = req.body;
+//     // let updateData = { ...req.body };
+
+//     const updateFields = {};
+//     if (title) updateFields.title = title;
+//     if (description) updateFields.description = description;
+//     if (categoryID) updateFields.categoryID = categoryID;
+//     if (rentalPrice !== undefined) updateFields.rentalPrice = Number(rentalPrice);
+//     if (duration !== undefined) updateFields.duration = Number(duration);
+//     // Handle Poster Update
+//     // if (req.files?.poster?.[0]?.path) {
+//     //     const poster = await uploadOnCloudinary(req.files.poster[0].path,"movies/posters");
+//     //     if (movie.poster) {
+//     //         // const oldId = movie.poster.split("/").pop().split(".")[0];
+//     //         await cloudinary.uploader.destroy(movie.poster.public_id);
+//     //     }
+//     //     updateData.poster = {
+//     //         url: poster.url,
+//     //         public_id: poster.public_id
+//     //     };
+//     // }
+
+//     // if (req.files?.trailer?.[0]?.path) {
+//     // const trailer = await uploadOnCloudinary(
+//     //     req.files.trailer[0].path,
+//     //     "movies/trailers"
+//     // )
+
+//     // if (movie.trailer?.public_id) {
+//     //     await cloudinary.uploader.destroy(movie.trailer.public_id)
+//     // }
+
+//     if (req.files?.poster?.[0]?.path) {
+//         const poster = await uploadOnCloudinary(req.files.poster[0].path, "movies/posters");
+//         if (movie.poster?.public_id) await cloudinary.uploader.destroy(movie.poster.public_id);
+//         updateFields.poster = { url: poster.url, public_id: poster.public_id };
+//     }
+
+//     // Trailer
+//     if (req.files?.trailer?.[0]?.path) {
+//         const trailer = await uploadOnCloudinary(req.files.trailer[0].path, "movies/trailers");
+//         if (movie.trailer?.public_id) await cloudinary.uploader.destroy(movie.trailer.public_id);
+//         updateFields.trailer = { url: trailer.url, public_id: trailer.public_id };
+//     }
+
+//     // Video
+//     if (req.files?.video?.[0]?.path) {
+//         const video = await uploadOnCloudinary(req.files.video[0].path, "movies/videos");
+//         if (movie.video?.public_id) await cloudinary.uploader.destroy(movie.video.public_id);
+//         updateFields.video = { url: video.url, public_id: video.public_id };
+//     }
+
+//     // updateData.trailer = {
+//     //     url: trailer.url,
+//     //     public_id: trailer.public_id
+//     // }
+//     // }
+
+//     // if (req.files?.video?.[0]?.path) {
+
+//     // const video = await uploadOnCloudinary(
+//     //     req.files.video[0].path,
+//     //     "movies/videos"
+//     // )
+
+//     // if (movie.video?.public_id) {
+//     //     await cloudinary.uploader.destroy(movie.video.public_id)
+//     // }
+
+//     // updateData.video = {
+//     //     url: video.url,
+//     //     public_id: video.public_id
+//     // }
+//     // }
+
+//     const updatedMovie = await Movie.findByIdAndUpdate(
+//         id,
+//         { $set: updateFields },
+//         { new: true, runValidators: true }
+//     ).populate("categoryID");
+
+//     return res.status(200).json({
+//         success: true,
+//         data: updatedMovie,
+//         message: "Movie updated successfully"
+//     });
+// });
+
+
+export const deleteMovie = asyncHandler(async (req, res,next) => {
+   const movie = await Movie.findById(req.params.id);
 
     if (!movie) {
         const error = new Error("Movie not found");
@@ -226,9 +251,13 @@ export const deleteMovie = asyncHandler(async (req, res, next) => {
         return next(error);
     }
 
+    movie.isDeleted = true;
+    movie.deletedAt = new Date();
+    await movie.save();
+
     return res.status(200).json({
         success: true,
-        message: "Movie moved to trash (will be deleted in 30 days)"
+        message: "Movie soft deleted"
     });
 });
 
@@ -240,10 +269,15 @@ export const restoreMovie = asyncHandler(async (req, res, next) => {
     );
 
     if (!movie) {
-        const error = new Error("Movie not found");
+        const error = new Error("Movie not found or deleted");
         error.code = 404;
         return next(error);
     }
+    // if (!movie.isDeleted) {
+    //     const error = new Error("Movie not deleted");
+    //     error.code = 404;
+    //     return next(error);
+    // }
 
     return res.status(200).json({
         success: true,
@@ -254,12 +288,13 @@ export const restoreMovie = asyncHandler(async (req, res, next) => {
 
 export const watchMovie= asyncHandler(async (req,res,next) => {
     const userId=req.user._id;
-    const movieId = req.params.id;
-
+    const contentId = req.params.id;
+    // const movie = await Movie.findById(contentId).populate("contentId");
+    
     const rental = await Rental.findOne({
       userId,
-      movieId,
-      status: "active",
+      contentId,
+    //   status: "active",
       expiresAt: { $gt: new Date() }
     });
 
@@ -269,7 +304,7 @@ export const watchMovie= asyncHandler(async (req,res,next) => {
         return next(error);
     }
 
-    const movie = await Movie.findOne({_id: movieId, isDeleted: false});
+    const movie = await Movie.findOne({ contentId, isDeleted: false});
 
     // if (new Date() > rental.expiresAt) {
     //   rental.status = "expired";
@@ -292,7 +327,7 @@ export const watchMovie= asyncHandler(async (req,res,next) => {
 
     if(!range){
         const error = new Error("Range header required");
-        error.code = 404;
+        error.code = 416;
         return next(error);
     }
 

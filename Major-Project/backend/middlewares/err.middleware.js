@@ -1,6 +1,6 @@
 export const asyncHandler=(fn)=>{
     return (req,res,next)=>{
-        fn(req,res,next).catch(next)
+        Promise.resolve(fn(req,res,next)).catch(next)
     }
 }
 
@@ -9,7 +9,8 @@ const errorHandler=(error,req,res,next)=>{
     
     return res.status(error.code||500).json({
         success:false,
-        message:error.message||"Something went wrong"
+        message:error.message||"Something went wrong",
+        ...(error.details && { details: error.details })
     })
 }
 

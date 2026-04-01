@@ -33,7 +33,7 @@ export const createMovieCast = asyncHandler(async (req,res,next)=>{
 
 export const getMovieCast = asyncHandler(async (req,res)=>{
 
-    const cast = await MovieCast.find({contentId:req.params.contentId})
+    const cast = await MovieCast.find({contentId:req.params.movieId})
     .populate("castID")
 
     return res.json({

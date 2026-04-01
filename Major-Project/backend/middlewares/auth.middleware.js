@@ -2,37 +2,123 @@ import { asyncHandler } from "./err.middleware.js";
 import jwt from "jsonwebtoken"
 import User from "../models/user.model.js";
 
-export const Authverify = asyncHandler(async (req,res,next) => {
-    try {
-        const token=req.cookies?.accessToken||req.header
-        ("Authorization")?.replace("Bearer ","")
+// export const Authverify = asyncHandler(async (req,res,next) => {
+//     try {
+//         const token=
+//             req.cookies?.accessToken||
+//             req.header("Authorization")?.replace("Bearer ","")
     
-        if(!token){
-            const error = new Error ("UnAuthorized request")
-            error.code=401;
-            return next(error)
-        }
+//         if(!token){
+//             const error = new Error ("UnAuthorized request")
+//             error.code=401;
+//             return next(error)
+//         }
     
-        const decodedToken=jwt.verify(token,process.env.ACCESS_TOKEN_SECRET_KEY)
-        console.log(decodedToken)
+//         const decodedToken=jwt.verify(token,process.env.ACCESS_TOKEN_SECRET_KEY)
+//         console.log(decodedToken)
     
-        const user=await User.findOne({_id:decodedToken?._id,isDeleted:false}).select("-password -refreshToken") 
-        console.log("User from DB:", user);
+//         const user=await User.findOne({_id:decodedToken?._id,isDeleted:false}).select("-password -refreshToken") 
+//         console.log("User from DB:", user);
     
-        if (!user) {
-            const error = new Error ("Invalid Access Token or Account Deactivated")
-            error.code=400;
-            return next(error)
-        }
+//         if (!user) {
+//             const error = new Error ("Invalid Access Token or Account Deactivated")
+//             error.code=400;
+//             return next(error)
+//         }
     
-        req.user=user;
-        next()
-    } catch (error) {
-        const err=new Error (error.message||"Invalid Access Token")
-        err.code=400;
-        return next(err)
+//         req.user=user;
+//         next()
+//     } catch (error) {
+//         const err=new Error (error.message||"Invalid Access Token")
+//         err.code=400;
+//         return next(err)
+//     }
+// })
+
+// export const Authverify = asyncHandler(async (req,res,next) => {
+//     const token =
+//         req.cookies?.accessToken ||
+//         req.header("Authorization")?.replace("Bearer ","");
+
+//     if (!token) {
+//         const error = new Error("Unauthorized request");
+//         error.code = 401;
+//         return next(error);
+//     }
+
+//     const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_KEY);
+
+//     const user = await User.findOne({
+//         _id: decodedToken?._id,
+//         isDeleted: false
+//     }).select("-password -refreshToken");
+
+//     if (!user) {
+//         const error = new Error("Invalid token or user deleted");
+//         error.code = 401;
+//         return next(error);
+//     }
+
+//     req.user = user;
+//     next();
+// });
+
+export const Authverify = asyncHandler(async (req, res, next) => {
+    let token;
+
+    // 1. Get token from cookies
+    if (req.cookies?.accessToken) {
+        token = req.cookies.accessToken;
     }
-})
+
+    // 2. Get token from Authorization header
+    const authHeader = req.headers.authorization;
+    if (!token && authHeader && authHeader.startsWith("Bearer ")) {
+        token = authHeader.split(" ")[1];
+    }
+
+    // 3. If no token
+    if (!token) {
+        const error = new Error("Unauthorized request");
+        error.code = 401;
+        return next(error);
+    }
+
+    let decodedToken;
+
+    // 4. Verify token
+    try {
+        decodedToken = jwt.verify(
+            token,
+            process.env.ACCESS_TOKEN_SECRET_KEY
+        );
+    } catch (error) {
+        if (error.name === "TokenExpiredError") {
+            error.message = "Access token expired";
+        } else {
+            error.message = "Invalid access token";
+        }
+        error.code = 401;
+        return next(error);
+    }
+
+    // 5. Find user
+    const user = await User.findOne({
+        _id: decodedToken?._id,
+        isDeleted: false,
+    }).select("-password -refreshToken");
+
+    if (!user) {
+        const error = new Error("User not found or deactivated");
+        error.code = 401;
+        return next(error);
+    }
+
+    // 6. Attach user to request
+    req.user = user;
+    next();
+});
+
 
 export const verifyAdmin = (req, res, next) => {
    

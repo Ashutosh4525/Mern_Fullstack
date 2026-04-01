@@ -1,6 +1,6 @@
-import Season from "../models/season.model";
-import { asyncHandler } from "../middlewares/err.middleware";
-import Content from "../models/content.model";
+import Season from "../models/season.model.js";
+import { asyncHandler } from "../middlewares/err.middleware.js";
+import Content from "../models/content.model.js";
 export const createSeason = asyncHandler(async (req, res,next) => {
     const { contentId, seasonNumber } = req.body;
 

@@ -1,9 +1,9 @@
-import Episode from "../models/episode.model";
-import { asyncHandler } from "../middlewares/err.middleware";
-import { uploadOnCloudinary } from "../config/cloudinary.config";
+import Episode from "../models/episode.model.js";
+import { asyncHandler } from "../middlewares/err.middleware.js";
+import { uploadOnCloudinary } from "../config/cloudinary.config.js";
 import { v2 as cloudinary } from "cloudinary";
-import Season from "../models/season.model";
-import Rental from "../models/rental.model";
+import Season from "../models/season.model.js";
+import Rental from "../models/rental.model.js";
 export const createEpisode = asyncHandler(async (req, res, next) => {
     const { seasonId, title, episodeNumber, duration } = req.body;
 

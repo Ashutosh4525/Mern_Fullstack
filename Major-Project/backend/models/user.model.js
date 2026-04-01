@@ -73,17 +73,11 @@ const userSchema=mongoose.Schema({
 //     this.password=await bcrypt.hash(this.password,saltRounds)
 // })
 
-userSchema.pre("save", async function (next) {
-    try {
-        if (!this.isModified("password")) return next();
+userSchema.pre("save", async function () {
+    if (!this.isModified("password")) return;
 
-        const saltRounds = Number(process.env.PASS_SALT);
-        this.password = await bcrypt.hash(this.password, saltRounds);
-
-        next();
-    } catch (err) {
-        next(err);
-    }
+    const saltRounds = Number(process.env.PASS_SALT);
+    this.password = await bcrypt.hash(this.password, saltRounds);
 });
 
 
@@ -93,17 +87,11 @@ userSchema.pre("save", async function (next) {
 //      this.otp= await bcrypt.hash(this.otp,Otp_Salt);
 // });
 
-userSchema.pre("save", async function (next) {
-    try {
-        if (!this.isModified("otp")) return next();
+userSchema.pre("save", async function () {
+    if (!this.isModified("otp") || !this.otp) return;
 
-        const Otp_Salt = Number(process.env.OTP_SALT)
-        this.otp = await bcrypt.hash(this.otp, Otp_Salt);
-
-        next();
-    } catch (err) {
-        next(err);
-    }
+    const Otp_Salt = Number(process.env.OTP_SALT)
+    this.otp = await bcrypt.hash(this.otp, Otp_Salt);
 });
 
 userSchema.methods.isPasswordCorrect= async function (password) {

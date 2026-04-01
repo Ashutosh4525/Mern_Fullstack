@@ -8,6 +8,9 @@ import movieCastRouter from "./router/moviecast.router.js"
 import paymentRouter from "./router/payment.router.js"
 import rentalRouter from "./router/rental.router.js"
 import categoryRouter from "./router/category.router.js"
+import contentRouter from "./router/content.router.js"
+import episodeRouter from "./router/episode.router.js"
+import seasonRouter from "./router/season.router.js"
 import errorHandler from "./middlewares/err.middleware.js"
 import { limiter } from "./middlewares/rateLimit.middleware.js"
 
@@ -31,6 +34,9 @@ app.use("/api/v1/payment",paymentRouter)
 app.use("/api/v1/rental",rentalRouter)
 app.use("/api/v1/cast",castRouter)
 app.use("/api/v1/category",categoryRouter)
+app.use("/api/v1/content",contentRouter)
+app.use("/api/v1/episode",episodeRouter)
+app.use("/api/v1/season",seasonRouter)
 
 
 app.use(errorHandler)

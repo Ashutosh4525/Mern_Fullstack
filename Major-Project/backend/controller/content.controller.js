@@ -1,6 +1,6 @@
-import Content from "../models/content.model";
-import { asyncHandler } from "../middlewares/err.middleware";
-import { uploadOnCloudinary } from "../config/cloudinary.config";
+import Content from "../models/content.model.js";
+import { asyncHandler } from "../middlewares/err.middleware.js";
+import { uploadOnCloudinary } from "../config/cloudinary.config.js";
 import { v2 as cloudinary } from "cloudinary";
 
 export const createContent = asyncHandler(async (req, res,next) => {

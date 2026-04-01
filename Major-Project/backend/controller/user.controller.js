@@ -12,7 +12,7 @@ import {v2 as cloudinary} from "cloudinary";
 const generateAccessAndRefreshTokens = async(userId) =>{
     try {
         const user = await User.findById(userId).select("+refreshToken")
-
+        console.log("USER:", user);
         if (!user) {
             const error = new Error("User not found for token generation");
             error.code = 500;
@@ -20,7 +20,9 @@ const generateAccessAndRefreshTokens = async(userId) =>{
         }
 
         const accessToken = user.generateAccessToken()
+        console.log("ACCESS TOKEN GENERATED");
         const refreshToken = user.generateRefreshToken()
+        console.log("REFRESH TOKEN GENERATED");
 
         user.refreshToken = refreshToken
         await user.save({ validateBeforeSave: false })
@@ -30,8 +32,12 @@ const generateAccessAndRefreshTokens = async(userId) =>{
 
 
     } catch (err) {
-        console.log(err);
-        const error = new Error("Something went wrong while generating refresh and access token");
+        // console.log(err);
+        // const error = new Error("Something went wrong while generating refresh and access token",err);
+        // error.code = 500;
+        // throw error;
+        console.error("TOKEN ERROR:", err);
+        const error = new Error(err.message || "Token generation failed");
         error.code = 500;
         throw error;
     }
@@ -130,11 +136,11 @@ export const login=asyncHandler(async (req,res,next) => {
         return next(error)
      }
 
-     if (!user.isEmailVerified) {
-        const error = new Error("Please verify your email first");
-        error.code = 403;
-        return next(error);
-    }
+    //  if (!user.isEmailVerified) {
+    //     const error = new Error("Please verify your email first");
+    //     error.code = 403;
+    //     return next(error);
+    // }
 
      const isPasswordValid= await user.isPasswordCorrect(password)
 

@@ -93,7 +93,7 @@ export const getAllContent = asyncHandler(async (req, res, next) => {
 
     const [contents, total] = await Promise.all([
         Content.find(query)
-            .populate("categoryIds", "name")
+            .populate("categoryIds")
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit),

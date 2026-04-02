@@ -8,8 +8,8 @@ const movieRouter = express.Router();
 
 // Define which fields expect files
 const movieUpload = upload.fields([
-    { name: "poster", maxCount: 1 },
-    { name: "trailer", maxCount: 1 },
+    // { name: "poster", maxCount: 1 },
+    // { name: "trailer", maxCount: 1 },
     { name: "video", maxCount: 1 }
 ]);
 

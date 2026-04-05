@@ -1,3 +1,4 @@
+import { Readable } from "stream";
 import Episode from "../models/episode.model.js";
 import { asyncHandler } from "../middlewares/err.middleware.js";
 import { uploadOnCloudinary } from "../config/cloudinary.config.js";
@@ -204,6 +205,9 @@ export const watchEpisode = asyncHandler(async (req, res, next) => {
     const episode = await Episode.findOne({
         _id: req.params.id,
         isDeleted: false
+    }).populate({
+        path: "seasonId",
+        select: "contentId"
     });
 
     const userId = req.user._id;
@@ -213,9 +217,16 @@ export const watchEpisode = asyncHandler(async (req, res, next) => {
         return next(error);
     }
 
+    const contentId = episode.seasonId?.contentId;
+    if (!contentId) {
+        const error = new Error("Episode content mapping not found");
+        error.code = 500;
+        return next(error);
+    }
+
     const rental = await Rental.findOne({
         userId,
-        contentId: episode.contentId,
+        contentId,
         expiresAt: { $gt: new Date() }
     });
 
@@ -248,5 +259,10 @@ export const watchEpisode = asyncHandler(async (req, res, next) => {
         "Content-Range": response.headers.get("content-range")
     });
 
-    return response.body.pipe(res);
+    if (!response.body) {
+      return res.status(500).json({ success: false, message: "Episode stream unavailable" });
+    }
+
+    const nodeStream = Readable.fromWeb(response.body);
+    return nodeStream.pipe(res);
 });

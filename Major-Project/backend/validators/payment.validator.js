@@ -2,9 +2,9 @@ import { body } from 'express-validator';
 
 export const paymentValidator = {
     createOrder: [
-        body('movieId')
-            .notEmpty().withMessage('Movie ID is required')
-            .isMongoId().withMessage('Invalid Movie ID format')
+        body('contentId')
+            .notEmpty().withMessage('Content ID is required')
+            .isMongoId().withMessage('Invalid Content ID format')
     ],
 
     verifyPayment: [

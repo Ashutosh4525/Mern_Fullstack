@@ -26,5 +26,6 @@ episodeRouter.put("/update/:id", Authverify, verifyAdmin, episodeUpload, episode
 episodeRouter.patch("/delete/:id", episodeValidator.idParam,validate, Authverify, verifyAdmin, deleteEpisode);
 episodeRouter.patch("/restore/:id", episodeValidator.idParam,validate, Authverify, verifyAdmin, restoreEpisode);
 episodeRouter.post("/watch/:id", episodeValidator.idParam,validate, Authverify, watchEpisode);
+episodeRouter.get("/watch/:id/stream", episodeValidator.idParam,validate,Authverify, watchEpisode);
 
 export default episodeRouter;

@@ -2,11 +2,11 @@ import { body, param } from 'express-validator';
 
 export const rentalValidator = {
     create: [
-        body('movieId')
-            .notEmpty().withMessage('Movie ID is required')
-            .isMongoId().withMessage('Invalid Movie ID format'),
+        body('contentId')
+            .notEmpty().withMessage('Content ID is required')
+            .isMongoId().withMessage('Invalid Content ID format'),
         body('paymentId')
-            .notEmpty().withMessage('Payment ID is required')
+            .optional()
             .isMongoId().withMessage('Invalid Payment ID format')
     ],
 

@@ -17,7 +17,7 @@ const categoryRouter = express.Router();
 categoryRouter.get("/all", getAllCategories);
 
 
-categoryRouter.post("/create", categoryValidator.create,validate,Authverify, createCategory);
+categoryRouter.post("/create", categoryValidator.create,validate,Authverify, verifyAdmin,createCategory);
 categoryRouter.put("/update/:id",categoryValidator.update,validate, Authverify,verifyAdmin, updateCategory);
 categoryRouter.delete("/delete/:id",categoryValidator.idParam,validate, Authverify, verifyAdmin, deleteCategory);
 categoryRouter.patch("/restore/:id",categoryValidator.idParam,validate, Authverify, verifyAdmin, restoreCategory);

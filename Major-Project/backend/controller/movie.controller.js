@@ -1,3 +1,4 @@
+import { Readable } from "stream";
 import Movie from "../models/movie.model.js";
 import { asyncHandler } from "../middlewares/err.middleware.js";
 import { uploadOnCloudinary } from "../config/cloudinary.config.js";
@@ -347,7 +348,13 @@ export const watchMovie= asyncHandler(async (req,res,next) => {
         "Content-Length": response.headers.get("content-length"),
         "Content-Range": response.headers.get("content-range"),
     })
-    return response.body.pipe(res)
+
+    if (!response.body) {
+      return res.status(500).json({ success: false, message: "Video stream unavailable" });
+    }
+
+    const nodeStream = Readable.fromWeb(response.body);
+    return nodeStream.pipe(res);
     // return request(signedUrl, {
     //     headers: {
     //     Range: range

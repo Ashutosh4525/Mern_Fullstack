@@ -220,6 +220,24 @@ export const getAllUser = asyncHandler(async (req,res,next) => {
     })
 })
 
+export const getCurrentUser = asyncHandler(async (req,res,next) => {
+    const user = await User.findById(req.user._id)
+        .populate("watchHistory")
+        .select("-password -refreshToken -otp -otpExpires");
+
+    if (!user) {
+        const error = new Error("User not found");
+        error.code = 404;
+        return next(error);
+    }
+
+    return res.status(200).json({
+        success: true,
+        data: user,
+        message: "Fetched current user detail"
+    })
+})
+
 export const getUser = asyncHandler(async (req,res,next) => {
     const {id}=req.params
     const user = await User.findById(id)
@@ -657,5 +675,28 @@ export const restoreUser = asyncHandler(async (req, res, next) => {
         success: true,
         data: user,
         message: "User account restored successfully"
+    });
+});
+
+export const contactSubmit = asyncHandler(async (req, res, next) => {
+    const { name, email, subject, message } = req.body;
+
+    if (!name || !email || !subject || !message) {
+        const error = new Error("All fields are required");
+        error.code = 400;
+        return next(error);
+    }
+
+    // Send email to admin or support
+    await sendEmail({
+        email: process.env.ADMIN_EMAIL || "support@streamforge.com", // Set admin email in env
+        subject: `Contact Form: ${subject}`,
+        message: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+        html: `<h3>Contact Form Submission</h3><p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Subject:</strong> ${subject}</p><p><strong>Message:</strong></p><p>${message.replace(/\n/g, '<br>')}</p>`
+    });
+
+    return res.status(200).json({
+        success: true,
+        message: "Message sent successfully! We'll get back to you soon."
     });
 });

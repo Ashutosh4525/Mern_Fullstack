@@ -41,7 +41,7 @@ export const createRental = asyncHandler(async(req,res,next)=>{
 
 })
 
-export const getUserRentals = asyncHandler(async(req,res)=>{
+export const getUserRentals = asyncHandler(async(req,res,next)=>{
     const userId = req.params.userId;
 
     if (req.user.role !== 'admin' && req.user._id.toString() !== userId) {
@@ -60,13 +60,32 @@ export const getUserRentals = asyncHandler(async(req,res)=>{
 
 })
 
-export const expireRental = asyncHandler(async(req,res)=>{
+export const getAllRentals = asyncHandler(async (req, res) => {
+    const rentals = await Rental.find({})
+        .populate("contentId")
+        .populate("userId", "firstname lastname email role")
+        .populate("paymentId")
+        .sort({ createdAt: -1 });
+
+    return res.status(200).json({
+        success: true,
+        data: rentals
+    });
+})
+
+export const expireRental = asyncHandler(async(req,res,next)=>{
 
     const rental = await Rental.findByIdAndUpdate(
     req.params.id,
     {expiresAt: new Date()},
     {new:true}
     )
+
+    if (!rental) {
+        const error = new Error("Rental not found");
+        error.code = 404;
+        return next(error);
+    }
 
     res.json({
     success:true,

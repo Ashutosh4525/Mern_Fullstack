@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser,login,logoutUser, refreshAccessToken, changeCurrentPassword, sendOtp, verifyEmail, UpdateUser,getAllUser,getUser, softDeleteUser ,restoreUser} from "../controller/user.controller.js";
+import { registerUser,login,logoutUser, refreshAccessToken, changeCurrentPassword, sendOtp, verifyEmail, UpdateUser,getAllUser,getUser, softDeleteUser ,restoreUser, getCurrentUser,contactSubmit} from "../controller/user.controller.js";
 import { upload } from "../middlewares/upload.middleware.js";
 import { Authverify, verifyAdmin } from "../middlewares/auth.middleware.js";
 import { validate } from "../middlewares/validation.middleware.js";
@@ -16,11 +16,13 @@ userRouter.post("/refresh-token",refreshAccessToken)
 userRouter.post("/change-password",Authverify,changeCurrentPassword)
 userRouter.post("/send-otp",userValidator.sendotp,validate,sendOtp)
 userRouter.post("/verify-email",userValidator.verifyotp,validate,verifyEmail)
+userRouter.get("/me",Authverify,getCurrentUser)
 userRouter.put("/me",Authverify, userValidator.updateProfile,validate,userUpload, UpdateUser)
-userRouter.get("/",Authverify,verifyAdmin, getAllUser); 
+userRouter.get("/all",Authverify,verifyAdmin, getAllUser); 
 userRouter.get("/:id", Authverify, getUser);
-userRouter.patch("/restore/:id", Authverify, restoreUser);
+userRouter.patch("/restore/:id", userValidator.idParam,validate,Authverify,verifyAdmin, restoreUser);
 userRouter.patch("/delete/me", Authverify, softDeleteUser);
 userRouter.patch("/delete/:id", userValidator.idParam,validate,Authverify,verifyAdmin, softDeleteUser);
+userRouter.post("/contact", contactSubmit);
 
 export default userRouter;

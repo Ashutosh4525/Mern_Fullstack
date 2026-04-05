@@ -38,10 +38,7 @@ export const userValidator ={
          body("otp")
          .trim()
          .notEmpty().withMessage("otp is required")
-         .isLength({min: 6, max:6}).withMessage("Length should be greater than 6"),
-         body("otpExpires")
-         .notEmpty().withMessage("Expiry time is required")
-         .isISO8601().withMessage("Must be a valid date format")
+         .isLength({min: 6, max:6}).withMessage("OTP must be 6 characters")
     ],
     updateProfile: [
         body('firstname').optional().trim().notEmpty(),

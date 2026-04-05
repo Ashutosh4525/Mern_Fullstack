@@ -3,7 +3,7 @@ import { asyncHandler } from "../middlewares/err.middleware.js";
 
 export const createMovieCast = asyncHandler(async (req,res,next)=>{
 
-    const {contentId, castID} = req.body
+    const {contentId, castID, role} = req.body
 
     if(!contentId || !castID){
     const error = new Error("contentId and castID required")
@@ -20,7 +20,8 @@ export const createMovieCast = asyncHandler(async (req,res,next)=>{
 
     const relation = await MovieCast.create({
     contentId,
-    castID
+    castID,
+    role
     })
 
     return res.status(201).json({
@@ -56,6 +57,19 @@ export const deleteMovieCast = asyncHandler(async (req,res,next)=>{
     return res.json({
     success:true,
     message:"Cast removed from movie"
+    })
+
+})
+
+export const getAllMovieCast = asyncHandler(async (req,res)=>{
+
+    const cast = await MovieCast.find()
+    .populate("contentId", "title type")
+    .populate("castID", "name profileImage")
+
+    return res.json({
+    success:true,
+    data:cast
     })
 
 })

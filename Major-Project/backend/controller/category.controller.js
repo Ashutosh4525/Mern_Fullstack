@@ -89,7 +89,26 @@ export const updateCategory = asyncHandler(async (req, res, next) => {
         message: "Category updated successfully"
     });
 });
+// Get all categories including deleted (admin only)
+export const getAllCategoriesIncludingDeleted = asyncHandler(async (req, res, next) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
 
+    const [categories, total] = await Promise.all([
+        Category.find({}).skip(skip).limit(limit).sort({ createdAt: -1 }),
+        Category.countDocuments({})
+    ]);
+
+    return res.status(200).json({
+        success: true,
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        data: categories
+    });
+});
 export const deleteCategory = asyncHandler(async (req, res, next) => {
     const category = await Category.findByIdAndUpdate(
         req.params.id,

@@ -2,9 +2,10 @@
 import express from "express";
 import { 
     createCategory, 
-    getAllCategories, 
+    getAllCategories,
+    getAllCategoriesIncludingDeleted,
     updateCategory, 
-    deleteCategory ,
+    deleteCategory,
     restoreCategory
 } from "../controller/category.controller.js";
 import { Authverify,verifyAdmin } from "../middlewares/auth.middleware.js";
@@ -15,7 +16,7 @@ const categoryRouter = express.Router();
 
 
 categoryRouter.get("/all", getAllCategories);
-
+categoryRouter.get("/all-admin", Authverify, verifyAdmin, getAllCategoriesIncludingDeleted);
 
 categoryRouter.post("/create", categoryValidator.create,validate,Authverify, verifyAdmin,createCategory);
 categoryRouter.put("/update/:id",categoryValidator.update,validate, Authverify,verifyAdmin, updateCategory);

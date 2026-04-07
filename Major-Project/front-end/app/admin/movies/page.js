@@ -1,10 +1,13 @@
 'use client'
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { getAllContent } from "@/services/contentService";
 import { API } from "@/services/api";
+import AdminDataGrid from "@/components/admin/AdminDataGrid";
 
 export default function AdminMoviesPage() {
+  const router = useRouter();
   const [items, setItems] = useState([]);
   const [uploadedMovies, setUploadedMovies] = useState([]);
   const [selectedContentId, setSelectedContentId] = useState("");
@@ -12,14 +15,8 @@ export default function AdminMoviesPage() {
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const load = async () => {
-    const [contentRes, movieRes] = await Promise.all([
-      getAllContent({ type: "movie", limit: 50 }),
-      API.get("/movie/all")
-    ]);
-    setItems(contentRes.data ?? []);
-    setUploadedMovies(movieRes.data?.data ?? []);
-    setLoading(false);
+  const handleEdit = (item) => {
+    router.push(`/admin/movies/${item._id}`);
   };
 
   useEffect(() => {
@@ -27,7 +24,7 @@ export default function AdminMoviesPage() {
 
     const bootstrap = async () => {
       const [contentRes, movieRes] = await Promise.all([
-        getAllContent({ type: "movie", limit: 50 }),
+        getAllContent({ type: "movie", limit: 500 }),
         API.get("/movie/all")
       ]);
 
@@ -43,6 +40,32 @@ export default function AdminMoviesPage() {
       active = false;
     };
   }, []);
+
+  const columns = [
+    {
+      field: 'contentId',
+      headerName: 'Movie Title',
+      minWidth: 250,
+      flex: 1,
+      renderCell: (params) => params.value?.title || 'N/A',
+    },
+    {
+      field: 'duration',
+      headerName: 'Duration (min)',
+      minWidth: 120,
+      flex: 0.5,
+    },
+    {
+      field: 'createdAt',
+      headerName: 'Created',
+      minWidth: 150,
+      flex: 0.7,
+      renderCell: (params) => {
+        if (!params.value) return 'N/A';
+        return new Date(params.value).toLocaleDateString();
+      },
+    },
+  ];
 
   if (loading) {
     return (
@@ -115,30 +138,15 @@ export default function AdminMoviesPage() {
         </button>
       </form>
 
-      <div className="grid gap-4">
-        {items.map((item) => (
-          <div
-            key={item._id}
-            className="rounded-[1.5rem] border border-white/10 bg-[#0b1220] p-5"
-          >
-            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-              <div className="flex-1">
-                <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">movie</p>
-                <h2 className="mt-2 text-xl font-semibold">{item.title}</h2>
-                <p className="text-sm text-neutral-400 mt-1">{item.description}</p>
-                <p className="text-sm text-neutral-400">
-                  Price: {item.rentalPrice ? `Rs. ${item.rentalPrice}` : "Free"}
-                </p>
-              </div>
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-neutral-200">
-                {uploadedMovies.some((movie) => movie.contentId?._id === item._id)
-                  ? "Video attached"
-                  : "Awaiting video"}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
+      <AdminDataGrid
+        data={uploadedMovies}
+        columns={columns}
+        onRowClick={(item) => {
+          router.push(`/admin/movies/${item._id}`);
+        }}
+        onEdit={handleEdit}
+        searchFields={['contentId.title']}
+      />
     </div>
   );
 }

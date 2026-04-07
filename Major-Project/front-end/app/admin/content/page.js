@@ -1,10 +1,13 @@
 'use client'
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { API } from "@/services/api";
 import { getAllContent, getCategories } from "@/services/contentService";
+import AdminDataGrid from "@/components/admin/AdminDataGrid";
 
 export default function AdminContentPage() {
+  const router = useRouter();
   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [form, setForm] = useState({
@@ -17,26 +20,55 @@ export default function AdminContentPage() {
     trailer: null
   });
 
-  const load = async () => {
-    const [contentRes, categoryRes] = await Promise.all([
-      getAllContent({ limit: 50 }),
-      getCategories()
-    ]);
-    setItems(contentRes.data ?? []);
-    setCategories(categoryRes.data ?? []);
+  const handleEdit = (item) => {
+    router.push(`/admin/content/${item._id}`);
   };
+
+  const handleToggleContentStatus = async (contentId, isDeleted) => {
+    try {
+      if (isDeleted) {
+        // Restore content
+        await API.patch(`/content/restore/${contentId}`);
+      } else {
+        // Soft delete content
+        await API.patch(`/content/delete/${contentId}`);
+      }
+      // Refresh the content list
+      const contentRes = await API.get('/content/all-admin');
+      setItems(contentRes.data.data ?? []);
+    } catch (error) {
+      console.error('Error toggling content status:', error);
+      alert('Failed to update content status');
+    }
+  };
+
+  const renderActions = (item) => (
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        handleToggleContentStatus(item._id, item.isDeleted);
+      }}
+      className={`px-3 py-1 text-white rounded text-sm transition-colors ${
+        item.isDeleted
+          ? 'bg-green-600 hover:bg-green-700'
+          : 'bg-red-600 hover:bg-red-700'
+      }`}
+    >
+      {item.isDeleted ? 'Restore' : 'Disable'}
+    </button>
+  );
 
   useEffect(() => {
     let active = true;
 
     const bootstrap = async () => {
       const [contentRes, categoryRes] = await Promise.all([
-        getAllContent({ limit: 50 }),
+        API.get('/content/all-admin'),
         getCategories()
       ]);
 
       if (!active) return;
-      setItems(contentRes.data ?? []);
+      setItems(contentRes.data.data ?? []);
       setCategories(categoryRes.data ?? []);
     };
 
@@ -46,6 +78,56 @@ export default function AdminContentPage() {
       active = false;
     };
   }, []);
+
+  const columns = [
+    {
+      field: 'title',
+      headerName: 'Title',
+      minWidth: 250,
+      flex: 1,
+    },
+    {
+      field: 'type',
+      headerName: 'Type',
+      minWidth: 120,
+      flex: 0.5,
+      renderCell: (params) => (
+        <span className="capitalize">{params.value}</span>
+      ),
+    },
+    {
+      field: 'rentalPrice',
+      headerName: 'Rental Price',
+      minWidth: 120,
+      flex: 0.5,
+      renderCell: (params) => (
+        <span>{params.value ? `Rs. ${params.value}` : 'Included'}</span>
+      ),
+    },
+    {
+      field: 'categoryIds',
+      headerName: 'Categories',
+      minWidth: 200,
+      flex: 1,
+      renderCell: (params) => {
+        const cats = params.value?.map(cat => cat?.name).filter(Boolean) || [];
+        return <span>{cats.join(', ')}</span>;
+      },
+    },
+    {
+      field: 'isDeleted',
+      headerName: 'Status',
+      minWidth: 120,
+      flex: 0.5,
+      renderCell: (params) => (
+        <span className={`text-xs uppercase font-semibold ${
+          params.value ? 'text-red-400' : 'text-green-400'
+        }`}>
+          {params.value ? 'DISABLED' : 'ACTIVE'}
+        </span>
+      ),
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -162,37 +244,16 @@ export default function AdminContentPage() {
         </button>
       </form>
 
-      <div className="grid gap-4">
-        {items.map((item) => (
-          <div
-            key={item._id}
-            className="rounded-[1.5rem] border border-white/10 bg-[#0b1220] p-5"
-          >
-            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">{item.type}</p>
-                <h2 className="mt-2 text-xl font-semibold">{item.title}</h2>
-                <p className="mt-2 text-sm text-neutral-400">{item.description}</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <p className="text-sm text-neutral-400">
-                  {item.rentalPrice ? `Rs. ${item.rentalPrice}` : "Included"}
-                </p>
-                <button
-                  type="button"
-                  onClick={async () => {
-                    await API.patch(`/content/delete/${item._id}`);
-                    load();
-                  }}
-                  className="rounded-full border border-rose-400/25 bg-rose-400/10 px-4 py-2 text-sm font-semibold text-rose-200"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <AdminDataGrid
+        data={items}
+        columns={columns}
+        onRowClick={(item) => {
+          router.push(`/admin/content/${item._id}`);
+        }}
+        onEdit={handleEdit}
+        actions={renderActions}
+        searchFields={['title', 'description']}
+      />
     </div>
   );
 }

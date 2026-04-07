@@ -9,9 +9,13 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@google/generative-ai": "^0.24.1",
     "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
+    "@mui/material": "^7.3.9",
+    "@mui/x-data-grid": "^8.28.2",
     "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.13.6",
     "next": "16.2.1",

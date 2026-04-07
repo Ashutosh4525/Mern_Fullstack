@@ -110,6 +110,40 @@ export const getAllContent = asyncHandler(async (req, res, next) => {
     });
 });
 
+// Get all content including deleted (admin only)
+export const getAllContentIncludingDeleted = asyncHandler(async (req, res, next) => {
+    const { type, category, search } = req.query;
+    let query = {};
+
+    if (type) query.type = type; 
+    if (category) query.categoryIds = category;
+    if (search) {
+        query.title = { $regex: search, $options: "i" };
+    }
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const [contents, total] = await Promise.all([
+        Content.find(query)
+            .populate("categoryIds")
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit),
+        Content.countDocuments(query)
+    ]);
+
+    return res.json({
+        success: true,
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        data: contents
+    });
+});
+
 //get 1
 export const getContentById = asyncHandler(async (req, res, next) => {
     const content = await Content.findOne({

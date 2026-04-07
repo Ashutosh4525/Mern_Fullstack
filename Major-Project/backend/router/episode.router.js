@@ -2,6 +2,7 @@ import express from "express";
 import {
     createEpisode,
     getEpisodesBySeason,
+    getAllEpisodesIncludingDeleted,
     getEpisodeById,
     updateEpisode,
     deleteEpisode,
@@ -20,6 +21,7 @@ const episodeUpload = upload.fields([
 ]);
 
 episodeRouter.get("/season/:seasonId", getEpisodesBySeason);
+episodeRouter.get("/all-admin/all", Authverify, verifyAdmin, getAllEpisodesIncludingDeleted);
 episodeRouter.get("/:id", episodeValidator.idParam,validate, getEpisodeById);
 episodeRouter.post("/create", Authverify, verifyAdmin, episodeUpload, episodeValidator.create, validate, createEpisode);
 episodeRouter.put("/update/:id", Authverify, verifyAdmin, episodeUpload, episodeValidator.idParam, episodeValidator.update, validate, updateEpisode);

@@ -109,6 +109,27 @@ export const getEpisodeById = asyncHandler(async (req, res, next) => {
     });
 });
 
+// Get all episodes including deleted (admin only)
+export const getAllEpisodesIncludingDeleted = asyncHandler(async (req, res, next) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const [episodes, total] = await Promise.all([
+        Episode.find({}).populate('seasonId').skip(skip).limit(limit).sort({ createdAt: -1 }),
+        Episode.countDocuments({})
+    ]);
+
+    return res.status(200).json({
+        success: true,
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        data: episodes
+    });
+});
+
 export const updateEpisode = asyncHandler(async (req, res, next) => {
     const episode = await Episode.findById(req.params.id);
 

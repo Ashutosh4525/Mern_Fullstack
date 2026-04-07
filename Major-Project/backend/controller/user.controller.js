@@ -218,6 +218,27 @@ export const getAllUser = asyncHandler(async (req,res,next) => {
         data:user,
         message:"Fetched user detail"
     })
+});
+
+// Get all users including deleted (admin only)
+export const getAllUsersIncludingDeleted = asyncHandler(async (req,res,next) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const [users, total] = await Promise.all([
+        User.find({}).skip(skip).limit(limit).sort({ createdAt: -1 }).select("-password -refreshToken -otp -otpExpires"),
+        User.countDocuments({})
+    ]);
+
+    return res.status(200).json({
+        success: true,
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        data: users
+    })
 })
 
 export const getCurrentUser = asyncHandler(async (req,res,next) => {
@@ -379,9 +400,12 @@ export const sendOtp=asyncHandler(async (req,res,next) => {
 
     
     if (user.otpExpires && user.otpExpires > Date.now() ) {
-        const error = new Error("Please wait before requesting another OTP");
-        error.code = 429;
-        return next(error);
+        const remainingTime = Math.ceil((user.otpExpires - Date.now()) / 1000);
+        return res.status(429).json({
+            success: false,
+            message: "OTP already sent. Please wait before requesting again.",
+            remainingTime: remainingTime
+        });
     }
     const otp = user.generateOTP(); 
     await user.save({ validateBeforeSave: false });
@@ -414,6 +438,49 @@ export const sendOtp=asyncHandler(async (req,res,next) => {
     }
 })
 
+
+export const sendOtpForPasswordChange = asyncHandler(async (req, res, next) => {
+    req.body.email = req.user.email;
+    return sendOtp(req, res, next);
+})
+
+export const verifyOtpChangePassword = asyncHandler(async (req, res, next) => {
+    const { otp, newPassword } = req.body;
+
+    const user = await User.findById(req.user._id).select("+otp otpExpires");
+
+    if (!user || !user.otp) {
+        const error = new Error("OTP not found");
+        error.code = 400;
+        return next(error);
+    }
+
+    if (user.otpExpires < Date.now()) {
+        user.otp = undefined;
+        user.otpExpires = undefined;
+        await user.save({ validateBeforeSave: false });
+        const error = new Error("OTP has expired");
+        error.code = 410;
+        return next(error);
+    }
+
+    const isCorrect = await user.isOtpCorrect(otp);
+    if (!isCorrect) {
+        const error = new Error("Invalid OTP");
+        error.code = 401;
+        return next(error);
+    }
+
+    user.password = newPassword;
+    user.otp = undefined;
+    user.otpExpires = undefined;
+    await user.save({ validateBeforeSave: false });
+
+    return res.status(200).json({
+        success: true,
+        message: "Password changed successfully"
+    });
+});
 
 export const verifyEmail=asyncHandler(async (req,res,next) => {
     let {email, otp}=req.body;

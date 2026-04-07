@@ -1,14 +1,73 @@
 'use client'
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { API } from "@/services/api";
+import AdminDataGrid from "@/components/admin/AdminDataGrid";
 
 export default function AdminPurchasesPage() {
+  const router = useRouter();
   const [rentals, setRentals] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    API.get("/rental/all").then((res) => setRentals(res.data?.data ?? []));
+    API.get("/rental/all").then((res) => {
+      setRentals(res.data?.data ?? []);
+      setLoading(false);
+    });
   }, []);
+
+  const handleEdit = (item) => {
+    router.push(`/admin/purchases/${item._id}`);
+  };
+
+  const columns = [
+    {
+      field: 'userId',
+      headerName: 'User',
+      minWidth: 200,
+      flex: 1,
+      renderCell: (params) => {
+        const user = params.value;
+        return user ? `${user.firstname} ${user.lastname}` : 'N/A';
+      },
+    },
+    {
+      field: 'contentId',
+      headerName: 'Content Title',
+      minWidth: 200,
+      flex: 1.2,
+      renderCell: (params) => params.value?.title || 'N/A',
+    },
+    {
+      field: 'createdAt',
+      headerName: 'Purchased',
+      minWidth: 180,
+      flex: 0.9,
+      renderCell: (params) => {
+        if (!params.value) return 'N/A';
+        return new Date(params.value).toLocaleString();
+      },
+    },
+    {
+      field: 'expiresAt',
+      headerName: 'Expires',
+      minWidth: 180,
+      flex: 0.9,
+      renderCell: (params) => {
+        if (!params.value) return 'N/A';
+        const expiryDate = new Date(params.value);
+        const status = expiryDate > new Date() ? 'Active' : 'Expired';
+        const statusColor = status === 'Active' ? 'text-green-400' : 'text-red-400';
+        return (
+          <div>
+            <div>{expiryDate.toLocaleString()}</div>
+            <span className={`text-xs uppercase font-semibold ${statusColor}`}>{status}</span>
+          </div>
+        );
+      },
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -20,40 +79,16 @@ export default function AdminPurchasesPage() {
         </p>
       </div>
 
-      <div className="grid gap-4">
-        {rentals.map((rental) => (
-          <div
-            key={rental._id}
-            className="rounded-[1.5rem] border border-white/10 bg-[#0b1220] p-5"
-          >
-            <div className="grid gap-3 md:grid-cols-4">
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">User</p>
-                <p className="mt-2 font-semibold">
-                  {rental.userId?.firstname} {rental.userId?.lastname}
-                </p>
-                <p className="text-sm text-neutral-400">{rental.userId?.email}</p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">Title</p>
-                <p className="mt-2 font-semibold">{rental.contentId?.title}</p>
-                <p className="text-sm text-neutral-400">{rental.contentId?.type}</p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">Purchased</p>
-                <p className="mt-2 font-semibold">{new Date(rental.createdAt).toLocaleString()}</p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">Expires</p>
-                <p className="mt-2 font-semibold">{new Date(rental.expiresAt).toLocaleString()}</p>
-                <p className="text-sm text-neutral-400">
-                  {new Date(rental.expiresAt) > new Date() ? "Active" : "Expired"}
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <AdminDataGrid
+        data={rentals}
+        columns={columns}
+        onRowClick={(rental) => {
+          // Could navigate to rental details if needed
+          router.push(`/admin/rentals/${rental._id}`);
+        }}
+        onEdit={handleEdit}
+        searchFields={['userId.firstname', 'userId.lastname', 'contentId.title']}
+      />
     </div>
   );
 }

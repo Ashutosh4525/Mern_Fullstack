@@ -1,11 +1,14 @@
 'use client'
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { getAllContent } from "@/services/contentService";
 import { API } from "@/services/api";
+import AdminDataGrid from "@/components/admin/AdminDataGrid";
 import Loading from "@/app/loading";
 
 export default function AdminTVShowsPage() {
+  const router = useRouter();
   const [items, setItems] = useState([]);
   const [selectedShow, setSelectedShow] = useState(null);
   const [seasons, setSeasons] = useState([]);
@@ -22,7 +25,7 @@ export default function AdminTVShowsPage() {
   const [loading, setLoading] = useState(true);
 
   const load = async () => {
-    const res = await getAllContent({ type: "tv", limit: 50 });
+    const res = await getAllContent({ type: "tv", limit: 500 });
     setItems(res.data ?? []);
     setLoading(false);
   };
@@ -31,7 +34,7 @@ export default function AdminTVShowsPage() {
     let active = true;
 
     const bootstrap = async () => {
-      const res = await getAllContent({ type: "tv", limit: 50 });
+      const res = await getAllContent({ type: "tv", limit: 500 });
       if (!active) return;
       setItems(res.data ?? []);
       setLoading(false);
@@ -67,6 +70,14 @@ export default function AdminTVShowsPage() {
     fetchEpisodes(season._id);
   };
 
+  const handleEdit = (item) => {
+    router.push(`/admin/tvshows/${item._id}`);
+  };
+
+  const handleEditEpisode = (episode) => {
+    router.push(`/admin/episodes/${episode._id}`);
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -74,6 +85,54 @@ export default function AdminTVShowsPage() {
       </div>
     );
   }
+
+  const showColumns = [
+    {
+      field: 'title',
+      headerName: 'Show Title',
+      minWidth: 250,
+      flex: 1,
+    },
+    {
+      field: 'rentalPrice',
+      headerName: 'Rental Price',
+      minWidth: 150,
+      flex: 0.6,
+      renderCell: (params) => params.value ? `Rs. ${params.value}` : 'Free',
+    },
+    {
+      field: 'createdAt',
+      headerName: 'Created',
+      minWidth: 150,
+      flex: 0.7,
+      renderCell: (params) => {
+        if (!params.value) return 'N/A';
+        return new Date(params.value).toLocaleDateString();
+      },
+    },
+  ];
+
+  const episodeColumns = [
+    {
+      field: 'episodeNumber',
+      headerName: 'Episode #',
+      minWidth: 100,
+      flex: 0.5,
+    },
+    {
+      field: 'title',
+      headerName: 'Episode Title',
+      minWidth: 250,
+      flex: 1,
+    },
+    {
+      field: 'duration',
+      headerName: 'Duration (min)',
+      minWidth: 120,
+      flex: 0.5,
+      renderCell: (params) => params.value ? `${params.value} min` : 'N/A',
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -178,27 +237,17 @@ export default function AdminTVShowsPage() {
 
       <div className="grid gap-4 lg:grid-cols-3">
         {/* TV Shows List */}
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-2">
           <h3 className="text-lg font-semibold mb-4">TV Shows</h3>
-          <div className="space-y-2 max-h-96 overflow-y-auto">
-            {items.map((item) => (
-              <div
-                key={item._id}
-                onClick={() => handleShowClick(item)}
-                className={`p-3 rounded-lg border cursor-pointer transition-colors ${
-                  selectedShow?._id === item._id
-                    ? 'border-emerald-400 bg-emerald-400/10'
-                    : 'border-white/10 bg-[#0b1220] hover:border-white/20'
-                }`}
-              >
-                <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">tv</p>
-                <h4 className="font-semibold text-sm">{item.title}</h4>
-                <p className="text-xs text-neutral-400">
-                  Price: {item.rentalPrice ? `Rs. ${item.rentalPrice}` : "Free"}
-                </p>
-              </div>
-            ))}
-          </div>
+          <AdminDataGrid
+            data={items}
+            columns={showColumns}
+            onRowClick={(item) => {
+              handleShowClick(item);
+            }}
+            onEdit={handleEdit}
+            searchFields={['title']}
+          />
         </div>
 
         {/* Seasons */}
@@ -210,7 +259,11 @@ export default function AdminTVShowsPage() {
                 <div
                   key={season._id}
                   onClick={() => handleSeasonClick(season)}
-                  className="p-3 rounded-lg border border-white/10 bg-[#0b1220] cursor-pointer hover:border-white/20"
+                  className={`p-3 rounded-lg border cursor-pointer transition-colors ${
+                    selectedSeasonId === season._id
+                      ? 'border-emerald-400 bg-emerald-400/10'
+                      : 'border-white/10 bg-[#0b1220] hover:border-white/20'
+                  }`}
                 >
                   <h4 className="font-semibold text-sm">Season {season.seasonNumber}</h4>
                   <p className="text-xs text-neutral-400">Select to manage episodes</p>
@@ -223,37 +276,27 @@ export default function AdminTVShowsPage() {
             <p className="text-neutral-400 text-sm">Select a TV show to view seasons</p>
           )}
         </div>
+      </div>
 
-        {/* Episodes */}
-        <div className="lg:col-span-1">
-          <h3 className="text-lg font-semibold mb-4">Episodes</h3>
+      {/* Episodes - Full Width */}
+      {selectedSeasonId && (
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Episodes - Season {seasons.find(s => s._id === selectedSeasonId)?.seasonNumber}</h3>
           {episodes.length > 0 ? (
-            <div className="space-y-2 max-h-96 overflow-y-auto">
-              {episodes.map((episode) => (
-                <div
-                  key={episode._id}
-                  className="p-3 rounded-lg border border-white/10 bg-[#0b1220]"
-                >
-                  <div className="flex justify-between items-start mb-2">
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-sm">Episode {episode.episodeNumber}</h4>
-                      <p className="text-xs text-neutral-400">{episode.title}</p>
-                      <p className="text-xs text-neutral-400">
-                        Duration: {episode.duration ? `${episode.duration} min` : 'N/A'}
-                      </p>
-                    </div>
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-neutral-200 ml-2">
-                      Episode ready
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <AdminDataGrid
+              data={episodes}
+              columns={episodeColumns}
+              onRowClick={(item) => {
+                // Could add more functionality here if needed
+              }}
+              onEdit={handleEditEpisode}
+              searchFields={['title']}
+            />
           ) : (
-            <p className="text-neutral-400 text-sm">Select a season to view episodes</p>
+            <p className="text-neutral-400 text-sm">No episodes found in this season</p>
           )}
         </div>
-      </div>
+      )}
     </div>
   );
 }

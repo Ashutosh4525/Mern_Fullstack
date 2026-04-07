@@ -1,10 +1,13 @@
 'use client'
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { API } from "@/services/api";
 import { getAllContent } from "@/services/contentService";
+import AdminDataGrid from "@/components/admin/AdminDataGrid";
 
 export default function AdminCastPage() {
+  const router = useRouter();
   const [cast, setCast] = useState([]);
   const [movieCast, setMovieCast] = useState([]);
   const [content, setContent] = useState([]);
@@ -28,9 +31,9 @@ export default function AdminCastPage() {
 
   const load = async () => {
     const [castRes, movieCastRes, contentRes] = await Promise.all([
-      API.get('/cast/all?limit=100'),
+      API.get('/cast/all-admin'),
       API.get('/movie-Cast/all'),
-      getAllContent({ limit: 100 })
+      getAllContent({ limit: 500 })
     ]);
     setCast(castRes.data.data || []);
     setMovieCast(movieCastRes.data.data || []);
@@ -38,25 +41,43 @@ export default function AdminCastPage() {
     setLoading(false);
   };
 
-  const fetchCast = async () => {
+  const handleEdit = (item) => {
+    router.push(`/admin/cast/${item._id}`);
+  };
+
+  const handleToggleCastStatus = async (castId, isDeleted) => {
     try {
-      const response = await API.get('/cast/all');
-      setCast(response.data.data || []);
+      if (isDeleted) {
+        // Restore cast
+        await API.patch(`/cast/restore/${castId}`);
+      } else {
+        // Soft delete cast
+        await API.patch(`/cast/delete/${castId}`);
+      }
+      // Refresh the cast list
+      const castRes = await API.get('/cast/all-admin');
+      setCast(castRes.data.data || []);
     } catch (error) {
-      console.error('Error fetching cast:', error);
+      console.error('Error toggling cast status:', error);
+      alert('Failed to update cast status');
     }
   };
 
-  const fetchMovieCast = async () => {
-    try {
-      const response = await API.get('/movie-Cast/all');
-      setMovieCast(response.data.data || []);
-    } catch (error) {
-      console.error('Error fetching movie cast:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const renderCastActions = (item) => (
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        handleToggleCastStatus(item._id, item.isDeleted);
+      }}
+      className={`px-3 py-1 text-white rounded text-sm transition-colors ${
+        item.isDeleted
+          ? 'bg-green-600 hover:bg-green-700'
+          : 'bg-red-600 hover:bg-red-700'
+      }`}
+    >
+      {item.isDeleted ? 'Restore' : 'Disable'}
+    </button>
+  );
 
   const handleCreateCast = async (e) => {
     e.preventDefault();
@@ -145,6 +166,69 @@ export default function AdminCastPage() {
     }
   };
 
+  const castColumns = [
+    {
+      field: 'name',
+      headerName: 'Name',
+      minWidth: 200,
+      flex: 1,
+    },
+    {
+      field: 'bio',
+      headerName: 'Bio',
+      minWidth: 300,
+      flex: 1.5,
+      renderCell: (params) => params.value || 'No bio',
+    },
+    {
+      field: 'createdAt',
+      headerName: 'Created',
+      minWidth: 150,
+      flex: 0.7,
+      renderCell: (params) => {
+        if (!params.value) return 'N/A';
+        return new Date(params.value).toLocaleDateString();
+      },
+    },
+    {
+      field: 'isDeleted',
+      headerName: 'Status',
+      minWidth: 120,
+      flex: 0.5,
+      renderCell: (params) => (
+        <span className={`text-xs uppercase font-semibold ${
+          params.value ? 'text-red-400' : 'text-green-400'
+        }`}>
+          {params.value ? 'DISABLED' : 'ACTIVE'}
+        </span>
+      ),
+    },
+  ];
+
+  const movieCastColumns = [
+    {
+      field: 'castID',
+      headerName: 'Cast Member',
+      minWidth: 200,
+      flex: 1,
+      renderCell: (params) => params.value?.name || 'N/A',
+    },
+    {
+      field: 'contentId',
+      headerName: 'Content',
+      minWidth: 250,
+      flex: 1.2,
+      renderCell: (params) => params.value?.title || 'N/A',
+    },
+    {
+      field: 'role',
+      headerName: 'Role',
+      minWidth: 150,
+      flex: 0.8,
+      renderCell: (params) => params.value || 'Not specified',
+    },
+  ];
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -190,7 +274,7 @@ export default function AdminCastPage() {
       {activeTab === 'cast' && (
         <div className="space-y-6">
           {/* Create/Edit Cast Form */}
-          <div className="rounded-[1.5rem] border border-white/10 bg-[#0b1220] p-6">
+          <div className="rounded-3xl border border-white/10 bg-[#0b1220] p-6">
             <h2 className="text-xl font-semibold mb-4">
               {editingItem ? 'Edit Cast Member' : 'Create New Cast Member'}
             </h2>
@@ -247,45 +331,23 @@ export default function AdminCastPage() {
           </div>
 
           {/* Cast List */}
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {cast.map((member) => (
-              <div
-                key={member._id}
-                className="rounded-[1.5rem] border border-white/10 bg-[#0b1220] p-5"
-              >
-                {member.profileImage?.url && (
-                  <img
-                    src={member.profileImage.url}
-                    alt={member.name}
-                    className="w-16 h-16 rounded-full object-cover mb-3"
-                  />
-                )}
-                <h3 className="text-lg font-semibold">{member.name}</h3>
-                <p className="text-sm text-neutral-400 mt-1">{member.bio}</p>
-                <div className="flex gap-2 mt-4">
-                  <button
-                    onClick={() => handleEditCast(member)}
-                    className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteCast(member._id)}
-                    className="px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+          <AdminDataGrid
+            data={cast}
+            columns={castColumns}
+            onRowClick={(item) => {
+              handleEditCast(item);
+            }}
+            onEdit={handleEdit}
+            actions={renderCastActions}
+            searchFields={['name', 'bio']}
+          />
         </div>
       )}
 
       {activeTab === 'moviecast' && (
         <div className="space-y-6">
           {/* Create Movie Cast Form */}
-          <div className="rounded-[1.5rem] border border-white/10 bg-[#0b1220] p-6">
+          <div className="rounded-3xl border border-white/10 bg-[#0b1220] p-6">
             <h2 className="text-xl font-semibold mb-4">Add Cast to Movie/TV Show</h2>
             <form onSubmit={handleCreateMovieCast} className="space-y-4">
               <div>
@@ -293,7 +355,7 @@ export default function AdminCastPage() {
                 <select
                   value={movieCastForm.contentId}
                   onChange={(e) => setMovieCastForm({...movieCastForm, contentId: e.target.value})}
-                  className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
+                  className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white"
                   required
                 >
                   <option value="">Select content</option>
@@ -309,7 +371,7 @@ export default function AdminCastPage() {
                 <select
                   value={movieCastForm.castID}
                   onChange={(e) => setMovieCastForm({...movieCastForm, castID: e.target.value})}
-                  className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white"
+                  className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-white"
                   required
                 >
                   <option value="">Select a cast member</option>
@@ -340,41 +402,15 @@ export default function AdminCastPage() {
           </div>
 
           {/* Movie Cast List */}
-          <div className="grid gap-4">
-            {movieCast.map((item) => (
-              <div
-                key={item._id}
-                className="rounded-[1.5rem] border border-white/10 bg-[#0b1220] p-5"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    {item.castID?.profileImage?.url && (
-                      <img
-                        src={item.castID.profileImage.url}
-                        alt={item.castID.name}
-                        className="w-12 h-12 rounded-full object-cover"
-                      />
-                    )}
-                    <div>
-                      <h3 className="font-semibold">{item.castID?.name}</h3>
-                      <p className="text-sm text-neutral-400">
-                        Role: {item.role || 'Not specified'}
-                      </p>
-                      <p className="text-sm text-neutral-400">
-                        Content: {item.contentId?.title || 'Unknown'}
-                      </p>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => handleDeleteMovieCast(item._id)}
-                    className="px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700"
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+          <AdminDataGrid
+            data={movieCast}
+            columns={movieCastColumns}
+            onRowClick={(item) => {
+              // Could navigate to content or manage from here
+            }}
+            onEdit={handleEdit}
+            searchFields={['castID.name', 'contentId.title', 'role']}
+          />
         </div>
       )}
     </div>

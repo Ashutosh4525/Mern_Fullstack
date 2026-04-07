@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56">
+  <circle cx="28" cy="28" r="28" fill="#fcd34d"/>
+  <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle"
+    font-family="Outfit, system-ui, sans-serif"
+    font-size="30" font-weight="900" fill="#0f172a">SF</text>
+</svg>

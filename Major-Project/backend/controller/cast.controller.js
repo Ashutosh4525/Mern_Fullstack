@@ -59,6 +59,40 @@ export const getAllCast = asyncHandler(async (req, res, next) => {
     });
 });
 
+// Get all cast including deleted (admin only)
+export const getAllCastIncludingDeleted = asyncHandler(async (req, res, next) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const [casts, total] = await Promise.all([
+        Cast.find({}).skip(skip).limit(limit).sort({ createdAt: -1 }),
+        Cast.countDocuments({})
+    ]);
+
+    return res.status(200).json({
+        success: true,
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        data: casts
+    });
+});
+
+export const getCastById = asyncHandler(async (req, res, next) => {
+    const cast = await Cast.findById(req.params.id);
+    if (!cast) {
+        const error = new Error("Cast member not found");
+        error.code = 404;
+        return next(error);
+    }
+
+    return res.status(200).json({
+        success: true,
+        data: cast
+    });
+});
 
 export const updateCast = asyncHandler(async (req, res, next) => {
     const { id } = req.params;

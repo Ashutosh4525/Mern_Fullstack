@@ -1,7 +1,9 @@
 import express from "express";
 import { 
     createCast, 
-    getAllCast, 
+    getAllCast,
+    getAllCastIncludingDeleted,
+    getCastById,
     updateCast, 
     deleteCast,
     restoreCast 
@@ -16,10 +18,12 @@ const castRouter = express.Router();
 const castUpload = upload.single("profileImage");
 
 castRouter.get("/all", castValidator.getAll,validate,getAllCast);
+castRouter.get("/all-admin", Authverify, verifyAdmin, getAllCastIncludingDeleted);
 castRouter.post("/create", Authverify, verifyAdmin, castUpload, castValidator.create, validate, createCast);
 castRouter.put("/update/:id", Authverify, verifyAdmin, castUpload, castValidator.idParam, castValidator.update, validate, updateCast);
 castRouter.patch("/delete/:id", castValidator.idParam,validate,Authverify, verifyAdmin,deleteCast);
 castRouter.patch("/restore/:id", castValidator.idParam,validate,Authverify, verifyAdmin,restoreCast);
+castRouter.get("/:id", castValidator.idParam, validate, getCastById);
 
 
 export default castRouter;

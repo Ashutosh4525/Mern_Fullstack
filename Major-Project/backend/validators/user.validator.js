@@ -40,9 +40,21 @@ export const userValidator ={
          .notEmpty().withMessage("otp is required")
          .isLength({min: 6, max:6}).withMessage("OTP must be 6 characters")
     ],
+    resetPassword: [
+        body("email").isEmail().withMessage("Enter a valid email"),
+        body("otp")
+         .trim()
+         .notEmpty().withMessage("OTP is required")
+         .isLength({min: 6, max:6}).withMessage("OTP must be 6 characters"),
+        body("newPassword").trim().isLength({min: 6}).withMessage("Password must be at least 6 characters")
+    ],
     updateProfile: [
         body('firstname').optional().trim().notEmpty(),
         body('lastname').optional().trim().notEmpty(),
         body('avatar.url').optional().isURL().withMessage('Invalid avatar URL'),
+    ],
+    verifyOtpChangePassword: [
+        body("otp").trim().notEmpty().withMessage("OTP is required").isLength({min: 6, max:6}).withMessage("OTP must be 6 characters"),
+        body("newPassword").trim().isLength({min: 6}).withMessage("Password must be at least 6 characters")
     ]
 }

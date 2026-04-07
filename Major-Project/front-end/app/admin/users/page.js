@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { API } from "@/services/api";
+import AdminDataGrid from "@/components/admin/AdminDataGrid";
 import Loading from "@/app/loading";
 
 export default function AdminUsersPage() {
@@ -14,7 +15,7 @@ export default function AdminUsersPage() {
 
   const fetchUsers = async () => {
     try {
-      const response = await API.get('/users/all');
+      const response = await API.get('/users/all-admin');
       setUsers(response.data.data || []);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -26,17 +27,32 @@ export default function AdminUsersPage() {
   const handleToggleUserStatus = async (userId, isDeleted) => {
     try {
       if (isDeleted) {
-        // Restore user
-        await API.patch(`/users/${userId}/restore`);
+        await API.patch(`/users/restore/${userId}`);
       } else {
-        // Soft delete user (disable)
-        await API.delete(`/users/${userId}`);
+        await API.patch(`/users/delete/${userId}`);
       }
-      fetchUsers(); // Refresh the list
+      fetchUsers();
     } catch (error) {
-      console.error('Error updating user status:', error);
+      console.error('Error toggling user status:', error);
+      alert('Failed to update user status');
     }
   };
+
+  const renderActions = (user) => (
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        handleToggleUserStatus(user._id, user.isDeleted);
+      }}
+      className={`px-3 py-1 text-white rounded text-sm transition-colors ${
+        user.isDeleted
+          ? 'bg-green-600 hover:bg-green-700'
+          : 'bg-red-600 hover:bg-red-700'
+      }`}
+    >
+      {user.isDeleted ? 'Activate' : 'Disable'}
+    </button>
+  );
 
   if (loading) {
     return (
@@ -45,6 +61,57 @@ export default function AdminUsersPage() {
       </div>
     );
   }
+
+  const columns = [
+    {
+      field: 'firstname',
+      headerName: 'First Name',
+      minWidth: 150,
+      flex: 0.8,
+      renderCell: (params) => params.value || 'N/A',
+    },
+    {
+      field: 'lastname',
+      headerName: 'Last Name',
+      minWidth: 150,
+      flex: 0.8,
+      renderCell: (params) => params.value || 'N/A',
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      minWidth: 200,
+      flex: 1.2,
+    },
+    {
+      field: 'role',
+      headerName: 'Role',
+      minWidth: 120,
+      flex: 0.6,
+      renderCell: (params) => (
+        <span className={`rounded-full px-3 py-1 text-xs font-semibold uppercase ${
+          params.value === 'admin'
+            ? 'border border-emerald-400/20 bg-emerald-400/10 text-emerald-100'
+            : 'border border-white/10 bg-white/5 text-neutral-200'
+        }`}>
+          {params.value}
+        </span>
+      ),
+    },
+    {
+      field: 'isDeleted',
+      headerName: 'Status',
+      minWidth: 120,
+      flex: 0.6,
+      renderCell: (params) => (
+        <span className={`text-xs uppercase font-semibold ${
+          params.value ? 'text-red-400' : 'text-green-400'
+        }`}>
+          {params.value ? 'DISABLED' : 'ACTIVE'}
+        </span>
+      ),
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -56,45 +123,12 @@ export default function AdminUsersPage() {
         </p>
       </div>
 
-      <div className="grid gap-4">
-        {users.map((user) => (
-          <div
-            key={user._id}
-            className="rounded-3xl border border-white/10 bg-[#0b1220] p-5"
-          >
-            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-              <div>
-                <h2 className="text-lg font-semibold">
-                  {user.firstname} {user.lastname}
-                </h2>
-                <p className="mt-2 text-sm text-neutral-400">{user.email}</p>
-                <p className="text-xs text-neutral-500 uppercase tracking-[0.3em]">
-                  Status: {user.isDeleted ? 'DISABLED' : 'ACTIVE'}
-                </p>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className={`rounded-full border px-4 py-2 text-sm uppercase ${
-                  user.role === 'admin'
-                    ? 'border-emerald-400/20 bg-emerald-400/10 text-emerald-100'
-                    : 'border-white/10 bg-white/5 text-neutral-200'
-                }`}>
-                  {user.role}
-                </span>
-                <button
-                  onClick={() => handleToggleUserStatus(user._id, user.isDeleted)}
-                  className={`px-4 py-2 rounded-lg text-sm font-semibold ${
-                    user.isDeleted
-                      ? 'bg-green-600 hover:bg-green-700 text-white'
-                      : 'bg-red-600 hover:bg-red-700 text-white'
-                  }`}
-                >
-                  {user.isDeleted ? 'Enable' : 'Disable'}
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <AdminDataGrid
+        data={users}
+        columns={columns}
+        actions={renderActions}
+        searchFields={['firstname', 'lastname', 'email', 'role']}
+      />
     </div>
   );
 }

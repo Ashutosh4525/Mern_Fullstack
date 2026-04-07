@@ -1,25 +1,66 @@
 'use client'
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { API } from "@/services/api";
 import { getCategories } from "@/services/contentService";
+import AdminDataGrid from "@/components/admin/AdminDataGrid";
 
 export default function AdminCategoriesPage() {
+  const router = useRouter();
   const [categories, setCategories] = useState([]);
   const [form, setForm] = useState({ name: "", description: "" });
 
-  const load = async () => {
-    const res = await getCategories();
-    setCategories(res.data ?? []);
+  const handleEdit = (item) => {
+    router.push(`/admin/categories/${item._id}`);
   };
+
+  const load = async () => {
+    const res = await API.get('/category/all-admin');
+    setCategories(res.data.data ?? []);
+  };
+
+  const handleToggleCategoryStatus = async (categoryId, isDeleted) => {
+    try {
+      if (isDeleted) {
+        // Restore category
+        await API.patch(`/category/restore/${categoryId}`);
+      } else {
+        // Soft delete category
+        await API.delete(`/category/delete/${categoryId}`);
+      }
+      // Refresh the categories list
+      const res = await API.get('/category/all-admin');
+      setCategories(res.data.data ?? []);
+    } catch (error) {
+      console.error('Error toggling category status:', error);
+      alert('Failed to update category status');
+    }
+  };
+
+  const renderActions = (item) => (
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        handleToggleCategoryStatus(item._id, item.isDeleted);
+      }}
+      className={`px-3 py-1 text-white rounded text-sm transition-colors ${
+        item.isDeleted
+          ? 'bg-green-600 hover:bg-green-700'
+          : 'bg-red-600 hover:bg-red-700'
+      }`}
+    >
+      {item.isDeleted ? 'Restore' : 'Disable'}
+    </button>
+  );
 
   useEffect(() => {
     let active = true;
 
     const bootstrap = async () => {
-      const res = await getCategories();
+      const res = await API.get('/category/all-admin');
       if (active) {
-        setCategories(res.data ?? []);
+        setCategories(res.data.data ?? []);
       }
     };
 
@@ -30,6 +71,35 @@ export default function AdminCategoriesPage() {
     };
   }, []);
 
+  const columns = [
+    {
+      field: 'name',
+      headerName: 'Category Name',
+      minWidth: 250,
+      flex: 1,
+    },
+    {
+      field: 'description',
+      headerName: 'Description',
+      minWidth: 300,
+      flex: 1.5,
+      renderCell: (params) => params.value || 'No description',
+    },
+    {
+      field: 'isDeleted',
+      headerName: 'Status',
+      minWidth: 120,
+      flex: 0.5,
+      renderCell: (params) => (
+        <span className={`text-xs uppercase font-semibold ${
+          params.value ? 'text-red-400' : 'text-green-400'
+        }`}>
+          {params.value ? 'DISABLED' : 'ACTIVE'}
+        </span>
+      ),
+    },
+  ];
+
   return (
     <div className="space-y-8">
       <div className="space-y-3">
@@ -38,7 +108,7 @@ export default function AdminCategoriesPage() {
       </div>
 
       <form
-        className="grid gap-4 rounded-[1.5rem] border border-white/10 bg-[#0b1220] p-6"
+        className="grid gap-4 rounded-3xl border border-white/10 bg-[#0b1220] p-6"
         onSubmit={async (event) => {
           event.preventDefault();
           await API.post("/category/create", form);
@@ -67,29 +137,16 @@ export default function AdminCategoriesPage() {
         </button>
       </form>
 
-      <div className="grid gap-4">
-        {categories.map((category) => (
-          <div
-            key={category._id}
-            className="flex flex-col gap-3 rounded-[1.5rem] border border-white/10 bg-[#0b1220] p-5 md:flex-row md:items-center md:justify-between"
-          >
-            <div>
-              <h2 className="text-lg font-semibold">{category.name}</h2>
-              <p className="mt-2 text-sm text-neutral-400">{category.description || "No description"}</p>
-            </div>
-            <button
-              type="button"
-              onClick={async () => {
-                await API.delete(`/category/delete/${category._id}`);
-                load();
-              }}
-              className="rounded-full border border-rose-400/25 bg-rose-400/10 px-4 py-2 text-sm font-semibold text-rose-200"
-            >
-              Delete
-            </button>
-          </div>
-        ))}
-      </div>
+      <AdminDataGrid
+        data={categories}
+        columns={columns}
+        onRowClick={(item) => {
+          router.push(`/admin/categories/${item._id}`);
+        }}
+        onEdit={handleEdit}
+        actions={renderActions}
+        searchFields={['name', 'description']}
+      />
     </div>
   );
 }

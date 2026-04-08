@@ -19,18 +19,56 @@ export default function HeroSlider({ movies }) {
       <Swiper
         modules={[Autoplay, EffectFade]}
         effect="fade"
-        autoplay={{ delay: 4500 }}
+        autoplay={{ delay: 6500 }}
         loop
         className="hero-slider"
       >
         {movies?.map((movie) => (
           <SwiperSlide key={movie._id}>
-            <div
+            {/* <div
               className="hero-image-area"
               style={{
                 backgroundImage: `url(${movie.poster?.url})`,
               }}
-            >
+            > */}
+            <div className="hero-image-area relative">
+                {/* Poster Image (fallback) */}
+                <img
+                  src={movie.poster?.url}
+                  alt={movie.title}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+
+                {/* Trailer Video */}
+                {movie.trailer?.url && (
+                  // <video
+                  //   className="absolute inset-0 h-full w-full object-cover"
+                  //   src={movie.trailer.url}
+                  //   autoPlay
+                  //   muted
+                  //   loop
+                  //   playsInline
+                  //   onLoadedData={(e) => {
+                  //     e.target.style.opacity = 1;
+                  //   }}
+                  //   style={{ opacity: 0, transition: "opacity 0.5s ease" }}
+                  // />
+              <div className="absolute inset-0 transition-opacity duration-700 opacity-100">
+
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src={`https://www.youtube.com/embed/${movie.trailer.url}?autoplay=1&mute=1&controls=0&loop=1&playlist=${movie.trailer.url}`}
+                title="Trailer"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+  
+                // style={{
+                //   opacity: 0,
+                //   transition: "opacity 0.6s ease"
+                // }}
+              />
+              </div>
+                )}
               <div className="hero-overlay" />
               <div className="hero-glow" />
               <div className="mx-auto flex h-full max-w-7xl items-end px-6 pb-16 pt-32 md:px-10 md:pb-20">

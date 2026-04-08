@@ -2,6 +2,7 @@ import HeroSlider from "@/components/HeroSlider";
 import MovieCard from "@/components/MovieCard";
 import { API_BASE_URL } from "@/services/api";
 import NotFound from "./not-found";
+import AIRecommendations from "../components/AIRecommendations";
 
 async function getMovies() {
   const res = await fetch(`${API_BASE_URL}/content/all`, {
@@ -164,6 +165,7 @@ export default async function Home() {
           ))}
         </div>
       </section>
+      <AIRecommendations/>
     </main>
   );
 }

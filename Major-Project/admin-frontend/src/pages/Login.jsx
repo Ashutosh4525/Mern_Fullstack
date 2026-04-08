@@ -1,36 +1,25 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { API } from '../services/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { clearAuthError, loginAdmin } from '../services/authSlice';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const dispatch = useDispatch();
+  const { status, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const location = useLocation();
+  const flashMessage = location.state?.message || '';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
+    dispatch(clearAuthError());
 
     try {
-      await API.post('/users/login', { email, password });
-      const response = await API.get('/users/me');
-      const user = response.data?.data;
-
-      if (!user || user.role !== 'admin') {
-        await API.post('/users/logout');
-        setError('You do not have admin privileges');
-        return;
-      }
-
+      await dispatch(loginAdmin({ email, password })).unwrap();
       navigate('/dashboard');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
-    } finally {
-      setLoading(false);
-    }
+    } catch (err) {}
   };
 
   return (
@@ -74,13 +63,24 @@ const Login = () => {
               </div>
             )}
 
+            {flashMessage && !error && (
+              <div className="mb-4 rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-emerald-100">
+                {flashMessage}
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="mb-2 block text-sm font-medium">Email</label>
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (error) {
+                      dispatch(clearAuthError());
+                    }
+                  }}
                   className="admin-login-input w-full rounded-2xl border border-white/10 px-4 py-3 outline-none transition"
                   placeholder="admin@example.com"
                   required
@@ -92,7 +92,12 @@ const Login = () => {
                 <input
                   type="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (error) {
+                      dispatch(clearAuthError());
+                    }
+                  }}
                   className="admin-login-input w-full rounded-2xl border border-white/10 px-4 py-3 outline-none transition"
                   placeholder="Enter your password"
                   required
@@ -101,12 +106,21 @@ const Login = () => {
 
               <button
                 type="submit"
-                disabled={loading}
+                disabled={status === 'loading'}
                 className="w-full rounded-full bg-amber-300 py-3 font-semibold text-slate-950 transition hover:bg-[#79f5ce] disabled:bg-gray-600 disabled:text-white"
               >
-                {loading ? 'Logging in...' : 'Login'}
+                {status === 'loading' ? 'Logging in...' : 'Login'}
               </button>
             </form>
+
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-sm text-neutral-300">
+              <Link to="/forgot-password" className="transition hover:text-amber-300">
+                Forgot password?
+              </Link>
+              <Link to="/signup" className="transition hover:text-amber-300">
+                Create account
+              </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -79,7 +79,7 @@ body {
 }
 
 .admin-topbar {
-  overflow: hidden;
+  overflow: visible;
 }
 
 .admin-menu-button {

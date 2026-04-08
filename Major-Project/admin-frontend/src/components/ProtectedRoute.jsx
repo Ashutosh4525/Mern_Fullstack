@@ -1,35 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-import { API } from '../services/api';
+import { fetchCurrentAdmin } from '../services/authSlice';
 
 const ProtectedRoute = () => {
-  const [status, setStatus] = useState('loading');
+  const dispatch = useDispatch();
+  const { user, hydrated, status } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    let mounted = true;
+    if (!hydrated && status !== 'loading') {
+      dispatch(fetchCurrentAdmin());
+    }
+  }, [dispatch, hydrated, status]);
 
-    const verifySession = async () => {
-      try {
-        const response = await API.get('/users/me');
-        const user = response.data?.data;
-        if (mounted) {
-          setStatus(user?.role === 'admin' ? 'authorized' : 'forbidden');
-        }
-      } catch (error) {
-        if (mounted) {
-          setStatus('unauthorized');
-        }
-      }
-    };
+  const isLoading = !hydrated || status === 'loading';
 
-    verifySession();
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  if (status === 'loading') {
+  if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[linear-gradient(180deg,#050505,#0a0a0a)] px-6 text-white">
         <div className="rounded-[2rem] border border-white/10 bg-white/5 px-8 py-10 text-center backdrop-blur">
@@ -43,7 +29,7 @@ const ProtectedRoute = () => {
     );
   }
 
-  if (status !== 'authorized') {
+  if (!user || user.role !== 'admin') {
     return <Navigate to="/login" />;
   }
 

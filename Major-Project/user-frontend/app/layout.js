@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 import "swiper/css";
 import "swiper/css/effect-fade";
-import AIRecommendations from "../components/AIRecommendations";
+// import AIRecommendations from "../components/AIRecommendations";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
           <SessionBootstrap />
           <Header />
           <div className="flex-1">{children}</div>
-          < AIRecommendations/>
+          {/* < AIRecommendations/> */}
           <Footer />
         </ReduxProvider>
       </body>

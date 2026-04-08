@@ -15,6 +15,11 @@ export const getCategories = async () => {
   return res.data;
 };
 
+export const getAllCategories = async () => {
+  const res = await API.get("/category/all");
+  return res.data;
+};
+
 export const getContentCast = async (contentId) => {
   const res = await API.get(`/movie-Cast/${contentId}`);
   return res.data;

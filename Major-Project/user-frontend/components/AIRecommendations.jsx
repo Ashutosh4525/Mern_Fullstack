@@ -3,16 +3,19 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '@/store/hooks';
-import { getAllContent } from '@/services/contentService';
-import { getMovieRecommendations } from '@/services/aiService';
+import { getAllContent, getAllCategories } from '@/services/contentService';
+// import { getMovieRecommendations } from '@/services/aiService';
+import { getHybridRecommendations } from '@/services/aiService';
+import MovieCard from '@/components/MovieCard'
 
 export default function AIRecommendations() {
   const { user } = useAppSelector((state) => state.auth);
   const [input, setInput] = useState('');
-  const [recommendations, setRecommendations] = useState('');
+  const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [mounted, setMounted] = useState(false);
+
 
   useEffect(() => {
     setMounted(true);
@@ -22,19 +25,45 @@ export default function AIRecommendations() {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setRecommendations('');
+    setRecommendations([]);
 
+    // try {
+    //   const catalogRes = await getAllContent({ limit: 40 });
+    //   const catalog = catalogRes.data || [];
+    //   const recs = await getMovieRecommendations(input, catalog);
+    //   setRecommendations(recs);
+    // } catch (err) {
+    //   console.error(err);
+    //   setError('Error fetching recommendations. Please try again later.');
+    // }
     try {
       const catalogRes = await getAllContent({ limit: 40 });
       const catalog = catalogRes.data || [];
-      const recs = await getMovieRecommendations(input, catalog);
+
+      const categoryRes = await getAllCategories();
+      const categoryMap = {};
+      (categoryRes.data || []).forEach(cat => {
+        categoryMap[cat._id] = cat.name.toLowerCase();
+      });
+
+      // AI returns array of titles (or IDs)
+      const recs = await getHybridRecommendations(input, catalog,categoryMap);
+      // console.log("AI response:", recs);
+      // console.log("Type:", typeof recs);
+
+      // Example: ["Inception", "Interstellar"]
+
+     if (!recs.length) {
+      setRecommendations(catalog.slice(0, 4));
+    } else {
       setRecommendations(recs);
-    } catch (err) {
+    }
+  } catch (err) {
       console.error(err);
       setError('Error fetching recommendations. Please try again later.');
-    }
-
+  } finally {
     setLoading(false);
+  }
   };
 
   // Render consistent HTML until mounted to avoid hydration mismatch
@@ -85,11 +114,23 @@ export default function AIRecommendations() {
         </button>
       </form>
       {error && <p className="text-sm text-rose-300">{error}</p>}
-      {recommendations && (
+      {/* {recommendations && (
         <div className="text-white whitespace-pre-wrap">
           {recommendations}
         </div>
+      )} */}
+      {!loading && recommendations.length === 0 && (
+        <p className="text-neutral-400 mt-4">
+          No matching titles found. Try a different mood.
+        </p>
       )}
+      {recommendations.length > 0 && (
+      <div className="grid gap-4 mt-6 sm:grid-cols-2">
+        {recommendations.map((movie) => (
+          <MovieCard key={movie._id} movie={movie} />
+        ))}
+      </div>
+    )}
     </div>
   );
 }

@@ -9,7 +9,7 @@ import { getUserRentals } from "@/services/rentalService";
 import { useAppSelector } from "@/store/hooks";
 import { useParams } from "next/navigation";
 import Loading from "@/app/loading";
-export default function TvShowDetailPage({ params }) {
+export default function TvShowDetailPage() {
   const { id } = useParams();
   const { user } = useAppSelector((state) => state.auth);
   const [show, setShow] = useState(null);

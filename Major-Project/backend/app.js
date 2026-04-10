@@ -15,18 +15,27 @@ import errorHandler from "./middlewares/err.middleware.js"
 import { limiter } from "./middlewares/rateLimit.middleware.js"
 
 const app=express()
-const allowedOrigins = process.env.CORS_ORIGIN.split(',') ? process.env.CORS_ORIGIN.split(',')
-  : [];
+const allowedOrigins = process.env.CORS_ORIGIN
+  .split(',')
+  .map(origin => origin.trim());
+
 app.use(cors({
-    origin:(origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+  origin: (origin, callback) => {
+    // allow requests without origin (Postman, server calls)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
     }
+
+    console.log("❌ CORS blocked:", origin);
+    return callback(null, false); // ✅ IMPORTANT FIX
   },
-    credentials:true
-}))
+  credentials: true,
+}));
+
+// ✅ handle preflight requests
+app.options('*', cors());
 
 app.use(express.json({limit:"16kb"}))
 app.use(express.urlencoded({extended: true, limit: "16kb"}))

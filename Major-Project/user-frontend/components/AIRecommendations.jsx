@@ -3,19 +3,18 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '@/store/hooks';
-import { getAllContent, getAllCategories } from '@/services/contentService';
-// import { getMovieRecommendations } from '@/services/aiService';
-import { getHybridRecommendations } from '@/services/aiService';
-import MovieCard from '@/components/MovieCard'
+import MovieCard from '@/components/MovieCard';
 
 export default function AIRecommendations() {
   const { user } = useAppSelector((state) => state.auth);
+
   const [input, setInput] = useState('');
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [mounted, setMounted] = useState(false);
-
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -23,72 +22,67 @@ export default function AIRecommendations() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setLoading(true);
     setError('');
     setRecommendations([]);
+    setPage(1);
 
-    // try {
-    //   const catalogRes = await getAllContent({ limit: 40 });
-    //   const catalog = catalogRes.data || [];
-    //   const recs = await getMovieRecommendations(input, catalog);
-    //   setRecommendations(recs);
-    // } catch (err) {
-    //   console.error(err);
-    //   setError('Error fetching recommendations. Please try again later.');
-    // }
     try {
-      const catalogRes = await getAllContent({ limit: 40 });
-      const catalog = catalogRes.data || [];
-
-      const categoryRes = await getAllCategories();
-      const categoryMap = {};
-      (categoryRes.data || []).forEach(cat => {
-        categoryMap[cat._id] = cat.name.toLowerCase();
+      const res = await fetch('/api/recommend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ input, limit: 5, page: 1 }),
       });
 
-      // AI returns array of titles (or IDs)
-      const recs = await getHybridRecommendations(input, catalog,categoryMap);
-      // console.log("AI response:", recs);
-      // console.log("Type:", typeof recs);
+      const data = await res.json();
 
-      // Example: ["Inception", "Interstellar"]
+      if (!data.success) throw new Error();
 
-     if (!recs.length) {
-      setRecommendations(catalog.slice(0, 4));
-    } else {
-      setRecommendations(recs);
+      setRecommendations(data.data);
+      setHasMore(data.hasMore);
+    } catch (err) {
+      setError('Error fetching recommendations');
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-      console.error(err);
-      setError('Error fetching recommendations. Please try again later.');
-  } finally {
-    setLoading(false);
-  }
   };
 
-  // Render consistent HTML until mounted to avoid hydration mismatch
+  const loadMore = async () => {
+    const nextPage = page + 1;
+
+    setLoading(true);
+
+    try {
+      const res = await fetch('/api/recommend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ input, limit: 5, page: nextPage }),
+      });
+
+      const data = await res.json();
+
+      if (!data.success) throw new Error();
+
+      setRecommendations((prev) => [...prev, ...data.data]);
+      setPage(nextPage);
+      setHasMore(data.hasMore);
+    } catch (err) {
+      setError('Error loading more');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!mounted) {
-    return (
-      <div className="max-w-2xl mx-auto p-6 bg-gray-900 rounded-lg text-white">
-        <h2 className="text-2xl font-bold mb-4">AI Movie Recommendations</h2>
-        <p className="mb-4 text-neutral-300">Loading...</p>
-      </div>
-    );
+    return <div className="p-6 text-white">Loading...</div>;
   }
 
   if (!user) {
     return (
-      <div className="max-w-2xl mx-auto p-6 bg-gray-900 rounded-lg text-white">
-        <h2 className="text-2xl font-bold mb-4">AI Movie Recommendations</h2>
-        <p className="mb-4 text-neutral-300">
-          Sign in to get personalized recommendations generated from the current movie and TV show catalog.
-        </p>
-        <Link
-          href="/login"
-          className="inline-block rounded-full bg-amber-300 px-5 py-3 text-sm font-semibold text-black transition hover:bg-amber-400"
-        >
-          Sign in to continue
-        </Link>
+      <div className="p-6 text-white">
+        <p>Sign in to get AI recommendations</p>
+        <Link href="/login">Login</Link>
       </div>
     );
   }
@@ -96,41 +90,45 @@ export default function AIRecommendations() {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-gray-900 rounded-lg text-white">
       <h2 className="text-2xl font-bold mb-4">AI Movie Recommendations</h2>
-      <form onSubmit={handleSubmit} className="mb-4">
+
+      <form onSubmit={handleSubmit}>
         <input
-          type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Describe what you're in the mood for..."
-          className="w-full p-3 bg-gray-800 text-white rounded-lg"
+          className="w-full p-3 bg-gray-800 rounded-lg"
+          placeholder="Describe your mood..."
           required
         />
+
         <button
-          type="submit"
           disabled={loading}
           className="mt-2 px-4 py-2 bg-amber-300 text-black rounded-lg disabled:opacity-50"
         >
           {loading ? 'Getting Recommendations...' : 'Get Recommendations'}
         </button>
       </form>
-      {error && <p className="text-sm text-rose-300">{error}</p>}
-      {/* {recommendations && (
-        <div className="text-white whitespace-pre-wrap">
-          {recommendations}
-        </div>
-      )} */}
+
+      {error && <p className="text-red-400 mt-2">{error}</p>}
+
       {!loading && recommendations.length === 0 && (
-        <p className="text-neutral-400 mt-4">
-          No matching titles found. Try a different mood.
-        </p>
+        <p className="text-neutral-400 mt-4">No results found</p>
       )}
-      {recommendations.length > 0 && (
+
       <div className="grid gap-4 mt-6 sm:grid-cols-2">
         {recommendations.map((movie) => (
           <MovieCard key={movie._id} movie={movie} />
         ))}
       </div>
-    )}
+
+      {hasMore && (
+        <button
+          onClick={loadMore}
+          disabled={loading}
+          className="mt-4 px-4 py-2 bg-gray-700 rounded-lg disabled:opacity-50"
+        >
+          {loading ? 'Loading...' : 'Load More'}
+        </button>
+      )}
     </div>
   );
 }

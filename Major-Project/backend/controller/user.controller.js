@@ -157,7 +157,7 @@ export const login=asyncHandler(async (req,res,next) => {
      const options = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax"
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
     }
 
     return res
@@ -187,7 +187,7 @@ export const logoutUser = asyncHandler(async(req, res,next) => {
     const options = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax"
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
     }
 
     return res
@@ -663,7 +663,7 @@ export const refreshAccessToken = asyncHandler(async (req, res,next) => {
         const options = {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "lax"
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
         }
     
         const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id)
@@ -712,7 +712,7 @@ export const softDeleteUser = asyncHandler(async (req, res, next) => {
     }
 
     // Optional: Clear cookies if the user deleted their own account
-    const options = { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax" };
+    const options = { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: process.env.NODE_ENV === "production" ? "none" : "lax" };
 
     return res
         .status(200)

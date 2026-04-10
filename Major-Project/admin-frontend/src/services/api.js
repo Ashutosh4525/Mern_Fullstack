@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+export const API_URL = "https://movie-app-4nje.onrender.com/";
 
 export const API = axios.create({
   baseURL: API_URL,

@@ -37,14 +37,14 @@ export default function PaymentPage({ params }) {
   return (
     <ProtectedRoute>
       <main className="min-h-screen bg-[#050505] px-6 pb-20 pt-36 text-white md:px-10">
-        <div className="mx-auto max-w-xl rounded-[2rem] border border-white/10 bg-white/[0.04] p-8">
+        <div className="mx-auto max-w-xl rounded-4xl border border-white/10 bg-white/4 p-8">
           <p className="text-sm uppercase tracking-[0.45em] text-amber-300/80">Payment</p>
           <h1 className="mt-4 text-4xl font-semibold">{title}</h1>
           <p className="mt-4 text-neutral-400">
             This page uses your backend Razorpay order and verification APIs. Once payment succeeds, the rental becomes active for 48 hours.
           </p>
 
-          <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
+          <div className="mt-8 rounded-3xl border border-white/10 bg-black/20 p-5">
             <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">Backend flow</p>
             <p className="mt-3 text-sm text-neutral-300">
               Create order, complete Razorpay checkout, verify signature, create rental, and redirect to the viewing flow.

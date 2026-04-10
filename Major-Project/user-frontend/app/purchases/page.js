@@ -27,7 +27,7 @@ export default function PurchasesPage() {
             {rentals.map((rental) => (
               <div
                 key={rental._id}
-                className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5"
+                className="rounded-3xl border border-white/10 bg-white/4 p-5"
               >
                 <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                   <div>

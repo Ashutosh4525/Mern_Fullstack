@@ -5,7 +5,7 @@ export const asyncHandler=(fn)=>{
 }
 
 const errorHandler=(error,req,res,next)=>{
-    console.log(error);
+    // console.log(error);
     
     return res.status(error.code||500).json({
         success:false,

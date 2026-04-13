@@ -1,11 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import SessionBootstrap from "@/components/auth/SessionBootstrap";
 import ReduxProvider from "@/components/providers/ReduxProvider";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import "./globals.css";
 import "swiper/css";
 import "swiper/css/effect-fade";
+import LayoutWrapper from "@/components/LayoutWrapper";
 // import AIRecommendations from "../components/AIRecommendations";
 
 const geistSans = Geist({
@@ -32,10 +31,9 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <ReduxProvider>
           <SessionBootstrap />
-          <Header />
-          <div className="flex-1">{children}</div>
-          {/* < AIRecommendations/> */}
-          <Footer />
+          <LayoutWrapper>
+            {children}
+          </LayoutWrapper>
         </ReduxProvider>
       </body>
     </html>

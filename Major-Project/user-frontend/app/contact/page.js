@@ -118,7 +118,7 @@ export default function ContactPage() {
             <div className="space-y-4 text-sm text-neutral-300">
               <div>
                 <p className="font-semibold text-white">Email</p>
-                <p>help@streamforge.com</p>
+                <p>ashutoshpal47@gmail.com</p>
               </div>
               <div>
                 <p className="font-semibold text-white">Phone</p>

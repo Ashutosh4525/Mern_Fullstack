@@ -12,7 +12,7 @@ import {v2 as cloudinary} from "cloudinary";
 const generateAccessAndRefreshTokens = async(userId) =>{
     try {
         const user = await User.findById(userId).select("+refreshToken")
-        console.log("USER:", user);
+        // console.log("USER:", user);
         if (!user) {
             const error = new Error("User not found for token generation");
             error.code = 500;
@@ -20,9 +20,9 @@ const generateAccessAndRefreshTokens = async(userId) =>{
         }
 
         const accessToken = user.generateAccessToken()
-        console.log("ACCESS TOKEN GENERATED");
+        // console.log("ACCESS TOKEN GENERATED");
         const refreshToken = user.generateRefreshToken()
-        console.log("REFRESH TOKEN GENERATED");
+        // console.log("REFRESH TOKEN GENERATED");
 
         user.refreshToken = refreshToken
         await user.save({ validateBeforeSave: false })
@@ -36,7 +36,7 @@ const generateAccessAndRefreshTokens = async(userId) =>{
         // const error = new Error("Something went wrong while generating refresh and access token",err);
         // error.code = 500;
         // throw error;
-        console.error("TOKEN ERROR:", err);
+        // console.error("TOKEN ERROR:", err);
         const error = new Error(err.message || "Token generation failed");
         error.code = 500;
         throw error;
@@ -47,7 +47,7 @@ const generateAccessAndRefreshTokens = async(userId) =>{
 export const registerUser = asyncHandler(async(req,res,next)=>{
 
     let {firstname,lastname,email,password} = req.body
-    console.log(email, password);
+    // console.log(email, password);
 
     if (
         [firstname, email, lastname, password].some((field) => field?.trim() === "")
@@ -66,7 +66,7 @@ export const registerUser = asyncHandler(async(req,res,next)=>{
     }
     
     const avatarLocalPath=req.file?.path;
-    console.log(avatarLocalPath);
+    // console.log(avatarLocalPath);
     
     // if (!avatarLocalPath) {
     //     const error = new Error ("Avatar file is required")
@@ -377,7 +377,7 @@ export const UpdateUser = asyncHandler(async (req,res,next) => {
 
 
 export const sendOtp=asyncHandler(async (req,res,next) => {
-    console.log("sendOtp called with body:", req.body);
+    // console.log("sendOtp called with body:", req.body);
     // const {email} = req.body;
     let { email } = req.body;
     email = email.toLowerCase();
@@ -756,7 +756,7 @@ export const contactSubmit = asyncHandler(async (req, res, next) => {
 
     // Send email to admin or support
     await sendEmail({
-        email: process.env.ADMIN_EMAIL || "support@streamforge.com", // Set admin email in env
+        email: process.env.EMAIL_USER, 
         subject: `Contact Form: ${subject}`,
         message: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
         html: `<h3>Contact Form Submission</h3><p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Subject:</strong> ${subject}</p><p><strong>Message:</strong></p><p>${message.replace(/\n/g, '<br>')}</p>`

@@ -220,9 +220,9 @@ export default function AIRecommendations() {
   // 🔒 Not logged in
   if (!user) {
     return (
-      <div className="p-6 text-white">
-        <p>Sign in to get AI recommendations</p>
-        <Link href="/login" className="text-amber-300 underline">
+      <div className="max-w-2xl mx-auto p-6 bg-gray-900 rounded-lg text-white m-4">
+        <p className='m-2'>Sign in to get AI recommendations</p>
+        <Link href="/login" className="text-amber-300 px-4 py-2 bg-gray-700 rounded-lg">
           Login
         </Link>
       </div>
@@ -235,7 +235,7 @@ export default function AIRecommendations() {
         AI Movie Recommendations
       </h2>
 
-      {/* 🔍 Search Form */}
+      
       <form onSubmit={handleSubmit}>
         <input
           value={input}
@@ -263,22 +263,20 @@ export default function AIRecommendations() {
         </div>
       </form>
 
-      {/* ❌ Error */}
+      
       {error && <p className="text-red-400 mt-2">{error}</p>}
 
-      {/* ⚠️ Empty state */}
+     
       {hasSearched && !loading && recommendations.length === 0 && (
         <p className="text-neutral-400 mt-4">No results found</p>
       )}
 
-      {/* 🎬 Results */}
       <div className="grid gap-4 mt-6 sm:grid-cols-2">
         {recommendations.map((movie) => (
           <MovieCard key={movie._id} movie={movie} />
         ))}
       </div>
 
-      {/* ➕ Load More */}
       {hasMore && (
         <button
           onClick={loadMore}

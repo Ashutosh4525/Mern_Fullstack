@@ -122,7 +122,7 @@ export default function Header(){
         </nav>
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
           <div className="fixed inset-0 z-50" />
-          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
+          {/* <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-300 text-sm font-black text-black">SF</span>
@@ -142,17 +142,18 @@ export default function Header(){
                 <div className="space-y-2 py-6">
                   <div>
                     <p className="text-gray-400 text-sm">Categories</p>
-                    <Link href="/movies" className="block text-white mt-2">Movies</Link>
-                    <Link href="/tvshow" className="block text-white mt-2">TV Shows</Link>
+                    <Link href="/movies" onClick={() => setMobileMenuOpen(false)} className="block text-white mt-2">Movies</Link>
+                    <Link href="/tvshow" onClick={() => setMobileMenuOpen(false)} className="block text-white mt-2">TV Shows</Link>
                   </div>
                   {navigation.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
                       href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
                       className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
                 <div className="py-6 flex justify-center items-center">
@@ -168,6 +169,101 @@ export default function Header(){
                   <AuthActions />
                 </div>
               </div>
+            </div>
+          </DialogPanel> */}
+          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full max-w-sm overflow-y-auto bg-black/95 backdrop-blur-2xl p-6 border-l border-white/10">
+
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-300 text-sm font-black text-black">
+                  SF
+                </span>
+                <span className="text-sm font-semibold uppercase tracking-[0.45em] text-white">
+                  StreamForge
+                </span>
+              </Link>
+
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 rounded-lg hover:bg-white/10 transition"
+              >
+                <XMarkIcon className="size-6 text-gray-300" />
+              </button>
+            </div>
+
+            {/* Divider */}
+            <div className="my-6 h-px bg-white/10" />
+
+            {/* Categories */}
+            <div>
+              <p className="text-xs uppercase tracking-widest text-gray-500 mb-3">
+                Categories
+              </p>
+
+              <div className="space-y-2">
+                <Link
+                  href="/movies"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition text-white font-medium"
+                >
+                  Movies
+                </Link>
+
+                <Link
+                  href="/tvshow"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition text-white font-medium"
+                >
+                  TV Shows
+                </Link>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="my-6 h-px bg-white/10" />
+
+            {/* Navigation */}
+            <div>
+              <p className="text-xs uppercase tracking-widest text-gray-500 mb-3">
+                Navigation
+              </p>
+
+              <div className="space-y-2">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block px-4 py-3 rounded-xl hover:bg-white/10 transition text-white font-medium"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="my-6 h-px bg-white/10" />
+
+            {/* Actions */}
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  setSearchOpen(true)
+                }}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition text-white"
+              >
+                <MagnifyingGlassIcon className="size-5" />
+                Search
+              </button>
+
+              <AuthActions />
             </div>
           </DialogPanel>
         </Dialog>

@@ -109,8 +109,33 @@ function maxSubArray(nums) {
 
        max=Math.max(max,sum)
     }
+    if (max<0) {
+        return "All value negative"
+    }
     return max;
 }
 
 console.log(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]));
 console.log(maxSubArray([-5, -2, -8]));
+
+function lengthOfLongestSubstring(s) {
+
+    let set= new Set();
+    let left=0;
+    let maxlength=0
+
+    for(let right=0;right<=s.length;right++){
+
+        while (set.has(s[right])){
+            set.delete(s[left]);
+            left++
+        }
+        set.add(s[left]);
+        maxlength=Math.max(maxlength,(right - left + 1))
+
+
+    }
+    return maxlength;
+}
+s="abcabcbb"
+console.log(lengthOfLongestSubstring(s));

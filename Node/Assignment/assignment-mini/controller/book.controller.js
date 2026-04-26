@@ -83,7 +83,7 @@ export const getAllBook=asyncHandler(async (req,res,next) => {
 export const getSingleBook= asyncHandler(async (req,res,next) => {
     const {id}=req.params;
 
-    const book = await Book.findOne({_id:id},{isDeleted:false})
+    const book = await Book.findOne({_id:id, isDeleted:false})
     .populate("authorID");
 
     if (!book) {
@@ -127,6 +127,12 @@ export const updateBook= asyncHandler(async (req,res,next) => {
         { new: true }
     );
 
+    if (!newbook) {
+        const error = new Error("Book not found");
+        error.code = 404;
+        return next(error);
+    }
+
     await newbook.populate("authorID");
     
     // const {title,coverImage,authorID,publishedDate}=req.body;
@@ -137,7 +143,7 @@ export const updateBook= asyncHandler(async (req,res,next) => {
 
     return res.status(200).json({
             success: true,
-            data: book,
+            data: newbook,
             message:"Updated data"
         });
 })

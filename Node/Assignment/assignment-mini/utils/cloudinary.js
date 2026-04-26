@@ -16,8 +16,8 @@ export const uploadToCloudinary = async (localPath) => {
     resource_type: 'image',
     quality: 'auto'
   });
-    console.log("file uploaded", result.url); 
-    console.log(result);
+    // console.log("file uploaded", result.url); 
+    // console.log(result);
       fs.unlinkSync(localPath); 
    return {
     public_id: result.public_id,

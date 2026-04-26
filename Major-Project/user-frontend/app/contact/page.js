@@ -45,7 +45,7 @@ export default function ContactPage() {
           <p className="text-sm uppercase tracking-[0.45em] text-amber-300/80">Contact</p>
           <h1 className="mt-3 text-4xl font-semibold md:text-5xl">Get in touch with the StreamForge team.</h1>
           <p className="mt-6 max-w-3xl text-neutral-300 leading-8">
-            Have questions about a title, need help with your rental, or want to discuss a custom streaming experience? We&apos;re here to help.
+            Need help with your account, rental access, or catalog questions? Send us a message and our team will follow up.
           </p>
         </section>
 
@@ -112,7 +112,7 @@ export default function ContactPage() {
               <p className="text-sm uppercase tracking-[0.45em] text-amber-300/80">Contact details</p>
               <h2 className="mt-3 text-2xl font-semibold">Need support?</h2>
               <p className="mt-4 text-neutral-400 leading-7">
-                Reach our customer care team for subscription help, account questions, or developer partnerships.
+                Reach out for help with billing, playback access, account recovery, or general support.
               </p>
             </div>
             <div className="space-y-4 text-sm text-neutral-300">
@@ -133,7 +133,7 @@ export default function ContactPage() {
               <p className="text-sm uppercase tracking-[0.45em] text-neutral-400">Quick links</p>
               <div className="mt-4 space-y-3 text-sm">
                 <Link href="/services" className="block text-amber-300 hover:text-white">Our services</Link>
-                <Link href="/" className="block text-amber-300 hover:text-white">Browse movies/Series</Link>
+                <Link href="/" className="block text-amber-300 hover:text-white">Browse movies and series</Link>
                 <Link href="/search" className="block text-amber-300 hover:text-white">Search titles</Link>
               </div>
             </div>

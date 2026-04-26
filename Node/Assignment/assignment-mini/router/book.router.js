@@ -14,7 +14,7 @@ bookRouter.get("/getbooks",
 )
 
 bookRouter.get("/getbooks/:id", 
-    ...bookValidator.search, 
+    ...bookValidator.idParam, 
     handleValidationErrors, 
     getSingleBook
 )
@@ -37,12 +37,16 @@ bookRouter.put("/updatebook/:id",
   updateBook
 );
 bookRouter.delete("/softdelete/:id", 
+    authware,
+    isAdmin,
     ...bookValidator.idParam, 
     handleValidationErrors, 
     softDeleteBook
 );
 
 bookRouter.post("/restore", 
+    authware,
+    isAdmin,
     body("id").isMongoId().withMessage("Valid ID required in body"), 
     handleValidationErrors, 
     restoreBook

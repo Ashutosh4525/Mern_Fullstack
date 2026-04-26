@@ -82,8 +82,8 @@ export default async function Home() {
       <section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
         <SectionHeading
           eyebrow="Browse Genres"
-          title="Designed for quick discovery, just like a real OTT homepage."
-          copy="The reference layout uses strong hero placement and easy category discovery. This version keeps your backend dynamic while giving the same premium landing-page feel."
+          title="Browse by genre and find something to watch faster."
+          copy="Explore the catalog through clear categories built for quick browsing."
         />
 
         <div className="flex flex-wrap gap-3">
@@ -101,8 +101,8 @@ export default async function Home() {
       <section className="mx-auto max-w-7xl px-6 pb-20 md:px-10">
         <SectionHeading
           eyebrow="Trending Now"
-          title="Spotlight movies with the big-card OTT treatment."
-          copy="These cards can stay backend-driven while still feeling like a polished streaming storefront."
+          title="Trending movies right now."
+          copy="A focused selection of titles currently getting the most attention."
         />
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {trendingMovies.map((movie) => (
@@ -116,10 +116,10 @@ export default async function Home() {
           <div className="overflow-hidden rounded-4xl border border-white/10 bg-[linear-gradient(135deg,#33170d_0%,#100d11_55%,#090909_100%)] p-8">
             <p className="text-sm uppercase tracking-[0.45em] text-amber-300/80">Featured Collection</p>
             <h2 className="mt-4 max-w-xl text-3xl font-semibold md:text-5xl">
-              Premium launches, dark visuals, and long-form storytelling.
+              Featured titles worth watching next.
             </h2>
             <p className="mt-5 max-w-2xl text-neutral-300">
-              This block mirrors the editorial feel of the reference template and works well for curated campaigns, banners, or subscription upsells.
+              A curated mix of standout releases, returning favorites, and editor picks.
             </p>
             <div className="mt-8 grid gap-4 md:grid-cols-2">
               {featured.slice(0, 2).map((item) => (
@@ -155,8 +155,8 @@ export default async function Home() {
       <section className="mx-auto max-w-7xl px-6 pb-24 md:px-10">
         <SectionHeading
           eyebrow="Top Series"
-          title="TV shows presented as binge-worthy rows."
-          copy="This section gives you the same OTT rhythm: hero first, then curated rows for movies and series."
+          title="Top series for your watchlist."
+          copy="Catch up on popular shows, new episodes, and returning favorites."
         />
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {topSeries.map((show) => (

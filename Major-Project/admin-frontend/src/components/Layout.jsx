@@ -15,14 +15,14 @@ export default function Layout() {
 
   const pageMeta = useMemo(() => {
     const metaMap = [
-      { match: /^\/dashboard$/, title: 'Dashboard', copy: 'A single console for platform health, uploads, and admin actions.' },
-      { match: /^\/profile/, title: 'Profile', copy: 'Review your admin identity, update account details, and manage access credentials.' },
-      { match: /^\/content/, title: 'Content', copy: 'Create and refine the core movie and TV metadata library.' },
-      { match: /^\/movies/, title: 'Movies', copy: 'Attach and verify movie video uploads with a premium admin workflow.' },
+      { match: /^\/dashboard$/, title: 'Dashboard', copy: 'Monitor platform activity and manage key admin operations.' },
+      { match: /^\/profile/, title: 'Profile', copy: 'Review account details and manage admin access settings.' },
+      { match: /^\/content/, title: 'Content', copy: 'Create, organize, and update movie and series metadata.' },
+      { match: /^\/movies/, title: 'Movies', copy: 'Upload, review, and maintain movie records and playback assets.' },
       { match: /^\/tvshows/, title: 'TV Shows', copy: 'Manage season structure and episode delivery from one place.' },
-      { match: /^\/episodes/, title: 'Episodes', copy: 'Inspect and update episode records with playback-ready video access.' },
+      { match: /^\/episodes/, title: 'Episodes', copy: 'Inspect and update episode records, metadata, and media links.' },
       { match: /^\/cast/, title: 'Cast', copy: 'Keep talent profiles and movie-cast relationships organized.' },
-      { match: /^\/categories/, title: 'Categories', copy: 'Shape discovery and catalog grouping with focused taxonomy controls.' },
+      { match: /^\/categories/, title: 'Categories', copy: 'Organize the catalog with clear categories and discovery groups.' },
       { match: /^\/users/, title: 'Users', copy: 'Monitor user access, status, and admin visibility.' },
       { match: /^\/purchases/, title: 'Purchases', copy: 'Review rental activity and purchase history across the platform.' },
     ];

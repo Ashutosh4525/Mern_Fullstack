@@ -14,7 +14,7 @@ const services = [
   {
     title: "AI-Assisted Recommendations",
     description:
-      "Smart suggestions based on your mood and catalog availability, powered by Gemina-style generative AI.",
+      "Personalized suggestions based on viewing intent and available catalog titles.",
   },
   {
     title: "Admin Content Control",
@@ -31,13 +31,13 @@ export default function ServicesPage() {
           <p className="text-sm uppercase tracking-[0.45em] text-amber-300/80">Services</p>
           <h1 className="mt-3 text-4xl font-semibold md:text-5xl">What StreamForge offers.</h1>
           <p className="mt-6 max-w-3xl text-neutral-300 leading-8">
-            From catalog management to personalized discovery and secure rentals, StreamForge delivers a modern streaming platform built for both viewers and content managers.
+            StreamForge combines content browsing, secure rentals, recommendations, and admin management in one platform.
           </p>
           <Link
             href="/contact"
             className="mt-8 inline-flex rounded-full bg-amber-300 px-6 py-3 text-sm font-semibold text-black hover:bg-amber-400"
           >
-            Talk to sales
+            Contact support
           </Link>
         </section>
 
@@ -60,7 +60,7 @@ export default function ServicesPage() {
             </div>
             <div className="rounded-3xl border border-white/10 bg-black/20 p-6">
               <h3 className="text-xl font-semibold">Catalog accuracy</h3>
-              <p className="mt-3 text-neutral-400">Real catalog-aware recommendations and a unified admin experience keep content accurate.</p>
+              <p className="mt-3 text-neutral-400">Centralized management helps keep titles, metadata, and availability up to date.</p>
             </div>
             <div className="rounded-3xl border border-white/10 bg-black/20 p-6">
               <h3 className="text-xl font-semibold">Secure playback</h3>

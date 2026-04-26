@@ -35,7 +35,7 @@ const ForgetPassPage = () => {
           <p className="text-sm uppercase tracking-[0.45em] text-amber-300/80">Password Help</p>
           <h1 className="mt-4 text-4xl font-semibold">Request a reset code</h1>
           <p className="mt-4 text-base leading-8 text-neutral-300">
-            Enter the admin email address and we&apos;ll send a one-time code you can use to reset the password.
+            Enter your admin email address to receive a one-time reset code.
           </p>
 
           {message ? (

@@ -38,7 +38,7 @@ const ResetPassPage = () => {
           <p className="text-sm uppercase tracking-[0.45em] text-amber-300/80">Password Reset</p>
           <h1 className="mt-4 text-4xl font-semibold">Set a new admin password</h1>
           <p className="mt-4 text-base leading-8 text-neutral-300">
-            Enter the email, OTP code, and your new password to regain access to the admin console.
+            Enter your email, OTP code, and new password to restore admin access.
           </p>
 
           {error ? (

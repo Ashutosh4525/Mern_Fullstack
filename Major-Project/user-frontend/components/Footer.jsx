@@ -11,21 +11,21 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-[#050505] border-t border-white/10 text-white z-100">
+    <footer className="z-100 border-t border-white/10 bg-[#050505] text-white">
       <div className="mx-auto max-w-7xl px-6 py-12 md:px-10">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-300 text-black text-sm font-black">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-300 text-sm font-black text-black">
                 SF
               </div>
               <div>
                 <p className="text-sm uppercase tracking-[0.45em] text-amber-300/80">StreamForge</p>
-                <p className="text-sm text-neutral-400">Premium entertainment on demand.</p>
+                <p className="text-sm text-neutral-400">Movies and series, available when you want them.</p>
               </div>
             </div>
             <p className="text-sm leading-7 text-neutral-400">
-              Build your streaming experience with movies, TV shows, rentals, and curated recommendations.
+              Browse titles, rent content securely, and keep track of what to watch next.
             </p>
           </div>
 
@@ -59,7 +59,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6 text-center text-sm text-neutral-500">
-          © {year} StreamForge. All rights reserved.
+          (c) {year} StreamForge. All rights reserved.
         </div>
       </div>
     </footer>

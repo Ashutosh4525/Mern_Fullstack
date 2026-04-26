@@ -20,7 +20,6 @@ import { avatarUpload } from "../middlewares/upload.middleware";
 const userRouter=express.Router();
 import { handleValidationErrors } from "../middlewares/validation.middleware";
 import { validateCreateUser } from "../middlewares/user.middleware";
-const app=express();
 
 const avatarUploads = avatarUpload.single("avatar");
 
@@ -31,13 +30,12 @@ userRouter.post("/sendotp",sendOtp)
 userRouter.post("/verifyemail",authware,verifyEmail)
 userRouter.post("/forgotpass",forgotPassword)
 userRouter.post("/resetpass",resetPass)
-userRouter.post("/restore", restoreUser);
-app.use(authware)
+userRouter.post("/restore", authware, isAdmin, restoreUser);
 userRouter.put("/updateuser/:id",authware,avatarUploads,UpdateUser)
-userRouter.patch("/change-password", changePassword)
-userRouter.get("/getuser",authware,getUser)
+userRouter.patch("/change-password", authware, changePassword)
+userRouter.get("/getuser",authware,isAdmin,getUser)
 userRouter.get("/getsingleuser/:id",authware,getsingleUser)
-userRouter.delete("/delete/:id", authware, softDeleteUser);
+userRouter.delete("/delete/:id", authware, isAdmin, softDeleteUser);
 
 
 export default userRouter;

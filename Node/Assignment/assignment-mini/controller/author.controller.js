@@ -56,7 +56,7 @@ export const getAllAuthor=asyncHandler(async (req,res,next) => {
 export const getSingleAuthor= asyncHandler(async (req,res,next) => {
     const {id}=req.params;
 
-    const author = Author.findOne({_id:id},{isDeleted:false});
+    const author = await Author.findOne({_id:id, isDeleted:false});
 
     if (!author) {
         const error= new Error("author not found");
@@ -64,13 +64,16 @@ export const getSingleAuthor= asyncHandler(async (req,res,next) => {
         return next(error)
     }
 
-    const book= Book.find({
-        author:author._id,
+    const book= await Book.find({
+        authorID:author._id,
         isDeleted:false
-    })
+    }).populate("authorID", "firstname lastname");
 
     return res.status(200).json({
-        data:book,
+        data:{
+            author,
+            books:book
+        },
         success:true,
         message:"All data"
     })

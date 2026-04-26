@@ -29,9 +29,9 @@ const Login = () => {
       <div className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-6xl items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]" style={{ padding: '0 1.5rem' }}>
         <div className="admin-login-copy space-y-6">
           <p className="text-sm uppercase tracking-[0.45em] text-amber-300/80">Admin Portal</p>
-          <h1 className="max-w-2xl text-4xl font-semibold md:text-6xl">A dedicated control room for your OTT platform.</h1>
+          <h1 className="max-w-2xl text-4xl font-semibold md:text-6xl">Secure access for platform administrators.</h1>
           <p className="max-w-2xl text-base leading-8 text-neutral-300">
-            This interface is reserved for administrators. Review catalog health, upload and verify videos, manage users, and handle purchases from a single secure console.
+            Sign in to manage content, review users, and monitor purchases from the admin dashboard.
           </p>
           <div className="grid gap-4 sm:grid-cols-3">
             {[

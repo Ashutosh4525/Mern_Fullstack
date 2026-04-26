@@ -1,7 +1,7 @@
 const stats = [
-  { label: "Catalog Health", value: "Ready", tone: "text-emerald-300" },
-  { label: "Public Experience", value: "In Progress", tone: "text-amber-300" },
-  { label: "Dashboard Shell", value: "Live", tone: "text-cyan-300" }
+  { label: "Content", value: "Managed", tone: "text-emerald-300" },
+  { label: "Users", value: "Tracked", tone: "text-amber-300" },
+  { label: "Orders", value: "Visible", tone: "text-cyan-300" }
 ];
 
 export default function AdminDashboardPage() {
@@ -12,12 +12,10 @@ export default function AdminDashboardPage() {
           Dashboard
         </p>
         <h1 className="text-3xl font-semibold md:text-5xl">
-          Control the OTT platform from one place.
+          Manage the platform from one dashboard.
         </h1>
         <p className="max-w-3xl text-neutral-300">
-          This admin shell is the base for Corona-inspired management screens:
-          content creation, category CRUD, user management, and dashboard
-          reporting.
+          Review catalog activity, manage users, and keep purchases visible from a single admin workspace.
         </p>
       </div>
 
@@ -39,22 +37,22 @@ export default function AdminDashboardPage() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="rounded-[1.5rem] border border-white/10 bg-[#0b1220] p-6">
-          <h2 className="text-xl font-semibold">Next Admin Modules</h2>
+          <h2 className="text-xl font-semibold">Core Workflows</h2>
           <div className="mt-4 space-y-3 text-sm text-neutral-300">
-            <p>Content CRUD with poster, trailer, and video uploads.</p>
+            <p>Content CRUD with media uploads.</p>
             <p>Category and genre management.</p>
-            <p>User list, status, and restore actions.</p>
+            <p>User status and account oversight.</p>
             <p>Rental and payment monitoring.</p>
           </div>
         </div>
 
         <div className="rounded-[1.5rem] border border-white/10 bg-[#0b1220] p-6">
-          <h2 className="text-xl font-semibold">Backend Ready For</h2>
+          <h2 className="text-xl font-semibold">Platform Coverage</h2>
           <div className="mt-4 space-y-3 text-sm text-neutral-300">
-            <p>Cookie-based auth plus admin verification.</p>
+            <p>Admin authentication and verification.</p>
             <p>Content, season, episode, and category APIs.</p>
-            <p>Rental checks for movie and episode watching.</p>
-            <p>Dedicated current-user API for profile-driven screens.</p>
+            <p>Rental access checks for playback.</p>
+            <p>Profile and account APIs.</p>
           </div>
         </div>
       </div>

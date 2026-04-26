@@ -29,7 +29,7 @@ export const createUser= asyncHandler(async (req,res,next) => {
 
     const P_SALT= Number(process.env.PASS_SALT);
     const hashedPassword=bcrypt.hashSync(password,P_SALT);
-    console.log(hashedPassword);
+    // console.log(hashedPassword);
 
     
     // avatarUploads(req,res,)
@@ -71,7 +71,7 @@ export const login=asyncHandler(async(req,res,next)=>{
     }
 
     const token=jwt.sign({id:existingUser._id, role:existingUser.role},process.env.TOKEN_SECRET_KEY,{expiresIn:"1d"})
-    console.log(token);
+    // console.log(token);
     
     return res.status(200).json({
             data:existingUser,
@@ -93,7 +93,7 @@ export const signUp=asyncHandler(async (req,res,next) => {
 
     const P_SALT= Number(process.env.PASS_SALT);
     const hashedPassword=bcrypt.hashSync(password,P_SALT);
-    console.log(hashedPassword);
+    // console.log(hashedPassword);
 
     
     const newUser=await User.create({
@@ -113,7 +113,7 @@ export const signUp=asyncHandler(async (req,res,next) => {
 })
 
 export const sendOtp=asyncHandler(async (req,res,next) => {
-    console.log("sendOtp called with body:", req.body);
+    // console.log("sendOtp called with body:", req.body);
     const {email} = req.body;
 
     const user = await User.findOne({ email });
@@ -123,11 +123,11 @@ export const sendOtp=asyncHandler(async (req,res,next) => {
         return next(error);
     }
     const Otp_Salt = Number(process.env.OTP_SALT) || 10;
-    console.log("OTP_SALT used:", Otp_Salt);
+    // console.log("OTP_SALT used:", Otp_Salt);
     const otp=generateOtp();
-    console.log(otp)
+    // console.log(otp)
     const hashedOtp=bcrypt.hashSync(otp.toString(), Otp_Salt);
-    console.log(hashedOtp);
+    // console.log(hashedOtp);
 
     user.otp=hashedOtp;
     user.otpExpires = Date.now()+ 5 * 60 * 1000;
@@ -238,7 +238,7 @@ export const forgotPassword = asyncHandler(async (req,res,next) =>{
 export const resetPass=asyncHandler(async (req, res, next) => {
     const { email, otp, newPassword } = req.body;
 
-    console.log(req.body);
+    // console.log(req.body);
     
     const user = await User.findOne({ 
         email, 

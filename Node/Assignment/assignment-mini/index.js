@@ -16,7 +16,7 @@ app.use(urlencoded({ extended: true }))
 app.use("/images",express.static("uploads"))
 app.use(express.static("public"))
 app.use(cors({
-  origin:['https://mern-fullstack-dun.vercel.app/'],
+  origin:['https://mern-fullstack-dun.vercel.app'],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }))

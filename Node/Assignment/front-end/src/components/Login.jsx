@@ -58,8 +58,8 @@ export default function Login() {
   return (
     <main className="auth-shell">
       <section className="auth-panel auth-panel--hero">
-        <p className="eyebrow">Assignment Mini</p>
-        <h1>Book management, with a cleaner front-end.</h1>
+        {/* <p className="eyebrow">Assignment Mini</p> */}
+        <h1>Book management.</h1>
         <p className="auth-copy">
           Browse books, update your profile, and manage records from a more polished dashboard on desktop and mobile.
         </p>

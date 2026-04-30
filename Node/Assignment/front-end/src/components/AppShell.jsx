@@ -18,7 +18,7 @@ function AppShell() {
         <div className="app-navbar__inner">
           <Link className="app-brand" to={`/dashboard/${userId}`}>
             <span className="app-brand__mark">A</span>
-            <span>Assignment Mini</span>
+            {/* <span>Assignment Mini</span> */}
           </Link>
 
           <nav className="app-nav">

@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://mern-fullstack-dun.vercel.app/api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://book-management-dye2.onrender.com/api/v1";
 
 async function parseResponse(response) {
   const data = await response.json().catch(() => ({}));

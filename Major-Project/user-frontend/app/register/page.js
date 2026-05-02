@@ -53,7 +53,7 @@ export default function RegisterPage() {
 
     const result = await dispatch(registerUser(form));
     if (registerUser.fulfilled.match(result)) {
-      router.push("/login");
+      router.push("/");
     }
   };
 
@@ -111,6 +111,7 @@ export default function RegisterPage() {
             }}
             className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none md:col-span-2"
           />
+          <p>Upload your Profile Image</p>
           <input
             type="file"
             accept="image/*"

@@ -41,7 +41,12 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (payload, { rejectWithValue }) => {
     try {
-      return await registerUserRequest(payload);
+      await registerUserRequest(payload);
+      await loginUserRequest({
+        email: payload.email,
+        password: payload.password
+      });
+      return await getCurrentUser();
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Registration failed");
     }
@@ -154,14 +159,20 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.pending, (state) => {
         state.registerStatus = "loading";
+        state.status = "loading";
         state.error = null;
       })
-      .addCase(registerUser.fulfilled, (state) => {
+      .addCase(registerUser.fulfilled, (state, action) => {
         state.registerStatus = "succeeded";
+        state.status = "succeeded";
+        state.user = action.payload?.data ?? null;
+        state.hydrated = true;
         state.error = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.registerStatus = "failed";
+        state.status = "failed";
+        state.hydrated = true;
         state.error = action.payload || null;
       })
       .addCase(logoutUser.fulfilled, (state) => {

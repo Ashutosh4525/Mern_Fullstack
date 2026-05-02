@@ -31,7 +31,7 @@ const playerSlice=createSlice({
             state.loading=true;
         })
         .addCase(fetchCategory.fulfilled,(state,action)=>{
-            console.log(action.payload);
+            // console.log(action.payload);
             state.categories=action.payload
             state.loading=false;
             state.message="Category fetched successfully"
@@ -44,10 +44,10 @@ const playerSlice=createSlice({
             state.loading=true;
         })
         .addCase(fetchPlayersByCat.fulfilled,(state,action)=>{
-            console.log(action.payload);
+            // console.log(action.payload);
             // state.categories=action.payload
             const { catId, players } = action.payload;
-            console.log(catId,players);
+            // console.log(catId,players);
             
             state.playersByCategory = { ...state.playersByCategory, [catId]: players };
             state.loading=false;
@@ -61,7 +61,7 @@ const playerSlice=createSlice({
             state.loading=true;
         })
         .addCase(fetchSinglePlayer.fulfilled,(state,action)=>{
-            console.log(action.payload);
+            // console.log(action.payload);
             // state.playerList=[...state.playerList,action.payload]
             // state.singlePlayer=action.payload;
             // const exists = state.playerList.some(p => p.id === action.payload.id);

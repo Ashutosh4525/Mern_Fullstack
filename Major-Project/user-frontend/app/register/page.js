@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { clearAuthError, registerUser } from "@/store/authSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { LuEye, LuEyeClosed } from "react-icons/lu";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function RegisterPage() {
     avatar: null
   });
   const [validationError, setValidationError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const validateForm = () => {
     if (!form.firstname.trim() || !form.lastname.trim() || !form.email.trim() || !form.password) {
@@ -100,8 +102,9 @@ export default function RegisterPage() {
             }}
             className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none md:col-span-2"
           />
+          <div className="relative">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"} 
             placeholder="Password"
             value={form.password}
             onChange={(event) => {
@@ -111,6 +114,19 @@ export default function RegisterPage() {
             }}
             className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none md:col-span-2"
           />
+           <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-amber-300 transition-colors"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? (
+                <LuEyeClosed className="h-5 w-5" /> // Crossed eye for 'Hide'
+              ) : (
+                <LuEye className="h-5 w-5" />    // Open eye for 'Show'
+              )}
+            </button>
+          </div>
           <p>Upload your Profile Image</p>
           <input
             type="file"

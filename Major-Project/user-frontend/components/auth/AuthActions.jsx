@@ -13,6 +13,7 @@ export default function AuthActions() {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const [mounted, setMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false);
   const menuRef = useRef(null);
 
@@ -45,12 +46,14 @@ export default function AuthActions() {
     return (
       <>
         <Link
+          onClick={() => setMobileMenuOpen(false)}
           href="/login"
           className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white"
         >
           Log in
         </Link>
         <Link
+          onClick={() => setMobileMenuOpen(false)}
           href="/register"
           className="rounded-full bg-amber-300 px-4 py-2 text-sm font-semibold text-black"
         >

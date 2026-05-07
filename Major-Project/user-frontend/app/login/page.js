@@ -93,6 +93,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { clearAuthError, loginUser } from "@/store/authSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { LuEye, LuEyeClosed } from "react-icons/lu";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -101,6 +102,7 @@ export default function LoginPage() {
 
   const [form, setForm] = useState({ email: "", password: "" });
   const [mounted, setMounted] = useState(false); // ✅ FIX
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -145,8 +147,9 @@ export default function LoginPage() {
             className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none"
           />
 
+        <div className="relative">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"} 
             placeholder="Password"
             value={form.password}
             onChange={(event) => {
@@ -155,7 +158,19 @@ export default function LoginPage() {
             }}
             className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none"
           />
-
+           <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-amber-300 transition-colors"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? (
+                <LuEyeClosed className="h-5 w-5" /> // Crossed eye for 'Hide'
+              ) : (
+                <LuEye className="h-5 w-5" />    // Open eye for 'Show'
+              )}
+            </button>
+        </div>
           {error && <p className="text-sm text-rose-300">{error}</p>}
 
           <button

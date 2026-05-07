@@ -263,7 +263,7 @@ export default function Header(){
                 Search
               </button>
 
-              <AuthActions />
+              <AuthActions/>
             </div>
           </DialogPanel>
         </Dialog>

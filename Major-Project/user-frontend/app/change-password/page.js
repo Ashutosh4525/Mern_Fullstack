@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { sendOtpForPasswordChange, verifyOtpChangePassword } from "@/store/authSlice";
 import { useRouter } from "next/navigation";
+import { LuEye, LuEyeClosed } from "react-icons/lu";
 
 export default function ChangePasswordPage() {
   const [step, setStep] = useState("send-otp"); // "send-otp" or "verify-otp"
@@ -12,10 +13,12 @@ export default function ChangePasswordPage() {
   const [newPassword, setNewPassword] = useState("");
   const [timer, setTimer] = useState(0);
   const [canResend, setCanResend] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
   const { status, error } = useSelector((state) => state.auth);
+
 
   useEffect(() => {
     let interval;
@@ -117,14 +120,28 @@ export default function ChangePasswordPage() {
             maxLength={6}
             className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none"
           />
-
+           
+          <div className="relative">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"} 
             placeholder="New Password"
             value={newPassword}
             onChange={(event) => setNewPassword(event.target.value)}
             className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none"
           />
+          <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-amber-300 transition-colors"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? (
+                <LuEye className="h-5 w-5" /> // Crossed eye for 'Hide'
+              ) : (
+                <LuEyeClosed className="h-5 w-5" />    // Open eye for 'Show'
+              )}
+            </button>
+        </div>
 
           {error && <p className="text-sm text-rose-300">{error}</p>}
 

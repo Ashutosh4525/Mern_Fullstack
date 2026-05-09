@@ -101,7 +101,7 @@ export default function LoginPage() {
   const { status, error, user } = useAppSelector((state) => state.auth);
 
   const [form, setForm] = useState({ email: "", password: "" });
-  const [mounted, setMounted] = useState(false); // ✅ FIX
+  const [mounted, setMounted] = useState(false); 
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -165,9 +165,9 @@ export default function LoginPage() {
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? (
-                <LuEyeClosed className="h-5 w-5" /> // Crossed eye for 'Hide'
+                <LuEye className="h-5 w-5" /> // Crossed eye for 'Hide'
               ) : (
-                <LuEye className="h-5 w-5" />    // Open eye for 'Show'
+                <LuEyeClosed className="h-5 w-5" />    // Open eye for 'Show'
               )}
             </button>
         </div>

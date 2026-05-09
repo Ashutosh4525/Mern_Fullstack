@@ -121,9 +121,9 @@ export default function RegisterPage() {
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? (
-                <LuEyeClosed className="h-5 w-5" /> // Crossed eye for 'Hide'
+                <LuEye className="h-5 w-5" /> 
               ) : (
-                <LuEye className="h-5 w-5" />    // Open eye for 'Show'
+                <LuEyeClosed className="h-5 w-5" />    
               )}
             </button>
           </div>

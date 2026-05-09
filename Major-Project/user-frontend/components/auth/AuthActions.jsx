@@ -8,35 +8,34 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { UserIcon, ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
-export default function AuthActions() {
+export default function AuthActions({ onAction }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [showUserMenu, setShowUserMenu] = useState(false);
   const menuRef = useRef(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
+  // useEffect(() => {
+  //   if (!mounted) return;
 
-    function handleClickOutside(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setShowUserMenu(false);
-      }
-    }
+  //   function handleClickOutside(event) {
+  //     if (menuRef.current && !menuRef.current.contains(event.target)) {
+  //       setShowUserMenu(false);
+  //     }
+  //   }
 
-    if (showUserMenu) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }
-  }, [showUserMenu, mounted]);
+  //   if (showUserMenu) {
+  //     document.addEventListener("mousedown", handleClickOutside);
+  //     return () => {
+  //       document.removeEventListener("mousedown", handleClickOutside);
+  //     };
+  //   }
+  // }, [showUserMenu, mounted]);
 
   if (!mounted) {
     return null;
@@ -46,14 +45,14 @@ export default function AuthActions() {
     return (
       <>
         <Link
-          onClick={() => setMobileMenuOpen(false)}
+          onClick={() => onAction?.()}
           href="/login"
           className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white"
         >
           Log in
         </Link>
         <Link
-          onClick={() => setMobileMenuOpen(false)}
+          onClick={() => onAction?.()}
           href="/register"
           className="rounded-full bg-amber-300 px-4 py-2 text-sm font-semibold text-black"
         >
